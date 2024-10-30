@@ -1,5 +1,6 @@
 package fili5rovic.codegalaxy.code;
 
+import fili5rovic.codegalaxy.code.manager.FontManager;
 import fili5rovic.codegalaxy.code.manager.Manager;
 import org.fxmisc.richtext.CodeArea;
 
@@ -13,6 +14,16 @@ public class CodeGalaxy extends CodeArea {
     }
 
     private void onCreate() {
-        
+        addManagers();
+        initManagers();
+    }
+
+    private void addManagers() {
+        managers.add(new FontManager(this));
+    }
+
+    private void initManagers() {
+        for(Manager m : managers)
+            m.init();
     }
 }

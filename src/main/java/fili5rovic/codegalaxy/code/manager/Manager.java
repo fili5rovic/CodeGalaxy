@@ -1,17 +1,13 @@
 package fili5rovic.codegalaxy.code.manager;
 
+import fili5rovic.codegalaxy.code.CodeGalaxy;
+
 public abstract class Manager {
-    protected boolean isEnabled = false;
+    protected CodeGalaxy codeGalaxy;
+
+    public Manager(CodeGalaxy cg) {
+        this.codeGalaxy = cg;
+    }
 
     public abstract void init();
-
-    protected void enable() {
-        isEnabled = true;
-    }
-
-    protected void disable() {
-        isEnabled = false;
-    }
-
-
 }
