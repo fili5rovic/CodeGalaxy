@@ -2,7 +2,12 @@ package fili5rovic.codegalaxy.code.manager;
 
 import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.code.UserPreferences;
+import javafx.scene.Node;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.text.Text;
+import org.fxmisc.richtext.LineNumberFactory;
+
+import java.util.function.IntFunction;
 
 
 public class FontManager extends Manager {
@@ -24,6 +29,7 @@ public class FontManager extends Manager {
     @Override
     public void init() {
         currentFontSize = UserPreferences.getInstance().getFontPreference();
+        updateUI();
 
         setupListener();
     }
@@ -53,6 +59,13 @@ public class FontManager extends Manager {
     private void updateUI() {
         codeGalaxy.setStyle("-fx-font-size: " + currentFontSize);
         System.out.println("Current font size: " + currentFontSize);
+
+        IntFunction<Node> lineNumberFactory = LineNumberFactory.get(codeGalaxy);
+        codeGalaxy.setParagraphGraphicFactory(line -> {
+            Node lineNumber = lineNumberFactory.apply(line);
+            lineNumber.setStyle("-fx-font-size: " + currentFontSize + "px;");
+            return lineNumber;
+        });
     }
 
     public static int getMaxFontSize() {

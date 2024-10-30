@@ -3,8 +3,10 @@ package fili5rovic.codegalaxy.code;
 import fili5rovic.codegalaxy.code.manager.FontManager;
 import fili5rovic.codegalaxy.code.manager.Manager;
 import org.fxmisc.richtext.CodeArea;
+import org.fxmisc.richtext.LineNumberFactory;
 
 import java.util.ArrayList;
+
 
 public class CodeGalaxy extends CodeArea {
     private final ArrayList<Manager> managers = new ArrayList<>();
@@ -14,8 +16,14 @@ public class CodeGalaxy extends CodeArea {
     }
 
     private void onCreate() {
+        addLineNumbers();
         addManagers();
         initManagers();
+    }
+
+    private void addLineNumbers() {
+        setParagraphGraphicFactory(LineNumberFactory.get(this));
+//        VirtualizedScrollPane<CodeArea> vsPane = new VirtualizedScrollPane<>(this);
     }
 
     private void addManagers() {

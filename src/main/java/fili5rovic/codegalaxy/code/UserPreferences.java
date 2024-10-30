@@ -29,19 +29,26 @@ public class UserPreferences {
         try {
             props.load(new FileReader("preferences"));
         } catch (FileNotFoundException e) {
-            try {
-                new FileWriter("preferences");
+            props.setProperty(fontKey, String.valueOf(FontManager.getMinFontSize()));
+            try (FileWriter writer = new FileWriter("preferences")) {
+                props.store(writer, "User Preferences"); // Save properties to the file
             } catch (IOException ex) {
-                System.out.println("Couldn't create preferences");
+                System.out.println("Couldn't create preferences file");
             }
-
         } catch (IOException e) {
             System.out.println("Couldn't load preferences");
         }
-        if(props.getProperty(fontKey) == null) {
+
+        if (props.getProperty(fontKey) == null) {
             props.setProperty(fontKey, String.valueOf(FontManager.getMinFontSize()));
+            try (FileWriter writer = new FileWriter("preferences")) {
+                props.store(writer, "User Preferences"); // Save updated properties
+            } catch (IOException e) {
+                System.out.println("Couldn't save preferences");
+            }
         }
     }
+
 
     public void setFontPreference(int size) {
         props.setProperty(fontKey, String.valueOf(size));
