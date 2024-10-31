@@ -3,6 +3,7 @@ module fili5rovic.codegalaxy {
     requires javafx.fxml;
     requires org.fxmisc.richtext;
     requires org.fxmisc.flowless;
+    requires com.github.javaparser.core;
 
 
     opens fili5rovic.codegalaxy to javafx.fxml;
