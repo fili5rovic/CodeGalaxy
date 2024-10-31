@@ -4,7 +4,6 @@ import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.code.UserPreferences;
 import javafx.scene.Node;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.text.Text;
 import org.fxmisc.richtext.LineNumberFactory;
 
 import java.util.function.IntFunction;
@@ -15,10 +14,11 @@ public class FontManager extends Manager {
     private static final int MAX_FONT_SIZE;
     private int currentFontSize;
 
+    private FontPopUpManager fontPopUpManager;
 
     static {
         MIN_FONT_SIZE = 10;
-        MAX_FONT_SIZE = 40;
+        MAX_FONT_SIZE = 50;
     }
 
     public FontManager(CodeGalaxy cg) {
@@ -28,37 +28,39 @@ public class FontManager extends Manager {
 
     @Override
     public void init() {
+        fontPopUpManager = new FontPopUpManager(codeGalaxy);
+        fontPopUpManager.init();
+
         currentFontSize = UserPreferences.getInstance().getFontPreference();
         updateUI();
-
         setupListener();
     }
 
     private void setupListener() {
         codeGalaxy.addEventFilter(ScrollEvent.SCROLL, event -> {
-            if(event.isControlDown()) {
-                if(event.getDeltaY() > 0)
+            if (event.isControlDown()) {
+                if (event.getDeltaY() > 0)
                     increaseSize();
                 else
                     decreaseSize();
                 updateUI();
+                popUp();
             }
         });
     }
 
     private void increaseSize() {
-        if(currentFontSize < MAX_FONT_SIZE)
+        if (currentFontSize < MAX_FONT_SIZE)
             currentFontSize++;
     }
 
     private void decreaseSize() {
-        if(currentFontSize > MIN_FONT_SIZE)
+        if (currentFontSize > MIN_FONT_SIZE)
             currentFontSize--;
     }
 
     private void updateUI() {
         codeGalaxy.setStyle("-fx-font-size: " + currentFontSize);
-        System.out.println("Current font size: " + currentFontSize);
 
         IntFunction<Node> lineNumberFactory = LineNumberFactory.get(codeGalaxy);
         codeGalaxy.setParagraphGraphicFactory(line -> {
@@ -66,6 +68,11 @@ public class FontManager extends Manager {
             lineNumber.setStyle("-fx-font-size: " + currentFontSize + "px;");
             return lineNumber;
         });
+
+    }
+
+    public void popUp() {
+        fontPopUpManager.showMessage(currentFontSize + "pt");
     }
 
     public static int getMaxFontSize() {
@@ -75,8 +82,6 @@ public class FontManager extends Manager {
     public static int getMinFontSize() {
         return MIN_FONT_SIZE;
     }
-
-
 
 
 }

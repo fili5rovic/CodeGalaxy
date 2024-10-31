@@ -2,6 +2,9 @@ package fili5rovic.codegalaxy.code;
 
 import fili5rovic.codegalaxy.code.manager.FontManager;
 import fili5rovic.codegalaxy.code.manager.Manager;
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
+import org.fxmisc.flowless.VirtualizedScrollPane;
 import org.fxmisc.richtext.CodeArea;
 import org.fxmisc.richtext.LineNumberFactory;
 
@@ -23,7 +26,7 @@ public class CodeGalaxy extends CodeArea {
 
     private void addLineNumbers() {
         setParagraphGraphicFactory(LineNumberFactory.get(this));
-//        VirtualizedScrollPane<CodeArea> vsPane = new VirtualizedScrollPane<>(this);
+        VirtualizedScrollPane<CodeArea> vsPane = new VirtualizedScrollPane<>(this);
     }
 
     private void addManagers() {
@@ -33,5 +36,10 @@ public class CodeGalaxy extends CodeArea {
     private void initManagers() {
         for(Manager m : managers)
             m.init();
+    }
+
+    @Override
+    public ObservableList<Node> getChildren() {
+        return super.getChildren();
     }
 }
