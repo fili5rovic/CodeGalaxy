@@ -53,6 +53,7 @@ public class UserPreferences {
     public void setFontPreference(int size) {
         props.setProperty(fontKey, String.valueOf(size));
     }
+
     public int getFontPreference() {
         return Integer.parseInt(props.getProperty(fontKey));
     }

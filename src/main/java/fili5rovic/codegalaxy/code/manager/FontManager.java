@@ -45,6 +45,7 @@ public class FontManager extends Manager {
                     decreaseSize();
                 updateUI();
                 popUp();
+                event.consume();
             }
         });
     }
