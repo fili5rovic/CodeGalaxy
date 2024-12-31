@@ -7,18 +7,30 @@ public abstract class Shortcut {
 
     protected CodeGalaxy codeGalaxy;
 
-    public Shortcut(CodeGalaxy cg) {
+    protected Shortcut(CodeGalaxy cg) {
         this.codeGalaxy = cg;
     }
 
     public void check(KeyEvent e) {
         if(validate(e)) {
-            execute();
             e.consume();
+            execute();
+        }
+    }
+
+    protected void execute() {
+        if(codeGalaxy.hasSelection()) {
+            executeSelection();
+        } else {
+            executeSingle();
         }
     }
 
     protected abstract boolean validate(KeyEvent e);
 
-    protected abstract void execute();
+    protected void executeSingle() {
+        executeSelection();
+    }
+
+    protected abstract void executeSelection();
 }

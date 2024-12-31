@@ -14,22 +14,36 @@ public class MoveLineDown extends Shortcut {
     @Override
     protected boolean validate(KeyEvent e) {
         return e.getCode().equals(KeyCode.DOWN)
-                && e.isControlDown() && e.isAltDown()
-                && !e.isShiftDown() && !e.isMetaDown();
+                && e.isShiftDown() && e.isAltDown()
+                && !e.isControlDown() && !e.isMetaDown();
     }
 
+
     @Override
-    protected void execute() {
-        int curr = codeGalaxy.getCurrentParagraph();
-        if (curr == ((ObservableList) codeGalaxy.getParagraphs()).size() - 1)
+    protected void executeSelection() {
+        int startPar = codeGalaxy.getCaretSelectionBind().getStartParagraphIndex();
+        int endPar = codeGalaxy.getCaretSelectionBind().getEndParagraphIndex();
+
+        if(endPar == codeGalaxy.getParagraphsCount() - 1)
             return;
 
-        String currText = codeGalaxy.getText(curr);
-        String nextText = codeGalaxy.getText(curr + 1);
+        int endColumn = codeGalaxy.getText(endPar).length();
 
-        int endColumn = nextText.length();
+        int selectedStartColumn = codeGalaxy.getCaretSelectionBind().getStartColumnPosition();
+        int selectedEndColumn = codeGalaxy.getCaretSelectionBind().getEndColumnPosition();
 
-        codeGalaxy.replaceText(curr, 0, curr + 1, endColumn, nextText + "\n" + currText);
-        codeGalaxy.moveTo(curr + 1, 0);
+        String text = codeGalaxy.getText(startPar, 0, endPar, endColumn);
+        codeGalaxy.deleteText(startPar, 0, endPar, endColumn);
+        codeGalaxy.deletePreviousChar();
+
+        try {
+            codeGalaxy.insertText(startPar+1, 0, text + "\n");
+        } catch (Exception e) {
+            codeGalaxy.appendText("\n" + text);
+        }
+
+        int newStartPosition = codeGalaxy.getAbsolutePosition(startPar + 1, selectedStartColumn);
+        int newEndPosition = codeGalaxy.getAbsolutePosition(endPar + 1, selectedEndColumn);
+        codeGalaxy.selectRange(newStartPosition, newEndPosition);
     }
 }

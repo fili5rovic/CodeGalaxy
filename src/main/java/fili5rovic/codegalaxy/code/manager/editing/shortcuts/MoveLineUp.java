@@ -13,21 +13,32 @@ public class MoveLineUp extends Shortcut {
     @Override
     protected boolean validate(KeyEvent e) {
         return e.getCode().equals(KeyCode.UP)
-                && e.isControlDown() && e.isAltDown()
-                && !e.isShiftDown() && !e.isMetaDown();
+                && e.isShiftDown() && e.isAltDown()
+                && !e.isControlDown() && !e.isMetaDown();
     }
 
     @Override
-    protected void execute() {
-        int curr = codeGalaxy.getCurrentParagraph();
-        if(curr == 0)
+    protected void executeSelection() {
+        int startPar = codeGalaxy.getCaretSelectionBind().getStartParagraphIndex();
+        int endPar = codeGalaxy.getCaretSelectionBind().getEndParagraphIndex();
+
+        if(startPar == 0)
             return;
 
-        String currText = codeGalaxy.getText(curr);
-        String prevText = codeGalaxy.getText(curr-1);
-        int endColumn = currText.length();
+        int endColumn = codeGalaxy.getText(endPar).length();
 
-        codeGalaxy.replaceText(curr-1,0,curr,endColumn, currText + "\n" + prevText);
-        codeGalaxy.moveTo(curr-1, 0);
+        int selectedStartColumn = codeGalaxy.getCaretSelectionBind().getStartColumnPosition();
+        int selectedEndColumn = codeGalaxy.getCaretSelectionBind().getEndColumnPosition();
+
+        String text = codeGalaxy.getText(startPar, 0, endPar, endColumn);
+        // delete selected text
+        codeGalaxy.deleteText(startPar, 0, endPar, endColumn);
+        codeGalaxy.deletePreviousChar();
+        // insert deleted text one line above
+        codeGalaxy.insertText(startPar-1, 0, text + "\n");
+
+        int newStartPosition = codeGalaxy.getAbsolutePosition(startPar - 1, selectedStartColumn);
+        int newEndPosition = codeGalaxy.getAbsolutePosition(endPar - 1, selectedEndColumn);
+        codeGalaxy.selectRange(newStartPosition, newEndPosition);
     }
 }

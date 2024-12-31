@@ -5,4 +5,11 @@
     -fx-border-color: lightgray;
 }
 
+/*changes TAB in CodeArea, should be in separate css for changing*/
+.paragraph-text {
+    -fx-tab-size: 4;
+}
+
+
+
 

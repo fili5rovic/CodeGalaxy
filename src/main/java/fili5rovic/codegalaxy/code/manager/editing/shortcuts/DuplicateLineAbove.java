@@ -12,21 +12,27 @@ public class DuplicateLineAbove extends Shortcut {
     @Override
     protected boolean validate(KeyEvent e) {
         return e.getCode().equals(KeyCode.UP)
-                && e.isAltDown() && !e.isShiftDown()
-                && !e.isControlDown() && !e.isMetaDown();
+                && e.isAltDown() && e.isControlDown()
+                && !e.isShiftDown() && !e.isMetaDown();
     }
 
     @Override
-    protected void execute() {
+    protected void executeSingle() {
         int curr = codeGalaxy.getCurrentParagraph();
         String text = codeGalaxy.getText(curr);
 
         int index = codeGalaxy.getAbsolutePosition(curr, 0);
         codeGalaxy.insertText(index, text + "\n");
+
         if(curr == 0)
             curr = 1;
 
-        codeGalaxy.moveTo(curr-1, codeGalaxy.getCaretColumn());
+        codeGalaxy.moveTo(curr, codeGalaxy.getCaretColumn());
+
+    }
+
+    @Override
+    protected void executeSelection() {
 
     }
 }

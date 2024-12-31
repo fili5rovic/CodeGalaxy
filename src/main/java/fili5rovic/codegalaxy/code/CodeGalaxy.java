@@ -16,13 +16,10 @@ public class CodeGalaxy extends CodeArea {
     private final ArrayList<Manager> managers = new ArrayList<>();
 
     public CodeGalaxy() {
-        onCreate();
-    }
-
-    private void onCreate() {
         addLineNumbers();
         addManagers();
         initManagers();
+
     }
 
     private void addLineNumbers() {
@@ -44,4 +41,12 @@ public class CodeGalaxy extends CodeArea {
     public ObservableList<Node> getChildren() {
         return super.getChildren();
     }
+
+    public boolean hasSelection() {
+        return !this.getSelectedText().isEmpty();
+    }
+    public int getParagraphsCount() {
+        return ((ObservableList) this.getParagraphs()).size();
+    }
+
 }

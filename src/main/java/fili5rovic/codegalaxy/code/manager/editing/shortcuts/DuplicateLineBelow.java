@@ -12,12 +12,13 @@ public class DuplicateLineBelow extends Shortcut {
 
     @Override
     protected boolean validate(KeyEvent e) {
-        return e.getCode().equals(KeyCode.DOWN) && e.isAltDown()
-                && !e.isShiftDown() && !e.isControlDown() && !e.isMetaDown();
+        return e.getCode().equals(KeyCode.DOWN)
+                && e.isAltDown() && e.isControlDown()
+                && !e.isShiftDown() && !e.isMetaDown();
     }
 
     @Override
-    protected void execute() {
+    protected void executeSingle() {
         int curr = codeGalaxy.getCurrentParagraph();
         String text = codeGalaxy.getText(curr);
 
@@ -29,6 +30,11 @@ public class DuplicateLineBelow extends Shortcut {
         }
 
         codeGalaxy.moveTo(curr + 1, codeGalaxy.getCaretColumn());
+
+    }
+
+    @Override
+    protected void executeSelection() {
 
     }
 }

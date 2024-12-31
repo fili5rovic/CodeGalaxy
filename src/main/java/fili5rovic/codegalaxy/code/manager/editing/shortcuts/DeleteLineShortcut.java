@@ -1,15 +1,15 @@
 package fili5rovic.codegalaxy.code.manager.editing.shortcuts;
 
 import fili5rovic.codegalaxy.code.CodeGalaxy;
-import javafx.scene.control.IndexRange;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 public class DeleteLineShortcut extends Shortcut {
+
+
     public DeleteLineShortcut(CodeGalaxy cg) {
         super(cg);
     }
-
     @Override
     protected boolean validate(KeyEvent e) {
         return e.getCode().equals(KeyCode.D)
@@ -18,14 +18,24 @@ public class DeleteLineShortcut extends Shortcut {
     }
 
     @Override
-    protected void execute() {
+    protected void executeSingle() {
         int curr = codeGalaxy.getCaretPosition();
-        String textBefore = codeGalaxy.getText(new IndexRange(0, curr));
-        String textAfter = codeGalaxy.getText(new IndexRange(curr, codeGalaxy.getLength()));
+        int lineStart = codeGalaxy.getText().lastIndexOf("\n", curr - 1) + 1;
+        int lineEnd = codeGalaxy.getText().indexOf("\n", curr) + 1;
 
-        int start = textBefore.lastIndexOf("\n") + 1;
-        int end = textAfter.indexOf("\n") + curr + 1;
+        if (lineEnd == 0) {
+            lineEnd = codeGalaxy.getLength();
+        }
 
-        codeGalaxy.deleteText(start, end);
+        codeGalaxy.deleteText(lineStart, lineEnd);
+    }
+
+    @Override
+    protected void executeSelection() {
+        int startPar = codeGalaxy.getCaretSelectionBind().getStartParagraphIndex();
+        int endPar = codeGalaxy.getCaretSelectionBind().getEndParagraphIndex();
+
+        codeGalaxy.deleteText(startPar,0,endPar,codeGalaxy.getText(endPar).length());
+        codeGalaxy.deleteNextChar();
     }
 }
