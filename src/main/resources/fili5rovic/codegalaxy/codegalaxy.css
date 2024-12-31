@@ -1,9 +1,39 @@
-.lineno {
-    -fx-background-color: white;
-    -fx-border-width: 0 1 0 0;
-    -fx-padding: 0 10 0 5;
-    -fx-border-color: lightgray;
+.root {
+    -fx-background-color: #2e2e2e;
 }
+
+.styled-text-area {
+    -fx-font-size: 24px;
+
+    -fx-background-color: #313131;
+}
+
+.styled-text-area .text {
+    -fx-font-family: "JetBrains Mono"; /*OS font*/
+}
+
+.styled-text-area .caret {
+    -fx-stroke: white;
+}
+
+.main-selection {
+    -fx-fill: #696969
+}
+
+.line-highlighter {
+    -fx-fill: #363636
+}
+
+.lineno {
+    -fx-text-fill: #707070; /* Boja za brojače linija, svetlosiva za tamnu temu */
+    -fx-font-size: 24px; /* Prilagodi veličinu fonta ako je potrebno */
+    -fx-background-color: #313131;
+}
+
+.text-flow .text {
+    -fx-fill: #e0e0e0; /* Light gray text color */
+}
+
 
 /*changes TAB in CodeArea, should be in separate css for changing*/
 .paragraph-text {

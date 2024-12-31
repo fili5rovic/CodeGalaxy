@@ -1,6 +1,7 @@
-package fili5rovic.codegalaxy.code.manager;
+package fili5rovic.codegalaxy.code.manager.font;
 
 import fili5rovic.codegalaxy.code.CodeGalaxy;
+import fili5rovic.codegalaxy.code.manager.Manager;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;

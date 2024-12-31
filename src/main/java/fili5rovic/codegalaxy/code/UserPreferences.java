@@ -1,6 +1,6 @@
 package fili5rovic.codegalaxy.code;
 
-import fili5rovic.codegalaxy.code.manager.FontManager;
+import fili5rovic.codegalaxy.code.manager.font.FontManager;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;

@@ -1,8 +1,9 @@
 package fili5rovic.codegalaxy.code;
 
-import fili5rovic.codegalaxy.code.manager.FontManager;
+import fili5rovic.codegalaxy.code.manager.font.FontManager;
 import fili5rovic.codegalaxy.code.manager.Manager;
 import fili5rovic.codegalaxy.code.manager.editing.LineEditing;
+import fili5rovic.codegalaxy.code.manager.highlighting.Highlighter;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import org.fxmisc.flowless.VirtualizedScrollPane;
@@ -19,7 +20,7 @@ public class CodeGalaxy extends CodeArea {
         addLineNumbers();
         addManagers();
         initManagers();
-
+        Highlighter.init(this);
     }
 
     private void addLineNumbers() {

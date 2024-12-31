@@ -1,0 +1,8 @@
+.keyword {
+    -fx-fill: #569CD6 ;
+    -fx-font-weight: bold;
+}
+
+.default_text {
+    -fx-fill: #e0e0e0;
+}

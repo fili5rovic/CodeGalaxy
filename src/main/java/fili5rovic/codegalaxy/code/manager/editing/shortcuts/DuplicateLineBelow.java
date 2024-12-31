@@ -21,7 +21,6 @@ public class DuplicateLineBelow extends Shortcut {
         int curr = codeGalaxy.getCurrentParagraph();
         String text = codeGalaxy.getText(curr);
 
-        System.out.println(curr);
         if (curr == codeGalaxy.getParagraphsCount() - 1) {
             codeGalaxy.appendText("\n" + text);
         } else {
