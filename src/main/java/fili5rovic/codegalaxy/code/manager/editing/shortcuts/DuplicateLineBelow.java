@@ -1,7 +1,6 @@
 package fili5rovic.codegalaxy.code.manager.editing.shortcuts;
 
 import fili5rovic.codegalaxy.code.CodeGalaxy;
-import javafx.collections.ObservableList;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
