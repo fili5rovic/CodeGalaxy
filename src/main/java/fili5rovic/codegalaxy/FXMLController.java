@@ -16,5 +16,6 @@ public class FXMLController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         CodeGalaxy codeGalaxy = new CodeGalaxy();
         root.setCenter(codeGalaxy);
+        root.setPrefSize(500,300);
     }
 }

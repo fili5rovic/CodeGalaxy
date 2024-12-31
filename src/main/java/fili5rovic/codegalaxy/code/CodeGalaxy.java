@@ -2,6 +2,7 @@ package fili5rovic.codegalaxy.code;
 
 import fili5rovic.codegalaxy.code.manager.FontManager;
 import fili5rovic.codegalaxy.code.manager.Manager;
+import fili5rovic.codegalaxy.code.manager.editing.LineEditing;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import org.fxmisc.flowless.VirtualizedScrollPane;
@@ -31,6 +32,7 @@ public class CodeGalaxy extends CodeArea {
 
     private void addManagers() {
         managers.add(new FontManager(this));
+        managers.add(new LineEditing(this));
     }
 
     private void initManagers() {
