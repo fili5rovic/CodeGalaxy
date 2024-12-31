@@ -23,7 +23,7 @@ public class DuplicateLineBelow extends Shortcut {
         String text = codeGalaxy.getText(curr);
 
         System.out.println(curr);
-        if (curr == ((ObservableList<?>)(codeGalaxy.getParagraphs())).size() - 1) {
+        if (curr == codeGalaxy.getParagraphsCount() - 1) {
             codeGalaxy.appendText("\n" + text);
         } else {
             codeGalaxy.insertText(codeGalaxy.getAbsolutePosition(curr + 1, 0), text + "\n");

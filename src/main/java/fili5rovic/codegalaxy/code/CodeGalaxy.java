@@ -46,7 +46,7 @@ public class CodeGalaxy extends CodeArea {
         return !this.getSelectedText().isEmpty();
     }
     public int getParagraphsCount() {
-        return ((ObservableList) this.getParagraphs()).size();
+        return ((ObservableList<?>) this.getParagraphs()).size();
     }
 
 }
