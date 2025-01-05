@@ -33,11 +33,6 @@ public class KeyState {
         return this;
     }
 
-    public KeyState meta() {
-        this.metaDown = true;
-        return this;
-    }
-
     public boolean isActive(KeyEvent event) {
         return event.getCode().equals(code)
                 && event.isControlDown() == controlDown

@@ -4,7 +4,6 @@ import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.code.manager.editing.shortcuts.keystate.KeyState;
 import javafx.application.Platform;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 
 public class ExitShortcut extends Shortcut{
 
