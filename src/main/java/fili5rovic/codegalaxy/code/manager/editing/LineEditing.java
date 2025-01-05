@@ -18,7 +18,10 @@ public class LineEditing extends Manager {
             new WordSelect(codeGalaxy),
     };
 
-    public final Shortcut tabShortcut = new TabSelection(codeGalaxy);
+    public final Shortcut[] tabShortcuts = new Shortcut[] {
+            new IndentForward(codeGalaxy),
+            new IndentBackward(codeGalaxy)
+    };
 
     public LineEditing(CodeGalaxy cg) {
         super(cg);
@@ -33,9 +36,12 @@ public class LineEditing extends Manager {
         });
 
         codeGalaxy.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getCode() == KeyCode.TAB && codeGalaxy.hasSelection()) {
-                event.consume();
-                tabShortcut.check(event);
+            if (event.getCode() == KeyCode.TAB) {
+                if(codeGalaxy.hasSelection())
+                    event.consume();
+                for(Shortcut tabS : tabShortcuts) {
+                    tabS.check(event);
+                }
             }
         });
 

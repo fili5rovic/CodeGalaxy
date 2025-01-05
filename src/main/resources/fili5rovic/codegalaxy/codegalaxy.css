@@ -9,7 +9,7 @@
 }
 
 .styled-text-area .text {
-    -fx-font-family: "JetBrains Mono"; /*OS font*/
+    -fx-font-family: "JetBrains Mono Medium"; /*OS font*/
 }
 
 .styled-text-area .caret {

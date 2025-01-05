@@ -1,6 +1,7 @@
 package fili5rovic.codegalaxy.code.manager.editing.shortcuts;
 
 import fili5rovic.codegalaxy.code.CodeGalaxy;
+import fili5rovic.codegalaxy.code.manager.editing.shortcuts.keystate.KeyState;
 import javafx.scene.input.KeyEvent;
 
 public abstract class Shortcut {
@@ -26,11 +27,15 @@ public abstract class Shortcut {
         }
     }
 
-    protected abstract boolean validate(KeyEvent e);
+    protected final boolean validate(KeyEvent e) {
+        return getKeyState().isActive(e);
+    }
 
     protected void executeSingle() {
         executeSelection();
     }
+
+    protected abstract KeyState getKeyState();
 
     protected abstract void executeSelection();
 }

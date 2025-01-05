@@ -57,7 +57,6 @@ public class Highlighter {
                 "keyword"
         };
 
-
         String combinedPattern = String.join("|", patterns);
         Pattern pattern = Pattern.compile(combinedPattern, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(text);

@@ -3,6 +3,7 @@ package fili5rovic.codegalaxy;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -13,7 +14,6 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("test.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         scene.getStylesheets().add(Main.class.getResource("/fili5rovic/codegalaxy/codegalaxy.css").toExternalForm());
-
         stage.setTitle("Code Galaxy");
         stage.setScene(scene);
         stage.show();
