@@ -33,24 +33,6 @@ public class Highlighter {
         codeArea.setStyleSpans(0, computeHighlighting(text));
     }
 
-    private static String[] createPatternsFromHashMap() {
-        String[] patterns = new String[fileNameToStyleClassMap.size()];
-        int i = 0;
-
-        for(String key : fileNameToStyleClassMap.keySet()) {
-            String path = Main.class.getResource("/fili5rovic/codegalaxy/keywords/" + key).getPath();
-            String keywords = FileHelper.readFromFile(path);
-
-            StringBuilder sb = new StringBuilder();
-            for(String keyword : keywords.split(",")) {
-                sb.append("\\b").append(keyword).append("\\b|");
-            }
-            patterns[i] = sb.substring(0, sb.length() - 1);
-            i++;
-        }
-        return patterns;
-    }
-
     private static StyleSpans<Collection<String>> computeHighlighting(String text) {
         String[] patterns = createPatternsFromHashMap();
         String[] cssClasses = {
@@ -78,5 +60,24 @@ public class Highlighter {
         spansBuilder.add(Collections.singleton("default_text"), text.length() - lastIndex);
         return spansBuilder.create();
     }
+
+    private static String[] createPatternsFromHashMap() {
+        String[] patterns = new String[fileNameToStyleClassMap.size()];
+        int i = 0;
+
+        for(String key : fileNameToStyleClassMap.keySet()) {
+            String path = Main.class.getResource("/fili5rovic/codegalaxy/keywords/" + key).getPath();
+            String keywords = FileHelper.readFromFile(path);
+
+            StringBuilder sb = new StringBuilder();
+            for(String keyword : keywords.split(",")) {
+                sb.append("\\b").append(keyword).append("\\b|");
+            }
+            patterns[i] = sb.substring(0, sb.length() - 1);
+            i++;
+        }
+        return patterns;
+    }
+
 }
 

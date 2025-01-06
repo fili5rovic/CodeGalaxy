@@ -25,13 +25,13 @@
 }
 
 .lineno {
-    -fx-text-fill: #707070; /* Boja za brojače linija, svetlosiva za tamnu temu */
-    -fx-font-size: 24px; /* Prilagodi veličinu fonta ako je potrebno */
+    -fx-text-fill: #707070;
+    -fx-font-size: 24px;
     -fx-background-color: #313131;
 }
 
 .text-flow .text {
-    -fx-fill: #e0e0e0; /* Light gray text color */
+    -fx-fill: #e0e0e0;
 }
 
 

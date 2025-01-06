@@ -8,14 +8,12 @@ public class KeyState {
     private boolean controlDown;
     private boolean shiftDown;
     private boolean altDown;
-    private boolean metaDown;
 
     public KeyState(KeyCode code) {
         this.code = code;
         this.controlDown = false;
         this.shiftDown = false;
         this.altDown = false;
-        this.metaDown = false;
     }
 
     public KeyState ctrl() {
@@ -37,8 +35,7 @@ public class KeyState {
         return event.getCode().equals(code)
                 && event.isControlDown() == controlDown
                 && event.isShiftDown() == shiftDown
-                && event.isAltDown() == altDown
-                && event.isMetaDown() == metaDown;
+                && event.isAltDown() == altDown;
     }
 
 
