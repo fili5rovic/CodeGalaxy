@@ -5,6 +5,7 @@ import fili5rovic.codegalaxy.util.FileHelper;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
+
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
@@ -12,7 +13,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 
 public class ContextMenuHelper {
-
 
     private final Pane filePane;
     private final TextField fileNameTextField;
@@ -30,7 +30,7 @@ public class ContextMenuHelper {
         ArrayList<MenuItem> menuItems = new ArrayList<>();
         ProjectItem firstItem = items.getFirst();
 
-        if(Files.isDirectory(firstItem.getPath()))
+        if (Files.isDirectory(firstItem.getPath()))
             menuItems.add(createNewFile(firstItem));
 
         menuItems.add(createDeleteMenu(items));
@@ -40,22 +40,23 @@ public class ContextMenuHelper {
     public MenuItem createNewFile(ProjectItem item) {
         Menu newItem = new Menu("New");
 
-        MenuItem newDir = new MenuItem("Directory");
-        MenuItem newClass = new MenuItem("Java Class");
-        MenuItem newFile = new MenuItem("Text File");
-
-        newDir.setOnAction(e -> onNewFile(item, ""));
-        newClass.setOnAction(e -> onNewFile(item, "java"));
-        newFile.setOnAction(e -> onNewFile(item, "txt"));
-
-
-        newItem.getItems().addAll(newDir, newClass, newFile);
-        item.setExpanded(true);
+        newItem.getItems().addAll(
+                createMenuItem("Directory", item, ""),
+                createMenuItem("Java Class", item, "java"),
+                createMenuItem("Text File", item, "txt")
+        );
         return newItem;
+    }
+
+    private MenuItem createMenuItem(String name, ProjectItem item, String extension) {
+        MenuItem menuItem = new MenuItem(name);
+        menuItem.setOnAction(e -> onNewFile(item, extension));
+        return menuItem;
     }
 
     private void onNewFile(ProjectItem item, String extension) {
         filePane.setVisible(true);
+        item.setExpanded(true);
 
         fileNameLabel.setText("New File");
 
@@ -76,15 +77,15 @@ public class ContextMenuHelper {
         String name = fileNameTextField.getText();
         Path path = item.getPath().resolve(name);
 
-        if(extension.isEmpty()) {
+        if (extension.isEmpty()) {
             Files.createDirectory(path);
-            if(!Files.isDirectory(path))
+            if (!Files.isDirectory(path))
                 throw new FileAlreadyExistsException("Directory already exists");
 
         } else {
             path = path.resolve('.' + extension);
             Files.createFile(path);
-            if(!Files.isRegularFile(path))
+            if (!Files.isRegularFile(path))
                 throw new FileAlreadyExistsException("File already exists");
         }
         item.getChildren().add(new ProjectItem(path));
