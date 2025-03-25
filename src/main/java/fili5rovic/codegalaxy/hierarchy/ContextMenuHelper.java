@@ -1,0 +1,109 @@
+package fili5rovic.codegalaxy.hierarchy;
+
+import fili5rovic.codegalaxy.controller.DashboardController;
+import fili5rovic.codegalaxy.util.FileHelper;
+import fili5rovic.codegalaxy.window.Window;
+import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
+import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+
+public class ContextMenuHelper {
+
+
+    private final Pane filePane;
+    private final TextField fileNameTextField;
+    private final Label fileNameLabel;
+
+    public ContextMenuHelper() {
+
+        DashboardController controller = ((DashboardController) Window.getWindowAt(Window.WINDOW_DASHBOARD).getController());
+        filePane = controller.getFilePane();
+        fileNameTextField = controller.getFileNameTextField();
+        fileNameLabel = controller.getFileNameLabel();
+    }
+
+    public ArrayList<MenuItem> createMenuItems(ArrayList<ProjectItem> items) {
+        ArrayList<MenuItem> menuItems = new ArrayList<>();
+        ProjectItem firstItem = items.getFirst();
+
+        if(Files.isDirectory(firstItem.getPath()))
+            menuItems.add(createNewFile(firstItem));
+
+        menuItems.add(createDeleteMenu(items));
+        return menuItems;
+    }
+
+    public MenuItem createNewFile(ProjectItem item) {
+        Menu newItem = new Menu("New");
+
+        MenuItem newDir = new MenuItem("Directory");
+        MenuItem newClass = new MenuItem("Java Class");
+        MenuItem newFile = new MenuItem("Text File");
+
+        newDir.setOnAction(e -> onNewFile(item, ""));
+        newClass.setOnAction(e -> onNewFile(item, "java"));
+        newFile.setOnAction(e -> onNewFile(item, "txt"));
+
+
+        newItem.getItems().addAll(newDir, newClass, newFile);
+        item.setExpanded(true);
+        return newItem;
+    }
+
+    private void onNewFile(ProjectItem item, String extension) {
+        filePane.setVisible(true);
+
+        fileNameLabel.setText("New File");
+
+        fileNameTextField.clear();
+        fileNameTextField.requestFocus();
+
+        fileNameTextField.setOnAction(e -> {
+            try {
+                textFieldAction(item, extension);
+            } catch (IOException ioException) {
+                System.out.println("Couldn't create file");
+                filePane.setVisible(false);
+            }
+        });
+    }
+
+    private void textFieldAction(ProjectItem item, String extension) throws IOException {
+        String name = fileNameTextField.getText();
+        Path path = item.getPath().resolve(name);
+
+        if(extension.isEmpty()) {
+            Files.createDirectory(path);
+            if(!Files.isDirectory(path))
+                throw new FileAlreadyExistsException("Directory already exists");
+
+        } else {
+            path = path.resolve('.' + extension);
+            Files.createFile(path);
+            if(!Files.isRegularFile(path))
+                throw new FileAlreadyExistsException("File already exists");
+        }
+        item.getChildren().add(new ProjectItem(path));
+        filePane.setVisible(false);
+    }
+
+    private MenuItem createDeleteMenu(ArrayList<ProjectItem> items) {
+        MenuItem deleteItem = new MenuItem("Delete");
+        deleteItem.setOnAction(e -> {
+            items.forEach(item -> {
+                try {
+                    FileHelper.deleteRecursively(item.getPath());
+                    item.getParent().getChildren().remove(item);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            });
+        });
+        return deleteItem;
+    }
+
+}

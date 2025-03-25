@@ -24,7 +24,6 @@ public class UserPreferences {
         init();
     }
 
-
     public void init() {
         try {
             props.load(new FileReader("preferences"));
@@ -48,7 +47,6 @@ public class UserPreferences {
             }
         }
     }
-
 
     public void setFontPreference(int size) {
         props.setProperty(fontKey, String.valueOf(size));
