@@ -24,7 +24,7 @@ public class DashboardWindow extends Window {
             this.stage = stage;
 
             this.stage.setOnCloseRequest(e-> {
-                ((DashboardController) Window.getWindowAt(Window.WINDOW_DASHBOARD).getController()).onAppClose(e);
+                ((DashboardController) Window.getController(Window.WINDOW_DASHBOARD)).onAppClose(e);
             });
 
 

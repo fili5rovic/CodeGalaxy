@@ -1,8 +1,12 @@
 package fili5rovic.codegalaxy.hierarchy;
 
+import fili5rovic.codegalaxy.controller.DashboardController;
+import fili5rovic.codegalaxy.window.Window;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -15,9 +19,10 @@ public class ProjectHierarchy extends TreeView<Label> {
 
     private final String path;
 
-    private ContextMenu contextMenu;
+    private final ContextMenu contextMenu;
+    private final ContextMenuHelper contextMenuHelper;
 
-    private ContextMenuHelper contextMenuHelper;
+    private static final DashboardController controller = ((DashboardController) Window.getController(Window.WINDOW_DASHBOARD));
 
     public ProjectHierarchy(String path) {
         this.path = path;
@@ -31,7 +36,18 @@ public class ProjectHierarchy extends TreeView<Label> {
 
     private void setupContextMenu() {
         setOnContextMenuRequested(this::contextMenuPopUp);
-        setOnMouseClicked(e -> contextMenu.hide());
+        setOnMouseClicked(this::handleMouseClick);
+    }
+
+    private void handleMouseClick(MouseEvent e) {
+        contextMenu.hide();
+
+        if(e.getButton() == MouseButton.PRIMARY && e.getClickCount() == 2) {
+            ProjectItem item = (ProjectItem) this.getSelectionModel().getSelectedItem();
+            if(Files.isDirectory(item.getPath()))
+                return;
+            controller.createTab(item.getPath());
+        }
     }
 
     private void contextMenuPopUp(ContextMenuEvent e) {
@@ -60,6 +76,7 @@ public class ProjectHierarchy extends TreeView<Label> {
         try {
             Files.list(path).forEach(p -> {
                 ProjectItem item = new ProjectItem(p);
+
 
                 if (Files.isDirectory(p)) {
                     populateTreeItem(item, p);

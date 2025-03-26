@@ -19,11 +19,12 @@ public class ContextMenuHelper {
     private final Label fileNameLabel;
 
     public ContextMenuHelper() {
-
-        DashboardController controller = ((DashboardController) Window.getWindowAt(Window.WINDOW_DASHBOARD).getController());
+        DashboardController controller = ((DashboardController) Window.getController(Window.WINDOW_DASHBOARD));
         filePane = controller.getFilePane();
         fileNameTextField = controller.getFileNameTextField();
         fileNameLabel = controller.getFileNameLabel();
+
+        fileNameTextField.setOnAction(_ -> filePane.setVisible(false));
     }
 
     public ArrayList<MenuItem> createMenuItems(ArrayList<ProjectItem> items) {
@@ -69,21 +70,23 @@ public class ContextMenuHelper {
             } catch (IOException ioException) {
                 System.out.println("Couldn't create file");
                 filePane.setVisible(false);
+                ioException.printStackTrace();
             }
         });
     }
 
     private void textFieldAction(ProjectItem item, String extension) throws IOException {
         String name = fileNameTextField.getText();
-        Path path = item.getPath().resolve(name);
+        Path path = item.getPath();
+        boolean isDir = extension.isEmpty();
 
-        if (extension.isEmpty()) {
+        if (isDir) {
+            path = path.resolve(name);
             Files.createDirectory(path);
             if (!Files.isDirectory(path))
                 throw new FileAlreadyExistsException("Directory already exists");
-
         } else {
-            path = path.resolve('.' + extension);
+            path = path.resolve(name + '.' + extension);
             Files.createFile(path);
             if (!Files.isRegularFile(path))
                 throw new FileAlreadyExistsException("File already exists");

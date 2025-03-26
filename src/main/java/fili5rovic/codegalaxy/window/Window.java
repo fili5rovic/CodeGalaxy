@@ -36,8 +36,8 @@ public abstract class Window {
         this.stage = stage;
     }
 
-    public ControllerBase getController() {
-        return controller;
+    public static ControllerBase getController(int position) {
+        return windows[position].controller;
     }
 
     public void setController(ControllerBase controller) {

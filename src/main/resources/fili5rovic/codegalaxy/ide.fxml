@@ -5,6 +5,7 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -12,7 +13,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 
 <StackPane fx:id="stackPane" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fili5rovic.codegalaxy.controller.DashboardController">
    <children>
@@ -22,11 +22,11 @@
               <items>
                   <BorderPane>
                      <center>
-                        <SplitPane dividerPositions="0.1811391223155929, 0.9971988795518207" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                        <SplitPane dividerPositions="0.19047619047619047, 0.9971988795518207" prefHeight="556.0" prefWidth="861.0" BorderPane.alignment="CENTER">
                           <items>
                               <BorderPane fx:id="treeViewPane" />
-                              <BorderPane fx:id="root" />
-                              <AnchorPane layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="546.0" prefWidth="164.0" />
+                              <TabPane fx:id="tabPane" />
+                              <AnchorPane layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="554.0" prefWidth="0.0" />
                           </items>
                         </SplitPane>
                      </center>
