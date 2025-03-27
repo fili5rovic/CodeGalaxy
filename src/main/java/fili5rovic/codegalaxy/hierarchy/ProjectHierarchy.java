@@ -44,7 +44,7 @@ public class ProjectHierarchy extends TreeView<Label> {
 
         if(e.getButton() == MouseButton.PRIMARY && e.getClickCount() == 2) {
             ProjectItem item = (ProjectItem) this.getSelectionModel().getSelectedItem();
-            if(Files.isDirectory(item.getPath()))
+            if(item == null || Files.isDirectory(item.getPath()))
                 return;
             controller.createTab(item.getPath());
         }
@@ -77,11 +77,9 @@ public class ProjectHierarchy extends TreeView<Label> {
             Files.list(path).forEach(p -> {
                 ProjectItem item = new ProjectItem(p);
 
-
                 if (Files.isDirectory(p)) {
                     populateTreeItem(item, p);
                 }
-
                 parentItem.getChildren().add(item);
             });
         } catch (IOException e) {

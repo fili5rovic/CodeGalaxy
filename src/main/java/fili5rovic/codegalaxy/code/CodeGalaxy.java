@@ -1,5 +1,6 @@
 package fili5rovic.codegalaxy.code;
 
+import fili5rovic.codegalaxy.code.manager.file.FileManager;
 import fili5rovic.codegalaxy.code.manager.font.FontManager;
 import fili5rovic.codegalaxy.code.manager.Manager;
 import fili5rovic.codegalaxy.code.manager.editing.LineEditing;
@@ -10,17 +11,31 @@ import org.fxmisc.flowless.VirtualizedScrollPane;
 import org.fxmisc.richtext.CodeArea;
 import org.fxmisc.richtext.LineNumberFactory;
 
+import java.io.File;
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 
 public class CodeGalaxy extends CodeArea {
     private final ArrayList<Manager> managers = new ArrayList<>();
 
+    private FileManager fileManager;
+
     public CodeGalaxy() {
         addLineNumbers();
         addManagers();
         initManagers();
         Highlighter.init(this);
+    }
+
+    public void setFile(Path path) {
+        fileManager = new FileManager(this, path);
+        fileManager.init();
+    }
+
+    public void save() {
+        if(fileManager != null)
+            fileManager.save();
     }
 
     private void addLineNumbers() {
