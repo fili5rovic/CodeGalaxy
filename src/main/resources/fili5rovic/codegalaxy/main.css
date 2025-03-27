@@ -473,7 +473,8 @@
 }
 /* Nevidljivi slajderi za SplitPane */
 .split-pane-divider {
-    -fx-background-color: transparent;
+    -fx-background-color: #464646;
+    -fx-padding: 1px;
 }
 /*</editor-fold>*/
 

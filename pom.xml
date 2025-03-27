@@ -48,6 +48,12 @@
             <artifactId>javaparser-core</artifactId>
             <version>3.26.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.eclipse.lsp4j</groupId>
+            <artifactId>org.eclipse.lsp4j</artifactId>
+            <version>0.14.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>
