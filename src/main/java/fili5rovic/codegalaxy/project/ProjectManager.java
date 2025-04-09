@@ -16,6 +16,7 @@ public class ProjectManager {
 
     public static void openProject(Path path) {
         controller.getTreeViewPane().setCenter(new ProjectHierarchy(path.toString()));
+        UserPreferences.getInstance().set("lastProjectPath", path.toString());
     }
 
     public static void setWorkspace(String workspacePath) {

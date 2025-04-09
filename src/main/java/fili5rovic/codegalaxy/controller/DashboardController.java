@@ -1,6 +1,7 @@
 package fili5rovic.codegalaxy.controller;
 
 import fili5rovic.codegalaxy.code.CodeGalaxy;
+import fili5rovic.codegalaxy.preferences.UserPreferences;
 import fili5rovic.codegalaxy.project.ProjectManager;
 import fili5rovic.codegalaxy.util.FileHelper;
 import fili5rovic.codegalaxy.window.Window;
@@ -42,8 +43,21 @@ public class DashboardController extends ControllerBase {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Window.getWindowAt(Window.WINDOW_DASHBOARD).setController(this);
-        ProjectManager.openProject(Path.of("C:\\Users\\fili5\\OneDrive\\Desktop\\test"));
+        tryToOpenLastProject();
         menuItemListeners();
+    }
+
+    private void tryToOpenLastProject() {
+        String lastProjectPath = UserPreferences.getInstance().get("lastProjectPath");
+        if(lastProjectPath == null)
+            return;
+        File lastProjectFile = new File(lastProjectPath);
+        Path lastProjectPathFile = lastProjectFile.toPath();
+        if (lastProjectFile.exists() && lastProjectFile.isDirectory()) {
+            ProjectManager.openProject(lastProjectPathFile);
+        } else {
+            System.out.println("Last project path is not valid.");
+        }
     }
 
     public void createTab(Path filePath) {
