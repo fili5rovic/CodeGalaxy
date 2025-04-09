@@ -3,7 +3,7 @@ package fili5rovic.codegalaxy.lsp;
 import java.io.*;
 import java.util.*;
 
-public class LSPServerManager {
+class LSPServerManager {
     private Process process;
 
     public void startServer(String workspacePath) throws IOException {

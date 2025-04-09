@@ -1,7 +1,7 @@
 package fili5rovic.codegalaxy.code.manager.font;
 
 import fili5rovic.codegalaxy.code.CodeGalaxy;
-import fili5rovic.codegalaxy.code.UserPreferences;
+import fili5rovic.codegalaxy.preferences.UserPreferences;
 import fili5rovic.codegalaxy.code.manager.Manager;
 import javafx.scene.Node;
 import javafx.scene.input.ScrollEvent;
@@ -12,6 +12,7 @@ import java.util.function.IntFunction;
 public class FontManager extends Manager {
     private static final int MIN_FONT_SIZE;
     private static final int MAX_FONT_SIZE;
+    private static final int DEFAULT_FONT_SIZE;
     private int currentFontSize;
 
     private FontPopUpManager fontPopUpManager;
@@ -19,6 +20,7 @@ public class FontManager extends Manager {
     static {
         MIN_FONT_SIZE = 10;
         MAX_FONT_SIZE = 50;
+        DEFAULT_FONT_SIZE = 24;
     }
 
     public FontManager(CodeGalaxy cg) {
@@ -30,7 +32,14 @@ public class FontManager extends Manager {
         fontPopUpManager = new FontPopUpManager(codeGalaxy);
         fontPopUpManager.init();
 
-        currentFontSize = UserPreferences.getInstance().getFontPreference();
+        String fontSizeStr = UserPreferences.getInstance().get("fontSize");
+        if (fontSizeStr == null) {
+            currentFontSize = 20;
+            UserPreferences.getInstance().set("fontSize", String.valueOf(currentFontSize));
+        } else {
+            currentFontSize = Integer.parseInt(fontSizeStr);
+        }
+
         updateUI();
         setupListener();
     }
