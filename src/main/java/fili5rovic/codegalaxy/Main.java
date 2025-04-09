@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
     @Override
-    public void start(Stage stage){
+    public void start(Stage stage) {
         Window.setWindowAt(Window.WINDOW_DASHBOARD, new DashboardWindow());
 
         Window.initAllWindows();

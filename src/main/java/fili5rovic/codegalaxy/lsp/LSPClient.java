@@ -1,21 +1,13 @@
 package fili5rovic.codegalaxy.lsp;
 
 import org.eclipse.lsp4j.*;
-import org.eclipse.lsp4j.jsonrpc.Launcher;
 import org.eclipse.lsp4j.jsonrpc.services.JsonNotification;
 import org.eclipse.lsp4j.services.LanguageClient;
-import org.eclipse.lsp4j.services.LanguageServer;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 
-public class LSPClient implements LanguageClient {
+class LSPClient implements LanguageClient {
     @Override
     public void telemetryEvent(Object object) {
     }
@@ -45,7 +37,6 @@ public class LSPClient implements LanguageClient {
     @JsonNotification("language/status")
     public void languageStatus(Object status) {
         try {
-            // Since status comes as a JSON object, we can use Gson or cast to Map
             if (status instanceof Map) {
                 @SuppressWarnings("unchecked")
                 Map<String, Object> statusMap = (Map<String, Object>) status;
@@ -53,7 +44,6 @@ public class LSPClient implements LanguageClient {
                 String type = statusMap.get("type") != null ? statusMap.get("type").toString() : "Unknown";
                 String message = statusMap.get("message") != null ? statusMap.get("message").toString() : "";
 
-                // Format the output as you prefer
                 System.out.println("[LSP-" + type + "]: " + message);
 
             }
