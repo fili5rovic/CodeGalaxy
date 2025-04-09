@@ -24,8 +24,6 @@ public class DashboardController extends ControllerBase {
     @FXML
     private TabPane tabPane;
 
-
-
     @FXML
     private BorderPane treeViewPane;
 

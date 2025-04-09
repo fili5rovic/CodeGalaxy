@@ -4,6 +4,8 @@ module fili5rovic.codegalaxy {
     requires org.fxmisc.richtext;
     requires org.fxmisc.flowless;
     requires com.github.javaparser.core;
+    requires org.eclipse.lsp4j;
+    requires org.eclipse.lsp4j.jsonrpc;
 
 
     opens fili5rovic.codegalaxy to javafx.fxml;
