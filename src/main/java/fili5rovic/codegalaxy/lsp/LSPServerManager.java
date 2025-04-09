@@ -18,20 +18,29 @@ public class LSPServerManager {
         );
 
         ProcessBuilder builder = new ProcessBuilder(command);
-        builder.redirectErrorStream(true);
+        builder.redirectErrorStream(false);
         process = builder.start();
 
         new Thread(() -> {
-            try (BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(process.getInputStream()))) {
+            try (BufferedReader err = new BufferedReader(
+                    new InputStreamReader(process.getErrorStream()))) {
                 String line;
-                while ((line = reader.readLine()) != null) {
-                    System.out.println("[LSP] " + line);
+                while ((line = err.readLine()) != null) {
+                    System.err.println("[LSP-ERR] " + line);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }).start();
+
+    }
+
+    public InputStream getInputStream() {
+        return process.getInputStream();
+    }
+
+    public OutputStream getOutputStream() {
+        return process.getOutputStream();
     }
 
     public void stopServer() {
