@@ -55,6 +55,10 @@ public class SVGHelper {
                 icon = "M6 2C5.45 2 5 2.45 5 3V21C5 21.55 5.45 22 6 22H18C18.55 22 19 21.55 19 21V8.83C19 8.3 18.79 7.79 18.41 7.41L13.59 2.59C13.21 2.21 12.7 2 12.17 2H6Z";
                 color = "#FFFFFF";
                 break;
+            case JAVA_CLASS:
+                icon = "M6 2L18 2L18 22L6 22Z M9 6H15V8H9V6Z M9 10H15V12H9V10Z";
+                color = "#007ACC";
+                break;
         }
         return new SVGIcon(icon, size, Color.web(color), opacity).getNode();
     }
