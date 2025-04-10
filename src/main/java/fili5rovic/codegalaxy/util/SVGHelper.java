@@ -11,8 +11,9 @@ public class SVGHelper {
 
         private final SVGPath path;
 
-        private SVGIcon(String svgContent, double size, Color color) {
+        private SVGIcon(String svgContent, double size, Color color, double opacity) {
             this.path = (SVGPath) loadSVG(svgContent, size);
+            this.path.setOpacity(opacity);
             if (color != null) {
                 this.path.setFill(color);
             }
@@ -42,7 +43,10 @@ public class SVGHelper {
     public static Node get(SVG svg, double size) {
         String icon = "";
         String color = "";
+        double opacity = 1.0;
         switch (svg) {
+            case FOLDER_EMPTY:
+                opacity = 0.5;
             case FOLDER:
                 icon = "M10 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V8C22 6.9 21.1 6 20 6H12L10 4Z";
                 color = "#FFA000";
@@ -52,6 +56,6 @@ public class SVGHelper {
                 color = "#FFFFFF";
                 break;
         }
-        return new SVGIcon(icon, size, Color.web(color)).getNode();
+        return new SVGIcon(icon, size, Color.web(color), opacity).getNode();
     }
 }
