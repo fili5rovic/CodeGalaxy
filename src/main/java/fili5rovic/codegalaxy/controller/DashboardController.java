@@ -86,7 +86,6 @@ public class DashboardController extends ControllerBase {
             dialog.setContentText("Project name:");
 
             dialog.showAndWait().ifPresent(ProjectManager::createProject);
-
         });
     }
 

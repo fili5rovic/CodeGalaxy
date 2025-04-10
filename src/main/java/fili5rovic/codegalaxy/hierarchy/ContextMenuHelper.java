@@ -93,6 +93,7 @@ public class ContextMenuHelper {
         }
         item.getChildren().add(new ProjectItem(path));
         filePane.setVisible(false);
+        item.refreshIcon();
     }
 
     private MenuItem createDeleteMenu(ArrayList<ProjectItem> items) {
@@ -101,6 +102,7 @@ public class ContextMenuHelper {
             items.forEach(item -> {
                 try {
                     FileHelper.deleteRecursively(item.getPath());
+                    ((ProjectItem) item.getParent()).refreshIcon();
                     item.getParent().getChildren().remove(item);
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
