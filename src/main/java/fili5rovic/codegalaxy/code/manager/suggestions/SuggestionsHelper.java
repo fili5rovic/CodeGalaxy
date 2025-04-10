@@ -1,8 +1,6 @@
 package fili5rovic.codegalaxy.code.manager.suggestions;
 
 import fili5rovic.codegalaxy.code.CodeGalaxy;
-import javafx.application.Platform;
-import javafx.geometry.Point2D;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.input.KeyEvent;
