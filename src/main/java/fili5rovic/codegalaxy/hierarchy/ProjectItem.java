@@ -26,6 +26,8 @@ public class ProjectItem extends TreeItem<Label> {
             else
                 svgIcon = SVG.FOLDER;
         }
+        else if (path.toString().endsWith(".java"))
+            svgIcon = SVG.JAVA_CLASS;
         label.setGraphic(SVGHelper.get(svgIcon, size));
         this.setValue(label);
     }
