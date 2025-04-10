@@ -6,6 +6,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
+import org.fxmisc.richtext.model.TwoDimensional;
 
 public class SuggestionsHelper {
 
@@ -31,6 +32,14 @@ public class SuggestionsHelper {
                         caretBounds.getMaxY()
                 );
             });
+        });
+
+        codeGalaxy.caretPositionProperty().addListener((obs, oldVal, newVal) -> {
+            int offset = codeGalaxy.getCaretPosition();
+            TwoDimensional.Position pos = codeGalaxy.offsetToPosition(offset, TwoDimensional.Bias.Forward);
+            int line = pos.getMajor();
+            int column = pos.getMinor();
+            System.out.println("Line: " + line + ", Column: " + column);
         });
 
         codeGalaxy.focusedProperty().addListener((obs, oldVal, newVal) -> {

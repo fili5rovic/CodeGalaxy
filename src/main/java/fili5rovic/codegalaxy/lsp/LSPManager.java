@@ -25,16 +25,13 @@ public class LSPManager {
             LSPManager manager = new LSPManager();
             manager.start();
 
-            manager.stop();
-
-//            System.out.println("Opening file...");
-//            manager.openFile("D:\\MY_WORKSPACE\\Test\\src\\Main.java");
-//            System.out.println("File opened successfully.");
-//            manager.requestCompletions(
-//                    "D:\\MY_WORKSPACE\\Test\\src\\Main.java",
-//                    4, 10
-//            );
-
+//            manager.openFile("D:\\MY_WORKSPACE\\Sex\\src\\Main.java");
+            System.out.println("Completing...");
+            manager.requestCompletions(
+                    "D:\\MY_WORKSPACE\\Sex\\src\\Main.java",
+                    4, 8
+            );
+//            manager.stop();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -64,7 +61,6 @@ public class LSPManager {
         String uri = Paths.get(workspace).toUri().toString();
         workspaceFolder.setUri(uri);
         workspaceFolder.setName(Paths.get(workspace).getFileName().toString());
-
         // Set workspace folders as a list with our workspace
         init.setWorkspaceFolders(Collections.singletonList(workspaceFolder));
 
@@ -105,7 +101,7 @@ public class LSPManager {
             System.out.printf("  %s → insert: '%s'%n",
                     item.getLabel(),
                     item.getInsertText() != null ? item.getInsertText() : item.getTextEdit() != null
-                            ? item.getTextEdit().get()
+                            ? item.getTextEdit().getLeft().getNewText()
                             : item.getLabel()
             );
         }
