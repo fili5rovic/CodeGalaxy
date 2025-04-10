@@ -30,7 +30,6 @@ public class ProjectHierarchy extends TreeView<Label> {
         this.contextMenuHelper = new ContextMenuHelper();
         getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         loadHierarchy();
-
         setupContextMenu();
     }
 

@@ -15,65 +15,66 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="stackPane" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fili5rovic.codegalaxy.controller.DashboardController">
-    <children>
-        <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="733.0" prefWidth="1075.0">
-            <center>
-                <SplitPane dividerPositions="0.7920656634746922" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
-                    <items>
-                        <BorderPane>
-                            <center>
-                                <SplitPane dividerPositions="0.19047619047619047, 0.9971988795518207" prefHeight="556.0" prefWidth="861.0" BorderPane.alignment="CENTER">
-                                    <items>
-                                        <BorderPane fx:id="treeViewPane" />
+
+<BorderPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fili5rovic.codegalaxy.controller.DashboardController">
+   <top>
+          <BorderPane prefHeight="20.0" prefWidth="1075.0" BorderPane.alignment="CENTER">
+              <center>
+                  <MenuBar BorderPane.alignment="CENTER">
+                      <menus>
+                          <Menu mnemonicParsing="false" text="File">
+                              <items>
+                                  <MenuItem fx:id="open" mnemonicParsing="false" text="Open project folder" />
+                        <MenuItem fx:id="newProject" mnemonicParsing="false" text="New Project" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                                  <MenuItem fx:id="saveAll" accelerator="Ctrl+S" mnemonicParsing="false" text="Save all" />
+                              </items>
+                          </Menu>
+                          <Menu mnemonicParsing="false" text="Edit">
+                              <items>
+                                  <MenuItem mnemonicParsing="false" text="Delete" />
+                              </items>
+                          </Menu>
+                      </menus>
+                  </MenuBar>
+              </center>
+          </BorderPane>
+   </top>
+   <center>
+          <SplitPane dividerPositions="0.7920656634746922" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+              <items>
+                  <BorderPane>
+                      <center>
+                          <SplitPane dividerPositions="0.19047619047619047, 0.9971988795518207" prefHeight="556.0" prefWidth="861.0" BorderPane.alignment="CENTER">
+                              <items>
+                                  <BorderPane fx:id="treeViewPane" />
+                        <StackPane>
+                           <children>
                                         <TabPane fx:id="tabPane" />
-                                        <AnchorPane layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="554.0" prefWidth="0.0" />
-                                    </items>
-                                </SplitPane>
-                            </center>
-                        </BorderPane>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
-                    </items>
-                </SplitPane>
-            </center>
-            <top>
-                <BorderPane prefHeight="20.0" prefWidth="1075.0" BorderPane.alignment="CENTER">
-                    <center>
-                        <MenuBar BorderPane.alignment="CENTER">
-                            <menus>
-                                <Menu mnemonicParsing="false" text="File">
-                                    <items>
-                                        <MenuItem fx:id="open" mnemonicParsing="false" text="Open project folder" />
-                              <MenuItem fx:id="newProject" mnemonicParsing="false" text="New Project" />
-                              <SeparatorMenuItem mnemonicParsing="false" />
-                                        <MenuItem fx:id="saveAll" accelerator="Ctrl+S" mnemonicParsing="false" text="Save all" />
-                                    </items>
-                                </Menu>
-                                <Menu mnemonicParsing="false" text="Edit">
-                                    <items>
-                                        <MenuItem mnemonicParsing="false" text="Delete" />
-                                    </items>
-                                </Menu>
-                            </menus>
-                        </MenuBar>
-                    </center>
-                </BorderPane>
-            </top>
-        </BorderPane>
-        <Pane fx:id="filePane" prefHeight="505.0" prefWidth="851.0" visible="false">
-            <children>
-                <Pane layoutX="438.0" layoutY="300.0" prefHeight="93.0" prefWidth="200.0">
-                    <children>
-                        <Label fx:id="fileNameLabel" layoutX="79.0" layoutY="1.0" text="Label">
-                            <font>
-                                <Font size="18.0" />
-                            </font>
-                        </Label>
-                        <TextField fx:id="fileNameTextField" layoutX="26.0" layoutY="28.0" />
-                        <VBox layoutX="23.0" layoutY="53.0" prefHeight="36.0" prefWidth="149.0" />
-                    </children>
-                </Pane>
-            </children>
-        </Pane>
-    </children>
-</StackPane>
+                                <Pane fx:id="filePane" prefHeight="505.0" prefWidth="851.0" visible="false">
+                                    <children>
+                                        <Pane layoutX="231.0" layoutY="227.0" prefHeight="93.0" prefWidth="200.0">
+                                            <children>
+                                                <Label fx:id="fileNameLabel" layoutX="79.0" layoutY="1.0" text="Label">
+                                                    <font>
+                                                        <Font size="18.0" />
+                                                    </font>
+                                                </Label>
+                                                <TextField fx:id="fileNameTextField" layoutX="26.0" layoutY="28.0" />
+                                                <VBox layoutX="23.0" layoutY="53.0" prefHeight="36.0" prefWidth="149.0" />
+                                            </children>
+                                        </Pane>
+                                    </children>
+                                </Pane>
+                           </children>
+                        </StackPane>
+                                  <AnchorPane layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="554.0" prefWidth="0.0" />
+                              </items>
+                          </SplitPane>
+                      </center>
+                  </BorderPane>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+              </items>
+          </SplitPane>
+   </center>
+</BorderPane>

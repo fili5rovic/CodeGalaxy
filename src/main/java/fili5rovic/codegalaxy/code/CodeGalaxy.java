@@ -5,16 +5,15 @@ import fili5rovic.codegalaxy.code.manager.font.FontManager;
 import fili5rovic.codegalaxy.code.manager.Manager;
 import fili5rovic.codegalaxy.code.manager.editing.LineEditing;
 import fili5rovic.codegalaxy.code.manager.highlighting.Highlighter;
+import fili5rovic.codegalaxy.code.manager.suggestions.SuggestionsHelper;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import org.fxmisc.flowless.VirtualizedScrollPane;
 import org.fxmisc.richtext.CodeArea;
 import org.fxmisc.richtext.LineNumberFactory;
 
-import java.io.File;
 import java.nio.file.Path;
 import java.util.ArrayList;
-
 
 public class CodeGalaxy extends CodeArea {
     private final ArrayList<Manager> managers = new ArrayList<>();
@@ -26,6 +25,7 @@ public class CodeGalaxy extends CodeArea {
         addManagers();
         initManagers();
         Highlighter.init(this);
+        SuggestionsHelper.suggestion(this);
     }
 
     public void setFile(Path path) {
