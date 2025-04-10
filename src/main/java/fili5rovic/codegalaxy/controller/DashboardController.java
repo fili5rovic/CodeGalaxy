@@ -1,7 +1,6 @@
 package fili5rovic.codegalaxy.controller;
 
 import fili5rovic.codegalaxy.code.CodeGalaxy;
-import fili5rovic.codegalaxy.code.manager.suggestions.SuggestionsHelper;
 import fili5rovic.codegalaxy.preferences.UserPreferences;
 import fili5rovic.codegalaxy.project.ProjectManager;
 import fili5rovic.codegalaxy.util.FileHelper;
@@ -10,8 +9,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.WindowEvent;
 import java.io.File;
 import java.net.URL;
