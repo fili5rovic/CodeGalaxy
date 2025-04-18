@@ -1,6 +1,7 @@
 package fili5rovic.codegalaxy.controller;
 
 import fili5rovic.codegalaxy.code.CodeGalaxy;
+import fili5rovic.codegalaxy.lsp.LSPManager;
 import fili5rovic.codegalaxy.preferences.UserPreferences;
 import fili5rovic.codegalaxy.project.ProjectManager;
 import fili5rovic.codegalaxy.util.FileHelper;
@@ -45,6 +46,12 @@ public class DashboardController extends ControllerBase {
         Window.getWindowAt(Window.WINDOW_DASHBOARD).setController(this);
         tryToOpenLastProject();
         menuItemListeners();
+
+        try {
+            LSPManager.getInstance().start();
+        } catch (Exception e) {
+            System.out.println("Failed to start LSP server: " + e.getMessage());
+        }
     }
 
     private void tryToOpenLastProject() {

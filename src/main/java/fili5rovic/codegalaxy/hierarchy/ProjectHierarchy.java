@@ -1,6 +1,7 @@
 package fili5rovic.codegalaxy.hierarchy;
 
 import fili5rovic.codegalaxy.controller.DashboardController;
+import fili5rovic.codegalaxy.lsp.LSPManager;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
@@ -40,12 +41,16 @@ public class ProjectHierarchy extends TreeView<Label> {
 
     private void handleMouseClick(MouseEvent e) {
         contextMenu.hide();
-
         if(e.getButton() == MouseButton.PRIMARY && e.getClickCount() == 2) {
             ProjectItem item = (ProjectItem) this.getSelectionModel().getSelectedItem();
             if(item == null || Files.isDirectory(item.getPath()))
                 return;
             controller.createTab(item.getPath());
+            try {
+                LSPManager.getInstance().openFile(item.getPath().toString());
+            } catch (Exception ex) {
+                System.out.println("Failed to open file: " + ex.getMessage());
+            }
         }
     }
 

@@ -16,12 +16,12 @@ class LSPClient implements LanguageClient {
     public void publishDiagnostics(PublishDiagnosticsParams diagnostics) {
         System.out.println("Received diagnostics:");
         diagnostics.getDiagnostics().forEach(d ->
-                System.out.println(" - " + d.getMessage()));
+                System.out.println("\t[" + d.getSeverity() + "] : " + d.getMessage()));
     }
 
     @Override
     public void showMessage(MessageParams messageParams) {
-        System.out.println("Server message: " + messageParams.getMessage());
+        System.out.println("[SERVER-MESSAGE]: " + messageParams.getMessage());
     }
 
     @Override
