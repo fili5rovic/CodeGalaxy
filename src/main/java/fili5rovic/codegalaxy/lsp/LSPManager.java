@@ -22,6 +22,8 @@ public class LSPManager {
     private LanguageServer server;
     private Future<Void> listenFuture;
 
+    private final Debouncer debouncer = new Debouncer();
+
     private final Map<String, Integer> documentVersions = new HashMap<>();
     private final Map<String, String> documentContents = new HashMap<>();
 
@@ -101,6 +103,7 @@ public class LSPManager {
 
         server.getTextDocumentService().didChange(changeParams);
         documentContents.put(uri, newText);
+        System.out.println("Sent change to " + uri);
     }
 
     public void requestCompletions(String filePath, int line, int character) throws Exception {
@@ -153,8 +156,13 @@ public class LSPManager {
         if (listenFuture != null) {
             listenFuture.cancel(true);
         }
+        debouncer.shutdown();
         server = null;
         System.out.println("Server stopped.");
+    }
+
+    public Debouncer getDebouncer() {
+        return debouncer;
     }
 
     public static void main(String[] args) {

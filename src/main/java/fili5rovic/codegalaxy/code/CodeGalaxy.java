@@ -40,7 +40,7 @@ public class CodeGalaxy extends CodeArea {
     }
 
     public void save() {
-        if(fileManager != null)
+        if (fileManager != null)
             fileManager.save();
     }
 
@@ -56,7 +56,7 @@ public class CodeGalaxy extends CodeArea {
     }
 
     private void initManagers() {
-        for(Manager m : managers)
+        for (Manager m : managers)
             m.init();
     }
 
@@ -67,11 +67,16 @@ public class CodeGalaxy extends CodeArea {
     }
 
     private void onTextChanged() {
-        try {
-            LSPManager.getInstance().sendChange(getFilePath().toString(), getText());
-        } catch (Exception e) {
-            System.out.println("Failed to send change: " + e.getMessage());
-        }
+        LSPManager.getInstance().getDebouncer().debounce(() -> {
+            try {
+                LSPManager.getInstance().sendChange(
+                        fileManager.getPath().toString(),
+                        getText()
+                );
+            } catch (Exception e) {
+                System.out.println("Failed to send change: " + e.getMessage());
+            }
+        }, 400);
     }
 
     @Override
@@ -82,12 +87,13 @@ public class CodeGalaxy extends CodeArea {
     public boolean hasSelection() {
         return !this.getSelectedText().isEmpty();
     }
+
     public int getParagraphsCount() {
         return ((ObservableList<?>) this.getParagraphs()).size();
     }
 
     public Path getFilePath() {
-        if(fileManager != null)
+        if (fileManager != null)
             return fileManager.getPath();
         return null;
     }

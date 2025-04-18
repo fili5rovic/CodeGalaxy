@@ -40,15 +40,13 @@ public class SuggestionsHelper {
 
 
     public static void suggestion(CodeGalaxy codeGalaxy) {
-
-
         codeGalaxy.caretPositionProperty().addListener((obs, oldVal, newVal) -> {
             int offset = codeGalaxy.getCaretPosition();
             TwoDimensional.Position pos = codeGalaxy.offsetToPosition(offset, TwoDimensional.Bias.Forward);
             line = pos.getMajor();
             column = Math.max(pos.getMinor() - 1, 0);
             System.out.println("Line: " + line + ", Column: " + column);
-
+            currentPopup.hide();
         });
 
         codeGalaxy.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
