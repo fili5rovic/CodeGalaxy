@@ -1,6 +1,7 @@
 package fili5rovic.codegalaxy.code.manager.suggestions;
 
 import fili5rovic.codegalaxy.code.CodeGalaxy;
+import fili5rovic.codegalaxy.lsp.Debouncer;
 import fili5rovic.codegalaxy.lsp.LSPManager;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -8,7 +9,10 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
+import org.eclipse.lsp4j.CompletionItem;
 import org.fxmisc.richtext.model.TwoDimensional;
+
+import java.util.List;
 
 public class SuggestionsHelper {
 
@@ -54,7 +58,16 @@ public class SuggestionsHelper {
                 showPopup(codeGalaxy);
 
                 try {
-                    LSPManager.getInstance().requestCompletions(codeGalaxy.getFilePath().toString(), line, column);
+                    Debouncer debouncer = LSPManager.getInstance().getDebouncer();
+                    if (debouncer.isDebouncing()) {
+                        debouncer.cancel();
+                        LSPManager.getInstance().sendChange(
+                                codeGalaxy.getFilePath().toString(),
+                                codeGalaxy.getText()
+                        );
+                    }
+
+                    List<CompletionItem> items = LSPManager.getInstance().requestCompletions(codeGalaxy.getFilePath().toString(), line, column);
                 } catch (Exception e) {
                     System.out.println("Failed to request completions: " + e.getMessage());
                 }

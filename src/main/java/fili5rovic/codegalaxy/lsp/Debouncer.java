@@ -13,6 +13,16 @@ public class Debouncer {
         future = scheduler.schedule(action, delayMs, TimeUnit.MILLISECONDS);
     }
 
+    public boolean isDebouncing() {
+        return future != null && !future.isDone();
+    }
+
+    public void cancel() {
+        if (future != null) {
+            future.cancel(false);
+        }
+    }
+
     public void shutdown() {
         scheduler.shutdown();
     }
