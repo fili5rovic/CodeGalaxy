@@ -23,6 +23,7 @@ public class LSPManager {
     private Future<Void> listenFuture;
 
     private final Map<String, Integer> documentVersions = new HashMap<>();
+    private final Map<String, String> documentContents = new HashMap<>();
 
     private static final LSPManager instance = new LSPManager();
 
@@ -75,6 +76,7 @@ public class LSPManager {
         TextDocumentItem item = new TextDocumentItem(uri, "java", 1, text);
         server.getTextDocumentService().didOpen(new DidOpenTextDocumentParams(item));
         documentVersions.put(uri, 1);
+        documentContents.put(uri, text);
     }
 
     public void sendChange(String filePath, String newText) throws Exception {
@@ -90,7 +92,6 @@ public class LSPManager {
 
         VersionedTextDocumentIdentifier docId = new VersionedTextDocumentIdentifier(uri, newVersion);
 
-        // Full document change (you could adapt this for incremental edits too)
         TextDocumentContentChangeEvent changeEvent = new TextDocumentContentChangeEvent(newText);
 
         DidChangeTextDocumentParams changeParams = new DidChangeTextDocumentParams(
@@ -99,12 +100,16 @@ public class LSPManager {
         );
 
         server.getTextDocumentService().didChange(changeParams);
+        documentContents.put(uri, newText);
     }
 
     public void requestCompletions(String filePath, int line, int character) throws Exception {
         String uri = Paths.get(filePath).toUri().toString();
 
-        String text = Files.readString(Paths.get(filePath));
+        String text = documentContents.get(uri);
+        if (text == null) {
+            throw new IllegalStateException("No content found for " + uri + ". Did you open the file?");
+        }
         String[] lines = text.split("\n");
         String lineText = lines[line];
         System.out.println("Line " + line + ": " + lineText + " (length: " + lineText.length() + ")");

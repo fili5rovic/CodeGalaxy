@@ -19,6 +19,7 @@ class LSPClient implements LanguageClient {
                 System.out.println("\t[" + d.getSeverity() + "] : " + d.getMessage()));
     }
 
+
     @Override
     public void showMessage(MessageParams messageParams) {
         System.out.println("[SERVER-MESSAGE]: " + messageParams.getMessage());
