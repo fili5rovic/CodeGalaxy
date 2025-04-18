@@ -5,7 +5,7 @@ import fili5rovic.codegalaxy.code.manager.font.FontManager;
 import fili5rovic.codegalaxy.code.manager.Manager;
 import fili5rovic.codegalaxy.code.manager.editing.LineEditing;
 import fili5rovic.codegalaxy.code.manager.highlighting.Highlighter;
-import fili5rovic.codegalaxy.code.manager.suggestions.SuggestionsHelper;
+import fili5rovic.codegalaxy.code.manager.suggestions.SuggestionManager;
 import fili5rovic.codegalaxy.lsp.LSPManager;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -26,13 +26,12 @@ public class CodeGalaxy extends CodeArea {
         addManagers();
         initManagers();
         Highlighter.init(this);
-        SuggestionsHelper.suggestion(this);
+
     }
 
     public void setFile(Path path) {
         fileManager = new FileManager(this, path);
         fileManager.init();
-
     }
 
     public void save() {
@@ -48,7 +47,7 @@ public class CodeGalaxy extends CodeArea {
     private void addManagers() {
         managers.add(new FontManager(this));
         managers.add(new LineEditing(this));
-
+        managers.add(new SuggestionManager(this));
     }
 
     private void initManagers() {
