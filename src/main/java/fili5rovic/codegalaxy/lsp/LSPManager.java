@@ -68,7 +68,7 @@ public class LSPManager {
         server.initialize(init).get();
         server.initialized(new InitializedParams());
 
-        Runtime.getRuntime().addShutdownHook(new Thread(this::stop));
+//        Runtime.getRuntime().addShutdownHook(new Thread(this::stop));
     }
 
     public void openFile(String filePath) throws Exception {
@@ -81,11 +81,22 @@ public class LSPManager {
         documentContents.put(uri, text);
     }
 
-    public void sendChange(String filePath, String newText) throws Exception {
+    public void closeFile(String filePath) {
+        String uri = Paths.get(filePath).toUri().toString();
+        if (!documentVersions.containsKey(uri)) {
+            System.out.println("File not opened: " + uri);
+            return;
+        }
+        server.getTextDocumentService().didClose(new DidCloseTextDocumentParams(new TextDocumentIdentifier(uri)));
+        documentVersions.remove(uri);
+        documentContents.remove(uri);
+    }
+
+    public void sendChange(String filePath, String newText) throws IllegalStateException  {
         String uri = Paths.get(filePath).toUri().toString();
 
         if (!documentVersions.containsKey(uri)) {
-            throw new IllegalStateException("File must be opened before sending changes.");
+            throw new IllegalStateException("File must be opened first: " + uri);
         }
 
         // Increment document version
@@ -106,7 +117,7 @@ public class LSPManager {
         System.out.println("Sent change to " + uri);
     }
 
-    public void requestCompletions(String filePath, int line, int character) throws Exception {
+    public List<CompletionItem> requestCompletions(String filePath, int line, int character) throws Exception {
         String uri = Paths.get(filePath).toUri().toString();
 
         String text = documentContents.get(uri);
@@ -117,8 +128,6 @@ public class LSPManager {
         String lineText = lines[line];
         System.out.println("Line " + line + ": " + lineText + " (length: " + lineText.length() + ")");
         System.out.println("Character " + character + ": " + lineText.charAt(character));
-
-
 
         TextDocumentIdentifier docId = new TextDocumentIdentifier(uri);
         Position pos = new Position(line, character);
@@ -136,9 +145,11 @@ public class LSPManager {
         for (CompletionItem item : items) {
             System.out.printf("  %s → insert: '%s'%n",
                     item.getLabel(),
-                    item.getInsertText() != null ? item.getInsertText() : item.getLabel()
+                    item.getInsertText()
             );
         }
+
+        return items;
     }
 
     public void stop() {

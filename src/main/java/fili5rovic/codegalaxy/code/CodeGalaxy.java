@@ -32,11 +32,7 @@ public class CodeGalaxy extends CodeArea {
     public void setFile(Path path) {
         fileManager = new FileManager(this, path);
         fileManager.init();
-        try {
-            LSPManager.getInstance().openFile(path.toString());
-        } catch (Exception e) {
-            System.out.println("Failed to open file: " + e.getMessage());
-        }
+
     }
 
     public void save() {
@@ -68,14 +64,11 @@ public class CodeGalaxy extends CodeArea {
 
     private void onTextChanged() {
         LSPManager.getInstance().getDebouncer().debounce(() -> {
-            try {
-                LSPManager.getInstance().sendChange(
-                        fileManager.getPath().toString(),
-                        getText()
-                );
-            } catch (Exception e) {
-                System.out.println("Failed to send change: " + e.getMessage());
-            }
+            LSPManager.getInstance().sendChange(
+                    fileManager.getPath().toString(),
+                    getText()
+            );
+
         }, 400);
     }
 

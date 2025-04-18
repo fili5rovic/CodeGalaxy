@@ -78,8 +78,15 @@ public class DashboardController extends ControllerBase {
 
         CodeGalaxy codeGalaxy = new CodeGalaxy();
         codeGalaxy.setFile(filePath);
+        try {
+            LSPManager.getInstance().openFile(codeGalaxy.getFilePath().toString());
+        } catch (Exception e) {
+            System.out.println("Failed to open file: " + e.getMessage());
+        }
 
-        tabPane.getTabs().add(new Tab(fileName, codeGalaxy));
+        Tab tab = new Tab(fileName, codeGalaxy);
+        tab.setOnClosed(_ -> LSPManager.getInstance().closeFile(filePath.toString()));
+        tabPane.getTabs().add(tab);
         tabPane.getSelectionModel().selectLast();
     }
 
@@ -112,6 +119,7 @@ public class DashboardController extends ControllerBase {
 
     public void onAppClose(WindowEvent actionEvent) {
         System.out.println("App closed");
+        LSPManager.getInstance().stop();
     }
 
     //<editor-fold desc="Getters">
