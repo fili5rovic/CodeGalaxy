@@ -24,6 +24,10 @@ public class FileManager extends Manager {
         FileHelper.writeToFile(path.toString(), codeGalaxy.getText());
     }
 
+    public Path getPath() {
+        return path;
+    }
+
 
 
 }

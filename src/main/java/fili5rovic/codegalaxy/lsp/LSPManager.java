@@ -10,7 +10,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 
@@ -20,21 +22,13 @@ public class LSPManager {
     private LanguageServer server;
     private Future<Void> listenFuture;
 
-    public static void main(String[] args) {
-        try {
-            LSPManager manager = new LSPManager();
-            manager.start();
+    private final Map<String, Integer> documentVersions = new HashMap<>();
 
-//            manager.openFile("D:\\MY_WORKSPACE\\Sex\\src\\Main.java");
-            System.out.println("Completing...");
-            manager.requestCompletions(
-                    "D:\\MY_WORKSPACE\\Sex\\src\\Main.java",
-                    4, 8
-            );
-//            manager.stop();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    private static final LSPManager instance = new LSPManager();
+
+
+    public static LSPManager getInstance() {
+        return instance;
     }
 
     public void start() throws Exception {
@@ -80,10 +74,44 @@ public class LSPManager {
         String uri = file.toUri().toString();
         TextDocumentItem item = new TextDocumentItem(uri, "java", 1, text);
         server.getTextDocumentService().didOpen(new DidOpenTextDocumentParams(item));
+        documentVersions.put(uri, 1);
+    }
+
+    public void sendChange(String filePath, String newText) throws Exception {
+        String uri = Paths.get(filePath).toUri().toString();
+
+        if (!documentVersions.containsKey(uri)) {
+            throw new IllegalStateException("File must be opened before sending changes.");
+        }
+
+        // Increment document version
+        int newVersion = documentVersions.get(uri) + 1;
+        documentVersions.put(uri, newVersion);
+
+        VersionedTextDocumentIdentifier docId = new VersionedTextDocumentIdentifier(uri, newVersion);
+
+        // Full document change (you could adapt this for incremental edits too)
+        TextDocumentContentChangeEvent changeEvent = new TextDocumentContentChangeEvent(newText);
+
+        DidChangeTextDocumentParams changeParams = new DidChangeTextDocumentParams(
+                docId,
+                Collections.singletonList(changeEvent)
+        );
+
+        server.getTextDocumentService().didChange(changeParams);
     }
 
     public void requestCompletions(String filePath, int line, int character) throws Exception {
         String uri = Paths.get(filePath).toUri().toString();
+
+        String text = Files.readString(Paths.get(filePath));
+        String[] lines = text.split("\n");
+        String lineText = lines[line];
+        System.out.println("Line " + line + ": " + lineText + " (length: " + lineText.length() + ")");
+        System.out.println("Character " + character + ": " + lineText.charAt(character));
+
+
+
         TextDocumentIdentifier docId = new TextDocumentIdentifier(uri);
         Position pos = new Position(line, character);
         CompletionParams params = new CompletionParams(docId, pos);
@@ -100,9 +128,7 @@ public class LSPManager {
         for (CompletionItem item : items) {
             System.out.printf("  %s → insert: '%s'%n",
                     item.getLabel(),
-                    item.getInsertText() != null ? item.getInsertText() : item.getTextEdit() != null
-                            ? item.getTextEdit().getLeft().getNewText()
-                            : item.getLabel()
+                    item.getInsertText() != null ? item.getInsertText() : item.getLabel()
             );
         }
     }
@@ -124,5 +150,18 @@ public class LSPManager {
         }
         server = null;
         System.out.println("Server stopped.");
+    }
+
+    public static void main(String[] args) {
+        try {
+            LSPManager manager = new LSPManager();
+            manager.start();
+            String filePath = "D:\\MY_WORKSPACE\\Sex\\src\\Main.java";
+
+            manager.openFile(filePath);
+            manager.requestCompletions(filePath, 3, 15);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
