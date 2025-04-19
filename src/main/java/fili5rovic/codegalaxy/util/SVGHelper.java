@@ -1,9 +1,20 @@
 package fili5rovic.codegalaxy.util;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
 import org.eclipse.lsp4j.CompletionItemKind;
+
+import com.kitfox.svg.SVGDiagram;
+import com.kitfox.svg.SVGUniverse;
+
+import javafx.scene.image.ImageView;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.net.URI;
 
 
 public class SVGHelper {
@@ -84,5 +95,26 @@ public class SVGHelper {
 
         }
         return new SVGIcon(icon, size, Color.web(color), opacity).getNode();
+    }
+
+    public ImageView loadSVGWithSalamander(File svgFile, double width, double height) {
+        try {
+            SVGUniverse universe = new SVGUniverse();
+            URI uri = universe.loadSVG(svgFile.toURI().toURL());
+            SVGDiagram diagram = universe.getDiagram(uri);
+
+            BufferedImage bufferedImage = new BufferedImage((int)width, (int)height, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2d = bufferedImage.createGraphics();
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+            diagram.setIgnoringClipHeuristic(true);
+            diagram.render(g2d);
+            g2d.dispose();
+
+            return new ImageView(SwingFXUtils.toFXImage(bufferedImage, null));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
