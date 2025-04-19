@@ -2,6 +2,7 @@ package fili5rovic.codegalaxy.hierarchy;
 
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.lsp.LSPManager;
+import fili5rovic.codegalaxy.preferences.UserPreferences;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
@@ -14,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class ProjectHierarchy extends TreeView<Label> {
@@ -32,7 +34,27 @@ public class ProjectHierarchy extends TreeView<Label> {
         getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         loadHierarchy();
         setupContextMenu();
+        openPreviouslyExpanded();
     }
+
+    private void openPreviouslyExpanded() {
+        List<String> expandedPaths = UserPreferences.getInstance().getMultiple("expanded");
+        if (getRoot() != null)
+            restoreExpandedState((ProjectItem) getRoot(), expandedPaths);
+    }
+
+    private void restoreExpandedState(ProjectItem item, List<String> expandedPaths) {
+        if (expandedPaths.contains(item.getPath().toString())) {
+            item.setExpanded(true);
+        }
+
+        for (TreeItem<Label> child : item.getChildren()) {
+            restoreExpandedState((ProjectItem) child, expandedPaths);
+        }
+    }
+
+
+
 
     private void setupContextMenu() {
         setOnContextMenuRequested(this::contextMenuPopUp);
@@ -41,9 +63,9 @@ public class ProjectHierarchy extends TreeView<Label> {
 
     private void handleMouseClick(MouseEvent e) {
         contextMenu.hide();
-        if(e.getButton() == MouseButton.PRIMARY && e.getClickCount() == 2) {
+        if (e.getButton() == MouseButton.PRIMARY && e.getClickCount() == 2) {
             ProjectItem item = (ProjectItem) this.getSelectionModel().getSelectedItem();
-            if(item == null || Files.isDirectory(item.getPath()))
+            if (item == null || Files.isDirectory(item.getPath()))
                 return;
             controller.createTab(item.getPath());
             try {
@@ -59,7 +81,7 @@ public class ProjectHierarchy extends TreeView<Label> {
 
         ObservableList<TreeItem<Label>> selectedItems = this.getSelectionModel().getSelectedItems();
         ArrayList<ProjectItem> items = selectedItems.stream().map(item -> (ProjectItem) item).collect(Collectors.toCollection(ArrayList::new));
-        if(items.isEmpty())
+        if (items.isEmpty())
             return;
 
         contextMenu.getItems().addAll(contextMenuHelper.createMenuItems(items));

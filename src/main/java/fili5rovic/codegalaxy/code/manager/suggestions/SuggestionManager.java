@@ -1,21 +1,15 @@
 package fili5rovic.codegalaxy.code.manager.suggestions;
 
-import fili5rovic.codegalaxy.Main;
 import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.code.manager.Manager;
 import fili5rovic.codegalaxy.lsp.Debouncer;
 import fili5rovic.codegalaxy.lsp.LSPManager;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
 import org.eclipse.lsp4j.CompletionItem;
 import org.fxmisc.richtext.model.TwoDimensional;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class SuggestionManager extends Manager {
@@ -36,7 +30,7 @@ public class SuggestionManager extends Manager {
 
     @Override
     public void init() {
-        codeGalaxy.caretPositionProperty().addListener((obs, oldVal, newVal) -> {
+        codeGalaxy.caretPositionProperty().addListener((_, _, _) -> {
             int offset = codeGalaxy.getCaretPosition();
             TwoDimensional.Position pos = codeGalaxy.offsetToPosition(offset, TwoDimensional.Bias.Forward);
             line = pos.getMajor();

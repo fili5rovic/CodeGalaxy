@@ -1,5 +1,6 @@
 package fili5rovic.codegalaxy.hierarchy;
 
+import fili5rovic.codegalaxy.preferences.UserPreferences;
 import fili5rovic.codegalaxy.util.SVG;
 import fili5rovic.codegalaxy.util.SVGHelper;
 import javafx.scene.control.Label;
@@ -14,7 +15,16 @@ public class ProjectItem extends TreeItem<Label> {
     public ProjectItem(Path path) {
         this.path = path;
         refreshIcon();
+
+        expandedProperty().addListener((_, _, isExpanded) -> {
+            if (isExpanded)
+                UserPreferences.getInstance().addTo("expanded", path.toString());
+            else
+                UserPreferences.getInstance().removeFrom("expanded", path.toString());
+        });
     }
+
+
 
     public void refreshIcon() {
         Label label = new Label(path.getFileName().toString());

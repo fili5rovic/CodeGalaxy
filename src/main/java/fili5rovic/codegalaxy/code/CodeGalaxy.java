@@ -61,13 +61,10 @@ public class CodeGalaxy extends CodeArea {
     }
 
     private void onTextChanged() {
-        LSPManager.getInstance().getDebouncer().debounce(() -> {
-            LSPManager.getInstance().sendChange(
-                    fileManager.getPath().toString(),
-                    getText()
-            );
-
-        }, 400);
+        LSPManager.getInstance().getDebouncer().debounce(
+                () ->
+                LSPManager.getInstance().
+                        sendChange(fileManager.getPath().toString(), getText()), 400);
     }
 
     @Override

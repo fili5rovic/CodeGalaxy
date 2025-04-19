@@ -68,7 +68,7 @@ public class LSPManager {
         server.initialize(init).get();
         server.initialized(new InitializedParams());
 
-//        Runtime.getRuntime().addShutdownHook(new Thread(this::stop));
+        Runtime.getRuntime().addShutdownHook(new Thread(this::stop));
     }
 
     public void openFile(String filePath) throws Exception {
@@ -158,22 +158,23 @@ public class LSPManager {
 
     public void stop() {
         if (server == null) {
-            System.out.println("Server is already stopped.");
+            System.out.println("Server already stopped.");
             return;
         }
         try {
             server.shutdown().get();
             server.exit();
+
+            serverManager.stopServer();
+            if (listenFuture != null) {
+                listenFuture.cancel(true);
+            }
+            debouncer.shutdown();
+            server = null;
+            System.out.println("Server stopped.");
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Error stopping server: " + e.getMessage());
         }
-        serverManager.stopServer();
-        if (listenFuture != null) {
-            listenFuture.cancel(true);
-        }
-        debouncer.shutdown();
-        server = null;
-        System.out.println("Server stopped.");
     }
 
     public Debouncer getDebouncer() {

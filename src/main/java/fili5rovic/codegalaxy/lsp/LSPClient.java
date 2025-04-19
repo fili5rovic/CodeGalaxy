@@ -14,7 +14,7 @@ class LSPClient implements LanguageClient {
 
     @Override
     public void publishDiagnostics(PublishDiagnosticsParams diagnostics) {
-        System.out.println("[DIAGNOSTICS] : " + diagnostics.getUri().split("///")[1] + ":");
+        System.out.println("Diagnostics : " + diagnostics.getUri().split("///")[1] + ":");
         diagnostics.getDiagnostics().forEach(d ->
                 System.out.println("\t[" + d.getSeverity() + "] : " + d.getMessage()));
     }
