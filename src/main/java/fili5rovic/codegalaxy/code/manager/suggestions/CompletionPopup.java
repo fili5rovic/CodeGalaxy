@@ -1,7 +1,6 @@
 package fili5rovic.codegalaxy.code.manager.suggestions;
 
-import fili5rovic.codegalaxy.util.SVG;
-import fili5rovic.codegalaxy.util.SVGHelper;
+import fili5rovic.codegalaxy.util.SVGUtil;
 import javafx.collections.FXCollections;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -46,7 +45,11 @@ public class CompletionPopup extends Popup {
                         return;
                     }
                     setText(item.getLabel());
-                    setGraphic(SVGHelper.getForKind(item.getKind(), 20));
+                    String svgName = item.getKind().toString().toLowerCase();
+                    if (svgName.equals("keyword")) {
+                        svgName = "tip";
+                    }
+                    setGraphic(SVGUtil.getCompletionIcon(svgName, 16, 16));
                 }
             };
             cell.getStyleClass().add("completion-list-cell");
