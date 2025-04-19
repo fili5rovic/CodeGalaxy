@@ -24,7 +24,7 @@ public class CompletionPopup extends Popup {
         listView.setPrefHeight(200);
         listView.setPrefWidth(300);
 
-        listView.setCellFactory(lv -> {
+        listView.setCellFactory(_ -> {
             ListCell<CompletionItem> cell = new ListCell<>() {
                 @Override
                 protected void updateItem(CompletionItem item, boolean empty) {
