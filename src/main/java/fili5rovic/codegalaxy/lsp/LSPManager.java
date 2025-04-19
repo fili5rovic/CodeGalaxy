@@ -127,7 +127,11 @@ public class LSPManager {
         String[] lines = text.split("\n");
         String lineText = lines[line];
         System.out.println("Line " + line + ": " + lineText + " (length: " + lineText.length() + ")");
-        System.out.println("Character " + character + ": " + lineText.charAt(character));
+        if (character < lineText.length()) {
+            System.out.println("Character " + character + ": " + lineText.charAt(character));
+        } else {
+            System.out.println("At end of line " + line + ", position " + character);
+        }
 
         TextDocumentIdentifier docId = new TextDocumentIdentifier(uri);
         Position pos = new Position(line, character);

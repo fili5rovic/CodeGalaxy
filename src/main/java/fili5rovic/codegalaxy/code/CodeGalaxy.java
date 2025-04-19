@@ -26,7 +26,6 @@ public class CodeGalaxy extends CodeArea {
         addManagers();
         initManagers();
         Highlighter.init(this);
-
     }
 
     public void setFile(Path path) {
