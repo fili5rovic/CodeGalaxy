@@ -3,9 +3,7 @@ package fili5rovic.codegalaxy.code.manager.suggestions;
 import javafx.collections.FXCollections;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import org.eclipse.lsp4j.CompletionItem;
 
