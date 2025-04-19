@@ -20,12 +20,18 @@ public class CompletionPopup extends Popup {
     private final DetailsPopup detailsPopup;
 
     public CompletionPopup() {
-        listView = new ListView<>();
+        listView = createListView();
+        detailsPopup = new DetailsPopup(listView);
+        VBox container = new VBox(listView);
+        container.getStyleClass().add("completion-popup");
+        getContent().add(container);
+    }
+
+    private ListView<CompletionItem> createListView() {
+        ListView<CompletionItem> listView = new ListView<>();
         listView.getStyleClass().add("completion-list-view");
         listView.setPrefHeight(200);
         listView.setPrefWidth(300);
-
-        detailsPopup = new DetailsPopup();
 
         listView.setCellFactory(_ -> {
             ListCell<CompletionItem> cell = new ListCell<>() {
@@ -47,7 +53,7 @@ public class CompletionPopup extends Popup {
 
         listView.getSelectionModel().selectedItemProperty().addListener((_, _, item) -> {
             if (item != null && item.getLabel().length() > 41) {
-                detailsPopup.showDetailsForItem(item, listView);
+                detailsPopup.showDetailsForItem(item);
             } else {
                 detailsPopup.hide();
             }
@@ -69,9 +75,7 @@ public class CompletionPopup extends Popup {
                 acceptSelectedItem();
         });
 
-        VBox container = new VBox(listView);
-        container.getStyleClass().add("completion-popup");
-        getContent().add(container);
+        return listView;
     }
 
 
@@ -141,4 +145,6 @@ public class CompletionPopup extends Popup {
         super.show(owner, x, y);
         listView.requestFocus();
     }
+
+
 }

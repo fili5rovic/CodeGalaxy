@@ -11,7 +11,10 @@ public class DetailsPopup extends Popup {
 
     private final ListView<CompletionItem> detailsListView;
 
-    public DetailsPopup() {
+    private final ListView<CompletionItem> listView;
+
+    public DetailsPopup(ListView<CompletionItem> listView) {
+        this.listView = listView;
         setAutoHide(false);
 
         detailsListView = new ListView<>();
@@ -22,9 +25,10 @@ public class DetailsPopup extends Popup {
 
 
         detailsListView.setFocusTraversable(false);
+        detailsListView.setOnMouseClicked(listView.getOnMouseClicked());
     }
 
-    public void showDetailsForItem(CompletionItem item, ListView<CompletionItem> listView) {
+    public void showDetailsForItem(CompletionItem item) {
         getContent().clear();
         detailsListView.getItems().clear();
 
