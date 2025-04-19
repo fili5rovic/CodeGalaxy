@@ -76,95 +76,51 @@ public class SuggestionManager extends Manager {
         });
     }
 
-    private Popup createSuggestionPopup(List<CompletionItem> suggestions, Node owner, Scene scene) {
-        Popup popup = new Popup();
+    private Popup createSuggestionPopup(List<CompletionItem> suggestions, Scene scene) {
+        CompletionPopup popup = new CompletionPopup();
+        popup.setSuggestions(suggestions);
+        popup.setOnItemSelected(this::selectedItem);
 
-        VBox content = new VBox();
-        content.setStyle("-fx-background-color: #2e2e2e; -fx-padding: 8; -fx-background-radius: 6;");
-
-        List<Label> labels = new ArrayList<>();
-        final int[] selectedIndex = { -1 };
-
-        for (CompletionItem suggestion : suggestions) {
-            Label label = new Label(suggestion.getLabel());
-            label.setStyle("-fx-text-fill: white; -fx-padding: 4 8; -fx-font-size: 14;");
-            label.setOnMouseClicked(event -> {
-                System.out.println("Selected: " + suggestion.getLabel());
-                popup.hide();
-            });
-            labels.add(label);
-            content.getChildren().add(label);
-        }
-
-        ScrollPane scrollPane = new ScrollPane(content);
-        scrollPane.setFitToWidth(true);
-        scrollPane.setPrefHeight(200);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setStyle("-fx-background: #2e2e2e; -fx-background-color: #2e2e2e;");
-
-        popup.getContent().add(scrollPane);
-
-        // Handle key events
-        scene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (popup.isShowing()) {
-                switch (event.getCode()) {
-                    case DOWN:
-                        if (selectedIndex[0] < labels.size() - 1) {
-                            selectedIndex[0]++;
-                            updateSelection(labels, selectedIndex[0]);
-                            ensureVisible(scrollPane, labels.get(selectedIndex[0]));
-                        }
-                        event.consume();
-                        break;
-                    case UP:
-                        if (selectedIndex[0] > 0) {
-                            selectedIndex[0]--;
-                            updateSelection(labels, selectedIndex[0]);
-                            ensureVisible(scrollPane, labels.get(selectedIndex[0]));
-                        }
-                        event.consume();
-                        break;
-                    case ENTER:
-                        if (selectedIndex[0] != -1) {
-                            System.out.println("Selected: " + labels.get(selectedIndex[0]).getText());
-                            popup.hide();
-                        }
-                        event.consume();
-                        break;
-                    case ESCAPE:
-                        popup.hide();
-                        event.consume();
-                        break;
-                }
-            }
-        });
+        popup.bindKeyEvents(scene);
 
         return popup;
     }
 
-    private void updateSelection(List<Label> labels, int selectedIndex) {
-        for (int i = 0; i < labels.size(); i++) {
-            if (i == selectedIndex) {
-                labels.get(i).setStyle("-fx-background-color: #454545; -fx-text-fill: white; -fx-padding: 4 8; -fx-font-size: 14;");
-            } else {
-                labels.get(i).setStyle("-fx-background-color: transparent; -fx-text-fill: white; -fx-padding: 4 8; -fx-font-size: 14;");
+    private void selectedItem(CompletionItem item) {
+        int caretPosition = codeGalaxy.getCaretPosition();
+        String textUpToCaret = codeGalaxy.getText(0, caretPosition);
+
+        int wordStart = caretPosition;
+        while (wordStart > 0) {
+            char c = textUpToCaret.charAt(wordStart - 1);
+            if (!Character.isJavaIdentifierPart(c)) {
+                break;
             }
+            wordStart--;
         }
+
+        String currentWord = codeGalaxy.getText(wordStart, caretPosition);
+        String insertText = item.getInsertText();
+        if (insertText == null || insertText.isEmpty()) {
+            insertText = item.getLabel();
+        }
+
+        if (currentWord.equals(insertText)) {
+            currentPopup.hide();
+            return;
+        }
+
+        codeGalaxy.replaceText(wordStart, caretPosition, insertText);
+        codeGalaxy.moveTo(wordStart + insertText.length());
+        codeGalaxy.requestFollowCaret();
+        currentPopup.hide();
     }
 
-    private void ensureVisible(ScrollPane scrollPane, Label label) {
-        double contentHeight = scrollPane.getContent().getBoundsInLocal().getHeight();
-        double scrollPaneHeight = scrollPane.getViewportBounds().getHeight();
-        double y = label.getBoundsInParent().getMinY();
 
-        double vValue = (y) / (contentHeight - scrollPaneHeight);
-        scrollPane.setVvalue(vValue);
-    }
 
     private void showPopup(CodeGalaxy codeGalaxy, List<CompletionItem> suggestions) {
         codeGalaxy.getCaretBounds().ifPresent(caretBounds -> {
-            currentPopup = createSuggestionPopup(suggestions, codeGalaxy, codeGalaxy.getScene());
+            currentPopup = createSuggestionPopup(suggestions, codeGalaxy.getScene());
             currentPopup.show(
                     codeGalaxy.getScene().getWindow(),
                     caretBounds.getMinX(),

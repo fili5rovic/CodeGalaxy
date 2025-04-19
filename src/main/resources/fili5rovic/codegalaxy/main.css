@@ -478,4 +478,40 @@
 }
 /*</editor-fold>*/
 
+/* Popup container */
+.completion-popup {
+    -fx-background-color: #2e2e2e;
+    -fx-background-radius: 6;
+    -fx-padding: 6;
+}
+
+/* ListView styling */
+.completion-list-view {
+    -fx-background-color: #2e2e2e;
+    -fx-control-inner-background: #2e2e2e;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-border-width: 0;
+}
+
+/* List cells */
+.completion-list-cell {
+    -fx-text-fill: white;
+    -fx-font-size: 14;
+    -fx-padding: 6 10;
+}
+
+/* Hover / selected item */
+.completion-list-cell:selected,
+.completion-list-cell:hover {
+    -fx-background-color: #454545;
+    -fx-text-fill: white;
+}
+
+/* Remove focus outline */
+.completion-list-view:focused {
+    -fx-background-color: #2e2e2e;
+}
+
+
 
