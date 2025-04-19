@@ -21,6 +21,8 @@ public class CompletionPopup extends Popup {
     private Consumer<CompletionItem> onItemSelected;
     private Popup detailsPopup;
 
+
+
     public CompletionPopup() {
         listView = new ListView<>();
         listView.getStyleClass().add("completion-list-view");
@@ -81,7 +83,6 @@ public class CompletionPopup extends Popup {
         detailsContent.getStyleClass().add("completion-details-content");
         detailsContent.setStyle("-fx-background-color: #3c3f41; -fx-padding: 10px; -fx-border-color: #5e5e5e;");
 
-        // add content based on the completion item
         Label titleLabel = new Label(item.getLabel());
         titleLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #cccccc;");
 
@@ -107,14 +108,17 @@ public class CompletionPopup extends Popup {
 
         IndexedCell<?> cell = (IndexedCell<?>) listView.lookup(".list-cell:selected");
         if (cell != null && cell.isVisible()) {
-            Bounds cellBounds = cell.localToScreen(cell.getBoundsInLocal());
+            Node container = getContent().get(0);
+            Bounds mainPopupBounds = container.localToScreen(container.getBoundsInLocal());
 
-            double x = cellBounds.getMaxX() + 5; // 5px gap
+            double x = mainPopupBounds.getMinX() + container.getBoundsInLocal().getWidth() + 5; // 5px gap
+
+            Bounds cellBounds = cell.localToScreen(cell.getBoundsInLocal());
             double y = cellBounds.getMinY();
 
             detailsContent.setMaxWidth(300);
 
-            detailsPopup.show(getOwnerWindowHelper(), x, y);
+            detailsPopup.show(getOwnerWindow(), x, y);
         }
     }
 

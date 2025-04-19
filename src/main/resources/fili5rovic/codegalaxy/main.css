@@ -501,14 +501,11 @@
     -fx-padding: 6 10;
 }
 
-/* Hover / selected item */
-.completion-list-cell:selected,
-.completion-list-cell:hover {
+.completion-list-cell:selected {
     -fx-background-color: #454545;
     -fx-text-fill: white;
 }
 
-/* Remove focus outline */
 .completion-list-view:focused {
     -fx-background-color: #2e2e2e;
 }
