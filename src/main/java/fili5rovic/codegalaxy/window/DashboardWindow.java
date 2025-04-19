@@ -2,7 +2,6 @@ package fili5rovic.codegalaxy.window;
 
 import fili5rovic.codegalaxy.Main;
 import fili5rovic.codegalaxy.controller.DashboardController;
-import fili5rovic.codegalaxy.util.SVGUtil;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;

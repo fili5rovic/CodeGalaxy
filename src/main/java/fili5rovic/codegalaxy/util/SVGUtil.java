@@ -19,7 +19,7 @@ public class SVGUtil {
     private static final String DEFAULT_ICON_PATH = "tip.svg";
 
     public static ImageView getIconByPath(Path path, double width, double height, int translateY) {
-        String iconName = "";
+        String iconName;
         if (Files.isDirectory(path)) {
             if (path.toFile().listFiles() == null || path.toFile().listFiles().length == 0) {
                 iconName = "folderEmpty";
