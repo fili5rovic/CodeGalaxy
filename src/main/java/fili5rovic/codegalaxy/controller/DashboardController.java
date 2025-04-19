@@ -14,6 +14,7 @@ import javafx.stage.WindowEvent;
 import java.io.File;
 import java.net.URL;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class DashboardController extends ControllerBase {
@@ -44,14 +45,17 @@ public class DashboardController extends ControllerBase {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Window.getWindowAt(Window.WINDOW_DASHBOARD).setController(this);
-        tryToOpenLastProject();
-        menuItemListeners();
 
         try {
             LSPManager.getInstance().start();
         } catch (Exception e) {
             System.out.println("Failed to start LSP server: " + e.getMessage());
         }
+
+        tryToOpenLastProject();
+        menuItemListeners();
+
+
     }
 
     private void tryToOpenLastProject() {
@@ -65,6 +69,15 @@ public class DashboardController extends ControllerBase {
         } else {
             System.out.println("Last project path is not valid.");
         }
+
+        List<String> recentFiles = UserPreferences.getInstance().getMultiple("recentFiles");
+        for (String filePath : recentFiles) {
+            Path path = Path.of(filePath);
+            if (path.toFile().exists()) {
+                createTab(path);
+
+            }
+        }
     }
 
     public void createTab(Path filePath) {
@@ -75,7 +88,6 @@ public class DashboardController extends ControllerBase {
                 return;
             }
         }
-
         CodeGalaxy codeGalaxy = new CodeGalaxy();
         codeGalaxy.setFile(filePath);
         try {
@@ -84,10 +96,16 @@ public class DashboardController extends ControllerBase {
             System.out.println("Failed to open file: " + e.getMessage());
         }
 
+        UserPreferences.getInstance().addTo("recentFiles", filePath.toString());
         Tab tab = new Tab(fileName, codeGalaxy);
-        tab.setOnClosed(_ -> LSPManager.getInstance().closeFile(filePath.toString()));
+        tab.setOnClosed(_ -> closedTab(filePath));
         tabPane.getTabs().add(tab);
         tabPane.getSelectionModel().selectLast();
+    }
+
+    private void closedTab(Path filePath) {
+        LSPManager.getInstance().closeFile(filePath.toString());
+        UserPreferences.getInstance().removeFrom("recentFiles", filePath.toString());
     }
 
     public void menuItemListeners() {
