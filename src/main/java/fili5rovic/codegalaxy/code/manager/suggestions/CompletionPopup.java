@@ -1,7 +1,6 @@
 package fili5rovic.codegalaxy.code.manager.suggestions;
 
 import javafx.collections.FXCollections;
-import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -9,7 +8,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
-import javafx.stage.Window;
 import org.eclipse.lsp4j.CompletionItem;
 
 import java.util.List;
@@ -19,9 +17,7 @@ public class CompletionPopup extends Popup {
 
     private final ListView<CompletionItem> listView;
     private Consumer<CompletionItem> onItemSelected;
-    private Popup detailsPopup;
-
-
+    private DetailsPopup detailsPopup;
 
     public CompletionPopup() {
         listView = new ListView<>();
@@ -29,8 +25,7 @@ public class CompletionPopup extends Popup {
         listView.setPrefHeight(200);
         listView.setPrefWidth(300);
 
-        detailsPopup = new Popup();
-        detailsPopup.setAutoHide(false);
+        detailsPopup = new DetailsPopup();
 
         listView.setCellFactory(_ -> {
             ListCell<CompletionItem> cell = new ListCell<>() {
@@ -49,16 +44,17 @@ public class CompletionPopup extends Popup {
             cell.getStyleClass().add("completion-list-cell");
             return cell;
         });
-        listView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                showDetailsPopup(newSelection);
+
+        listView.getSelectionModel().selectedItemProperty().addListener((_, _, item) -> {
+            if (item != null && item.getLabel().length() > 41) {
+                detailsPopup.showDetailsForItem(item, listView);
             } else {
                 detailsPopup.hide();
             }
         });
 
-        showingProperty().addListener((obs, wasShowing, isShowing) -> {
-            if (!isShowing) {
+        listView.onScrollProperty().addListener((_, _, newVal) -> {
+            if (newVal != null) {
                 detailsPopup.hide();
             }
         });
@@ -78,49 +74,6 @@ public class CompletionPopup extends Popup {
         getContent().add(container);
     }
 
-    private void showDetailsPopup(CompletionItem item) {
-        VBox detailsContent = new VBox();
-        detailsContent.getStyleClass().add("completion-details-content");
-        detailsContent.setStyle("-fx-background-color: #3c3f41; -fx-padding: 10px; -fx-border-color: #5e5e5e;");
-
-        Label titleLabel = new Label(item.getLabel());
-        titleLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #cccccc;");
-
-        Label detailLabel = null;
-        if (item.getDetail() != null && !item.getDetail().isEmpty()) {
-            detailLabel = new Label(item.getDetail());
-            detailLabel.setStyle("-fx-text-fill: #9cdcfe;");
-        }
-
-        Label docLabel = null;
-        if (item.getDocumentation() != null && !item.getDocumentation().toString().isEmpty()) {
-            docLabel = new Label(item.getDocumentation().toString());
-            docLabel.setStyle("-fx-text-fill: #cccccc; -fx-wrap-text: true;");
-        }
-
-        detailsContent.getChildren().add(titleLabel);
-        if (detailLabel != null) detailsContent.getChildren().add(detailLabel);
-        if (docLabel != null) detailsContent.getChildren().add(docLabel);
-
-        // clear and set new content
-        detailsPopup.getContent().clear();
-        detailsPopup.getContent().add(detailsContent);
-
-        IndexedCell<?> cell = (IndexedCell<?>) listView.lookup(".list-cell:selected");
-        if (cell != null && cell.isVisible()) {
-            Node container = getContent().get(0);
-            Bounds mainPopupBounds = container.localToScreen(container.getBoundsInLocal());
-
-            double x = mainPopupBounds.getMinX() + container.getBoundsInLocal().getWidth() + 5; // 5px gap
-
-            Bounds cellBounds = cell.localToScreen(cell.getBoundsInLocal());
-            double y = cellBounds.getMinY();
-
-            detailsContent.setMaxWidth(300);
-
-            detailsPopup.show(getOwnerWindow(), x, y);
-        }
-    }
 
     private void acceptSelectedItem() {
         CompletionItem selected = listView.getSelectionModel().getSelectedItem();
@@ -166,6 +119,7 @@ public class CompletionPopup extends Popup {
                     case UP:
                         listView.getSelectionModel().selectPrevious();
                         listView.scrollTo(listView.getSelectionModel().getSelectedIndex());
+
                         event.consume();
                         break;
                     case DOWN:
@@ -186,27 +140,5 @@ public class CompletionPopup extends Popup {
     public void show(Node owner, double x, double y) {
         super.show(owner, x, y);
         listView.requestFocus();
-
-        // Show details for initial selection if any
-        CompletionItem selected = listView.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            showDetailsPopup(selected);
-        }
-    }
-
-    @Override
-    public void hide() {
-        detailsPopup.hide();
-        super.hide();
-    }
-
-    private Window getOwnerWindowHelper() {
-        if (!getContent().isEmpty()) {
-            Scene scene = getContent().get(0).getScene();
-            if (scene != null) {
-                return scene.getWindow();
-            }
-        }
-        return null;
     }
 }
