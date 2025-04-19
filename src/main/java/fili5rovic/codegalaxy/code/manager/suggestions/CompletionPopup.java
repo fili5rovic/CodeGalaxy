@@ -73,7 +73,20 @@ public class CompletionPopup extends Popup {
         if (!suggestions.isEmpty()) {
             listView.getSelectionModel().select(0);
         }
+
+        double cellHeight = 32;
+        int visibleRowCount = suggestions.size();
+        double totalHeight = visibleRowCount * cellHeight;
+
+        if (totalHeight > 200) {
+            totalHeight = 200;
+        }
+
+        listView.setPrefHeight(totalHeight);
     }
+
+
+
 
     public void bindKeyEvents(Scene scene) {
         scene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {

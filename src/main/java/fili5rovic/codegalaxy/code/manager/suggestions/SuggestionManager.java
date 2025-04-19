@@ -35,7 +35,6 @@ public class SuggestionManager extends Manager {
             TwoDimensional.Position pos = codeGalaxy.offsetToPosition(offset, TwoDimensional.Bias.Forward);
             line = pos.getMajor();
             column = pos.getMinor();
-            System.out.println("Line: " + line + ", Column: " + column);
             if (currentPopup != null) {
                 currentPopup.hide();
             }

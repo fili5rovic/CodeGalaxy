@@ -133,6 +133,7 @@ public class DashboardController extends ControllerBase {
             CodeGalaxy codeGalaxy = ((CodeGalaxy) tab.getContent());
             codeGalaxy.save();
         }
+
     }
 
     public void onAppClose(WindowEvent actionEvent) {
