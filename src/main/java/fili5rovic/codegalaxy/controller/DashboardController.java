@@ -5,9 +5,11 @@ import fili5rovic.codegalaxy.lsp.LSPManager;
 import fili5rovic.codegalaxy.preferences.UserPreferences;
 import fili5rovic.codegalaxy.project.ProjectManager;
 import fili5rovic.codegalaxy.util.FileHelper;
+import fili5rovic.codegalaxy.util.SVGUtil;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.WindowEvent;
@@ -55,7 +57,13 @@ public class DashboardController extends ControllerBase {
         tryToOpenLastProject();
         menuItemListeners();
 
+        menuIcons();
+    }
 
+    private void menuIcons() {
+        open.setGraphic(SVGUtil.getUI("openProject", 16, 16));
+        saveAll.setGraphic(SVGUtil.getUI("saveAll", 16, 16));
+        newProject.setGraphic(SVGUtil.getUI("newProject", 16, 16));
     }
 
     private void tryToOpenLastProject() {
@@ -75,13 +83,13 @@ public class DashboardController extends ControllerBase {
             Path path = Path.of(filePath);
             if (path.toFile().exists()) {
                 createTab(path);
-
             }
         }
     }
 
     public void createTab(Path filePath) {
         String fileName = filePath.getFileName().toString();
+
         for (Tab tab : tabPane.getTabs()) {
             if (tab.getText().equals(fileName)) {
                 tabPane.getSelectionModel().select(tab);
@@ -97,8 +105,12 @@ public class DashboardController extends ControllerBase {
         }
 
         UserPreferences.getInstance().addTo("recentFiles", filePath.toString());
+        ImageView icon = SVGUtil.getIconByPath(filePath, 16, 16, 0);
+
         Tab tab = new Tab(fileName, codeGalaxy);
+        tab.setGraphic(icon);
         tab.setOnClosed(_ -> closedTab(filePath));
+
         tabPane.getTabs().add(tab);
         tabPane.getSelectionModel().selectLast();
     }

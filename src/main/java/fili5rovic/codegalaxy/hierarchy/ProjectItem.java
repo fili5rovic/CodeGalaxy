@@ -1,13 +1,10 @@
 package fili5rovic.codegalaxy.hierarchy;
 
 import fili5rovic.codegalaxy.preferences.UserPreferences;
-import fili5rovic.codegalaxy.util.SVG;
-import fili5rovic.codegalaxy.util.SVGHelper;
+import fili5rovic.codegalaxy.util.SVGUtil;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Objects;
 
 public class ProjectItem extends TreeItem<Label> {
 
@@ -25,21 +22,9 @@ public class ProjectItem extends TreeItem<Label> {
         });
     }
 
-
-
     public void refreshIcon() {
         Label label = new Label(path.getFileName().toString());
-        SVG svgIcon = SVG.FILE;
-        double size = label.getFont().getSize();
-        if(Files.isDirectory(path)) {
-            if (path.toFile().listFiles() == null || Objects.requireNonNull(path.toFile().listFiles()).length == 0)
-                svgIcon = SVG.FOLDER_EMPTY;
-            else
-                svgIcon = SVG.FOLDER;
-        }
-        else if (path.toString().endsWith(".java"))
-            svgIcon = SVG.JAVA_CLASS;
-        label.setGraphic(SVGHelper.get(svgIcon, size));
+        label.setGraphic(SVGUtil.getIconByPath(path, 16, 16, 0));
         this.setValue(label);
     }
 

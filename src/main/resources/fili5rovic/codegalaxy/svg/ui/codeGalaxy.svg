@@ -1,0 +1,18 @@
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+    <!-- Planet Body -->
+    <circle cx="128" cy="128" r="75" fill="#4F46E5" />
+    <!-- Planet Rings -->
+    <ellipse cx="128" cy="130" rx="120" ry="35" fill="none" stroke="#7C72FF" stroke-width="8" transform="rotate(-15 128 128)" opacity="0.3" />
+    
+    
+    <!-- Code Brackets -->
+    <text x="128" y="150" font-family="Arial, sans-serif" font-size="80" font-weight="bold" text-anchor="middle" fill="purple">
+        &lt; &gt;
+    </text>
+    
+    <!-- Optional Stars -->
+    <circle cx="150" cy="60" r="2" fill="purple" />
+    <circle cx="190" cy="120" r="3" fill="purple" />
+    <circle cx="130" cy="200" r="2" fill="purple" />
+
+</svg>
