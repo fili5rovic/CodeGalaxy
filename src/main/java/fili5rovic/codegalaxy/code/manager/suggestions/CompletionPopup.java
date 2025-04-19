@@ -46,9 +46,6 @@ public class CompletionPopup extends Popup {
                     }
                     setText(item.getLabel());
                     String svgName = item.getKind().toString().toLowerCase();
-                    if (svgName.equals("keyword")) {
-                        svgName = "tip";
-                    }
                     setGraphic(SVGUtil.getCompletionIcon(svgName, 16, 16));
                 }
             };

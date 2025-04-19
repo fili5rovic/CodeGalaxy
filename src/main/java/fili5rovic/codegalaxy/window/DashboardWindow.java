@@ -2,10 +2,14 @@ package fili5rovic.codegalaxy.window;
 
 import fili5rovic.codegalaxy.Main;
 import fili5rovic.codegalaxy.controller.DashboardController;
+import fili5rovic.codegalaxy.util.SVGUtil;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
+import java.util.Objects;
 
 public class DashboardWindow extends Window {
     @Override
@@ -15,11 +19,12 @@ public class DashboardWindow extends Window {
             Scene scene = new Scene(fxmlLoader.load());
             scene.getStylesheets().add(Main.class.getResource("/fili5rovic/codegalaxy/main.css").toExternalForm());
             scene.getStylesheets().add(Main.class.getResource("/fili5rovic/codegalaxy/codegalaxy.css").toExternalForm());
-            stage.setTitle("Code Galaxy");
+            stage.setTitle("CodeGalaxy");
             stage.setScene(scene);
             stage.initStyle(StageStyle.UNIFIED);
             stage.show();
 
+            stage.getIcons().add(new Image(Objects.requireNonNull(Main.class.getResourceAsStream("/fili5rovic/codegalaxy/png/app/codeGalaxy.png"))));
 
             this.stage = stage;
 
