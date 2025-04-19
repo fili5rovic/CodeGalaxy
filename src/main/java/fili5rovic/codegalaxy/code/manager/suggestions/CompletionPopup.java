@@ -1,6 +1,7 @@
 package fili5rovic.codegalaxy.code.manager.suggestions;
 
 import javafx.collections.FXCollections;
+import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -8,6 +9,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
+import javafx.stage.Window;
 import org.eclipse.lsp4j.CompletionItem;
 
 import java.util.List;
@@ -17,12 +19,16 @@ public class CompletionPopup extends Popup {
 
     private final ListView<CompletionItem> listView;
     private Consumer<CompletionItem> onItemSelected;
+    private Popup detailsPopup;
 
     public CompletionPopup() {
         listView = new ListView<>();
         listView.getStyleClass().add("completion-list-view");
         listView.setPrefHeight(200);
         listView.setPrefWidth(300);
+
+        detailsPopup = new Popup();
+        detailsPopup.setAutoHide(false);
 
         listView.setCellFactory(_ -> {
             ListCell<CompletionItem> cell = new ListCell<>() {
@@ -34,13 +40,25 @@ public class CompletionPopup extends Popup {
                         setGraphic(null);
                     } else {
                         setText(item.getLabel());
-                        // icons here later
                         setGraphic(null);
                     }
                 }
             };
             cell.getStyleClass().add("completion-list-cell");
             return cell;
+        });
+        listView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                showDetailsPopup(newSelection);
+            } else {
+                detailsPopup.hide();
+            }
+        });
+
+        showingProperty().addListener((obs, wasShowing, isShowing) -> {
+            if (!isShowing) {
+                detailsPopup.hide();
+            }
         });
 
         listView.setOnMouseClicked(event -> {
@@ -53,10 +71,51 @@ public class CompletionPopup extends Popup {
                 acceptSelectedItem();
         });
 
-
         VBox container = new VBox(listView);
         container.getStyleClass().add("completion-popup");
         getContent().add(container);
+    }
+
+    private void showDetailsPopup(CompletionItem item) {
+        VBox detailsContent = new VBox();
+        detailsContent.getStyleClass().add("completion-details-content");
+        detailsContent.setStyle("-fx-background-color: #3c3f41; -fx-padding: 10px; -fx-border-color: #5e5e5e;");
+
+        // add content based on the completion item
+        Label titleLabel = new Label(item.getLabel());
+        titleLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #cccccc;");
+
+        Label detailLabel = null;
+        if (item.getDetail() != null && !item.getDetail().isEmpty()) {
+            detailLabel = new Label(item.getDetail());
+            detailLabel.setStyle("-fx-text-fill: #9cdcfe;");
+        }
+
+        Label docLabel = null;
+        if (item.getDocumentation() != null && !item.getDocumentation().toString().isEmpty()) {
+            docLabel = new Label(item.getDocumentation().toString());
+            docLabel.setStyle("-fx-text-fill: #cccccc; -fx-wrap-text: true;");
+        }
+
+        detailsContent.getChildren().add(titleLabel);
+        if (detailLabel != null) detailsContent.getChildren().add(detailLabel);
+        if (docLabel != null) detailsContent.getChildren().add(docLabel);
+
+        // clear and set new content
+        detailsPopup.getContent().clear();
+        detailsPopup.getContent().add(detailsContent);
+
+        IndexedCell<?> cell = (IndexedCell<?>) listView.lookup(".list-cell:selected");
+        if (cell != null && cell.isVisible()) {
+            Bounds cellBounds = cell.localToScreen(cell.getBoundsInLocal());
+
+            double x = cellBounds.getMaxX() + 5; // 5px gap
+            double y = cellBounds.getMinY();
+
+            detailsContent.setMaxWidth(300);
+
+            detailsPopup.show(getOwnerWindowHelper(), x, y);
+        }
     }
 
     private void acceptSelectedItem() {
@@ -66,7 +125,6 @@ public class CompletionPopup extends Popup {
         }
         hide();
     }
-
 
     public void setSuggestions(List<CompletionItem> suggestions) {
         listView.setItems(FXCollections.observableArrayList(suggestions));
@@ -84,9 +142,6 @@ public class CompletionPopup extends Popup {
 
         listView.setPrefHeight(totalHeight);
     }
-
-
-
 
     public void bindKeyEvents(Scene scene) {
         scene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
@@ -123,8 +178,31 @@ public class CompletionPopup extends Popup {
         this.onItemSelected = handler;
     }
 
+    @Override
     public void show(Node owner, double x, double y) {
         super.show(owner, x, y);
         listView.requestFocus();
+
+        // Show details for initial selection if any
+        CompletionItem selected = listView.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            showDetailsPopup(selected);
+        }
+    }
+
+    @Override
+    public void hide() {
+        detailsPopup.hide();
+        super.hide();
+    }
+
+    private Window getOwnerWindowHelper() {
+        if (!getContent().isEmpty()) {
+            Scene scene = getContent().get(0).getScene();
+            if (scene != null) {
+                return scene.getWindow();
+            }
+        }
+        return null;
     }
 }
