@@ -109,8 +109,6 @@ public class SuggestionManager extends Manager {
         currentPopup.hide();
     }
 
-
-
     private void showPopup(CodeGalaxy codeGalaxy, List<CompletionItem> suggestions) {
         codeGalaxy.getCaretBounds().ifPresent(caretBounds -> {
             currentPopup = createSuggestionPopup(suggestions, codeGalaxy.getScene());

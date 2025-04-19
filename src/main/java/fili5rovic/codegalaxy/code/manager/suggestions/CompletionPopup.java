@@ -1,5 +1,7 @@
 package fili5rovic.codegalaxy.code.manager.suggestions;
 
+import fili5rovic.codegalaxy.util.SVG;
+import fili5rovic.codegalaxy.util.SVGHelper;
 import javafx.collections.FXCollections;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -41,10 +43,10 @@ public class CompletionPopup extends Popup {
                     if (empty || item == null) {
                         setText(null);
                         setGraphic(null);
-                    } else {
-                        setText(item.getLabel());
-                        setGraphic(null);
+                        return;
                     }
+                    setText(item.getLabel());
+                    setGraphic(SVGHelper.getForKind(item.getKind(), 20));
                 }
             };
             cell.getStyleClass().add("completion-list-cell");
