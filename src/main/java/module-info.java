@@ -6,6 +6,10 @@ module fili5rovic.codegalaxy {
     requires com.github.javaparser.core;
     requires org.eclipse.lsp4j;
     requires org.eclipse.lsp4j.jsonrpc;
+    requires com.kitfox.svg;
+    requires java.desktop;
+    requires javafx.graphics;
+    requires javafx.swing;
 
 
     opens fili5rovic.codegalaxy to javafx.fxml;
