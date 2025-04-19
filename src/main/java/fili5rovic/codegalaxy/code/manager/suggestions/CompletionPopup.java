@@ -17,7 +17,7 @@ public class CompletionPopup extends Popup {
 
     private final ListView<CompletionItem> listView;
     private Consumer<CompletionItem> onItemSelected;
-    private DetailsPopup detailsPopup;
+    private final DetailsPopup detailsPopup;
 
     public CompletionPopup() {
         listView = new ListView<>();
