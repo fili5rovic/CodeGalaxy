@@ -494,7 +494,6 @@
     -fx-border-width: 0;
 }
 
-/* List cells */
 .completion-list-cell {
     -fx-text-fill: white;
     -fx-font-size: 14;
@@ -508,6 +507,56 @@
 
 .completion-list-view:focused {
     -fx-background-color: #2e2e2e;
+}
+
+.completion-list-view .scroll-bar:horizontal,
+.completion-list-view .scroll-bar:horizontal .track,
+.completion-list-view .scroll-bar:horizontal .thumb {
+    -fx-opacity: 0;
+    -fx-pref-height: 0;
+    -fx-min-height: 0;
+    -fx-max-height: 0;
+}
+
+/* Details popup styling */
+.details-completion-list-view {
+    -fx-background-color: #3c3f41;
+    -fx-control-inner-background: #3c3f41;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-border-width: 0;
+}
+
+.details-completion-list-view .list-cell {
+    -fx-text-fill: white;
+    -fx-font-size: 14;
+    -fx-padding: 6 10;
+    -fx-background-color: #454545;
+    -fx-border-width: 0;
+}
+
+.details-completion-list-view .scroll-bar:horizontal,
+.details-completion-list-view .scroll-bar:horizontal .track,
+.details-completion-list-view .scroll-bar:horizontal .thumb,
+.details-completion-list-view .scroll-bar:horizontal .increment-button,
+.details-completion-list-view .scroll-bar:horizontal .decrement-button,
+.details-completion-list-view .scroll-bar:vertical,
+.details-completion-list-view .scroll-bar:vertical .track,
+.details-completion-list-view .scroll-bar:vertical .thumb,
+.details-completion-list-view .scroll-bar:vertical .increment-button,
+.details-completion-list-view .scroll-bar:vertical .decrement-button
+{
+    -fx-opacity: 0;
+    -fx-pref-width: 0;
+    -fx-pref-height: 0;
+    -fx-min-width: 0;
+    -fx-min-height: 0;
+    -fx-max-width: 0;
+    -fx-max-height: 0;
+}
+
+.details-completion-list-view .viewport {
+    -fx-background-color: #3c3f41;
 }
 
 
