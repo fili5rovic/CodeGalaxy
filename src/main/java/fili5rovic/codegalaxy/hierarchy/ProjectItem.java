@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Objects;
 
 public class ProjectItem extends TreeItem<Label> {
 
@@ -31,7 +32,7 @@ public class ProjectItem extends TreeItem<Label> {
         SVG svgIcon = SVG.FILE;
         double size = label.getFont().getSize();
         if(Files.isDirectory(path)) {
-            if (path.toFile().listFiles() == null || path.toFile().listFiles().length == 0)
+            if (path.toFile().listFiles() == null || Objects.requireNonNull(path.toFile().listFiles()).length == 0)
                 svgIcon = SVG.FOLDER_EMPTY;
             else
                 svgIcon = SVG.FOLDER;

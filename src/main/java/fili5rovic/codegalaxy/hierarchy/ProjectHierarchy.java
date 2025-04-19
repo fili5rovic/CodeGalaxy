@@ -109,7 +109,7 @@ public class ProjectHierarchy extends TreeView<Label> {
                 parentItem.getChildren().add(item);
             });
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to load project hierarchy: " + e.getMessage());
         }
     }
 

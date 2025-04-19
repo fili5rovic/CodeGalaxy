@@ -65,11 +65,6 @@ public class UserPreferences {
         return props.getProperty(key);
     }
 
-    public void remove(String key) {
-        props.remove(key);
-        save();
-    }
-
     public void save() {
         try (FileWriter writer = new FileWriter(PREFERENCES_FILE)) {
             props.store(writer, null);

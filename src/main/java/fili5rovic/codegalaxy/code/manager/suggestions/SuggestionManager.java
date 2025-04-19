@@ -63,7 +63,7 @@ public class SuggestionManager extends Manager {
             }
         });
 
-        codeGalaxy.focusedProperty().addListener((obs, oldVal, newVal) -> {
+        codeGalaxy.focusedProperty().addListener((_, _, newVal) -> {
             if (!newVal && currentPopup != null) {
                 currentPopup.hide();
             }
