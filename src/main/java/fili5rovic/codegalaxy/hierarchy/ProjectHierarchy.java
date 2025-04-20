@@ -53,9 +53,6 @@ public class ProjectHierarchy extends TreeView<Label> {
         }
     }
 
-
-
-
     private void setupContextMenu() {
         setOnContextMenuRequested(this::contextMenuPopUp);
         setOnMouseClicked(this::handleMouseClick);
