@@ -10,6 +10,7 @@ module fili5rovic.codegalaxy {
     requires java.desktop;
     requires javafx.graphics;
     requires javafx.swing;
+    requires java.compiler;
 
 
     opens fili5rovic.codegalaxy to javafx.fxml;

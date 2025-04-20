@@ -1,5 +1,6 @@
 package fili5rovic.codegalaxy.hierarchy;
 
+import fili5rovic.codegalaxy.codeRunner.CodeRunner;
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.util.FileHelper;
 import fili5rovic.codegalaxy.window.Window;
@@ -35,6 +36,20 @@ public class ContextMenuHelper {
             menuItems.add(createNewFile(firstItem));
 
         menuItems.add(createDeleteMenu(items));
+
+        if(Files.isRegularFile(firstItem.getPath()) &&
+                firstItem.getPath().toString().endsWith(".java") &&
+                CodeRunner.hasMainMethodInSource(firstItem.getPath().toFile())) {
+            MenuItem runItem = new MenuItem("Run");
+            runItem.setOnAction(e -> {
+                try {
+                    CodeRunner.runJava(firstItem.getPath());
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+            });
+            menuItems.add(runItem);
+        }
         return menuItems;
     }
 
