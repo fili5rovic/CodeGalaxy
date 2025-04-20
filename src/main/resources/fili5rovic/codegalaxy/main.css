@@ -99,16 +99,9 @@
 }
 
 .context-menu {
-    -fx-background-color: #1A1A1A;
-    background-color: #1A1A1A;
+    -fx-background-color: #343434;
     -fx-border-width: 0;
-    border-width: 0;
     -fx-padding: 0 0 -1 0;
-    padding: 0 0 -1 0;
-}
-
-.context-menu .content .increment-arrow {
-    -fx-background-color: red;
 }
 
 .context-menu .menu-item {
@@ -308,12 +301,6 @@
     cursor: HAND;
 }
 /*</editor-fold>*/
-
-/* Stil za TextArea content */
-/*.text-area .content {*/
-/*    -fx-background-color: #1e1e1e; !* Tamna pozadina za sadržaj TextArea *!*/
-/*    -fx-text-fill: #ccc; !* Svetla boja teksta za sadržaj TextArea *!*/
-/*}*/
 
 /*<editor-fold desc="TabPane">*/
 .tab-header-area .tab-header-background {
