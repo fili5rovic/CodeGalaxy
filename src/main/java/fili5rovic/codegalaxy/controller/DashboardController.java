@@ -44,6 +44,27 @@ public class DashboardController extends ControllerBase {
     @FXML
     private MenuItem newProject;
 
+    @FXML
+    private MenuItem undo;
+
+    @FXML
+    private MenuItem redo;
+
+    @FXML
+    private MenuItem cut;
+
+    @FXML
+    private MenuItem copy;
+
+    @FXML
+    private MenuItem paste;
+
+    @FXML
+    private MenuItem delete;
+
+    @FXML
+    private MenuItem selectAll;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Window.getWindowAt(Window.WINDOW_DASHBOARD).setController(this);
@@ -64,6 +85,13 @@ public class DashboardController extends ControllerBase {
         open.setGraphic(SVGUtil.getUI("openProject", 16, 16));
         saveAll.setGraphic(SVGUtil.getUI("saveAll", 16, 16));
         newProject.setGraphic(SVGUtil.getUI("newProject", 16, 16));
+        undo.setGraphic(SVGUtil.getUI("undo", 16, 16));
+        redo.setGraphic(SVGUtil.getUI("redo", 16, 16));
+        cut.setGraphic(SVGUtil.getUI("cut", 16, 16));
+        copy.setGraphic(SVGUtil.getUI("copy", 16, 16));
+        paste.setGraphic(SVGUtil.getUI("paste", 16, 16));
+        delete.setGraphic(SVGUtil.getUI("delete", 16, 16));
+        selectAll.setGraphic(SVGUtil.getUI("selectAll", 16, 16));
     }
 
     private void tryToOpenLastProject() {
