@@ -25,7 +25,6 @@ public class CodeGalaxy extends CodeArea {
         addLineNumbers();
         addManagers();
         initManagers();
-        Highlighter.init(this);
     }
 
     public void setFile(Path path) {
@@ -47,6 +46,7 @@ public class CodeGalaxy extends CodeArea {
         managers.add(new FontManager(this));
         managers.add(new LineEditing(this));
         managers.add(new SuggestionManager(this));
+        managers.add(new Highlighter(this));
     }
 
     private void initManagers() {

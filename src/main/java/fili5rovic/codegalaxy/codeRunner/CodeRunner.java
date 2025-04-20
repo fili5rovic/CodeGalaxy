@@ -1,27 +1,14 @@
 package fili5rovic.codegalaxy.codeRunner;
 
 import fili5rovic.codegalaxy.util.MetaDataHelper;
-import com.github.javaparser.*;
-import com.github.javaparser.ast.CompilationUnit;
-import com.github.javaparser.ast.body.MethodDeclaration;
-
-import java.io.File;
 
 import java.io.*;
 import java.nio.file.Path;
 
 public class CodeRunner {
 
-    public static void main(String[] args) {
-        try {
-            runJava(Path.of("D:\\MY_WORKSPACE\\Sex\\src\\Main.java"));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     public static void runJava(Path javaFilePath) throws Exception {
-        if(!javaFilePath.endsWith(".java")) {
+        if(!javaFilePath.toString().endsWith(".java")) {
             System.err.println("Not a java file");
             return;
         }
@@ -31,7 +18,6 @@ public class CodeRunner {
             return;
         }
 
-        // get filename and path without filename
         String fileName = filePath.getFileName().toString();
         String classPath = filePath.getParent().toString();
 
@@ -69,20 +55,5 @@ public class CodeRunner {
 
     }
 
-    public static boolean hasMainMethodInSource(File javaFile) {
-        try {
-            CompilationUnit cu = StaticJavaParser.parse(javaFile);
 
-            return cu.findAll(MethodDeclaration.class).stream()
-                    .anyMatch(m -> m.getNameAsString().equals("main")
-                            && m.isStatic()
-                            && m.isPublic()
-                            && m.getType().asString().equals("void")
-                            && m.getParameters().size() == 1
-                            && m.getParameter(0).getType().asString().equals("String[]"));
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
 }

@@ -11,6 +11,7 @@ module fili5rovic.codegalaxy {
     requires javafx.graphics;
     requires javafx.swing;
     requires java.compiler;
+    requires io.github.classgraph;
 
 
     opens fili5rovic.codegalaxy to javafx.fxml;

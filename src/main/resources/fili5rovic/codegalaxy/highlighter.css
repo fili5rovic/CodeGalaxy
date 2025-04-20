@@ -3,6 +3,16 @@
     -fx-font-weight: bold;
 }
 
+.class {
+    -fx-fill: #4EC9B0 ;
+    -fx-font-weight: bold;
+}
+
+.method {
+    -fx-fill: #DCDCAA ;
+    -fx-font-weight: bold;
+}
+
 .default_text {
     -fx-fill: #e0e0e0;
 }

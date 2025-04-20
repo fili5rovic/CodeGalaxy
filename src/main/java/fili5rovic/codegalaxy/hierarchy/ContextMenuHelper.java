@@ -3,6 +3,7 @@ package fili5rovic.codegalaxy.hierarchy;
 import fili5rovic.codegalaxy.codeRunner.CodeRunner;
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.util.FileHelper;
+import fili5rovic.codegalaxy.util.JavaParserUtil;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
@@ -35,21 +36,21 @@ public class ContextMenuHelper {
         if (Files.isDirectory(firstItem.getPath()))
             menuItems.add(createNewFile(firstItem));
 
-        menuItems.add(createDeleteMenu(items));
-
         if(Files.isRegularFile(firstItem.getPath()) &&
                 firstItem.getPath().toString().endsWith(".java") &&
-                CodeRunner.hasMainMethodInSource(firstItem.getPath().toFile())) {
+                JavaParserUtil.hasMainMethod(firstItem.getPath().toFile())) {
             MenuItem runItem = new MenuItem("Run");
-            runItem.setOnAction(e -> {
+            runItem.setOnAction(_ -> {
                 try {
                     CodeRunner.runJava(firstItem.getPath());
                 } catch (Exception exception) {
-                    exception.printStackTrace();
+                    System.out.println("Couldn't run file");
                 }
             });
             menuItems.add(runItem);
         }
+
+        menuItems.add(createDeleteMenu(items));
         return menuItems;
     }
 
@@ -85,7 +86,6 @@ public class ContextMenuHelper {
             } catch (IOException ioException) {
                 System.out.println("Couldn't create file");
                 filePane.setVisible(false);
-                ioException.printStackTrace();
             }
         });
     }
@@ -120,7 +120,7 @@ public class ContextMenuHelper {
                     ((ProjectItem) item.getParent()).refreshIcon();
                     item.getParent().getChildren().remove(item);
                 } catch (IOException ioException) {
-                    ioException.printStackTrace();
+                    System.out.println("Couldn't delete item");
                 }
             });
         });
