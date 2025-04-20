@@ -1,7 +1,10 @@
 package fili5rovic.codegalaxy.code.manager.highlighting;
 
 import fili5rovic.codegalaxy.Main;
+import fili5rovic.codegalaxy.code.CodeGalaxy;
+import fili5rovic.codegalaxy.code.manager.Manager;
 import fili5rovic.codegalaxy.util.FileHelper;
+import fili5rovic.codegalaxy.util.JavaParserUtil;
 import org.fxmisc.richtext.CodeArea;
 import org.fxmisc.richtext.LineNumberFactory;
 import org.fxmisc.richtext.model.StyleSpans;
@@ -13,34 +16,47 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Highlighter {
+public class Highlighter extends Manager {
 
-    private static final HashMap<String,String> fileNameToStyleClassMap = new HashMap<>();
+    private final HashMap<String,String> fileNameToStyleClassMap = new HashMap<>();
 
-    public static void init(CodeArea codeArea) {
-        codeArea.getStylesheets().add(Main.class.getResource("/fili5rovic/codegalaxy/highlighter.css").toExternalForm());
-        codeArea.setParagraphGraphicFactory(LineNumberFactory.get(codeArea));
-        fillHashMap();
-        codeArea.textProperty().addListener((obs, oldText, newText) -> Highlighter.applyHighlighting(codeArea));
+    public Highlighter(CodeGalaxy cg) {
+        super(cg);
     }
 
-    private static void fillHashMap() {
+    @Override
+    public void init() {
+        codeGalaxy.getStylesheets().add(Main.class.getResource("/fili5rovic/codegalaxy/highlighter.css").toExternalForm());
+        codeGalaxy.setParagraphGraphicFactory(LineNumberFactory.get(codeGalaxy));
+        fillHashMap();
+        codeGalaxy.textProperty().addListener((obs, oldText, newText) -> this.applyHighlighting(codeGalaxy));
+    }
+
+
+    private void fillHashMap() {
         fileNameToStyleClassMap.put("javaKeywords.txt", "keywords");
     }
 
-    private static void applyHighlighting(CodeArea codeArea) {
+    private void applyHighlighting(CodeArea codeArea) {
         String text = codeArea.getText();
         codeArea.setStyleSpans(0, computeHighlighting(text));
     }
 
-    private static StyleSpans<Collection<String>> computeHighlighting(String text) {
-        String[] patterns = createPatternsFromHashMap();
+    private StyleSpans<Collection<String>> computeHighlighting(String text) {
+        String[] patterns = {
+                getKeywords(),
+                getMethods(),
+                getClasses()
+        };
+
         String[] cssClasses = {
-                "keyword"
+                "keyword",
+                "method",
+                "class",
         };
 
         String combinedPattern = String.join("|", patterns);
-        Pattern pattern = Pattern.compile(combinedPattern, Pattern.CASE_INSENSITIVE);
+        Pattern pattern = Pattern.compile(combinedPattern);
         Matcher matcher = pattern.matcher(text);
         StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
 
@@ -61,10 +77,8 @@ public class Highlighter {
         return spansBuilder.create();
     }
 
-    private static String[] createPatternsFromHashMap() {
-        String[] patterns = new String[fileNameToStyleClassMap.size()];
-        int i = 0;
-
+    private String getKeywords() {
+        String patterns = "";
         for(String key : fileNameToStyleClassMap.keySet()) {
             String path = Main.class.getResource("/fili5rovic/codegalaxy/keywords/" + key).getPath();
             String keywords = FileHelper.readFromFile(path);
@@ -73,10 +87,25 @@ public class Highlighter {
             for(String keyword : keywords.split(",")) {
                 sb.append("\\b").append(keyword).append("\\b|");
             }
-            patterns[i] = sb.substring(0, sb.length() - 1);
-            i++;
+            patterns = sb.substring(0, sb.length() - 1);
         }
         return patterns;
+    }
+
+    private String getMethods() {
+        StringBuilder sb = new StringBuilder();
+        for(String method : JavaParserUtil.getMethodsFromFile(codeGalaxy.getFilePath().toFile())) {
+            sb.append("\\b").append(method).append("\\b|");
+        }
+        return sb.substring(0, sb.length() - 1);
+    }
+
+    private String getClasses() {
+        StringBuilder sb = new StringBuilder();
+        for(String className : JavaParserUtil.getClassesFromFile(codeGalaxy.getFilePath().toFile())) {
+            sb.append("\\b").append(className).append("\\b|");
+        }
+        return sb.substring(0, sb.length() - 1);
     }
 
 }

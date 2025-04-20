@@ -41,14 +41,10 @@ public class MetaDataHelper {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Error reading classpath file: " + e.getMessage());
         }
         return null;
     }
 
-    public static void main(String[] args) {
-        String outputDir = getClasspathPath("output");
-        System.out.println("Output directory is: " + outputDir);
-    }
 }
 
