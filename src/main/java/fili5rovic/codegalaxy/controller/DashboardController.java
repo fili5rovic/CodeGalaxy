@@ -133,7 +133,7 @@ public class DashboardController extends ControllerBase {
         }
 
         UserPreferences.getInstance().addTo("recentFiles", filePath.toString());
-        ImageView icon = SVGUtil.getIconByPath(filePath, 16, 16, 0);
+        ImageView icon = SVGUtil.getIconByPath(filePath, 16, 16, -2);
 
         Tab tab = new Tab(fileName, codeGalaxy);
         tab.setGraphic(icon);
@@ -159,6 +159,51 @@ public class DashboardController extends ControllerBase {
 
             dialog.showAndWait().ifPresent(ProjectManager::createProject);
         });
+        selectAll.setOnAction(_ -> {
+            Tab selectedTab = tabPane.getSelectionModel().getSelectedItem();
+            if (selectedTab != null) {
+                CodeGalaxy codeGalaxy = (CodeGalaxy) selectedTab.getContent();
+                codeGalaxy.selectAll();
+            }
+        });
+        undo.setOnAction(_ -> {
+            Tab selectedTab = tabPane.getSelectionModel().getSelectedItem();
+            if (selectedTab != null) {
+                CodeGalaxy codeGalaxy = (CodeGalaxy) selectedTab.getContent();
+                codeGalaxy.undo();
+            }
+        });
+        redo.setOnAction(_ -> {
+            Tab selectedTab = tabPane.getSelectionModel().getSelectedItem();
+            if (selectedTab != null) {
+                CodeGalaxy codeGalaxy = (CodeGalaxy) selectedTab.getContent();
+                codeGalaxy.redo();
+            }
+        });
+        cut.setOnAction(_ -> {
+            Tab selectedTab = tabPane.getSelectionModel().getSelectedItem();
+            if (selectedTab != null) {
+                CodeGalaxy codeGalaxy = (CodeGalaxy) selectedTab.getContent();
+                codeGalaxy.selectLine();
+                codeGalaxy.cut();
+            }
+        });
+        copy.setOnAction(_ -> {
+            Tab selectedTab = tabPane.getSelectionModel().getSelectedItem();
+            if (selectedTab != null) {
+                CodeGalaxy codeGalaxy = (CodeGalaxy) selectedTab.getContent();
+                codeGalaxy.selectLine();
+                codeGalaxy.copy();
+            }
+        });
+        paste.setOnAction(_ -> {
+            Tab selectedTab = tabPane.getSelectionModel().getSelectedItem();
+            if (selectedTab != null) {
+                CodeGalaxy codeGalaxy = (CodeGalaxy) selectedTab.getContent();
+                codeGalaxy.paste();
+            }
+        });
+
     }
 
     private void chooseFolder() {
