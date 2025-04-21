@@ -13,6 +13,11 @@
     -fx-font-weight: bold;
 }
 
+.field {
+    -fx-fill: #9CDCFE ;
+    -fx-font-weight: bold;
+}
+
 .method-variable {
     -fx-fill: #9CDCFE ;
 }

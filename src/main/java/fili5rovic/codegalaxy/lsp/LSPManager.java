@@ -9,10 +9,7 @@ import org.eclipse.lsp4j.services.LanguageServer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 
@@ -72,6 +69,7 @@ public class LSPManager {
     }
 
     public void openFile(String filePath) throws Exception {
+        System.out.println("Opening file: " + filePath);
         Path file = Paths.get(filePath);
         String text = Files.readString(file);
         String uri = file.toUri().toString();
@@ -156,6 +154,33 @@ public class LSPManager {
         return items;
     }
 
+    public CompletableFuture<List<DocumentSymbol>> getAllSymbols(String filePath) throws Exception {
+        System.out.println("Requesting all symbols for " + filePath);
+        return requestDocumentSymbols(filePath)
+                .thenApply(eithers -> {
+                    List<DocumentSymbol> flat = new ArrayList<>();
+                    for (Either<SymbolInformation, DocumentSymbol> e : eithers) {
+                        if (e.isRight()) collect(e.getRight(), flat);
+                    }
+                    return flat;
+                });
+    }
+
+    private CompletableFuture<List<Either<SymbolInformation, DocumentSymbol>>> requestDocumentSymbols(String filePath) throws Exception {
+        String uri = Paths.get(filePath).toUri().toString();
+        DocumentSymbolParams params = new DocumentSymbolParams(new TextDocumentIdentifier(uri));
+        return server.getTextDocumentService()
+                .documentSymbol(params);
+    }
+
+
+    private void collect(DocumentSymbol ds, List<DocumentSymbol> out) {
+        out.add(ds);
+        if (ds.getChildren() != null) {
+            for (DocumentSymbol c : ds.getChildren()) collect(c, out);
+        }
+    }
+
     public void stop() {
         if (server == null) {
             System.out.println("Server already stopped.");
@@ -181,16 +206,4 @@ public class LSPManager {
         return debouncer;
     }
 
-    public static void main(String[] args) {
-        try {
-            LSPManager manager = new LSPManager();
-            manager.start();
-            String filePath = "D:\\MY_WORKSPACE\\Sex\\src\\Main.java";
-
-            manager.openFile(filePath);
-            manager.requestCompletions(filePath, 3, 15);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }
