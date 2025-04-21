@@ -13,6 +13,10 @@
     -fx-font-weight: bold;
 }
 
+.method-variable {
+    -fx-fill: #9CDCFE ;
+}
+
 .default_text {
     -fx-fill: #e0e0e0;
 }

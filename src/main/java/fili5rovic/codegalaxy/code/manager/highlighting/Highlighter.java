@@ -3,8 +3,9 @@ package fili5rovic.codegalaxy.code.manager.highlighting;
 import fili5rovic.codegalaxy.Main;
 import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.code.manager.Manager;
+import fili5rovic.codegalaxy.util.ClassScanner;
 import fili5rovic.codegalaxy.util.FileHelper;
-import fili5rovic.codegalaxy.util.JavaParserUtil;
+import fili5rovic.codegalaxy.util.SimpleJavaLexer;
 import org.fxmisc.richtext.CodeArea;
 import org.fxmisc.richtext.LineNumberFactory;
 import org.fxmisc.richtext.model.StyleSpans;
@@ -46,13 +47,16 @@ public class Highlighter extends Manager {
         String[] patterns = {
                 getKeywords(),
                 getMethods(),
-                getClasses()
+                getClasses(),
+                getMethodVariables(),
+
         };
 
         String[] cssClasses = {
                 "keyword",
                 "method",
                 "class",
+                "method-variable",
         };
 
         String combinedPattern = String.join("|", patterns);
@@ -94,18 +98,35 @@ public class Highlighter extends Manager {
 
     private String getMethods() {
         StringBuilder sb = new StringBuilder();
-        for(String method : JavaParserUtil.getMethodsFromFile(codeGalaxy.getFilePath().toFile())) {
+        for(String method : SimpleJavaLexer.getMethodNames(codeGalaxy.getText())) {
             sb.append("\\b").append(method).append("\\b|");
         }
-        return sb.substring(0, sb.length() - 1);
+        if (!sb.isEmpty()) {
+            sb.deleteCharAt(sb.length() - 1);
+        }
+        return sb.toString();
     }
 
     private String getClasses() {
         StringBuilder sb = new StringBuilder();
-        for(String className : JavaParserUtil.getClassesFromFile(codeGalaxy.getFilePath().toFile())) {
+        for(String className : ClassScanner.getAllProjectClasses()) {
             sb.append("\\b").append(className).append("\\b|");
         }
-        return sb.substring(0, sb.length() - 1);
+        if (!sb.isEmpty()) {
+            sb.deleteCharAt(sb.length() - 1);
+        }
+        return sb.toString();
+    }
+
+    private String getMethodVariables() {
+        StringBuilder sb = new StringBuilder();
+        for(String method : SimpleJavaLexer.getLocalVariableNames(codeGalaxy.getText())) {
+            sb.append("\\b").append(method).append("\\b|");
+        }
+        if (!sb.isEmpty()) {
+            sb.deleteCharAt(sb.length() - 1);
+        }
+        return sb.toString();
     }
 
 }
