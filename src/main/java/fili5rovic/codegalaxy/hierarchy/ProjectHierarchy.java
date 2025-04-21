@@ -65,11 +65,6 @@ public class ProjectHierarchy extends TreeView<Label> {
             if (item == null || Files.isDirectory(item.getPath()))
                 return;
             controller.createTab(item.getPath());
-            try {
-                LSPManager.getInstance().openFile(item.getPath().toString());
-            } catch (Exception ex) {
-                System.out.println("Failed to open file: " + ex.getMessage());
-            }
         }
     }
 

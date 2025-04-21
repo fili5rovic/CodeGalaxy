@@ -9,12 +9,15 @@ import fili5rovic.codegalaxy.code.manager.suggestions.SuggestionManager;
 import fili5rovic.codegalaxy.lsp.LSPManager;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
+import org.eclipse.lsp4j.DocumentSymbol;
 import org.fxmisc.flowless.VirtualizedScrollPane;
 import org.fxmisc.richtext.CodeArea;
 import org.fxmisc.richtext.LineNumberFactory;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class CodeGalaxy extends CodeArea {
     private final ArrayList<Manager> managers = new ArrayList<>();
@@ -61,10 +64,26 @@ public class CodeGalaxy extends CodeArea {
     }
 
     private void onTextChanged() {
-        LSPManager.getInstance().getDebouncer().debounce(
-                () ->
+        LSPManager.getInstance().getDebouncer().debounce(() ->
                 LSPManager.getInstance().
                         sendChange(fileManager.getPath().toString(), getText()), 400);
+
+        try {
+            CompletableFuture<List<DocumentSymbol>> symbols = LSPManager.getInstance().getAllSymbols(fileManager.getPath().toString());
+
+            symbols.thenAccept(documentSymbols -> {
+                if(documentSymbols == null) {
+                    System.out.println("No symbols found.");
+                    return;
+                }
+                System.out.println("Symbols received: " + documentSymbols.size());
+                for (DocumentSymbol symbol : documentSymbols) {
+                    System.out.println("Symbol: " + symbol.getName());
+                }
+            });
+        } catch (Exception e) {
+            System.out.println("Error getting symbols: " + e.getMessage());
+        }
     }
 
     @Override
