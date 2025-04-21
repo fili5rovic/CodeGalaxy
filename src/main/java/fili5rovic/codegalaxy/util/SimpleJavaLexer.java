@@ -5,7 +5,7 @@ import java.util.regex.*;
 
 public class SimpleJavaLexer {
 
-    public static List<String> getClassNames(String code) {
+    public static List<String> getLocalClassNames(String code) {
         Pattern classPattern = Pattern.compile("\\bclass\\s+(\\w+)");
         Matcher matcher = classPattern.matcher(code);
 
@@ -17,17 +17,14 @@ public class SimpleJavaLexer {
     }
 
     public static List<String> getMethodNames(String code) {
-        // First get all class names
-        String[] classNames = ClassScanner.getAllProjectClasses();
+        String[] classNames = getLocalClassNames(code).toArray(new String[0]);
 
-        // Normal method pattern
         Pattern methodPattern = Pattern.compile("(?:public|protected|private|static|\\s)*(?!class\\b)[\\w<>\\[\\]]+\\s+(?<!new\\s)(?<!class\\s)(\\w+)\\s*\\(");
         Matcher matcher = methodPattern.matcher(code);
 
         List<String> methods = new ArrayList<>();
         while (matcher.find()) {
             String methodName = matcher.group(1);
-            // Check if this is a constructor (same name as a class)
             boolean isConstructor = false;
             for (String className : classNames) {
                 if (methodName.equals(className)) {
@@ -36,7 +33,7 @@ public class SimpleJavaLexer {
                 }
             }
 
-            // Only add if it's not a constructor
+            // only add if it's not a constructor
             if (!isConstructor) {
                 methods.add(methodName);
             }
@@ -45,20 +42,23 @@ public class SimpleJavaLexer {
     }
 
     public static List<String> getFieldNames(String code) {
-        // First let's find class body content by removing method blocks
-        List<String> methodBodies = extractMethodBodies(code);
-        String codeWithoutMethodContents = code;
+        String codeWithoutPackages = code.replaceAll("(?m)^\\s*(package|import)\\s+.*?;\\s*$", "");
 
-        // Replace method body contents with spaces to preserve structure
+        List<String> methodBodies = extractMethodBodies(codeWithoutPackages);
+        String codeWithoutMethodContents = codeWithoutPackages;
+
         for (String methodBody : methodBodies) {
             codeWithoutMethodContents = codeWithoutMethodContents.replace(methodBody, " ".repeat(methodBody.length()));
         }
 
-        // Match fields with access modifiers
-        Pattern fieldWithModifierPattern = Pattern.compile("(?:public|protected|private|static|final)\\s+[\\w<>\\[\\]]+\\s+(\\w+)\\s*(?:=|;)");        Matcher modifierMatcher = fieldWithModifierPattern.matcher(codeWithoutMethodContents);
+        Pattern fieldWithModifierPattern = Pattern.compile(
+                "(?:public|protected|private|static|final)\\s+[\\w<>\\[\\]]+\\s+(\\w+)\\s*(?:=|;)"
+        );
+        Matcher modifierMatcher = fieldWithModifierPattern.matcher(codeWithoutMethodContents);
 
-        // Match fields with default modifier (no access modifier)
-        Pattern defaultFieldPattern = Pattern.compile("(?m)^\\s*(?!(public|protected|private|static|final|class|void|if|for|while)\\b)[\\w<>\\[\\]]+\\s+(\\w+)\\s*(?:=|;)");
+        Pattern defaultFieldPattern = Pattern.compile(
+                "(?m)^\\s*(?!(public|protected|private|static|final|class|void|if|for|while|return|else)\\b)[\\w<>\\[\\]]+\\s+(\\w+)\\s*(?:=|;)"
+        );
         Matcher defaultMatcher = defaultFieldPattern.matcher(codeWithoutMethodContents);
 
         List<String> fields = new ArrayList<>();
@@ -73,8 +73,8 @@ public class SimpleJavaLexer {
         return fields;
     }
 
+
     private static List<String> extractMethodBodies(String code) {
-        // Simple method to extract method bodies - finds content between { } that follows a method signature
         List<String> methodBodies = new ArrayList<>();
         Pattern methodBodyPattern = Pattern.compile("(?:public|protected|private|static|\\s)*[\\w<>\\[\\]]+\\s+\\w+\\s*\\([^)]*\\)\\s*\\{([^{}]*(\\{[^{}]*\\}[^{}]*)*)*\\}");
         Matcher methodBodyMatcher = methodBodyPattern.matcher(code);
@@ -108,24 +108,23 @@ public class SimpleJavaLexer {
 
     public static void main(String[] args) {
         String code = """
-                    public class Seb {
+                    package test;
                 
-                    	private int x = 3;
+                     public class Gay {
+                     	int x = 3;
                 
-                    	public Seb() {
-                    		x = 54;
-                    	}
+                     	public Gay() {
                 
-                    	public int getX() {
-                    		int b = 3;
-                    		int d = 4;
-                    		return x;
-                    	}
-                
-                    }
+                     	}
+                     	private int gay = 4;
+                     	
+                     	private void gay() {
+                     	
+                     	}
+                     }
                 """;
 
-        System.out.println("Classes: " + getClassNames(code));
+        System.out.println("Classes: " + getLocalClassNames(code));
         System.out.println("Methods: " + getMethodNames(code));
         System.out.println("Fields: " + getFieldNames(code));
         System.out.println("Local Variables: " + getLocalVariableNames(code));
