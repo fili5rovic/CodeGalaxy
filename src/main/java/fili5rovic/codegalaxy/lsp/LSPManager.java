@@ -31,6 +31,10 @@ public class LSPManager {
         return instance;
     }
 
+    private LSPManager() {
+        // Private constructor to prevent instantiation
+    }
+
     public void start() throws Exception {
         String workspace = UserPreferences.getInstance().get("workspace");
         if (workspace == null)
@@ -52,14 +56,23 @@ public class LSPManager {
 
         // Create a workspace folder instead of using rootUri
         WorkspaceFolder workspaceFolder = new WorkspaceFolder();
-        String uri = Paths.get(workspace).toUri().toString();
+        Path workspacePath = Paths.get(workspace);
+
+        String uri = workspacePath.toUri().toString();
         workspaceFolder.setUri(uri);
-        workspaceFolder.setName(Paths.get(workspace).getFileName().toString());
+        workspaceFolder.setName(workspacePath.getFileName().toString());
         // Set workspace folders as a list with our workspace
         init.setWorkspaceFolders(Collections.singletonList(workspaceFolder));
 
         // Set client capabilities
         ClientCapabilities capabilities = new ClientCapabilities();
+
+        TextDocumentClientCapabilities textDocumentCapabilities = new TextDocumentClientCapabilities();
+        DocumentSymbolCapabilities documentSymbolCapabilities = new DocumentSymbolCapabilities();
+        documentSymbolCapabilities.setHierarchicalDocumentSymbolSupport(true);
+        textDocumentCapabilities.setDocumentSymbol(documentSymbolCapabilities);
+
+        capabilities.setTextDocument(textDocumentCapabilities);
         init.setCapabilities(capabilities);
 
         server.initialize(init).get();
@@ -97,7 +110,6 @@ public class LSPManager {
             throw new IllegalStateException("File must be opened first: " + uri);
         }
 
-        // Increment document version
         int newVersion = documentVersions.get(uri) + 1;
         documentVersions.put(uri, newVersion);
 
@@ -155,12 +167,14 @@ public class LSPManager {
     }
 
     public CompletableFuture<List<DocumentSymbol>> getAllSymbols(String filePath) throws Exception {
-        System.out.println("Requesting all symbols for " + filePath);
         return requestDocumentSymbols(filePath)
                 .thenApply(eithers -> {
                     List<DocumentSymbol> flat = new ArrayList<>();
                     for (Either<SymbolInformation, DocumentSymbol> e : eithers) {
                         if (e.isRight()) collect(e.getRight(), flat);
+                        else {
+                            System.out.println("SymbolInformation: " + e.getLeft().getName());
+                        }
                     }
                     return flat;
                 });
@@ -202,8 +216,19 @@ public class LSPManager {
         }
     }
 
+
+
+    public void sendChangesDebounce(String filePath, String newText, long delay) throws IllegalStateException {
+        debouncer.debounce(() -> sendChange(filePath, newText), delay);
+    }
+
     public Debouncer getDebouncer() {
         return debouncer;
     }
+
+    public LSPClient getClient() {
+        return client;
+    }
+
 
 }

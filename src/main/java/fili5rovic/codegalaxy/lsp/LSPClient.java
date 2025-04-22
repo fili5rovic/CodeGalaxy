@@ -4,10 +4,21 @@ import org.eclipse.lsp4j.*;
 import org.eclipse.lsp4j.jsonrpc.services.JsonNotification;
 import org.eclipse.lsp4j.services.LanguageClient;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-class LSPClient implements LanguageClient {
+public class LSPClient implements LanguageClient {
+
+    private boolean waitingForDidChange = false;
+
+    private List<DidChangeListener> listeners = new ArrayList<>();
+
+    public void addDidChangeListener(DidChangeListener listener) {
+        listeners.add(listener);
+    }
+
     @Override
     public void telemetryEvent(Object object) {
     }
@@ -17,6 +28,13 @@ class LSPClient implements LanguageClient {
         System.out.println("Diagnostics : " + diagnostics.getUri().split("///")[1] + ":");
         diagnostics.getDiagnostics().forEach(d ->
                 System.out.println("\t[" + d.getSeverity() + "] : " + d.getMessage()));
+
+        if (waitingForDidChange) {
+            waitingForDidChange = false;
+            for (DidChangeListener listener : listeners) {
+                listener.onDidChange();
+            }
+        }
     }
 
 

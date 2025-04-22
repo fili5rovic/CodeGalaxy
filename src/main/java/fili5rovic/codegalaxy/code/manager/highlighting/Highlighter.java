@@ -3,6 +3,7 @@ package fili5rovic.codegalaxy.code.manager.highlighting;
 import fili5rovic.codegalaxy.Main;
 import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.code.manager.Manager;
+import fili5rovic.codegalaxy.lsp.LSPManager;
 import fili5rovic.codegalaxy.util.FileHelper;
 import fili5rovic.codegalaxy.util.SimpleJavaLexer;
 import org.fxmisc.richtext.CodeArea;
@@ -20,6 +21,8 @@ public class Highlighter extends Manager {
 
     private final HashMap<String, String> fileNameToStyleClassMap = new HashMap<>();
 
+    private final HashMap<String, ArrayList<Range>> symbolRanges = new HashMap<>();
+
     public Highlighter(CodeGalaxy cg) {
         super(cg);
     }
@@ -29,41 +32,35 @@ public class Highlighter extends Manager {
         codeGalaxy.getStylesheets().add(Main.class.getResource("/fili5rovic/codegalaxy/highlighter.css").toExternalForm());
         codeGalaxy.setParagraphGraphicFactory(LineNumberFactory.get(codeGalaxy));
         fillHashMap();
-        codeGalaxy.textProperty().addListener((obs, oldText, newText) -> this.applyHighlighting(codeGalaxy));
     }
-
 
     private void fillHashMap() {
         fileNameToStyleClassMap.put("javaKeywords.txt", "keywords");
     }
-    private void applyHighlighting(CodeArea codeArea) {
+    public void applyHighlighting(CodeArea codeArea) {
         String text = codeArea.getText();
         codeArea.setStyleSpans(0, computeHighlighting(text));
     }
+
     private StyleSpans<Collection<String>> computeHighlighting(String text) {
         StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
 
         int lastIndex = 0;
 
-        List<Range> methodRanges = SimpleJavaLexer.getMethodNameRanges(text);
-        List<Range> fieldRanges = SimpleJavaLexer.getFieldRanges(text);
-        List<Range> classRanges = SimpleJavaLexer.getClassNameRanges(text);
+
         List<Range> keywordRanges = getKeywords(text);
 
         List<StyledRange> allRanges = new ArrayList<>();
 
+        for(String key : symbolRanges.keySet()) {
+            ArrayList<Range> ranges = symbolRanges.get(key);
+            for (Range r : ranges) {
+                allRanges.add(new StyledRange(r.start(), r.end(), key));
+            }
+        }
+
         for(Range r : keywordRanges)
             allRanges.add(new StyledRange(r.start(), r.end(), "keyword"));
-
-        for (Range r : methodRanges)
-            allRanges.add(new StyledRange(r.start(), r.end(), "method"));
-
-        for (Range r : fieldRanges)
-            allRanges.add(new StyledRange(r.start(), r.end(), "field"));
-
-        for (Range r : classRanges)
-            allRanges.add(new StyledRange(r.start(), r.end(), "class"));
-
 
         // Sort ranges by start position
         allRanges.sort(Comparator.comparingInt(r -> r.start));
@@ -111,6 +108,11 @@ public class Highlighter extends Manager {
         }
 
         return ranges;
+    }
+
+    public void setSymbolRanges(HashMap<String, ArrayList<Range>> symbolRanges) {
+        this.symbolRanges.clear();
+        this.symbolRanges.putAll(symbolRanges);
     }
 
 

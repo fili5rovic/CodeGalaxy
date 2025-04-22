@@ -3,6 +3,16 @@
     -fx-font-weight: bold;
 }
 
+.package {
+    -fx-fill: #4EC9B0 ;
+    -fx-font-weight: bold;
+}
+
+.constructor {
+    -fx-fill: #4EC9B0 ;
+    -fx-font-weight: bold;
+}
+
 .class {
     -fx-fill: #4EC9B0 ;
     -fx-font-weight: bold;
