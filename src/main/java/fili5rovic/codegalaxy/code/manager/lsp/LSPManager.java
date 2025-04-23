@@ -22,9 +22,7 @@ public class LSPManager extends Manager {
     public void init() {
         LSP.instance().getDebouncer().addCompletionCallback(this::highlight);
 
-        codeGalaxy.textProperty().addListener((_, _, _) -> {
-            onTextChanged();
-        });
+        codeGalaxy.textProperty().addListener((_, _, _) -> onTextChanged());
     }
 
     private void onTextChanged() {

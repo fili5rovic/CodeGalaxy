@@ -8,7 +8,7 @@ import javafx.application.Platform;
 public class Debouncer {
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
     private ScheduledFuture<?> future;
-    private List<Runnable> completionCallbacks = new ArrayList<>();
+    private final List<Runnable> completionCallbacks = new ArrayList<>();
 
     public void debounce(Runnable action, long delayMs) {
         if (future != null && !future.isDone()) {

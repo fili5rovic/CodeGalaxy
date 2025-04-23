@@ -33,7 +33,7 @@ public class SymbolUtil {
                 if (symbol.getKind() == SymbolKind.Package)
                     range = new Range(range.start() + 8, range.end() - 1);
 
-                symbolRanges.computeIfAbsent(symbol.getKind().toString().toLowerCase(), k -> new ArrayList<>())
+                symbolRanges.computeIfAbsent(symbol.getKind().toString().toLowerCase(), _ -> new ArrayList<>())
                         .add(range);
             }
         } catch (InterruptedException | ExecutionException e) {

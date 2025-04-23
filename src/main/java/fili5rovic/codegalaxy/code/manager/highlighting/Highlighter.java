@@ -27,7 +27,7 @@ public class Highlighter extends Manager {
 
     @Override
     public void init() {
-        codeGalaxy.getStylesheets().add(Main.class.getResource("/fili5rovic/codegalaxy/highlighter.css").toExternalForm());
+        codeGalaxy.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/highlighter.css")).toExternalForm());
         codeGalaxy.setParagraphGraphicFactory(LineNumberFactory.get(codeGalaxy));
         fillHashMap();
     }
@@ -85,7 +85,7 @@ public class Highlighter extends Manager {
     private List<Range> getKeywords(String code) {
         String patterns = "";
         for (String key : fileNameToStyleClassMap.keySet()) {
-            String path = Main.class.getResource("/fili5rovic/codegalaxy/keywords/" + key).getPath();
+            String path = Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/keywords/" + key)).getPath();
             String keywords = FileHelper.readFromFile(path);
 
             StringBuilder sb = new StringBuilder();
