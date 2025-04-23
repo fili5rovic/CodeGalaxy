@@ -3,7 +3,7 @@ package fili5rovic.codegalaxy.code.manager.suggestions;
 import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.code.manager.Manager;
 import fili5rovic.codegalaxy.lsp.Debouncer;
-import fili5rovic.codegalaxy.lsp.LSPManager;
+import fili5rovic.codegalaxy.lsp.LSP;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -43,15 +43,15 @@ public class SuggestionManager extends Manager {
         codeGalaxy.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.SPACE && event.isControlDown()) {
                 try {
-                    Debouncer debouncer = LSPManager.getInstance().getDebouncer();
+                    Debouncer debouncer = LSP.instance().getDebouncer();
                     if (debouncer.isDebouncing()) {
                         debouncer.cancel();
-                        LSPManager.getInstance().sendChange(
+                        LSP.instance().sendChange(
                                 codeGalaxy.getFilePath().toString(),
                                 codeGalaxy.getText()
                         );
                     }
-                    items = LSPManager.getInstance().requestCompletions(codeGalaxy.getFilePath().toString(), line, column);
+                    items = LSP.instance().requestCompletions(codeGalaxy.getFilePath().toString(), line, column);
                     if (items != null && !items.isEmpty())
                         showPopup(codeGalaxy, items);
 

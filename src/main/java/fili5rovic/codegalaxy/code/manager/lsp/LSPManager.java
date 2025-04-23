@@ -3,7 +3,7 @@ package fili5rovic.codegalaxy.code.manager.lsp;
 import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.code.manager.Manager;
 import fili5rovic.codegalaxy.code.manager.highlighting.Range;
-import fili5rovic.codegalaxy.lsp.LSPManager;
+import fili5rovic.codegalaxy.lsp.LSP;
 import fili5rovic.codegalaxy.util.SymbolUtil;
 import org.eclipse.lsp4j.DocumentSymbol;
 
@@ -12,25 +12,32 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public class LSPHelper extends Manager {
+public class LSPManager extends Manager {
 
-    public LSPHelper(CodeGalaxy cg) {
+    public LSPManager(CodeGalaxy cg) {
         super(cg);
     }
 
     @Override
     public void init() {
+        LSP.instance().getDebouncer().addCompletionCallback(this::highlight);
+
         codeGalaxy.textProperty().addListener((_, _, _) -> {
             onTextChanged();
         });
     }
 
     private void onTextChanged() {
-        LSPManager.getInstance().sendChangesDebounce(codeGalaxy.getFilePath().toString(), codeGalaxy.getText(), 400);
+        LSP.instance().sendChangesDebounce(codeGalaxy.getFilePath().toString(), codeGalaxy.getText(), 400);
 
+        highlight();
+    }
+
+    private void highlight() {
+        System.out.println("Highlighting code...");
         CompletableFuture<List<DocumentSymbol>> symbols;
         try {
-            symbols = LSPManager.getInstance().getAllSymbols(codeGalaxy.getFilePath().toString());
+            symbols = LSP.instance().getAllSymbols(codeGalaxy.getFilePath().toString());
         } catch (Exception e) {
             System.err.println("Error getting symbols: " + e.getMessage());
             System.err.println("Couldn't highlight the code.");
