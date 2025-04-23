@@ -1,7 +1,6 @@
 package fili5rovic.codegalaxy.hierarchy;
 
 import fili5rovic.codegalaxy.controller.DashboardController;
-import fili5rovic.codegalaxy.lsp.LSPManager;
 import fili5rovic.codegalaxy.preferences.UserPreferences;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.collections.ObservableList;

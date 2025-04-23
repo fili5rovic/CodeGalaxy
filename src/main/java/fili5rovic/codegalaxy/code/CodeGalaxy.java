@@ -5,23 +5,16 @@ import fili5rovic.codegalaxy.code.manager.font.FontManager;
 import fili5rovic.codegalaxy.code.manager.Manager;
 import fili5rovic.codegalaxy.code.manager.editing.LineEditing;
 import fili5rovic.codegalaxy.code.manager.highlighting.Highlighter;
-import fili5rovic.codegalaxy.code.manager.highlighting.Range;
-import fili5rovic.codegalaxy.code.manager.lsp.LSPHelper;
+import fili5rovic.codegalaxy.code.manager.lsp.LSPManager;
 import fili5rovic.codegalaxy.code.manager.suggestions.SuggestionManager;
-import fili5rovic.codegalaxy.lsp.LSPManager;
-import fili5rovic.codegalaxy.util.SymbolUtil;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
-import org.eclipse.lsp4j.DocumentSymbol;
 import org.fxmisc.flowless.VirtualizedScrollPane;
 import org.fxmisc.richtext.CodeArea;
 import org.fxmisc.richtext.LineNumberFactory;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 public class CodeGalaxy extends CodeArea {
     private final ArrayList<Manager> managers = new ArrayList<>();
@@ -58,7 +51,7 @@ public class CodeGalaxy extends CodeArea {
         managers.add(new SuggestionManager(this));
         highlighter = new Highlighter(this);
         managers.add(highlighter);
-        managers.add(new LSPHelper(this));
+        managers.add(new LSPManager(this));
     }
 
     private void initManagers() {

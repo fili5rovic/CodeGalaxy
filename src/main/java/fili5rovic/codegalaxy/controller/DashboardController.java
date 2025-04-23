@@ -2,7 +2,7 @@ package fili5rovic.codegalaxy.controller;
 
 import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.dashboardManager.MenuManager;
-import fili5rovic.codegalaxy.lsp.LSPManager;
+import fili5rovic.codegalaxy.lsp.LSP;
 import fili5rovic.codegalaxy.preferences.UserPreferences;
 import fili5rovic.codegalaxy.project.ProjectManager;
 import fili5rovic.codegalaxy.util.SVGUtil;
@@ -73,7 +73,7 @@ public class DashboardController extends ControllerBase {
         Window.getWindowAt(Window.WINDOW_DASHBOARD).setController(this);
 
         try {
-            LSPManager.getInstance().start();
+            LSP.instance().start();
         } catch (Exception e) {
             System.out.println("Failed to start LSP server: " + e.getMessage());
         }
@@ -118,7 +118,7 @@ public class DashboardController extends ControllerBase {
         CodeGalaxy codeGalaxy = new CodeGalaxy();
         codeGalaxy.setFile(filePath);
         try {
-            LSPManager.getInstance().openFile(codeGalaxy.getFilePath().toString());
+            LSP.instance().openFile(codeGalaxy.getFilePath().toString());
         } catch (Exception e) {
             System.out.println("Failed to open file: " + e.getMessage());
         }
@@ -135,13 +135,13 @@ public class DashboardController extends ControllerBase {
     }
 
     private void closedTab(Path filePath) {
-        LSPManager.getInstance().closeFile(filePath.toString());
+        LSP.instance().closeFile(filePath.toString());
         UserPreferences.getInstance().removeFrom("recentFiles", filePath.toString());
     }
 
     public void onAppClose(WindowEvent actionEvent) {
         System.out.println("App closed");
-        LSPManager.getInstance().stop();
+        LSP.instance().stop();
     }
 
     //<editor-fold desc="Getters">

@@ -13,7 +13,7 @@ import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 
-public class LSPManager {
+public class LSP {
     private LSPClient client;
     private LSPServerManager serverManager;
     private LanguageServer server;
@@ -24,14 +24,14 @@ public class LSPManager {
     private final Map<String, Integer> documentVersions = new HashMap<>();
     private final Map<String, String> documentContents = new HashMap<>();
 
-    private static final LSPManager instance = new LSPManager();
+    private static final LSP instance = new LSP();
 
 
-    public static LSPManager getInstance() {
+    public static LSP instance() {
         return instance;
     }
 
-    private LSPManager() {
+    private LSP() {
         // Private constructor to prevent instantiation
     }
 
