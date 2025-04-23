@@ -139,7 +139,7 @@ public class DashboardController extends ControllerBase {
         UserPreferences.getInstance().removeFrom("recentFiles", filePath.toString());
     }
 
-    public void onAppClose(WindowEvent actionEvent) {
+    public void onAppClose(WindowEvent event) {
         System.out.println("App closed");
         LSP.instance().stop();
     }

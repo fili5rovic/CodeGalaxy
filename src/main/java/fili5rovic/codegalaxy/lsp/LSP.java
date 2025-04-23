@@ -172,15 +172,12 @@ public class LSP {
                     List<DocumentSymbol> flat = new ArrayList<>();
                     for (Either<SymbolInformation, DocumentSymbol> e : eithers) {
                         if (e.isRight()) collect(e.getRight(), flat);
-                        else {
-                            System.out.println("SymbolInformation: " + e.getLeft().getName());
-                        }
                     }
                     return flat;
                 });
     }
 
-    private CompletableFuture<List<Either<SymbolInformation, DocumentSymbol>>> requestDocumentSymbols(String filePath) throws Exception {
+    private CompletableFuture<List<Either<SymbolInformation, DocumentSymbol>>> requestDocumentSymbols(String filePath) {
         String uri = Paths.get(filePath).toUri().toString();
         DocumentSymbolParams params = new DocumentSymbolParams(new TextDocumentIdentifier(uri));
         return server.getTextDocumentService()
@@ -225,10 +222,5 @@ public class LSP {
     public Debouncer getDebouncer() {
         return debouncer;
     }
-
-    public LSPClient getClient() {
-        return client;
-    }
-
 
 }
