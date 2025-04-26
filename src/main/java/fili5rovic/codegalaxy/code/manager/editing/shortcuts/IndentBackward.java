@@ -31,9 +31,8 @@ public class IndentBackward extends Shortcut {
         int selectedTextStart = codeGalaxy.getCaretSelectionBind().getStartPosition();
         int selectedTextEnd = codeGalaxy.getCaretSelectionBind().getEndPosition() + newCharNum;
 
-        if (hadTab)
+        if (hadTab && selectedTextStart > 0)
             selectedTextStart -= 1;
-
 
         codeGalaxy.deleteText(startPar, 0, endPar, codeGalaxy.getText(endPar).length());
 

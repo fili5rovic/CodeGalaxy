@@ -74,4 +74,16 @@ public class LSPRequestManager {
             for (DocumentSymbol c : ds.getChildren()) collect(c, out);
         }
     }
+
+    public CompletableFuture<List<? extends TextEdit>> formatDocument(String filePath) {
+        String uri = Paths.get(filePath).toUri().toString();
+        TextDocumentIdentifier docId = new TextDocumentIdentifier(uri);
+
+        FormattingOptions options = new FormattingOptions(4, true); // 4 spaces, insertSpaces = true
+        DocumentFormattingParams params = new DocumentFormattingParams(docId, options);
+
+        return server.getTextDocumentService()
+                .formatting(params);
+    }
+
 }
