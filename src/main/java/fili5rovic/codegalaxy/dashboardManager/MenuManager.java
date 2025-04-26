@@ -6,6 +6,7 @@ import fili5rovic.codegalaxy.project.ProjectManager;
 import fili5rovic.codegalaxy.util.FileHelper;
 import fili5rovic.codegalaxy.util.SVGUtil;
 import fili5rovic.codegalaxy.window.Window;
+import fili5rovic.codegalaxy.window.WindowHelper;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -40,6 +41,7 @@ public class MenuManager {
         controller.getPaste().setOnAction(this::paste);
         controller.getSelectAll().setOnAction(this::selectAll);
         controller.getDelete().setOnAction(this::delete);
+        controller.getSettings().setOnAction(this::settings);
     }
 
     private void menuIcons() {
@@ -137,6 +139,10 @@ public class MenuManager {
             CodeGalaxy codeGalaxy = (CodeGalaxy) selectedTab.getContent();
             codeGalaxy.deleteNextChar();
         }
+    }
+
+    private void settings(ActionEvent e) {
+        WindowHelper.showWindow(Window.SETTINGS);
     }
     //</editor-fold>
 }
