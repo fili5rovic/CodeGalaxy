@@ -5,6 +5,7 @@ import org.eclipse.lsp4j.*;
 import org.eclipse.lsp4j.jsonrpc.Launcher;
 import org.eclipse.lsp4j.services.LanguageServer;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
@@ -34,6 +35,8 @@ public class LSP {
     }
 
     public void start() throws Exception {
+        cleanTemporaryFiles();
+
         String workspace = UserPreferences.getInstance().get("workspace");
         if (workspace == null)
             throw new IllegalStateException("Workspace not set in user preferences.");
@@ -107,6 +110,27 @@ public class LSP {
         }
     }
 
+    private void cleanTemporaryFiles() {
+        String projectPath = System.getProperty("user.dir");
+        File managerFolder = new File(projectPath + "\\lsp\\config_win\\org.eclipse.equinox.app\\.manager");
+        if (!managerFolder.exists() || !managerFolder.isDirectory()) {
+            System.out.println("Manager folder does not exist or is not a directory.");
+            return;
+        }
+
+        File[] tmpFiles = managerFolder.listFiles((dir, name) -> name.startsWith(".tmp"));
+
+        if (tmpFiles == null) {
+            System.out.println("No .tmp files found.");
+            return;
+        }
+
+        for (File tmpFile : tmpFiles) {
+            tmpFile.delete();
+        }
+    }
+
+
     public void openFile(String filePath) throws Exception {
         documentManager.openFile(filePath);
     }
@@ -115,7 +139,7 @@ public class LSP {
         documentManager.closeFile(filePath);
     }
 
-    public void sendChange(String filePath, String newText) throws IllegalStateException  {
+    public void sendChange(String filePath, String newText) throws IllegalStateException {
         documentManager.sendChange(filePath, newText);
     }
 

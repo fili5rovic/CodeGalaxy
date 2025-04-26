@@ -15,7 +15,6 @@ import java.util.stream.Stream;
 public class JavaParserUtil {
 
     static {
-        // Disable attribute comments (which cause extra errors sometimes)
         ParserConfiguration config = new ParserConfiguration();
         config.setAttributeComments(false);
         StaticJavaParser.setConfiguration(config);
@@ -26,7 +25,6 @@ public class JavaParserUtil {
             CompilationUnit cu = StaticJavaParser.parse(code);
             return Optional.of(cu);
         } catch (Exception e) {
-            // Optionally log problems if you want:
             System.err.println("Parse problem: " + e.getMessage());
             return Optional.empty();
 
@@ -76,7 +74,7 @@ public class JavaParserUtil {
                             && m.getParameters().size() == 1
                             && m.getParameter(0).getType().asString().equals("String[]"));
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Error parsing file: " + e.getMessage());
             return false;
         }
     }
