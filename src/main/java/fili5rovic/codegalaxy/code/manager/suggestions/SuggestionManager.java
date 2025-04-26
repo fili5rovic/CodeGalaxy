@@ -9,6 +9,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Popup;
 import org.eclipse.lsp4j.CompletionItem;
+import org.eclipse.lsp4j.CompletionItemKind;
 import org.fxmisc.richtext.model.TwoDimensional;
 import java.util.List;
 
@@ -93,16 +94,14 @@ public class SuggestionManager extends Manager {
         }
 
         String currentWord = codeGalaxy.getText(wordStart, caretPosition);
-        String insertText = item.getInsertText();
-        if (insertText == null || insertText.isEmpty()) {
-            insertText = item.getLabel();
-        }
+        String insertText = makeInsertText(item);
 
         if (currentWord.equals(insertText)) {
             currentPopup.hide();
             return;
         }
 
+        System.out.println(item);
         codeGalaxy.replaceText(wordStart, caretPosition, insertText);
         codeGalaxy.moveTo(wordStart + insertText.length());
         codeGalaxy.requestFollowCaret();
@@ -119,6 +118,25 @@ public class SuggestionManager extends Manager {
             );
             currentPopup.requestFocus();
         });
+    }
+
+    private String makeInsertText(CompletionItem item) {
+        String insertText = item.getFilterText();
+
+        if (insertText == null || insertText.isEmpty())
+            insertText = item.getLabel();
+
+
+        if(item.getKind() == CompletionItemKind.Method && insertText.contains("@Override")) {
+            insertText = insertText.replaceFirst("// TODO Auto-generated method stub\n", "");
+
+            insertText = insertText.replaceFirst("(?m)^\\s+(return\\b)", "\t$1");
+
+            insertText = insertText.replaceAll("\n", "\n\t");
+
+            System.out.println("Insert text: \n" + insertText);
+        }
+        return insertText;
     }
 
 }
