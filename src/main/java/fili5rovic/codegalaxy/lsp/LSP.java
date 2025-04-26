@@ -62,10 +62,8 @@ public class LSP {
         String uri = workspacePath.toUri().toString();
         workspaceFolder.setUri(uri);
         workspaceFolder.setName(workspacePath.getFileName().toString());
-        // Set workspace folders as a list with our workspace
         init.setWorkspaceFolders(Collections.singletonList(workspaceFolder));
 
-        // Set client capabilities
         ClientCapabilities capabilities = new ClientCapabilities();
 
         TextDocumentClientCapabilities textDocumentCapabilities = new TextDocumentClientCapabilities();

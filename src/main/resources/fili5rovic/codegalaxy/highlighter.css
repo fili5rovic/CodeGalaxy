@@ -32,6 +32,10 @@
     -fx-fill: #9CDCFE ;
 }
 
+.string {
+    -fx-fill: #CE9178 ;
+}
+
 .default_text {
     -fx-fill: #e0e0e0;
 }

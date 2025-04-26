@@ -47,6 +47,7 @@ public class Highlighter extends Manager {
 
 
         List<Range> keywordRanges = getKeywords(text);
+        List<Range> stringLiteralRanges = getStringLiterals(text);
 
         List<StyledRange> allRanges = new ArrayList<>();
 
@@ -59,6 +60,9 @@ public class Highlighter extends Manager {
 
         for(Range r : keywordRanges)
             allRanges.add(new StyledRange(r.start(), r.end(), "keyword"));
+
+        for(Range r : stringLiteralRanges)
+            allRanges.add(new StyledRange(r.start(), r.end(), "string"));
 
         // Sort ranges by start position
         allRanges.sort(Comparator.comparingInt(r -> r.start));
@@ -78,8 +82,7 @@ public class Highlighter extends Manager {
         return spansBuilder.create();
     }
 
-    record StyledRange(int start, int end, String styleClass) {
-    }
+    record StyledRange(int start, int end, String styleClass) {}
 
 
     private List<Range> getKeywords(String code) {
@@ -107,6 +110,22 @@ public class Highlighter extends Manager {
 
         return ranges;
     }
+
+    private List<Range> getStringLiterals(String code) {
+        List<Range> ranges = new ArrayList<>();
+
+        Pattern stringPattern = Pattern.compile("\"([^\"\\\\]|\\\\.)*\"");
+        Matcher matcher = stringPattern.matcher(code);
+
+        while (matcher.find()) {
+            int start = matcher.start();
+            int end = matcher.end();
+            ranges.add(new Range(start, end));
+        }
+
+        return ranges;
+    }
+
 
     public void setSymbolRanges(HashMap<String, ArrayList<Range>> symbolRanges) {
         this.symbolRanges.clear();
