@@ -14,7 +14,7 @@ public class LSPDocumentManager {
     private final Map<String, Integer> documentVersions = new HashMap<>();
     private final Map<String, String> documentContents = new HashMap<>();
 
-    private LanguageServer server;
+    private final LanguageServer server;
 
     public LSPDocumentManager(LanguageServer server) {
         this.server = server;
@@ -69,7 +69,5 @@ public class LSPDocumentManager {
     public Map<String, String> getDocumentContents() {
         return documentContents;
     }
-    public Map<String, Integer> getDocumentVersions() {
-        return documentVersions;
-    }
+
 }

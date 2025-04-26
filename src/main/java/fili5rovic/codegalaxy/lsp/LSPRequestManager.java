@@ -11,8 +11,8 @@ import java.util.concurrent.CompletableFuture;
 
 public class LSPRequestManager {
 
-    private LanguageServer server;
-    private LSPDocumentManager documentManager;
+    private final LanguageServer server;
+    private final LSPDocumentManager documentManager;
 
     public LSPRequestManager(LanguageServer server, LSPDocumentManager documentManager) {
         this.server = server;
@@ -43,11 +43,10 @@ public class LSPRequestManager {
                 server.getTextDocumentService().completion(params);
 
         Either<List<CompletionItem>, CompletionList> result = future.get();
-        List<CompletionItem> items = result.isLeft()
+
+        return result.isLeft()
                 ? result.getLeft()
                 : result.getRight().getItems();
-
-        return items;
     }
 
     public CompletableFuture<List<DocumentSymbol>> getAllSymbols(String filePath) {

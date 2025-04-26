@@ -1,13 +1,10 @@
 package fili5rovic.codegalaxy.lsp;
 
-import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.preferences.UserPreferences;
 import org.eclipse.lsp4j.*;
 import org.eclipse.lsp4j.jsonrpc.Launcher;
-import org.eclipse.lsp4j.jsonrpc.messages.Either;
 import org.eclipse.lsp4j.services.LanguageServer;
 
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
@@ -21,9 +18,6 @@ public class LSP {
     private Future<Void> listenFuture;
 
     private final Debouncer debouncer = new Debouncer();
-
-    private final Map<String, Integer> documentVersions = new HashMap<>();
-    private final Map<String, String> documentContents = new HashMap<>();
 
     private static final LSP instance = new LSP();
 
@@ -129,7 +123,7 @@ public class LSP {
         return requestManager.requestCompletions(filePath, line, character);
     }
 
-    public CompletableFuture<List<DocumentSymbol>> getAllSymbols(String filePath) throws Exception {
+    public CompletableFuture<List<DocumentSymbol>> getAllSymbols(String filePath) {
         return requestManager.getAllSymbols(filePath);
     }
 
