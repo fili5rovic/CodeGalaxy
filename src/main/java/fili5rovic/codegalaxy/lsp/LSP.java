@@ -1,5 +1,6 @@
 package fili5rovic.codegalaxy.lsp;
 
+import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.preferences.UserPreferences;
 import org.eclipse.lsp4j.*;
 import org.eclipse.lsp4j.jsonrpc.Launcher;
@@ -25,6 +26,9 @@ public class LSP {
     private final Map<String, String> documentContents = new HashMap<>();
 
     private static final LSP instance = new LSP();
+
+    private LSPDocumentManager documentManager;
+    private LSPRequestManager requestManager;
 
 
     public static LSP instance() {
@@ -78,118 +82,14 @@ public class LSP {
         server.initialize(init).get();
         server.initialized(new InitializedParams());
 
+        afterServerStart();
+
         Runtime.getRuntime().addShutdownHook(new Thread(this::stop));
     }
 
-    public void openFile(String filePath) throws Exception {
-        System.out.println("Opening file: " + filePath);
-        Path file = Paths.get(filePath);
-        String text = Files.readString(file);
-        String uri = file.toUri().toString();
-        TextDocumentItem item = new TextDocumentItem(uri, "java", 1, text);
-        server.getTextDocumentService().didOpen(new DidOpenTextDocumentParams(item));
-        documentVersions.put(uri, 1);
-        documentContents.put(uri, text);
-    }
-
-    public void closeFile(String filePath) {
-        String uri = Paths.get(filePath).toUri().toString();
-        if (!documentVersions.containsKey(uri)) {
-            System.out.println("File not opened: " + uri);
-            return;
-        }
-        server.getTextDocumentService().didClose(new DidCloseTextDocumentParams(new TextDocumentIdentifier(uri)));
-        documentVersions.remove(uri);
-        documentContents.remove(uri);
-    }
-
-    public void sendChange(String filePath, String newText) throws IllegalStateException  {
-        String uri = Paths.get(filePath).toUri().toString();
-
-        if (!documentVersions.containsKey(uri)) {
-            throw new IllegalStateException("File must be opened first: " + uri);
-        }
-
-        int newVersion = documentVersions.get(uri) + 1;
-        documentVersions.put(uri, newVersion);
-
-        VersionedTextDocumentIdentifier docId = new VersionedTextDocumentIdentifier(uri, newVersion);
-
-        TextDocumentContentChangeEvent changeEvent = new TextDocumentContentChangeEvent(newText);
-
-        DidChangeTextDocumentParams changeParams = new DidChangeTextDocumentParams(
-                docId,
-                Collections.singletonList(changeEvent)
-        );
-
-        server.getTextDocumentService().didChange(changeParams);
-        documentContents.put(uri, newText);
-        System.out.println("Sent change to " + uri);
-    }
-
-    public List<CompletionItem> requestCompletions(String filePath, int line, int character) throws Exception {
-        String uri = Paths.get(filePath).toUri().toString();
-
-        String text = documentContents.get(uri);
-        if (text == null) {
-            throw new IllegalStateException("No content found for " + uri + ". Did you open the file?");
-        }
-        String[] lines = text.split("\n");
-        String lineText = lines[line];
-        System.out.println("Line " + line + ": " + lineText + " (length: " + lineText.length() + ")");
-        if (character < lineText.length()) {
-            System.out.println("Character " + character + ": " + lineText.charAt(character));
-        } else {
-            System.out.println("At end of line " + line + ", position " + character);
-        }
-
-        TextDocumentIdentifier docId = new TextDocumentIdentifier(uri);
-        Position pos = new Position(line, character);
-        CompletionParams params = new CompletionParams(docId, pos);
-
-        CompletableFuture<Either<List<CompletionItem>, CompletionList>> future =
-                server.getTextDocumentService().completion(params);
-
-        Either<List<CompletionItem>, CompletionList> result = future.get();
-        List<CompletionItem> items = result.isLeft()
-                ? result.getLeft()
-                : result.getRight().getItems();
-
-//        System.out.println("Completions at " + line + ":" + character + ":");
-//        for (CompletionItem item : items) {
-//            System.out.printf("  %s → insert: '%s'%n",
-//                    item.getLabel(),
-//                    item.getInsertText()
-//            );
-//        }
-
-        return items;
-    }
-
-    public CompletableFuture<List<DocumentSymbol>> getAllSymbols(String filePath) throws Exception {
-        return requestDocumentSymbols(filePath)
-                .thenApply(eithers -> {
-                    List<DocumentSymbol> flat = new ArrayList<>();
-                    for (Either<SymbolInformation, DocumentSymbol> e : eithers) {
-                        if (e.isRight()) collect(e.getRight(), flat);
-                    }
-                    return flat;
-                });
-    }
-
-    private CompletableFuture<List<Either<SymbolInformation, DocumentSymbol>>> requestDocumentSymbols(String filePath) {
-        String uri = Paths.get(filePath).toUri().toString();
-        DocumentSymbolParams params = new DocumentSymbolParams(new TextDocumentIdentifier(uri));
-        return server.getTextDocumentService()
-                .documentSymbol(params);
-    }
-
-
-    private void collect(DocumentSymbol ds, List<DocumentSymbol> out) {
-        out.add(ds);
-        if (ds.getChildren() != null) {
-            for (DocumentSymbol c : ds.getChildren()) collect(c, out);
-        }
+    private void afterServerStart() {
+        this.documentManager = new LSPDocumentManager(server);
+        this.requestManager = new LSPRequestManager(server, documentManager);
     }
 
     public void stop() {
@@ -213,10 +113,28 @@ public class LSP {
         }
     }
 
+    public void openFile(String filePath) throws Exception {
+        documentManager.openFile(filePath);
+    }
 
+    public void closeFile(String filePath) {
+        documentManager.closeFile(filePath);
+    }
+
+    public void sendChange(String filePath, String newText) throws IllegalStateException  {
+        documentManager.sendChange(filePath, newText);
+    }
+
+    public List<CompletionItem> requestCompletions(String filePath, int line, int character) throws Exception {
+        return requestManager.requestCompletions(filePath, line, character);
+    }
+
+    public CompletableFuture<List<DocumentSymbol>> getAllSymbols(String filePath) throws Exception {
+        return requestManager.getAllSymbols(filePath);
+    }
 
     public void sendChangesDebounce(String filePath, String newText, long delay) throws IllegalStateException {
-        debouncer.debounce(() -> sendChange(filePath, newText), delay);
+        debouncer.debounce(() -> documentManager.sendChange(filePath, newText), delay);
     }
 
     public Debouncer getDebouncer() {

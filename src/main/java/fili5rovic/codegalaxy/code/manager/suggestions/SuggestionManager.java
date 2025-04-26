@@ -130,9 +130,9 @@ public class SuggestionManager extends Manager {
         if(item.getKind() == CompletionItemKind.Method && insertText.contains("@Override")) {
             insertText = insertText.replaceFirst("// TODO Auto-generated method stub\n", "");
 
-            insertText = insertText.replaceFirst("(?m)^\\s+(return\\b)", "\t$1");
-
-            insertText = insertText.replaceAll("\n", "\n\t");
+//            insertText = insertText.replaceFirst("(?m)^\\s+(return\\b)", "\t$1");
+//
+//            insertText = insertText.replaceAll("\n", "\n\t");
 
             System.out.println("Insert text: \n" + insertText);
         }
