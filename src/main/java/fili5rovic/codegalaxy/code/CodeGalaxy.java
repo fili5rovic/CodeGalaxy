@@ -4,6 +4,7 @@ import fili5rovic.codegalaxy.code.manager.file.FileManager;
 import fili5rovic.codegalaxy.code.manager.font.FontManager;
 import fili5rovic.codegalaxy.code.manager.Manager;
 import fili5rovic.codegalaxy.code.manager.editing.LineEditing;
+import fili5rovic.codegalaxy.code.manager.format.FormatManager;
 import fili5rovic.codegalaxy.code.manager.highlighting.Highlighter;
 import fili5rovic.codegalaxy.code.manager.lsp.LSPManager;
 import fili5rovic.codegalaxy.code.manager.suggestions.SuggestionManager;
@@ -49,6 +50,7 @@ public class CodeGalaxy extends CodeArea {
         managers.add(new FontManager(this));
         managers.add(new LineEditing(this));
         managers.add(new SuggestionManager(this));
+        managers.add(new FormatManager(this));
         highlighter = new Highlighter(this);
         managers.add(highlighter);
         managers.add(new LSPManager(this));

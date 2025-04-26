@@ -28,7 +28,7 @@ public class LSPManager extends Manager {
     private void onTextChanged() {
         LSP.instance().sendChangesDebounce(codeGalaxy.getFilePath().toString(), codeGalaxy.getText(), 200);
 
-        highlight();
+//        highlight();
     }
 
     private void highlight() {

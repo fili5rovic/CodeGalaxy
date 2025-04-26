@@ -149,6 +149,10 @@ public class LSP {
         return requestManager.getAllSymbols(filePath);
     }
 
+    public CompletableFuture<List<? extends TextEdit>> formatDocument(String filePath) {
+        return requestManager.formatDocument(filePath);
+    }
+
     public void sendChangesDebounce(String filePath, String newText, long delay) throws IllegalStateException {
         debouncer.debounce(() -> documentManager.sendChange(filePath, newText), delay);
     }
