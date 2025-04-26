@@ -66,6 +66,9 @@ public class DashboardController extends ControllerBase {
     @FXML
     private MenuItem selectAll;
 
+    @FXML
+    private MenuItem settings;
+
     private MenuManager menuManager;
 
     @Override
@@ -200,6 +203,10 @@ public class DashboardController extends ControllerBase {
 
     public MenuItem getSelectAll() {
         return selectAll;
+    }
+
+    public MenuItem getSettings() {
+        return settings;
     }
 
     public TabPane getTabPane() {

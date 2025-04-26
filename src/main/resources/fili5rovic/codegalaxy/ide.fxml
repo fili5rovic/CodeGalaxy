@@ -27,6 +27,8 @@
                         <MenuItem fx:id="newProject" mnemonicParsing="false" text="New Project" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                                   <MenuItem fx:id="saveAll" accelerator="Ctrl+S" mnemonicParsing="false" text="Save all" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem fx:id="settings" mnemonicParsing="false" text="Settings" />
                               </items>
                           </Menu>
                           <Menu mnemonicParsing="false" text="Edit">

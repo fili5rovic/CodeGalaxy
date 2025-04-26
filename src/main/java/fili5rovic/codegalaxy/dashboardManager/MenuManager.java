@@ -53,6 +53,7 @@ public class MenuManager {
         controller.getPaste().setGraphic(SVGUtil.getUI("paste", 16, 16));
         controller.getDelete().setGraphic(SVGUtil.getUI("delete", 16, 16));
         controller.getSelectAll().setGraphic(SVGUtil.getUI("selectAll", 16, 16));
+        controller.getSettings().setGraphic(SVGUtil.getUI("settings", 16, 16));
     }
 
     //<editor-fold desc="MenuActions">
