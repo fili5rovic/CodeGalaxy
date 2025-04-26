@@ -5,6 +5,7 @@ import fili5rovic.codegalaxy.code.manager.Manager;
 import fili5rovic.codegalaxy.code.manager.highlighting.Range;
 import fili5rovic.codegalaxy.lsp.LSP;
 import fili5rovic.codegalaxy.util.SymbolUtil;
+import javafx.application.Platform;
 import org.eclipse.lsp4j.DocumentSymbol;
 
 import java.util.ArrayList;
@@ -27,8 +28,7 @@ public class LSPManager extends Manager {
 
     private void onTextChanged() {
         LSP.instance().sendChangesDebounce(codeGalaxy.getFilePath().toString(), codeGalaxy.getText(), 200);
-
-//        highlight();
+        Platform.runLater(this::highlight);
     }
 
     private void highlight() {
