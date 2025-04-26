@@ -21,7 +21,7 @@ public class SymbolUtil {
             List<DocumentSymbol> documentSymbols = symbols.get();
 
             for (DocumentSymbol symbol : documentSymbols) {
-                System.out.println("Symbol: " + symbol.getName() + " " + symbol.getKind());
+//                System.out.println("Symbol: " + symbol.getName() + " " + symbol.getKind());
                 Range range = new Range(
                         codeGalaxy.position(
                                 symbol.getSelectionRange().getStart().getLine(),

@@ -26,13 +26,12 @@ public class LSPManager extends Manager {
     }
 
     private void onTextChanged() {
-        LSP.instance().sendChangesDebounce(codeGalaxy.getFilePath().toString(), codeGalaxy.getText(), 400);
+        LSP.instance().sendChangesDebounce(codeGalaxy.getFilePath().toString(), codeGalaxy.getText(), 200);
 
         highlight();
     }
 
     private void highlight() {
-        System.out.println("Highlighting code...");
         CompletableFuture<List<DocumentSymbol>> symbols;
         try {
             symbols = LSP.instance().getAllSymbols(codeGalaxy.getFilePath().toString());

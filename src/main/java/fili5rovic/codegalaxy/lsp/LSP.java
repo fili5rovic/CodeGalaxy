@@ -51,12 +51,12 @@ public class LSP {
         server = launcher.getRemoteProxy();
         listenFuture = launcher.startListening();
 
-
         InitializeParams init = new InitializeParams();
 
         // Create a workspace folder instead of using rootUri
         WorkspaceFolder workspaceFolder = new WorkspaceFolder();
         Path workspacePath = Paths.get(workspace);
+
 
         String uri = workspacePath.toUri().toString();
         workspaceFolder.setUri(uri);
@@ -155,13 +155,13 @@ public class LSP {
                 ? result.getLeft()
                 : result.getRight().getItems();
 
-        System.out.println("Completions at " + line + ":" + character + ":");
-        for (CompletionItem item : items) {
-            System.out.printf("  %s → insert: '%s'%n",
-                    item.getLabel(),
-                    item.getInsertText()
-            );
-        }
+//        System.out.println("Completions at " + line + ":" + character + ":");
+//        for (CompletionItem item : items) {
+//            System.out.printf("  %s → insert: '%s'%n",
+//                    item.getLabel(),
+//                    item.getInsertText()
+//            );
+//        }
 
         return items;
     }
