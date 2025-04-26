@@ -30,26 +30,6 @@ public class FormatManager extends Manager {
         LSP.instance().formatDocument(codeGalaxy.getFilePath().toString())
                 .thenAccept(edits -> {
                     Platform.runLater(() -> {
-//                        for (TextEdit edit : edits) {
-//                            if(edit.getNewText().isEmpty())
-//                                continue;
-//                            Range range = edit.getRange();
-//                            int startLine = range.getStart().getLine();
-//                            int startChar = range.getStart().getCharacter();
-//                            int endLine = range.getEnd().getLine();
-//                            int endChar = range.getEnd().getCharacter();
-//
-//                            String currentText = codeGalaxy.getText(startLine, startChar, endLine, endChar);  // Assuming you have a method to get the current text in the range
-//
-//                            System.out.println("Current text from " + startLine + ":" + startChar + " to " + endLine + ":" + endChar);
-//                            System.out.println("Current text: " + currentText);
-//                            System.out.println("New text: " + edit.getNewText());
-//
-//                            codeGalaxy.replaceText(startLine, startChar, endLine, endChar, edit.getNewText() + currentText);
-//                        }
-
-// Clear the text
-
                         try {
                             codeGalaxy.replaceText(0,codeGalaxy.getLength() - 1, Files.readString(codeGalaxy.getFilePath()));
                             codeGalaxy.selectWord();
