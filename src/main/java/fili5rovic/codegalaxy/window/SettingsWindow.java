@@ -16,7 +16,7 @@ public class SettingsWindow extends Window {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("settings.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
-            scene.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/settings.css")).toExternalForm());
+            scene.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/settings-dark.css")).toExternalForm());
             stage.setScene(scene);
             stage.setTitle("Settings");
             stage.show();

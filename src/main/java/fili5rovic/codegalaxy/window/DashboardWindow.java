@@ -16,8 +16,8 @@ public class DashboardWindow extends Window {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("ide.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
-            scene.getStylesheets().add(Main.class.getResource("/fili5rovic/codegalaxy/main.css").toExternalForm());
-            scene.getStylesheets().add(Main.class.getResource("/fili5rovic/codegalaxy/codegalaxy.css").toExternalForm());
+            scene.getStylesheets().add(Main.class.getResource("/fili5rovic/codegalaxy/main-dark.css").toExternalForm());
+            scene.getStylesheets().add(Main.class.getResource("/fili5rovic/codegalaxy/codegalaxy-dark.css").toExternalForm());
             stage.setTitle("CodeGalaxy");
             stage.setScene(scene);
             stage.initStyle(StageStyle.UNIFIED);

@@ -1,0 +1,38 @@
+.root {
+    -fx-background-color: #f0f0f0;
+}
+
+.styled-text-area {
+    -fx-font-size: 24px;
+    -fx-background-color: #ffffff;
+}
+
+.styled-text-area .text {
+    -fx-font-family: "JetBrains Mono Medium";
+}
+
+.styled-text-area .caret {
+    -fx-stroke: black;
+}
+
+.main-selection {
+    -fx-fill: #b0b0b0;
+}
+
+.line-highlighter {
+    -fx-fill: #d0d0d0;
+}
+
+.lineno {
+    -fx-text-fill: #505050;
+    -fx-font-size: 24px;
+    -fx-background-color: #ffffff;
+}
+
+.text-flow .text {
+    -fx-fill: #333333;
+}
+
+.paragraph-text {
+    -fx-tab-size: 4;
+}
