@@ -1,0 +1,124 @@
+.root {
+    -fx-background-color: #2b2b2b;
+    -fx-text-fill: #bbbbbb;
+    -fx-font-family: "Segoe UI", "Roboto", sans-serif;
+    -fx-font-size: 13px;
+}
+
+.split-pane {
+    -fx-background-color: #2b2b2b;
+}
+
+.tree-view {
+    -fx-background-color: #2b2b2b;
+    -fx-control-inner-background: #3c3f41;
+    -fx-cell-hover-color: #45494a;
+    -fx-text-fill: #bbbbbb;
+}
+
+
+.tree-cell {
+    -fx-background-color: #2b2b2b;
+    -fx-text-fill: #bbbbbb;
+}
+
+.tree-cell:selected:hover,
+.tree-cell:selected {
+    -fx-text-fill: #ab74e8;
+    -fx-font-weight: bold;
+}
+
+.tree-cell:hover {
+    -fx-text-fill: #ffffff;
+}
+
+.text-field {
+    -fx-background-color: #2b2b2b;
+    -fx-text-fill: #bbbbbb;
+    -fx-prompt-text-fill: #777777;
+    -fx-background-insets: 0;
+    -fx-background-radius: 4;
+    -fx-border-color: #303030;
+    -fx-border-width: 2px;
+    -fx-border-radius: 4;
+}
+
+.pane {
+    -fx-background-color: #2b2b2b;
+}
+
+.border-pane {
+    -fx-background-color: #2b2b2b;
+}
+
+.anchor-pane {
+    -fx-background-color: #2b2b2b;
+}
+
+.split-pane {
+    -fx-background-color: #2b2b2b;
+}
+
+.split-pane-divider {
+    -fx-background-color: transparent;
+}
+
+.button {
+    -fx-background-color: #3c3f41;
+    -fx-text-fill: #bbbbbb;
+    -fx-border-color: #303030;
+}
+
+.button:hover {
+    -fx-background-color: #5b2a98;
+}
+
+.label {
+    -fx-text-fill: #bbbbbb;
+}
+
+.combo-box {
+    -fx-background-color: #2b2b2b;
+    -fx-border-color: #303030;
+    -fx-border-width: 2px;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-text-fill: #ffffff;
+}
+
+.combo-box-base {
+    -fx-background-color: #2b2b2b, #2b2b2b, #303030, #303030;
+    -fx-background-radius: 5, 5, 4, 3;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-padding: 0;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: #ffffff;
+}
+
+.combo-box .prompt-text {
+    -fx-fill: #bbbbbb;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: #2b2b2b;
+    -fx-border-color: #303030;
+}
+
+.combo-box-popup .list-cell {
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #2b2b2b;
+}
+
+.combo-box-popup .list-cell:hover {
+    -fx-background-color: #3b3b3b;
+    -fx-text-fill: #ffffff;
+}
+
+.combo-box-popup .list-cell:selected {
+    -fx-background-color: #4b4b4b;
+    -fx-text-fill: #ab74e8;
+}
+
+

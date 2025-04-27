@@ -10,11 +10,11 @@ import javafx.stage.Stage;
 public class Main extends Application {
     @Override
     public void start(Stage stage) {
-        Window.setWindowAt(Window.WINDOW_DASHBOARD, new DashboardWindow());
-        Window.setWindowAt(Window.SETTINGS, new SettingsWindow());
+//        Window.setWindowAt(Window.WINDOW_DASHBOARD, new DashboardWindow());
+        Window.setWindowAt(0, new SettingsWindow());
 
         Window.initAllWindows();
-        WindowHelper.showOnly(Window.WINDOW_DASHBOARD);
+//        WindowHelper.showWindow(0);
     }
 
     public static void main(String[] args) {

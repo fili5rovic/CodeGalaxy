@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 public abstract class Window {
     protected Stage stage;
     protected ControllerBase controller;
-    public static final int WINDOWS = 2;
+    public static final int WINDOWS = 1;
     public static final int WINDOW_DASHBOARD = 0;
     public static final int SETTINGS = 1;
     private static final Window[] windows = new Window[WINDOWS];
@@ -16,7 +16,7 @@ public abstract class Window {
         windows[position] = w;
     }
 
-    public static Window getWindowAt( int position) {
+    public static Window getWindowAt(int position) {
         return windows[position];
     }
 
