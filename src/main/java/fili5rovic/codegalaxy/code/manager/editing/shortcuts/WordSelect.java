@@ -8,11 +8,7 @@ public class WordSelect extends Shortcut {
 
     public WordSelect(CodeGalaxy cg) {
         super(cg);
-    }
-
-    @Override
-    protected KeyState getKeyState() {
-        return new KeyState(KeyCode.W).ctrl();
+        shortcutName = "word_select";
     }
 
     @Override

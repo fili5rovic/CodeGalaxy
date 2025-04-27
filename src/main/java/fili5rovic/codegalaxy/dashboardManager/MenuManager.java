@@ -142,7 +142,7 @@ public class MenuManager {
     }
 
     private void settings(ActionEvent e) {
-//        WindowHelper.showWindow(Window.SETTINGS);
+        WindowHelper.showWindow(Window.SETTINGS);
     }
     //</editor-fold>
 }

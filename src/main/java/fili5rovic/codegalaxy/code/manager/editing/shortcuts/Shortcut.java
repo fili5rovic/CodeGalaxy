@@ -7,6 +7,7 @@ import javafx.scene.input.KeyEvent;
 public abstract class Shortcut {
 
     protected CodeGalaxy codeGalaxy;
+    protected String shortcutName;
 
     protected Shortcut(CodeGalaxy cg) {
         this.codeGalaxy = cg;
@@ -35,7 +36,10 @@ public abstract class Shortcut {
         executeSelection();
     }
 
-    protected abstract KeyState getKeyState();
+    protected KeyState getKeyState() {
+        return new KeyState(shortcutName);
+    }
 
     protected abstract void executeSelection();
+
 }

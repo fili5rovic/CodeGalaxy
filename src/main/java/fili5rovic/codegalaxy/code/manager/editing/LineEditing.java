@@ -14,7 +14,6 @@ public class LineEditing extends Manager {
             new DuplicateLineAbove(codeGalaxy),
             new MoveLineUp(codeGalaxy),
             new MoveLineDown(codeGalaxy),
-            new ExitShortcut(codeGalaxy),
             new WordSelect(codeGalaxy),
     };
 
