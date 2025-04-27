@@ -18,7 +18,7 @@ public class FontManager extends Manager {
 
     private FontPopUpManager fontPopUpManager;
 
-    private Debouncer debouncer = new Debouncer();
+    private final Debouncer debouncer = new Debouncer();
 
     static {
         MIN_FONT_SIZE = 10;
