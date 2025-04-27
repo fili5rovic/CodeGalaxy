@@ -1,7 +1,10 @@
 package fili5rovic.codegalaxy.controller;
 
+import fili5rovic.codegalaxy.settings.ProjectSettings;
+import fili5rovic.codegalaxy.util.SVGUtil;
 import fili5rovic.codegalaxy.util.SettingsMenuHelper;
 import fili5rovic.codegalaxy.window.Window;
+import fili5rovic.codegalaxy.window.WindowHelper;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -21,6 +24,12 @@ public class SettingsController extends ControllerBase {
     @FXML
     private BorderPane settingsPane;
 
+    @FXML
+    private Button apply;
+
+    @FXML
+    private Button cancel;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 //        Window.getWindowAt(Window.SETTINGS).setController(this);
@@ -28,8 +37,24 @@ public class SettingsController extends ControllerBase {
 
         initTreeView();
 
+        buttonActions();
     }
 
+    private void buttonActions() {
+        apply.setOnAction(_ -> {
+            ProjectSettings.applyTempSettings();
+        });
+
+        cancel.setOnAction(_ -> {
+            WindowHelper.hideWindow(Window.SETTINGS);
+        });
+
+        apply.setOnMouseEntered(_ -> apply.setGraphic(SVGUtil.getEmoji("perfect",16,16)));
+        apply.setOnMouseExited(_ -> apply.setGraphic(null));
+
+        cancel.setOnMouseEntered(_ -> cancel.setGraphic(SVGUtil.getEmoji("nope", 16, 16)));
+        cancel.setOnMouseExited(_ -> cancel.setGraphic(null));
+    }
 
 
     private void initTreeView() {

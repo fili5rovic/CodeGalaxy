@@ -1,4 +1,4 @@
-package fili5rovic.codegalaxy.lsp;
+package fili5rovic.codegalaxy.util;
 
 import java.util.concurrent.*;
 import java.util.ArrayList;

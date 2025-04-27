@@ -2,7 +2,7 @@ package fili5rovic.codegalaxy.code.manager.suggestions;
 
 import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.code.manager.Manager;
-import fili5rovic.codegalaxy.lsp.Debouncer;
+import fili5rovic.codegalaxy.util.Debouncer;
 import fili5rovic.codegalaxy.lsp.LSP;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;

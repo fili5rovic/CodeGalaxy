@@ -14,7 +14,7 @@ public class Main extends Application {
         Window.setWindowAt(0, new SettingsWindow());
 
         Window.initAllWindows();
-//        WindowHelper.showWindow(0);
+        WindowHelper.showWindow(0);
     }
 
     public static void main(String[] args) {

@@ -2,7 +2,7 @@ package fili5rovic.codegalaxy.project;
 
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.hierarchy.ProjectHierarchy;
-import fili5rovic.codegalaxy.preferences.UserPreferences;
+import fili5rovic.codegalaxy.settings.ProjectSettings;
 import fili5rovic.codegalaxy.window.Window;
 
 import java.io.IOException;
@@ -16,16 +16,16 @@ public class ProjectManager {
 
     public static void openProject(Path path) {
         controller.getTreeViewPane().setCenter(new ProjectHierarchy(path.toString()));
-        UserPreferences.getInstance().set("lastProjectPath", path.toString());
+        ProjectSettings.getInstance().set("lastProjectPath", path.toString());
     }
 
     public static void setWorkspace(String workspacePath) {
-        UserPreferences.getInstance().set("workspace", workspacePath);
+        ProjectSettings.getInstance().set("workspace", workspacePath);
     }
 
     public static void createProject(String projectName) {
         try {
-            String basePath = UserPreferences.getInstance().get("workspace");
+            String basePath = ProjectSettings.getInstance().get("workspace");
             Path projectDir = Paths.get(basePath).resolve(projectName).toAbsolutePath();
 
             Files.createDirectories(projectDir.resolve("src"));

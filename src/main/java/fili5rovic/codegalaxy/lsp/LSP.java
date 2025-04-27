@@ -1,6 +1,7 @@
 package fili5rovic.codegalaxy.lsp;
 
-import fili5rovic.codegalaxy.preferences.UserPreferences;
+import fili5rovic.codegalaxy.settings.ProjectSettings;
+import fili5rovic.codegalaxy.util.Debouncer;
 import org.eclipse.lsp4j.*;
 import org.eclipse.lsp4j.jsonrpc.Launcher;
 import org.eclipse.lsp4j.services.LanguageServer;
@@ -37,9 +38,9 @@ public class LSP {
     public void start() throws Exception {
         cleanTemporaryFiles();
 
-        String workspace = UserPreferences.getInstance().get("workspace");
+        String workspace = ProjectSettings.getInstance().get("workspace");
         if (workspace == null)
-            throw new IllegalStateException("Workspace not set in user preferences.");
+            throw new IllegalStateException("Workspace not set in settings.");
 
         serverManager = new LSPServerManager();
         serverManager.startServer(workspace);

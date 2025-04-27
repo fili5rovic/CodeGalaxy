@@ -43,11 +43,11 @@ public class CodeRunner {
         String classPath = MetaDataHelper.getClasspathPath("output");
         String sourcePath = MetaDataHelper.getClasspathPath("src");
         if (classPath == null) {
-            System.err.println("Class path not set in user preferences.");
+            System.err.println("Class path not set in project.");
             return null;
         }
         if (sourcePath == null) {
-            System.err.println("Source path not set in user preferences.");
+            System.err.println("Source path not set in project.");
             return null;
         }
         String relativePath = Path.of(sourcePath).relativize(filePath).toString();

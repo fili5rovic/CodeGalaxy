@@ -3,7 +3,7 @@ package fili5rovic.codegalaxy.controller;
 import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.dashboardManager.MenuManager;
 import fili5rovic.codegalaxy.lsp.LSP;
-import fili5rovic.codegalaxy.preferences.UserPreferences;
+import fili5rovic.codegalaxy.settings.ProjectSettings;
 import fili5rovic.codegalaxy.project.ProjectManager;
 import fili5rovic.codegalaxy.util.SVGUtil;
 import fili5rovic.codegalaxy.window.Window;
@@ -89,7 +89,7 @@ public class DashboardController extends ControllerBase {
 
 
     private void tryToOpenLastProject() {
-        String lastProjectPath = UserPreferences.getInstance().get("lastProjectPath");
+        String lastProjectPath = ProjectSettings.getInstance().get("lastProjectPath");
         if (lastProjectPath == null)
             return;
         File lastProjectFile = new File(lastProjectPath);
@@ -100,7 +100,7 @@ public class DashboardController extends ControllerBase {
             System.out.println("Last project path is not valid.");
         }
 
-        List<String> recentFiles = UserPreferences.getInstance().getMultiple("recentFiles");
+        List<String> recentFiles = ProjectSettings.getInstance().getMultiple("recentFiles");
         for (String filePath : recentFiles) {
             Path path = Path.of(filePath);
             if (path.toFile().exists()) {
@@ -126,7 +126,7 @@ public class DashboardController extends ControllerBase {
             System.out.println("Failed to open file: " + e.getMessage());
         }
 
-        UserPreferences.getInstance().addTo("recentFiles", filePath.toString());
+        ProjectSettings.getInstance().addTo("recentFiles", filePath.toString());
         ImageView icon = SVGUtil.getIconByPath(filePath, 16, 16, -2);
 
         Tab tab = new Tab(fileName, codeGalaxy);
@@ -139,7 +139,7 @@ public class DashboardController extends ControllerBase {
 
     private void closedTab(Path filePath) {
         LSP.instance().closeFile(filePath.toString());
-        UserPreferences.getInstance().removeFrom("recentFiles", filePath.toString());
+        ProjectSettings.getInstance().removeFrom("recentFiles", filePath.toString());
     }
 
     public void onAppClose(WindowEvent event) {
