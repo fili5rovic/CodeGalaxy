@@ -24,8 +24,6 @@ public class SettingsController extends ControllerBase {
     @FXML
     private TreeView<String> settingsTreeView;
 
-    @FXML
-    private SplitPane splitPane;
 
     @FXML
     private BorderPane settingsPane;
@@ -41,6 +39,7 @@ public class SettingsController extends ControllerBase {
         Window.getWindowAt(Window.SETTINGS).setController(this);
         initTreeView();
         buttonActions();
+
     }
 
 
@@ -71,7 +70,8 @@ public class SettingsController extends ControllerBase {
         appearance.getChildren().add(new TreeItem<>("Theme"));
 
 
-        rootItem.getChildren().addAll(general, appearance);
+        rootItem.getChildren().add(general);
+        rootItem.getChildren().add(appearance);
 
         settingsTreeView.setRoot(rootItem);
         settingsTreeView.setShowRoot(false);
