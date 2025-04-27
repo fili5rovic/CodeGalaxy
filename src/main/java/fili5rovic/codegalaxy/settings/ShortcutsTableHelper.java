@@ -27,7 +27,7 @@ public class ShortcutsTableHelper {
 
 
         TableColumn<KeyState, KeyCode> codeColumn = new TableColumn<>("Code");
-        codeColumn.setCellValueFactory(cellData -> new ObservableValueBase<KeyCode>() {
+        codeColumn.setCellValueFactory(cellData -> new ObservableValueBase<>() {
             @Override
             public KeyCode getValue() {
                 return cellData.getValue().getCode();
@@ -39,7 +39,7 @@ public class ShortcutsTableHelper {
 
         ObservableList<KeyCode> keyCodeList = FXCollections.observableArrayList(KeyCode.values());
 
-        codeColumn.setCellFactory(column -> new ComboBoxTableCell<KeyState, KeyCode>(keyCodeList) {
+        codeColumn.setCellFactory(_ -> new ComboBoxTableCell<KeyState, KeyCode>(keyCodeList) {
             @Override
             public void updateItem(KeyCode item, boolean empty) {
                 super.updateItem(item, empty);
