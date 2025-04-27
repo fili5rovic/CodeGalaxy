@@ -39,7 +39,7 @@ public class ShortcutsTableHelper {
 
         ObservableList<KeyCode> keyCodeList = FXCollections.observableArrayList(KeyCode.values());
 
-        codeColumn.setCellFactory(_ -> new ComboBoxTableCell<KeyState, KeyCode>(keyCodeList) {
+        codeColumn.setCellFactory(_ -> new ComboBoxTableCell<>(keyCodeList) {
             @Override
             public void updateItem(KeyCode item, boolean empty) {
                 super.updateItem(item, empty);
@@ -61,7 +61,7 @@ public class ShortcutsTableHelper {
         ctrlColumn.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue().isControlDown()));
         ctrlColumn.setCellFactory(CheckBoxTableCell.forTableColumn(ctrlColumn));
         ctrlColumn.setEditable(true);
-        ctrlColumn.setMaxWidth(50);
+        ctrlColumn.setMaxWidth(60);
         ctrlColumn.setReorderable(false);
         ctrlColumn.setOnEditCommit(event -> {
             KeyState keyState = event.getRowValue();
