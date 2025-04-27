@@ -1,21 +1,22 @@
 package fili5rovic.codegalaxy.controller;
 
+import fili5rovic.codegalaxy.Main;
+import fili5rovic.codegalaxy.code.manager.editing.shortcuts.keystate.KeyState;
 import fili5rovic.codegalaxy.settings.ProjectSettings;
+import fili5rovic.codegalaxy.settings.ShortcutsTableHelper;
 import fili5rovic.codegalaxy.util.SVGUtil;
 import fili5rovic.codegalaxy.window.Window;
 import fili5rovic.codegalaxy.window.WindowHelper;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class SettingsController extends ControllerBase {
@@ -35,32 +36,23 @@ public class SettingsController extends ControllerBase {
     @FXML
     private Button cancel;
 
-    private final BooleanProperty alt = new SimpleBooleanProperty(false);
-    private final BooleanProperty ctrl = new SimpleBooleanProperty(false);
-    private final BooleanProperty shift = new SimpleBooleanProperty(false);
-    private final StringProperty key = new SimpleStringProperty("");
-
-    public BooleanProperty altProperty() { return alt; }
-    public BooleanProperty ctrlProperty() { return ctrl; }
-    public BooleanProperty shiftProperty() { return shift; }
-    public StringProperty keyProperty() { return key; }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Window.getWindowAt(Window.SETTINGS).setController(this);
-//        Window.getWindowAt(0).setController(this);
-
         initTreeView();
-
         buttonActions();
     }
 
+
     private void buttonActions() {
-        apply.setOnAction(_ -> ProjectSettings.applyTempSettings());
+        apply.setOnAction(_ -> {
+            ProjectSettings.applyTempSettings();
+            WindowHelper.hideWindow(Window.SETTINGS);
+        });
 
         cancel.setOnAction(_ -> WindowHelper.hideWindow(Window.SETTINGS));
 
-        apply.setOnMouseEntered(_ -> apply.setGraphic(SVGUtil.getEmoji("perfect",16,16)));
+        apply.setOnMouseEntered(_ -> apply.setGraphic(SVGUtil.getEmoji("perfect", 16, 16)));
         apply.setOnMouseExited(_ -> apply.setGraphic(null));
 
         cancel.setOnMouseEntered(_ -> cancel.setGraphic(SVGUtil.getEmoji("nope", 16, 16)));
@@ -107,7 +99,7 @@ public class SettingsController extends ControllerBase {
         });
     }
 
-    private static Node getSettingsMenuItem(String name) {
+    private Node getSettingsMenuItem(String name) {
         return switch (name) {
             case "Theme" -> getThemeSettingsMenuItem();
             case "Shortcuts" -> getShortcutsSettingsMenuItem();
@@ -115,13 +107,16 @@ public class SettingsController extends ControllerBase {
         };
     }
 
-    private static Node getShortcutsSettingsMenuItem() {
+    private Node getShortcutsSettingsMenuItem() {
         VBox shortcutsSettingsMenu = new VBox();
         shortcutsSettingsMenu.setAlignment(Pos.TOP_CENTER);
         shortcutsSettingsMenu.setSpacing(10);
 
         shortcutsSettingsMenu.getChildren().add(new Label("Shortcuts Settings"));
 
+        TableView<KeyState> shorcutsTable = ShortcutsTableHelper.getShortcutsTable();
+
+        shortcutsSettingsMenu.getChildren().add(shorcutsTable);
 
 
         return shortcutsSettingsMenu;
@@ -191,26 +186,29 @@ public class SettingsController extends ControllerBase {
     }
 
     private static void selectTheme(String theme) {
+        final Scene dashboardScene = Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage().getScene();
+        final Scene settingsScene = Window.getWindowAt(Window.SETTINGS).getStage().getScene();
         switch (theme) {
             case "Light" -> {
-                Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage().getScene().getStylesheets().clear();
-                Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage().getScene().getStylesheets().add("fili5rovic/codegalaxy/main-light.css");
-                Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage().getScene().getStylesheets().add("fili5rovic/codegalaxy/codegalaxy-light.css");
+                dashboardScene.getStylesheets().remove(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/main-dark.css")).toExternalForm());
+                dashboardScene.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/main-light.css")).toExternalForm());
+                dashboardScene.getStylesheets().remove(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/codegalaxy-dark.css")).toExternalForm());
+                dashboardScene.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/codegalaxy-light.css")).toExternalForm());
 
-                Window.getWindowAt(Window.SETTINGS).getStage().getScene().getStylesheets().clear();
-                Window.getWindowAt(Window.SETTINGS).getStage().getScene().getStylesheets().add("fili5rovic/codegalaxy/settings-light.css");
+                settingsScene.getStylesheets().remove(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/settings-dark.css")).toExternalForm());
+                settingsScene.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/settings-light.css")).toExternalForm());
             }
             case "Dark" -> {
-                Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage().getScene().getStylesheets().clear();
-                Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage().getScene().getStylesheets().add("fili5rovic/codegalaxy/main-dark.css");
-                Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage().getScene().getStylesheets().add("fili5rovic/codegalaxy/codegalaxy-dark.css");
+                dashboardScene.getStylesheets().remove(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/main-light.css")).toExternalForm());
+                dashboardScene.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/main-dark.css")).toExternalForm());
+                dashboardScene.getStylesheets().remove(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/codegalaxy-light.css")).toExternalForm());
+                dashboardScene.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/codegalaxy-dark.css")).toExternalForm());
 
-                Window.getWindowAt(Window.SETTINGS).getStage().getScene().getStylesheets().clear();
-                Window.getWindowAt(Window.SETTINGS).getStage().getScene().getStylesheets().add("fili5rovic/codegalaxy/settings-dark.css");
+                settingsScene.getStylesheets().remove(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/settings-light.css")).toExternalForm());
+                settingsScene.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/settings-dark.css")).toExternalForm());
             }
         }
     }
-
 
 
 }
