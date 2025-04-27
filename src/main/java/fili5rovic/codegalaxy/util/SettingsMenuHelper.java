@@ -14,8 +14,21 @@ public class SettingsMenuHelper {
     public static Node getSettingsMenuItem(String name) {
         return switch (name) {
             case "Theme" -> getThemeSettingsMenuItem();
+            case "Shortcuts" -> getShortcutsSettingsMenuItem();
             default -> new Label(name);
         };
+    }
+
+    private static Node getShortcutsSettingsMenuItem() {
+        VBox shortcutsSettingsMenu = new VBox();
+        shortcutsSettingsMenu.setAlignment(Pos.TOP_CENTER);
+        shortcutsSettingsMenu.setSpacing(10);
+
+        shortcutsSettingsMenu.getChildren().add(new Label("Shortcuts Settings"));
+
+        // Add your shortcuts settings UI components here
+
+        return shortcutsSettingsMenu;
     }
 
     private static Node getThemeSettingsMenuItem() {

@@ -40,6 +40,10 @@ public class SVGUtil {
         return getSVG("ui/" + name + ".svg", width, height, 0);
     }
 
+    public static ImageView getEmoji(String name, double width, double height) {
+        return getSVG("emoji/" + name + ".svg", width, height, 0);
+    }
+
     public static ImageView getCompletionIcon(String name, double width, double height) {
         if(name.equals("keyword"))
             name = "tip";

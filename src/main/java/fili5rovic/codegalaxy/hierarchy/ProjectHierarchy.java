@@ -1,7 +1,7 @@
 package fili5rovic.codegalaxy.hierarchy;
 
 import fili5rovic.codegalaxy.controller.DashboardController;
-import fili5rovic.codegalaxy.preferences.UserPreferences;
+import fili5rovic.codegalaxy.settings.ProjectSettings;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
@@ -37,7 +37,7 @@ public class ProjectHierarchy extends TreeView<Label> {
     }
 
     private void openPreviouslyExpanded() {
-        List<String> expandedPaths = UserPreferences.getInstance().getMultiple("expanded");
+        List<String> expandedPaths = ProjectSettings.getInstance().getMultiple("expanded");
         if (getRoot() != null)
             restoreExpandedState((ProjectItem) getRoot(), expandedPaths);
     }

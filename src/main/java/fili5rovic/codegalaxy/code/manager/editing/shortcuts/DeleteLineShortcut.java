@@ -15,8 +15,6 @@ public class DeleteLineShortcut extends Shortcut {
         return new KeyState(KeyCode.D).ctrl();
     }
 
-
-
     @Override
     protected void executeSingle() {
         int curr = codeGalaxy.getCaretPosition();
