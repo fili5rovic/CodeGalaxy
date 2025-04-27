@@ -16,7 +16,7 @@ public class DashboardWindow extends Window {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("ide.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
-            scene.getStylesheets().add(Main.class.getResource("/fili5rovic/codegalaxy/main-dark.css").toExternalForm());
+            scene.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/main-dark.css")).toExternalForm());
             scene.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/codegalaxy-dark.css")).toExternalForm());
             stage.setTitle("CodeGalaxy");
             stage.setScene(scene);
@@ -27,13 +27,11 @@ public class DashboardWindow extends Window {
 
             this.stage = stage;
 
-            this.stage.setOnCloseRequest(e-> {
-                ((DashboardController) Window.getController(Window.WINDOW_DASHBOARD)).onAppClose(e);
-            });
+            this.stage.setOnCloseRequest(e-> ((DashboardController) Window.getController(Window.WINDOW_DASHBOARD)).onAppClose(e));
 
 
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Error loading dashboard window: " + e.getMessage());
         }
     }
 }
