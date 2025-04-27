@@ -1,0 +1,114 @@
+/* Light Theme (Inverted from Dark) */
+.root {
+    -fx-background-color: #f4f4f4;
+    -fx-text-fill: #333333;
+    -fx-font-family: "Segoe UI", "Roboto", sans-serif;
+    -fx-font-size: 13px;
+}
+
+.split-pane {
+    -fx-background-color: #f4f4f4;
+}
+
+.tree-view {
+    -fx-background-color: #f4f4f4;
+    -fx-control-inner-background: #ffffff;
+    -fx-cell-hover-color: #e0e0e0;
+    -fx-text-fill: #333333;
+}
+
+.tree-cell {
+    -fx-background-color: #f4f4f4;
+    -fx-text-fill: #333333;
+}
+
+.tree-cell:selected:hover,
+.tree-cell:selected {
+    -fx-text-fill: #5b2a98; /* Purple accent */
+    -fx-font-weight: bold;
+}
+
+.tree-cell:hover {
+    -fx-text-fill: #000000;
+}
+
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #333333;
+    -fx-prompt-text-fill: #999999;
+    -fx-background-insets: 0;
+    -fx-background-radius: 4;
+    -fx-border-color: #dddddd;
+    -fx-border-width: 1px;
+    -fx-border-radius: 4;
+}
+
+.pane, .border-pane, .anchor-pane {
+    -fx-background-color: #f4f4f4;
+}
+
+.split-pane-divider {
+    -fx-background-color: #dddddd;
+    -fx-padding: 0 1px; /* Visible divider */
+}
+
+.button {
+    -fx-background-color: #e0e0e0;
+    -fx-text-fill: #333333;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1px;
+}
+
+.button:hover {
+    -fx-background-color: #d0a8ff; /* Lighter purple */
+}
+
+.label {
+    -fx-text-fill: #333333;
+}
+
+/* ComboBox Light Theme */
+.combo-box {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dddddd;
+    -fx-border-width: 1px;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+}
+
+.combo-box-base {
+    -fx-background-color: #ffffff, #ffffff, #f0f0f0, #f0f0f0;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: #333333;
+    -fx-background-color: #ffffff;
+}
+
+.combo-box .prompt-text {
+    -fx-fill: #999999;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dddddd;
+}
+
+.combo-box-popup .list-cell {
+    -fx-text-fill: #333333;
+    -fx-background-color: #ffffff;
+}
+
+.combo-box-popup .list-cell:hover {
+    -fx-background-color: #f0f0f0;
+}
+
+.combo-box-popup .list-cell:selected {
+    -fx-background-color: #e0d0ff; /* Light purple */
+    -fx-text-fill: #5b2a98;
+}
+
+/* Arrow icon color */
+.combo-box .arrow {
+    -fx-background-color: #666666;
+}

@@ -1,5 +1,6 @@
 package fili5rovic.codegalaxy.util;
 
+import fili5rovic.codegalaxy.window.Window;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
@@ -80,8 +81,25 @@ public class SettingsMenuHelper {
         return label;
     }
 
-    private static void selectTheme(String themeName) {
-        System.out.println("Selected theme: " + themeName);
+    private static void selectTheme(String theme) {
+        switch (theme) {
+            case "Light" -> {
+                Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage().getScene().getStylesheets().clear();
+                Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage().getScene().getStylesheets().add("fili5rovic/codegalaxy/css/main-light.css");
+                Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage().getScene().getStylesheets().add("fili5rovic/codegalaxy/css/codegalaxy-light.css");
+
+                Window.getWindowAt(Window.SETTINGS).getStage().getScene().getStylesheets().clear();
+                Window.getWindowAt(Window.SETTINGS).getStage().getScene().getStylesheets().add("fili5rovic/codegalaxy/css/settings-light.css");
+            }
+            case "Dark" -> {
+                Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage().getScene().getStylesheets().clear();
+                Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage().getScene().getStylesheets().add("fili5rovic/codegalaxy/css/main-dark.css");
+                Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage().getScene().getStylesheets().add("fili5rovic/codegalaxy/css/codegalaxy-dark.css");
+
+                Window.getWindowAt(Window.SETTINGS).getStage().getScene().getStylesheets().clear();
+                Window.getWindowAt(Window.SETTINGS).getStage().getScene().getStylesheets().add("fili5rovic/codegalaxy/css/settings-dark.css");
+            }
+        }
     }
 
 }
