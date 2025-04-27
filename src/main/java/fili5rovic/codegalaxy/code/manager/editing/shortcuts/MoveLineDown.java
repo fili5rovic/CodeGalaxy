@@ -7,11 +7,7 @@ import javafx.scene.input.KeyCode;
 public class MoveLineDown extends Shortcut {
     public MoveLineDown(CodeGalaxy cg) {
         super(cg);
-    }
-
-    @Override
-    protected KeyState getKeyState() {
-        return new KeyState(KeyCode.DOWN).shift().alt();
+        shortcutName = "move_line_down";
     }
 
     @Override

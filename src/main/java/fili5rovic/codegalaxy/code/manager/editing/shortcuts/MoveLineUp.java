@@ -8,11 +8,7 @@ public class MoveLineUp extends Shortcut {
 
     public MoveLineUp(CodeGalaxy cg) {
         super(cg);
-    }
-
-    @Override
-    protected KeyState getKeyState() {
-        return new KeyState(KeyCode.UP).shift().alt();
+        shortcutName = "move_line_up";
     }
 
     @Override

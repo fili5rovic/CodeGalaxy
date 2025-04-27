@@ -49,6 +49,15 @@ public class KeyState {
                 && event.isAltDown() == altDown;
     }
 
+    @Override
+    public String toString() {
+        return code.toString() + "|" +
+                (controlDown ? "1" : "0") + "|" +
+                (shiftDown ? "1" : "0") + "|" +
+                (altDown ? "1" : "0");
+    }
 
-
+    public static void main(String[] args) {
+        System.out.println(KeyCode.UP);
+    }
 }

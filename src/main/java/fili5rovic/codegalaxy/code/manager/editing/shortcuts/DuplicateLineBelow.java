@@ -7,11 +7,7 @@ import javafx.scene.input.KeyCode;
 public class DuplicateLineBelow extends Shortcut {
     public DuplicateLineBelow(CodeGalaxy cg) {
         super(cg);
-    }
-
-    @Override
-    protected KeyState getKeyState() {
-        return new KeyState(KeyCode.DOWN).ctrl().alt();
+        shortcutName = "duplicate_line_below";
     }
 
     @Override

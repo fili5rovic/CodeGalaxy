@@ -262,6 +262,19 @@
 }
 /*</editor-fold>*/
 
+.split-pane {
+    -fx-background-color: #2b2b2b;
+}
+
+.split-pane-divider {
+    -fx-background-color: transparent;
+}
+
+.border-pane {
+    -fx-background-color: #2b2b2b;
+}
+
+
 /*<editor-fold desc="Button">*/
 .button{
     -fx-background-radius: 10;

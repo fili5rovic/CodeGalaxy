@@ -2,7 +2,6 @@ package fili5rovic.codegalaxy.controller;
 
 import fili5rovic.codegalaxy.settings.ProjectSettings;
 import fili5rovic.codegalaxy.util.SVGUtil;
-import fili5rovic.codegalaxy.util.SettingsMenuHelper;
 import fili5rovic.codegalaxy.window.Window;
 import fili5rovic.codegalaxy.window.WindowHelper;
 import javafx.beans.property.BooleanProperty;
@@ -48,8 +47,8 @@ public class SettingsController extends ControllerBase {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        Window.getWindowAt(Window.SETTINGS).setController(this);
-        Window.getWindowAt(0).setController(this);
+        Window.getWindowAt(Window.SETTINGS).setController(this);
+//        Window.getWindowAt(0).setController(this);
 
         initTreeView();
 
@@ -195,19 +194,19 @@ public class SettingsController extends ControllerBase {
         switch (theme) {
             case "Light" -> {
                 Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage().getScene().getStylesheets().clear();
-                Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage().getScene().getStylesheets().add("fili5rovic/codegalaxy/css/main-light.css");
-                Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage().getScene().getStylesheets().add("fili5rovic/codegalaxy/css/codegalaxy-light.css");
+                Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage().getScene().getStylesheets().add("fili5rovic/codegalaxy/main-light.css");
+                Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage().getScene().getStylesheets().add("fili5rovic/codegalaxy/codegalaxy-light.css");
 
                 Window.getWindowAt(Window.SETTINGS).getStage().getScene().getStylesheets().clear();
-                Window.getWindowAt(Window.SETTINGS).getStage().getScene().getStylesheets().add("fili5rovic/codegalaxy/css/settings-light.css");
+                Window.getWindowAt(Window.SETTINGS).getStage().getScene().getStylesheets().add("fili5rovic/codegalaxy/settings-light.css");
             }
             case "Dark" -> {
                 Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage().getScene().getStylesheets().clear();
-                Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage().getScene().getStylesheets().add("fili5rovic/codegalaxy/css/main-dark.css");
-                Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage().getScene().getStylesheets().add("fili5rovic/codegalaxy/css/codegalaxy-dark.css");
+                Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage().getScene().getStylesheets().add("fili5rovic/codegalaxy/main-dark.css");
+                Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage().getScene().getStylesheets().add("fili5rovic/codegalaxy/codegalaxy-dark.css");
 
                 Window.getWindowAt(Window.SETTINGS).getStage().getScene().getStylesheets().clear();
-                Window.getWindowAt(Window.SETTINGS).getStage().getScene().getStylesheets().add("fili5rovic/codegalaxy/css/settings-dark.css");
+                Window.getWindowAt(Window.SETTINGS).getStage().getScene().getStylesheets().add("fili5rovic/codegalaxy/settings-dark.css");
             }
         }
     }
