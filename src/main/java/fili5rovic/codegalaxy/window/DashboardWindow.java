@@ -21,7 +21,7 @@ public class DashboardWindow extends Window {
             stage.setTitle("CodeGalaxy");
             stage.setScene(scene);
             stage.initStyle(StageStyle.UNIFIED);
-            stage.show();
+//            stage.show();
 
             stage.getIcons().add(new Image(Objects.requireNonNull(Main.class.getResourceAsStream("/fili5rovic/codegalaxy/png/app/codeGalaxy.png"))));
 

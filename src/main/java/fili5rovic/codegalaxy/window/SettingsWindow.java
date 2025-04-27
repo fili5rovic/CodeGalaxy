@@ -10,18 +10,18 @@ import javafx.stage.Stage;
 import java.util.Objects;
 
 public class SettingsWindow extends Window {
+
     @Override
     public void init(Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("settings.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
-            scene.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/main.css")).toExternalForm());
+            scene.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/settings.css")).toExternalForm());
             stage.setScene(scene);
             stage.setTitle("Settings");
             stage.show();
 
             stage.getIcons().add(new Image(Objects.requireNonNull(Main.class.getResourceAsStream("/fili5rovic/codegalaxy/png/app/codeGalaxy.png"))));
-
 
             this.stage = stage;
 
