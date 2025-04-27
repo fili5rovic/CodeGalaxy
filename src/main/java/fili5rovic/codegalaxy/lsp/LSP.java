@@ -117,7 +117,7 @@ public class LSP {
             return;
         }
 
-        File[] tmpFiles = managerFolder.listFiles((dir, name) -> name.startsWith(".tmp"));
+        File[] tmpFiles = managerFolder.listFiles((_, name) -> name.startsWith(".tmp"));
 
         if (tmpFiles == null) {
             System.out.println("No .tmp files found.");
