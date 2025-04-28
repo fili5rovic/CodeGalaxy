@@ -112,11 +112,11 @@ public class SettingsController extends ControllerBase {
         shortcutsSettingsMenu.setAlignment(Pos.TOP_CENTER);
         shortcutsSettingsMenu.setSpacing(10);
 
-        shortcutsSettingsMenu.getChildren().add(new Label("Shortcuts Settings"));
+        shortcutsSettingsMenu.getChildren().add(new Label("Code actions"));
 
-        TableView<KeyState> shorcutsTable = ShortcutsTableHelper.getShortcutsTable();
+        TableView<KeyState> shortcutsTable = ShortcutsTableHelper.getShortcutsTable();
 
-        shortcutsSettingsMenu.getChildren().add(shorcutsTable);
+        shortcutsSettingsMenu.getChildren().add(shortcutsTable);
 
 
         return shortcutsSettingsMenu;
@@ -127,7 +127,7 @@ public class SettingsController extends ControllerBase {
         themeSettingsMenu.setAlignment(Pos.TOP_CENTER);
         themeSettingsMenu.setSpacing(10);
 
-        themeSettingsMenu.getChildren().add(new Label("Theme Settings"));
+        themeSettingsMenu.getChildren().add(new Label("Editor theme"));
 
         ComboBox<Label> themeComboBox = new ComboBox<>();
         Label light = createThemeLabel("Light");
