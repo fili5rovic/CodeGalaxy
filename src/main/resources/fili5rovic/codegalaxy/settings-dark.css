@@ -71,6 +71,8 @@
 
 .button:hover {
     -fx-background-color: #5b2a98;
+    -fx-text-fill: #ffffff;
+    /*-fx-font-weight: bold;*/
 }
 
 .label {

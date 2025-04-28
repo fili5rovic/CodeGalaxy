@@ -4,6 +4,7 @@ import fili5rovic.codegalaxy.codeRunner.CodeRunner;
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.util.FileHelper;
 import fili5rovic.codegalaxy.util.JavaParserUtil;
+import fili5rovic.codegalaxy.util.SVGUtil;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
@@ -40,6 +41,7 @@ public class ContextMenuHelper {
                 firstItem.getPath().toString().endsWith(".java") &&
                 JavaParserUtil.hasMainMethod(firstItem.getPath().toFile())) {
             MenuItem runItem = new MenuItem("Run");
+            runItem.setGraphic(SVGUtil.getEmoji("run",16,16));
             runItem.setOnAction(_ -> {
                 try {
                     CodeRunner.runJava(firstItem.getPath());
@@ -56,6 +58,7 @@ public class ContextMenuHelper {
 
     public MenuItem createNewFile(ProjectItem item) {
         Menu newItem = new Menu("New");
+        newItem.setGraphic(SVGUtil.getEmoji("baby", 16, 16));
 
         newItem.getItems().addAll(
                 createMenuItem("Directory", item, ""),
@@ -113,6 +116,7 @@ public class ContextMenuHelper {
 
     private MenuItem createDeleteMenu(ArrayList<ProjectItem> items) {
         MenuItem deleteItem = new MenuItem("Delete");
+        deleteItem.setGraphic(SVGUtil.getEmoji("trash", 16, 16));
         deleteItem.setOnAction(e -> {
             items.forEach(item -> {
                 try {

@@ -57,11 +57,11 @@
 .menu {
     -fx-background-color: #212121;
     -fx-background-radius: 5;
-    -fx-padding: 5px;
+    /*-fx-padding: 5px;*/
 }
 
 .menu:hover {
-    -fx-background-color: #484848;
+    -fx-background-color: #5b2a98;
     -fx-cursor: HAND;
 }
 
@@ -74,22 +74,16 @@
 .menu-item {
     -fx-background-radius: 0;
     -fx-border-width: 0;
-    border-width: 0;
     -fx-text-fill: #AFB1B3;
     -fx-background-color: #1A1A1A;
-    background-color: #1A1A1A;
 }
 .menu-item:hover {
     -fx-background-color: #3E3E40;
-    background-color: #3E3E40;
     -fx-cursor: HAND;
-    cursor: HAND;
 }
 .menu-item:pressed {
     -fx-background-color: #4e4e4e;
-    background-color: #4e4e4e;
     -fx-cursor: HAND;
-    cursor: HAND;
 }
 
 .menu-item .label {
@@ -100,26 +94,27 @@
 
 .context-menu {
     -fx-background-color: #343434;
+    -fx-background-radius: 10;
     -fx-border-width: 0;
     -fx-padding: 0 0 -1 0;
 }
 
 .context-menu .menu-item {
-    -fx-background-color: transparent; /* Transparentna pozadina za stavke */
-    -fx-text-fill: #AFB1B3; /* Svetla boja teksta */
+    -fx-background-color: transparent;
+    -fx-text-fill: #AFB1B3;
     -fx-padding: 5px 10px;
 }
 
-/* Hover efekat za stavke u ContextMenu */
+
 .context-menu .menu-item:hover {
-    -fx-background-color: #3E3E40; /* Svetlije siva pozadina pri hover-u */
+    -fx-background-color: #3E3E40;
     -fx-text-fill: white;
 }
 
-/* Efekat pritiska na stavke u ContextMenu */
+
 .context-menu .menu-item:pressed {
-    -fx-background-color: #4e4e4e; /* Tamnije siva pozadina pri pritisku */
-    -fx-text-fill: white; /* Svetla boja teksta */
+    -fx-background-color: #4e4e4e;
+    -fx-text-fill: white;
 }
 
 /*</editor-fold>*/
@@ -162,6 +157,8 @@
 .label {
     -fx-text-fill: white;
 }
+
+
 
 
 /*<editor-fold desc="TreeView">*/
@@ -298,19 +295,13 @@
 }
 .button:hover{
     -fx-border-color: #222222;
-    border-color: #222222;
     -fx-background-color: #3E3E40;
-    background-color: #3E3E40;
     -fx-cursor: HAND;
-    cursor: HAND;
 }
 .button:pressed{
     -fx-border-color: #4e4e4e;
-    border-color: #4e4e4e;
     -fx-background-color: #4e4e4e;
-    background-color: #4e4e4e;
     -fx-cursor: HAND;
-    cursor: HAND;
 }
 /*</editor-fold>*/
 
@@ -341,11 +332,8 @@
 .tab-pane .tab {
     -fx-background-color: transparent;
 }
-.tab-pane:focused .tab-header-area .headers-region .tab:selected .focus-indicator {
-    -fx-border-width: 0;
-    -fx-border-insets: 0 0 0 0;
-    -fx-border-radius: 0;
-}
+
+
 /*</editor-fold>*/
 
 /*<editor-fold desc="TableView">*/

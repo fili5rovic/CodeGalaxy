@@ -7,14 +7,22 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fili5rovic.codegalaxy.controller.SettingsController">
    <bottom>
       <HBox alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="600.0" styleClass="hbox" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="apply" mnemonicParsing="false" text="Apply" />
+            <Button fx:id="apply" mnemonicParsing="false" text="Apply">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
             <Region prefHeight="36.0" prefWidth="29.0" />
-            <Button fx:id="cancel" mnemonicParsing="false" text="Cancel" />
+            <Button fx:id="cancel" mnemonicParsing="false" text="Cancel">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
+            <Region layoutX="522.0" layoutY="10.0" prefHeight="36.0" prefWidth="18.0" />
          </children>
       </HBox>
    </bottom>
