@@ -34,20 +34,12 @@
 }
 /*</editor-fold>*/
 
-
-
-/*!* Osnovna pozadina aplikacije *!*/
-/*.root {*/
-/*    -fx-background-color: #2e2e2e;*/
-/*}*/
-
-/* Stil za AnchorPane */
+/*<editor-fold desc="Menu">*/
+/* Stil za MenuBar */
 .anchor-pane {
     -fx-background-color: #414040;
 }
 
-/*<editor-fold desc="Menu">*/
-/* Stil za MenuBar */
 .menu-bar {
     -fx-background-color: #2e2e2e;
     -fx-padding: 5px;
@@ -158,11 +150,11 @@
     -fx-text-fill: white;
 }
 
-
-
+.anchor-pane {
+    -fx-background-color: #2e2e2e;
+}
 
 /*<editor-fold desc="TreeView">*/
-/* Stil za TreeView */
 .tree-view {
     -fx-background-color: #2e2e2e;
     -fx-text-fill: #ccc;
@@ -172,8 +164,8 @@
 
 /* Stil za TreeView unutar */
 .tree-view .tree-cell {
-    -fx-background-color: #2e2e2e; /* Tamna pozadina za stavke u TreeView */
-    -fx-text-fill: #ccc; /* Svetla boja teksta za stavke u TreeView */
+    -fx-background-color: #2e2e2e;
+    -fx-text-fill: #ccc;
 }
 
 .tree-view .tree-cell:hover {
@@ -363,58 +355,47 @@
 }
 .table-view .column-header-background {
     -fx-border-width: 0 0 1 0;
-    border-width: 0 0 1 0;
     -fx-border-color: #222222;
-    border-color: #222222;
     -fx-background-radius: 0;
     -fx-background-color: #1A1A1A;
-    background-color: #1A1A1A;
     -fx-text-fill: #AFB1B3;
 }
 .table-view .column-header {
     -fx-background-color: transparent;
-    background-color: transparent;
     -fx-border-color: #222222;
-    border-color: #222222;
 }
+
 .table-view .column-resize-line {
     -fx-background-color: #4e4e4e;
-    background-color: #4e4e4e;
     -fx-pref-width: 1;
 }
 .table-row-cell{
     -fx-background-color: #1A1A1A;
     -fx-text-background-color: #AFB1B3;
     -fx-margin: 1;
-    margin: 1;
 }
 .table-row-cell:hover {
     -fx-background-color: #3E3E40;
-    background-color: #3E3E40;
     -fx-background-insets: 0;
     -fx-background-radius: 0;
 }
 .table-row-cell:selected {
     -fx-table-cell-border-color: #222222;
     -fx-background-color: #3E3E40;
-    background-color: #3E3E40;
     -fx-background-insets: 0;
     -fx-background-radius: 0;
 }
 .table-row-cell:pressed {
     -fx-background-color: #4e4e4e;
-    background-color: #4e4e4e;
     -fx-background-insets: 0;
     -fx-background-radius: 0;
 }
 .table-view .column-header .label {
     -fx-alignment: center;
     -fx-cursor: HAND;
-    cursor: HAND;
 }
 .table-view .filler {
     -fx-background-color: transparent;
-    background-color: transparent;
 }
 .table-view .column-drag-header{
     -fx-background-color: #4e4e4e;
@@ -450,14 +431,13 @@
 
 /*</editor-fold>*/
 
-/* Popup container */
+/*<editor-fold desc="Completion popup">*/
 .completion-popup {
     -fx-background-color: #2e2e2e;
     -fx-background-radius: 6;
     -fx-padding: 6;
 }
 
-/* ListView styling */
 .completion-list-view {
     -fx-background-color: #2e2e2e;
     -fx-control-inner-background: #2e2e2e;
@@ -489,8 +469,9 @@
     -fx-min-height: 0;
     -fx-max-height: 0;
 }
+/*</editor-fold>*/
 
-/* Details popup styling */
+/*<editor-fold desc="Details Completion popup">*/
 .details-completion-list-view {
     -fx-background-color: #3c3f41;
     -fx-control-inner-background: #3c3f41;
@@ -530,6 +511,7 @@
 .details-completion-list-view .viewport {
     -fx-background-color: #3c3f41;
 }
+/*</editor-fold>*/
 
 
 

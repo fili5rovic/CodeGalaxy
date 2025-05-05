@@ -1,8 +1,7 @@
-package fili5rovic.codegalaxy.dashboardManager;
+package fili5rovic.codegalaxy.dashboardHelper;
 
 import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.controller.DashboardController;
-import fili5rovic.codegalaxy.project.ProjectManager;
 import fili5rovic.codegalaxy.util.FileHelper;
 import fili5rovic.codegalaxy.util.SVGUtil;
 import fili5rovic.codegalaxy.window.Window;
@@ -16,35 +15,30 @@ import java.io.File;
 
 public class MenuManager {
 
-    private final DashboardController controller;
+    private static final DashboardController controller = (DashboardController) Window.getController(Window.WINDOW_DASHBOARD);
 
-    private final TabPane tabPane;
+    private static final TabPane tabPane = controller.getTabPane();
 
-    public MenuManager(DashboardController controller) {
-        this.controller = controller;
-        this.tabPane = controller.getTabPane();
-    }
-
-    public void initialize() {
+    public static void initialize() {
         menuIcons();
         menuActions();
     }
 
-    private void menuActions() {
+    private static void menuActions() {
         controller.getOpen().setOnAction(MenuManager::chooseFolder);
-        controller.getSaveAll().setOnAction(this::saveAllFiles);
+        controller.getSaveAll().setOnAction(MenuManager::saveAllFiles);
         controller.getNewProject().setOnAction(MenuManager::newProject);
-        controller.getUndo().setOnAction(this::undo);
-        controller.getRedo().setOnAction(this::redo);
-        controller.getCut().setOnAction(this::cut);
-        controller.getCopy().setOnAction(this::copy);
-        controller.getPaste().setOnAction(this::paste);
-        controller.getSelectAll().setOnAction(this::selectAll);
-        controller.getDelete().setOnAction(this::delete);
-        controller.getSettings().setOnAction(this::settings);
+        controller.getUndo().setOnAction(MenuManager::undo);
+        controller.getRedo().setOnAction(MenuManager::redo);
+        controller.getCut().setOnAction(MenuManager::cut);
+        controller.getCopy().setOnAction(MenuManager::copy);
+        controller.getPaste().setOnAction(MenuManager::paste);
+        controller.getSelectAll().setOnAction(MenuManager::selectAll);
+        controller.getDelete().setOnAction(MenuManager::delete);
+        controller.getSettings().setOnAction(MenuManager::settings);
     }
 
-    private void menuIcons() {
+    private static void menuIcons() {
         controller.getOpen().setGraphic(SVGUtil.getUI("openProject", 16, 16));
         controller.getSaveAll().setGraphic(SVGUtil.getUI("saveAll", 16, 16));
         controller.getNewProject().setGraphic(SVGUtil.getUI("newProject", 16, 16));
@@ -66,7 +60,7 @@ public class MenuManager {
         }
     }
 
-    private void saveAllFiles(ActionEvent e) {
+    private static void saveAllFiles(ActionEvent e) {
         for (Tab tab : tabPane.getTabs()) {
             CodeGalaxy codeGalaxy = ((CodeGalaxy) tab.getContent());
             codeGalaxy.save();
@@ -83,7 +77,7 @@ public class MenuManager {
     }
 
 
-    private void undo(ActionEvent e) {
+    private static void undo(ActionEvent e) {
         Tab selectedTab = tabPane.getSelectionModel().getSelectedItem();
         if (selectedTab != null) {
             CodeGalaxy codeGalaxy = (CodeGalaxy) selectedTab.getContent();
@@ -91,7 +85,7 @@ public class MenuManager {
         }
     }
 
-    private void redo(ActionEvent e) {
+    private static void redo(ActionEvent e) {
         Tab selectedTab = tabPane.getSelectionModel().getSelectedItem();
         if (selectedTab != null) {
             CodeGalaxy codeGalaxy = (CodeGalaxy) selectedTab.getContent();
@@ -99,7 +93,7 @@ public class MenuManager {
         }
     }
 
-    private void cut(ActionEvent e) {
+    private static void cut(ActionEvent e) {
         Tab selectedTab = tabPane.getSelectionModel().getSelectedItem();
         if (selectedTab != null) {
             CodeGalaxy codeGalaxy = (CodeGalaxy) selectedTab.getContent();
@@ -108,7 +102,7 @@ public class MenuManager {
         }
     }
 
-    private void copy(ActionEvent e) {
+    private static void copy(ActionEvent e) {
         Tab selectedTab = tabPane.getSelectionModel().getSelectedItem();
         if (selectedTab != null) {
             CodeGalaxy codeGalaxy = (CodeGalaxy) selectedTab.getContent();
@@ -117,7 +111,7 @@ public class MenuManager {
         }
     }
 
-    private void paste(ActionEvent e) {
+    private static void paste(ActionEvent e) {
         Tab selectedTab = tabPane.getSelectionModel().getSelectedItem();
         if (selectedTab != null) {
             CodeGalaxy codeGalaxy = (CodeGalaxy) selectedTab.getContent();
@@ -125,7 +119,7 @@ public class MenuManager {
         }
     }
 
-    private void selectAll(ActionEvent e) {
+    private static void selectAll(ActionEvent e) {
         Tab selectedTab = tabPane.getSelectionModel().getSelectedItem();
         if (selectedTab != null) {
             CodeGalaxy codeGalaxy = (CodeGalaxy) selectedTab.getContent();
@@ -133,7 +127,7 @@ public class MenuManager {
         }
     }
 
-    private void delete(ActionEvent e) {
+    private static void delete(ActionEvent e) {
         Tab selectedTab = tabPane.getSelectionModel().getSelectedItem();
         if (selectedTab != null) {
             CodeGalaxy codeGalaxy = (CodeGalaxy) selectedTab.getContent();
@@ -141,7 +135,7 @@ public class MenuManager {
         }
     }
 
-    private void settings(ActionEvent e) {
+    private static void settings(ActionEvent e) {
         WindowHelper.showWindow(Window.SETTINGS);
     }
     //</editor-fold>

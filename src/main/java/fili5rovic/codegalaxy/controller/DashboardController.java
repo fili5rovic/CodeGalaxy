@@ -1,10 +1,11 @@
 package fili5rovic.codegalaxy.controller;
 
 import fili5rovic.codegalaxy.code.CodeGalaxy;
-import fili5rovic.codegalaxy.dashboardManager.MenuManager;
+import fili5rovic.codegalaxy.dashboardHelper.ButtonManager;
+import fili5rovic.codegalaxy.dashboardHelper.MenuManager;
 import fili5rovic.codegalaxy.lsp.LSP;
 import fili5rovic.codegalaxy.settings.ProjectSettings;
-import fili5rovic.codegalaxy.project.ProjectManager;
+import fili5rovic.codegalaxy.dashboardHelper.ProjectManager;
 import fili5rovic.codegalaxy.util.SVGUtil;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.fxml.FXML;
@@ -69,7 +70,8 @@ public class DashboardController extends ControllerBase {
     @FXML
     private MenuItem settings;
 
-    private MenuManager menuManager;
+    @FXML
+    private Button showHierarchyBtn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -82,8 +84,8 @@ public class DashboardController extends ControllerBase {
         }
 
         tryToOpenLastProject();
-        menuManager = new MenuManager(this);
-        menuManager.initialize();
+        MenuManager.initialize();
+        ButtonManager.initialize();
     }
 
 
@@ -211,6 +213,10 @@ public class DashboardController extends ControllerBase {
 
     public TabPane getTabPane() {
         return tabPane;
+    }
+
+    public Button getShowHierarchyBtn() {
+        return showHierarchyBtn;
     }
 
     //</editor-fold>
