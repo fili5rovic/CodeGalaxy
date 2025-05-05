@@ -1,4 +1,4 @@
-package fili5rovic.codegalaxy.project;
+package fili5rovic.codegalaxy.dashboardHelper;
 
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.hierarchy.ProjectHierarchy;
