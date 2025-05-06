@@ -87,7 +87,7 @@
                <children>
                   <StackPane fx:id="bottomStackPane" prefHeight="135.0" prefWidth="974.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <BorderPane fx:id="consolePane" prefHeight="200.0" prefWidth="200.0" />
+                        <TabPane fx:id="consoleTabPane" />
                      </children></StackPane>
                </children></AnchorPane>
               </items>

@@ -2,7 +2,6 @@ package fili5rovic.codegalaxy.controller;
 
 import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.dashboardHelper.ButtonManager;
-import fili5rovic.codegalaxy.dashboardHelper.ConsoleHelper;
 import fili5rovic.codegalaxy.dashboardHelper.MenuManager;
 import fili5rovic.codegalaxy.lsp.LSP;
 import fili5rovic.codegalaxy.settings.ProjectSettings;
@@ -79,7 +78,7 @@ public class DashboardController extends ControllerBase {
     private StackPane bottomStackPane;
 
     @FXML
-    private BorderPane consolePane;
+    private TabPane consoleTabPane;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -94,7 +93,6 @@ public class DashboardController extends ControllerBase {
         tryToOpenLastProject();
         MenuManager.initialize();
         ButtonManager.initialize();
-        ConsoleHelper.initialize();
     }
 
 
@@ -228,12 +226,8 @@ public class DashboardController extends ControllerBase {
         return showHierarchyBtn;
     }
 
-    public StackPane getBottomStackPane() {
-        return bottomStackPane;
-    }
-
-    public BorderPane getConsolePane() {
-        return consolePane;
+    public TabPane getConsoleTabPane() {
+        return consoleTabPane;
     }
 
 
