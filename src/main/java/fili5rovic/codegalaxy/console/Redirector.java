@@ -16,12 +16,7 @@ public class Redirector {
         this.process = process;
     }
 
-    public void redirectStreams() {
-        redirectOutput(process.getInputStream());
-        redirectOutput(process.getErrorStream());
-    }
-
-    public void writeInput(String input) {
+    public void sendInput(String input) {
         try {
             process.getOutputStream().write((input + "\n").getBytes());
             process.getOutputStream().flush();
@@ -30,18 +25,27 @@ public class Redirector {
         }
     }
 
+    public void redirectStreams() {
+        redirectOutput(process.getInputStream(), ConsoleArea.OUTPUT);
+        redirectOutput(process.getErrorStream(), ConsoleArea.ERROR);
+    }
 
-    private void redirectOutput(InputStream inputStream) {
+    private void redirectOutput(InputStream inputStream, int type) {
         if (console == null) {
             System.err.println("Console is not set. Cannot redirect output.");
             return;
         }
+
         new Thread(() -> {
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     String finalLine = line + "\n";
-                    Platform.runLater(() -> console.appendText(finalLine));
+                    Platform.runLater(() -> {
+                        System.out.println("Redirecting output: " + finalLine + " to type: " + type);
+                        console.setTextType(type);
+                        console.appendText(finalLine);
+                    });
                 }
             } catch (Exception e) {
                 System.err.println("Error reading output stream: " + e.getMessage());

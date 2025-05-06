@@ -2,15 +2,17 @@ package fili5rovic.codegalaxy.console;
 
 import fili5rovic.codegalaxy.console.behaviour.BehaviourListener;
 import fili5rovic.codegalaxy.console.highlighter.Highlighter;
-import javafx.application.Platform;
 import org.fxmisc.richtext.CodeArea;
 
 public class ConsoleArea extends CodeArea {
 
-    private int inputStart = 0;
-    private int inputEnd = 0;
+    public static final int INPUT = 0;
+    public static final int OUTPUT = 1;
+    public static final int ERROR = 2;
 
     private final Redirector redirector;
+
+    private int textType = 1;
 
     public ConsoleArea(Process process) {
         Highlighter.apply(this);
@@ -19,38 +21,23 @@ public class ConsoleArea extends CodeArea {
         this.redirector = new Redirector(this, process);
         this.redirector.redirectStreams();
 
-        waitForProcessExit(process);
+        ProcessHelper.waitForProcessExit(this, process);
     }
 
-    public void onProcessExit(int code) {
-        setEditable(false);
-        appendText("\nProcess finished with code: " + code + "\n");
+    public void setTextType(int textType) {
+        this.textType = textType;
     }
 
-    public void writeInput(String input) {
-        redirector.writeInput(input);
-        inputStart = getLength() - input.length() - 1;
-        inputEnd = getLength() - 1;
+    public Redirector getRedirector() {
+        return redirector;
     }
 
-    private void waitForProcessExit(Process process) {
-        new Thread(() -> {
-            try {
-                int exitCode = process.waitFor();
-                Platform.runLater(() -> {
-                    onProcessExit(exitCode);
-                });
-            } catch (InterruptedException e) {
-                System.err.println("Process wait interrupted: " + e.getMessage());
-            }
-        }).start();
+    public String getStyleClassForTextType() {
+        return switch (textType) {
+            case INPUT -> "console_input";
+            case OUTPUT -> "console_output";
+            default -> "console_error";
+        };
     }
 
-    public int getInputStart() {
-        return inputStart;
-    }
-
-    public int getInputEnd() {
-        return inputEnd;
-    }
 }
