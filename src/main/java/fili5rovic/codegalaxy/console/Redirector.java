@@ -39,18 +39,17 @@ public class Redirector {
         new Thread(() -> {
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
                 String line;
-                console.setTextType(type);
                 while ((line = reader.readLine()) != null) {
                     final String finalLine = line + "\n";
                     final int finalType = type;
 
-                    Platform.runLater(() -> {
-                        console.appendTextWithType(finalLine, finalType);
-                    });
+                    Platform.runLater(() -> console.appendTextWithType(finalLine, finalType));
                 }
             } catch (Exception e) {
                 System.err.println("Error reading output stream: " + e.getMessage());
             }
         }).start();
     }
+
+
 }
