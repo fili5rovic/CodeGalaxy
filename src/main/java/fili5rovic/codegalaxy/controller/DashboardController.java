@@ -77,6 +77,9 @@ public class DashboardController extends ControllerBase {
     @FXML
     private TabPane consoleTabPane;
 
+    @FXML
+    private SplitPane mainSplitPane;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Window.getWindowAt(Window.WINDOW_DASHBOARD).setController(this);
@@ -223,6 +226,10 @@ public class DashboardController extends ControllerBase {
 
     public TabPane getConsoleTabPane() {
         return consoleTabPane;
+    }
+
+    public SplitPane getMainSplitPane() {
+        return mainSplitPane;
     }
 
 
