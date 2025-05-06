@@ -24,6 +24,7 @@ public class ConsoleArea extends CodeArea {
         ProcessHelper.waitForProcessExit(this, process);
     }
 
+    // used for streams
     public void appendTextWithType(String text, int type) {
         int start = getLength();
         appendText(text);
@@ -33,9 +34,6 @@ public class ConsoleArea extends CodeArea {
             case OUTPUT -> "console_output";
             default -> "console_error";
         };
-
-        System.out.println("Applying style class: " + styleClass + " for type: " + type);
-
         setStyleClass(start, getLength(), styleClass);
     }
 
@@ -47,6 +45,7 @@ public class ConsoleArea extends CodeArea {
         return redirector;
     }
 
+    // used for input
     public String getStyleClassForTextType() {
         return switch (textType) {
             case INPUT -> "console_input";

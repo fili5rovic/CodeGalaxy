@@ -25,7 +25,6 @@ public class CodeRunnerService {
     private static void addTab(Path javaFilePath, Process process) {
         String title = javaFilePath.getFileName().toString();
         Tab tab = new Tab(title);
-        tab.setTooltip(new javafx.scene.control.Tooltip(javaFilePath.toString()));
         tab.setContent(new ConsoleArea(process));
 
         tab.setOnCloseRequest(_ -> {
