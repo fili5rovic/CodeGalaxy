@@ -13,7 +13,7 @@ public class Highlighter {
 
     public static void apply(ConsoleArea consoleArea) {
         consoleArea.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/highlighter.css")).toExternalForm());
-        listener(consoleArea);
+//        listener(consoleArea);
     }
 
     private static void listener(ConsoleArea consoleArea) {

@@ -26,8 +26,8 @@ public class Redirector {
     }
 
     public void redirectStreams() {
-        redirectOutput(process.getInputStream(), ConsoleArea.OUTPUT);
         redirectOutput(process.getErrorStream(), ConsoleArea.ERROR);
+        redirectOutput(process.getInputStream(), ConsoleArea.OUTPUT);
     }
 
     private void redirectOutput(InputStream inputStream, int type) {
@@ -39,12 +39,13 @@ public class Redirector {
         new Thread(() -> {
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
                 String line;
+                console.setTextType(type);
                 while ((line = reader.readLine()) != null) {
-                    String finalLine = line + "\n";
+                    final String finalLine = line + "\n";
+                    final int finalType = type;
+
                     Platform.runLater(() -> {
-                        System.out.println("Redirecting output: " + finalLine + " to type: " + type);
-                        console.setTextType(type);
-                        console.appendText(finalLine);
+                        console.appendTextWithType(finalLine, finalType);
                     });
                 }
             } catch (Exception e) {

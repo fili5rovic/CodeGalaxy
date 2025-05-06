@@ -22,7 +22,6 @@ public class CodeRunner {
                 "java", "-cp", classPath, fileName
         );
 
-        pb.redirectErrorStream(true);
         return pb.start();
     }
 
