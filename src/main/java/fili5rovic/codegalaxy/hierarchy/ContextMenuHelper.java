@@ -1,6 +1,7 @@
 package fili5rovic.codegalaxy.hierarchy;
 
 import fili5rovic.codegalaxy.codeRunner.CodeRunner;
+import fili5rovic.codegalaxy.codeRunner.CodeRunnerService;
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.util.FileHelper;
 import fili5rovic.codegalaxy.util.JavaParserUtil;
@@ -43,11 +44,7 @@ public class ContextMenuHelper {
             MenuItem runItem = new MenuItem("Run");
             runItem.setGraphic(SVGUtil.getEmoji("run",16,16));
             runItem.setOnAction(_ -> {
-                try {
-                    CodeRunner.runJava(firstItem.getPath());
-                } catch (Exception exception) {
-                    System.out.println("Couldn't run file");
-                }
+                CodeRunnerService.runJava(firstItem.getPath());
             });
             menuItems.add(runItem);
         }

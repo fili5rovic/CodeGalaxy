@@ -2,21 +2,18 @@ package fili5rovic.codegalaxy.codeRunner;
 
 import fili5rovic.codegalaxy.util.MetaDataHelper;
 
-import java.io.*;
 import java.nio.file.Path;
 
 public class CodeRunner {
 
-    public static void runJava(Path javaFilePath) throws Exception {
-        if(!javaFilePath.toString().endsWith(".java")) {
-            System.err.println("Not a java file");
-            return;
-        }
+    static Process runJava(Path javaFilePath) throws Exception {
+        if (!javaFilePath.toString().endsWith(".java"))
+            throw new IllegalArgumentException("File is not a Java file");
+
         Path filePath = filePathToClassPath(javaFilePath);
-        if (filePath == null) {
-            System.err.println("File path is null.");
-            return;
-        }
+        if (filePath == null)
+            throw new IllegalArgumentException("File path is null");
+
 
         String fileName = filePath.getFileName().toString();
         String classPath = filePath.getParent().toString();
@@ -26,17 +23,7 @@ public class CodeRunner {
         );
 
         pb.redirectErrorStream(true);
-        Process process = pb.start();
-
-        try (BufferedReader reader = new BufferedReader(
-                new InputStreamReader(process.getInputStream()))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
-            }
-        }
-
-        process.waitFor();
+        return pb.start();
     }
 
     private static Path filePathToClassPath(Path filePath) {
@@ -54,6 +41,5 @@ public class CodeRunner {
         return Path.of(classPath).resolve(relativePath.replace(".java", ""));
 
     }
-
 
 }
