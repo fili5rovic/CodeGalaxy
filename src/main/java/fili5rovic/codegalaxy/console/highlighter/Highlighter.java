@@ -18,14 +18,25 @@ public class Highlighter {
 
     private static void listener(ConsoleArea consoleArea) {
         consoleArea.textProperty().addListener((_, _, newValue) -> {
-            consoleArea.setStyleSpans(0, computeHighlighting(newValue));
+            System.out.println("Text changed: " + newValue);
+            consoleArea.setStyleSpans(0, computeHighlighting(newValue, consoleArea.getInputStart(), consoleArea.getInputEnd()));
         });
     }
 
 
-    private static StyleSpans<Collection<String>> computeHighlighting(String text) {
+    public static StyleSpans<Collection<String>> computeHighlighting(String text, int inputStart, int inputEnd) {
         StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
-        spansBuilder.add(Collections.singleton("default_text"), text.length());
+
+        if (inputStart > 0)
+            spansBuilder.add(Collections.singleton("default_text"), inputStart);
+
+        if (inputEnd > inputStart)
+            spansBuilder.add(Collections.singleton("prompt"), inputEnd - inputStart);
+
+        if (inputEnd < text.length())
+            spansBuilder.add(Collections.singleton("default_text"), text.length() - inputEnd);
+
         return spansBuilder.create();
     }
+
 }

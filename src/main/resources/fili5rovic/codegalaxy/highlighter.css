@@ -39,3 +39,7 @@
 .default_text {
     -fx-fill: #e0e0e0;
 }
+
+.prompt {
+    -fx-fill: #82c678;
+}

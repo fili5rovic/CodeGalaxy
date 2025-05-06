@@ -7,6 +7,9 @@ import org.fxmisc.richtext.CodeArea;
 
 public class ConsoleArea extends CodeArea {
 
+    private int inputStart = 0;
+    private int inputEnd = 0;
+
     private final Redirector redirector;
 
     public ConsoleArea(Process process) {
@@ -17,7 +20,6 @@ public class ConsoleArea extends CodeArea {
         this.redirector.redirectStreams();
 
         waitForProcessExit(process);
-
     }
 
     public void onProcessExit(int code) {
@@ -26,8 +28,9 @@ public class ConsoleArea extends CodeArea {
     }
 
     public void writeInput(String input) {
-        System.out.println("Wrote: " + input);
         redirector.writeInput(input);
+        inputStart = getLength() - input.length() - 1;
+        inputEnd = getLength() - 1;
     }
 
     private void waitForProcessExit(Process process) {
@@ -41,5 +44,13 @@ public class ConsoleArea extends CodeArea {
                 System.err.println("Process wait interrupted: " + e.getMessage());
             }
         }).start();
+    }
+
+    public int getInputStart() {
+        return inputStart;
+    }
+
+    public int getInputEnd() {
+        return inputEnd;
     }
 }
