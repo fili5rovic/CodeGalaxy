@@ -41,13 +41,13 @@
 }
 
 .console_output {
-    -fx-fill: #b5b5b5;
+    -fx-fill: #a1a6a8;
 }
 
 .console_input {
-    -fx-fill: #82c678;
+    -fx-fill: #5db676;
 }
 
 .console_error {
-    -fx-fill: #ff0000;
+    -fx-fill: #c81b1b;
 }

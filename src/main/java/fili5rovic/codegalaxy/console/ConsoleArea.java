@@ -12,7 +12,7 @@ public class ConsoleArea extends CodeArea {
 
     private final Redirector redirector;
 
-    private int textType = 1;
+    private int textType = 3;
 
     public ConsoleArea(Process process) {
         Highlighter.apply(this);
@@ -22,6 +22,21 @@ public class ConsoleArea extends CodeArea {
         this.redirector.redirectStreams();
 
         ProcessHelper.waitForProcessExit(this, process);
+    }
+
+    public void appendTextWithType(String text, int type) {
+        int start = getLength();
+        appendText(text);
+
+        String styleClass = switch (type) {
+            case INPUT -> "console_input";
+            case OUTPUT -> "console_output";
+            default -> "console_error";
+        };
+
+        System.out.println("Applying style class: " + styleClass + " for type: " + type);
+
+        setStyleClass(start, getLength(), styleClass);
     }
 
     public void setTextType(int textType) {
