@@ -21,6 +21,16 @@ public class Redirector {
         redirectOutput(process.getErrorStream());
     }
 
+    public void writeInput(String input) {
+        try {
+            process.getOutputStream().write((input + "\n").getBytes());
+            process.getOutputStream().flush();
+        } catch (Exception e) {
+            System.err.println("Error writing to input stream: " + e.getMessage());
+        }
+    }
+
+
     private void redirectOutput(InputStream inputStream) {
         if (console == null) {
             System.err.println("Console is not set. Cannot redirect output.");

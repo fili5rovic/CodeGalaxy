@@ -75,9 +75,6 @@ public class DashboardController extends ControllerBase {
     private Button showHierarchyBtn;
 
     @FXML
-    private StackPane bottomStackPane;
-
-    @FXML
     private TabPane consoleTabPane;
 
     @Override
@@ -94,8 +91,6 @@ public class DashboardController extends ControllerBase {
         MenuManager.initialize();
         ButtonManager.initialize();
     }
-
-
 
     private void tryToOpenLastProject() {
         String lastProjectPath = ProjectSettings.getInstance().get("lastProjectPath");
