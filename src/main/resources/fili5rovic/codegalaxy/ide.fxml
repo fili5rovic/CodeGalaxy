@@ -55,7 +55,7 @@
               <items>
                   <BorderPane>
                       <center>
-                          <SplitPane dividerPositions="0.19047619047619047, 0.9971988795518207" prefHeight="556.0" prefWidth="861.0" BorderPane.alignment="CENTER">
+                          <SplitPane fx:id="mainSplitPane" dividerPositions="0.19047619047619047, 0.9971988795518207" prefHeight="556.0" prefWidth="861.0" BorderPane.alignment="CENTER">
                               <items>
                                   <BorderPane fx:id="treeViewPane" />
                         <StackPane>
