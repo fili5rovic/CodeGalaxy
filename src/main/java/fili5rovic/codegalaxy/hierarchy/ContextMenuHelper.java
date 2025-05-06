@@ -8,6 +8,8 @@ import fili5rovic.codegalaxy.util.JavaParserUtil;
 import fili5rovic.codegalaxy.util.SVGUtil;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.scene.control.*;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
@@ -49,6 +51,7 @@ public class ContextMenuHelper {
             menuItems.add(runItem);
         }
 
+        menuItems.add(createCopyPath(items));
         menuItems.add(createOpen(items));
         menuItems.add(createDeleteMenu(items));
         return menuItems;
@@ -145,6 +148,20 @@ public class ContextMenuHelper {
             });
         });
         return openItem;
+    }
+
+    private MenuItem createCopyPath(ArrayList<ProjectItem> items) {
+        MenuItem copyPathItem = new MenuItem("Copy Path");
+        copyPathItem.setGraphic(SVGUtil.getEmoji("copy", 16, 16));
+        copyPathItem.setOnAction(e -> {
+            items.forEach(item -> {
+                Clipboard clipboard = Clipboard.getSystemClipboard();
+                ClipboardContent content = new ClipboardContent();
+                content.putString(item.getPath().toString());
+                clipboard.setContent(content);
+            });
+        });
+        return copyPathItem;
     }
 
 }

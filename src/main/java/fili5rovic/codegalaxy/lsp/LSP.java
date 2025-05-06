@@ -142,6 +142,10 @@ public class LSP {
         documentManager.sendChange(filePath, newText);
     }
 
+    public void sendSave(String filePath) {
+        documentManager.sendSave(filePath);
+    }
+
     public List<CompletionItem> requestCompletions(String filePath, int line, int character) throws Exception {
         return requestManager.requestCompletions(filePath, line, character);
     }

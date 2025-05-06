@@ -2,6 +2,7 @@ package fili5rovic.codegalaxy.dashboardHelper;
 
 import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.controller.DashboardController;
+import fili5rovic.codegalaxy.lsp.LSP;
 import fili5rovic.codegalaxy.util.FileHelper;
 import fili5rovic.codegalaxy.util.SVGUtil;
 import fili5rovic.codegalaxy.window.Window;
@@ -63,6 +64,7 @@ public class MenuManager {
     private static void saveAllFiles(ActionEvent e) {
         for (Tab tab : tabPane.getTabs()) {
             CodeGalaxy codeGalaxy = ((CodeGalaxy) tab.getContent());
+            LSP.instance().sendSave(codeGalaxy.getFilePath().toString());
             codeGalaxy.save();
         }
     }
