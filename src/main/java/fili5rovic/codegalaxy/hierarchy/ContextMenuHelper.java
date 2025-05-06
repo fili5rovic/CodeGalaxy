@@ -49,11 +49,12 @@ public class ContextMenuHelper {
             menuItems.add(runItem);
         }
 
+        menuItems.add(createOpen(items));
         menuItems.add(createDeleteMenu(items));
         return menuItems;
     }
 
-    public MenuItem createNewFile(ProjectItem item) {
+    private MenuItem createNewFile(ProjectItem item) {
         Menu newItem = new Menu("New");
         newItem.setGraphic(SVGUtil.getEmoji("baby", 16, 16));
 
@@ -126,6 +127,24 @@ public class ContextMenuHelper {
             });
         });
         return deleteItem;
+    }
+
+    private MenuItem createOpen(ArrayList<ProjectItem> items) {
+        MenuItem openItem = new MenuItem("Open Folder");
+        openItem.setGraphic(SVGUtil.getEmoji("look", 16, 16));
+        openItem.setOnAction(e -> {
+            items.forEach(item -> {
+                try {
+                    Path path = item.getPath();
+                    if (!Files.isDirectory(item.getPath()))
+                        path = path.getParent();
+                    FileHelper.openDirectoryInExplorer(path.toFile());
+                } catch (IOException ioException) {
+                    System.err.println("Couldn't open folder");
+                }
+            });
+        });
+        return openItem;
     }
 
 }
