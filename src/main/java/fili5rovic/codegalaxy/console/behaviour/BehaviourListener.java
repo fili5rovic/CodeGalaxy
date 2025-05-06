@@ -1,8 +1,6 @@
 package fili5rovic.codegalaxy.console.behaviour;
 
 import fili5rovic.codegalaxy.console.ConsoleArea;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -16,24 +14,15 @@ public class BehaviourListener {
 
         console.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
             if (e.getCode().isArrowKey()) {
-                e.consume();
                 return;
             }
 
             if (e.getCode() == KeyCode.ENTER) {
                 console.appendText("\n");
+                console.setTextType(ConsoleArea.OUTPUT);
                 if (!input.isEmpty()) {
-                    console.writeInput(input.toString());
+                    console.getRedirector().sendInput(input.toString());
                     input.setLength(0);
-                }
-                e.consume();
-            } else if (e.getCode() == KeyCode.BACK_SPACE) {
-                if (!input.isEmpty()) {
-                    input.deleteCharAt(input.length() - 1);
-                    int caret = console.getCaretPosition();
-                    if (caret > 0) {
-                        console.replaceText(caret - 1, caret, "");
-                    }
                 }
                 e.consume();
             }
@@ -41,12 +30,15 @@ public class BehaviourListener {
 
         console.addEventFilter(KeyEvent.KEY_TYPED, e -> {
             String character = e.getCharacter();
-            if (character.isEmpty() || character.equals("\r") || character.equals("\n"))
+            if (character.isEmpty() || character.equals("\r") || character.equals("\n")) {
+                e.consume();
                 return;
+            }
 
+            console.setTextType(ConsoleArea.INPUT);
             input.append(character);
-            console.appendText(character);
-            e.consume();
+//            console.appendText(character);
+//            e.consume();
         });
     }
 
