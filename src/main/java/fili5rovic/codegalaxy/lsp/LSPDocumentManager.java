@@ -66,6 +66,19 @@ public class LSPDocumentManager {
         System.out.println("Sent change to " + uri);
     }
 
+    public void sendSave(String filePath) throws IllegalStateException {
+        String uri = Paths.get(filePath).toUri().toString();
+
+        if (!documentVersions.containsKey(uri)) {
+            throw new IllegalStateException("File must be opened first: " + uri);
+        }
+
+        VersionedTextDocumentIdentifier docId = new VersionedTextDocumentIdentifier(uri, documentVersions.get(uri));
+        DidSaveTextDocumentParams saveParams = new DidSaveTextDocumentParams(docId);
+
+        server.getTextDocumentService().didSave(saveParams);
+    }
+
     public Map<String, String> getDocumentContents() {
         return documentContents;
     }
