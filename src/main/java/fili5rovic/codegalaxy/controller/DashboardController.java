@@ -2,6 +2,7 @@ package fili5rovic.codegalaxy.controller;
 
 import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.dashboardHelper.ButtonManager;
+import fili5rovic.codegalaxy.dashboardHelper.ConsoleHelper;
 import fili5rovic.codegalaxy.dashboardHelper.MenuManager;
 import fili5rovic.codegalaxy.lsp.LSP;
 import fili5rovic.codegalaxy.settings.ProjectSettings;
@@ -13,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.WindowEvent;
 
 import java.io.File;
@@ -73,6 +75,12 @@ public class DashboardController extends ControllerBase {
     @FXML
     private Button showHierarchyBtn;
 
+    @FXML
+    private StackPane bottomStackPane;
+
+    @FXML
+    private BorderPane consolePane;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Window.getWindowAt(Window.WINDOW_DASHBOARD).setController(this);
@@ -86,6 +94,7 @@ public class DashboardController extends ControllerBase {
         tryToOpenLastProject();
         MenuManager.initialize();
         ButtonManager.initialize();
+        ConsoleHelper.initialize();
     }
 
 
@@ -218,6 +227,15 @@ public class DashboardController extends ControllerBase {
     public Button getShowHierarchyBtn() {
         return showHierarchyBtn;
     }
+
+    public StackPane getBottomStackPane() {
+        return bottomStackPane;
+    }
+
+    public BorderPane getConsolePane() {
+        return consolePane;
+    }
+
 
     //</editor-fold>
 }
