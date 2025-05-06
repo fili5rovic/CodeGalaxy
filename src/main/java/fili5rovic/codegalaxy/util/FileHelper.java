@@ -3,6 +3,7 @@ package fili5rovic.codegalaxy.util;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -51,6 +52,36 @@ public class FileHelper {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Select Folder");
         return directoryChooser.showDialog(stage);
+    }
+
+    public static void openDirectoryInExplorer(File directory) throws IOException {
+        if (!directory.exists()) {
+            throw new IOException("Directory does not exist: " + directory.getAbsolutePath());
+        }
+
+        String osName = System.getProperty("os.name").toLowerCase();
+
+        if (Desktop.isDesktopSupported()) {
+            Desktop desktop = Desktop.getDesktop();
+            if (desktop.isSupported(Desktop.Action.OPEN)) {
+                desktop.open(directory);
+                return;
+            }
+        }
+
+        ProcessBuilder builder;
+
+        if (osName.contains("win")) {
+            builder = new ProcessBuilder("explorer.exe", directory.getAbsolutePath());
+        } else if (osName.contains("mac") || osName.contains("darwin")) {
+            builder = new ProcessBuilder("open", directory.getAbsolutePath());
+        } else if (osName.contains("nux") || osName.contains("nix")) {
+            builder = new ProcessBuilder("xdg-open", directory.getAbsolutePath());
+        } else {
+            throw new IOException("Unsupported operating system: " + osName);
+        }
+
+        builder.start();
     }
 
 }
