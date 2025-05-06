@@ -79,6 +79,7 @@ public class LSPDocumentManager {
         server.getTextDocumentService().didSave(saveParams);
     }
 
+
     public Map<String, String> getDocumentContents() {
         return documentContents;
     }
