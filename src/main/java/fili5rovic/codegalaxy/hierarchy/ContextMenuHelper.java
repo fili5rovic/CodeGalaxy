@@ -3,6 +3,7 @@ package fili5rovic.codegalaxy.hierarchy;
 import fili5rovic.codegalaxy.codeRunner.CodeRunner;
 import fili5rovic.codegalaxy.codeRunner.CodeRunnerService;
 import fili5rovic.codegalaxy.controller.DashboardController;
+import fili5rovic.codegalaxy.lsp.LSP;
 import fili5rovic.codegalaxy.util.FileHelper;
 import fili5rovic.codegalaxy.util.JavaParserUtil;
 import fili5rovic.codegalaxy.util.SVGUtil;
@@ -49,6 +50,7 @@ public class ContextMenuHelper {
                 CodeRunnerService.runJava(firstItem.getPath());
             });
             menuItems.add(runItem);
+            menuItems.add(new SeparatorMenuItem());
         }
 
         menuItems.add(createCopyPath(items));
@@ -163,5 +165,7 @@ public class ContextMenuHelper {
         });
         return copyPathItem;
     }
+
+
 
 }
