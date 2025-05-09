@@ -36,6 +36,10 @@
     -fx-fill: #CE9178 ;
 }
 
+.comment {
+    -fx-fill: #7e7e7e;
+}
+
 .default_text {
     -fx-fill: #e0e0e0;
 }
@@ -52,6 +56,3 @@
     -fx-fill: #c81b1b;
 }
 
-.comment {
-    -fx-fill: #7e7e7e;
-}
