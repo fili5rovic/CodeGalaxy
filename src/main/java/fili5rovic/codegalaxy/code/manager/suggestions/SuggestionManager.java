@@ -43,22 +43,7 @@ public class SuggestionManager extends Manager {
 
         codeGalaxy.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.SPACE && event.isControlDown()) {
-                try {
-                    Debouncer debouncer = LSP.instance().getDebouncer();
-                    if (debouncer.isDebouncing()) {
-                        debouncer.cancel();
-                        LSP.instance().sendChange(
-                                codeGalaxy.getFilePath().toString(),
-                                codeGalaxy.getText()
-                        );
-                    }
-                    items = LSP.instance().requestCompletions(codeGalaxy.getFilePath().toString(), line, column);
-                    if (items != null && !items.isEmpty())
-                        showPopup(codeGalaxy, items);
-
-                } catch (Exception e) {
-                    System.out.println("Failed to request completions: " + e.getMessage());
-                }
+                showPopupAndSendChanges();
                 event.consume();
             }
         });
@@ -68,6 +53,28 @@ public class SuggestionManager extends Manager {
                 currentPopup.hide();
             }
         });
+    }
+
+    private void showPopupAndSendChanges() {
+        Debouncer debouncer = LSP.instance().getDebouncer();
+        if (debouncer.isDebouncing()) {
+            debouncer.cancel();
+            LSP.instance().sendChange(
+                    codeGalaxy.getFilePath().toString(),
+                    codeGalaxy.getText()
+            );
+        }
+        popupCompletions();
+    }
+
+    private void popupCompletions() {
+        try {
+            items = LSP.instance().requestCompletions(codeGalaxy.getFilePath().toString(), line, column);
+            if (items != null && !items.isEmpty())
+                showPopup(codeGalaxy, items);
+        } catch (Exception e) {
+            System.err.println("Error getting completions: " + e.getMessage());
+        }
     }
 
     private Popup createSuggestionPopup(List<CompletionItem> suggestions, Scene scene) {
@@ -129,11 +136,6 @@ public class SuggestionManager extends Manager {
 
         if(item.getKind() == CompletionItemKind.Method && insertText.contains("@Override")) {
             insertText = insertText.replaceFirst("// TODO Auto-generated method stub\n", "");
-
-//            insertText = insertText.replaceFirst("(?m)^\\s+(return\\b)", "\t$1");
-//
-//            insertText = insertText.replaceAll("\n", "\n\t");
-
             System.out.println("Insert text: \n" + insertText);
         }
         return insertText;
