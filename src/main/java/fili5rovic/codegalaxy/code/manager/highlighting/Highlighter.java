@@ -64,6 +64,9 @@ public class Highlighter extends Manager {
         for(Range r : stringLiteralRanges)
             allRanges.add(new StyledRange(r.start(), r.end(), "string"));
 
+        for(Range r : getComments(text))
+            allRanges.add(new StyledRange(r.start(), r.end(), "comment"));
+
         // Sort ranges by start position
         allRanges.sort(Comparator.comparingInt(r -> r.start));
 
@@ -116,6 +119,21 @@ public class Highlighter extends Manager {
 
         Pattern stringPattern = Pattern.compile("\"([^\"\\\\]|\\\\.)*\"");
         Matcher matcher = stringPattern.matcher(code);
+
+        while (matcher.find()) {
+            int start = matcher.start();
+            int end = matcher.end();
+            ranges.add(new Range(start, end));
+        }
+
+        return ranges;
+    }
+
+    private List<Range> getComments(String code) {
+        List<Range> ranges = new ArrayList<>();
+
+        Pattern commentPattern = Pattern.compile("//.*|/\\*(.|\\R)*?\\*/");
+        Matcher matcher = commentPattern.matcher(code);
 
         while (matcher.find()) {
             int start = matcher.start();

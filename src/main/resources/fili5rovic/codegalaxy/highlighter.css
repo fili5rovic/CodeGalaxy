@@ -51,3 +51,7 @@
 .console_error {
     -fx-fill: #c81b1b;
 }
+
+.comment {
+    -fx-fill: #7e7e7e;
+}
