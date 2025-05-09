@@ -67,7 +67,6 @@ public class Highlighter extends Manager {
         for(Range r : getComments(text))
             allRanges.add(new StyledRange(r.start(), r.end(), "comment"));
 
-        // Sort ranges by start position
         allRanges.sort(Comparator.comparingInt(r -> r.start));
 
         for (StyledRange r : allRanges) {

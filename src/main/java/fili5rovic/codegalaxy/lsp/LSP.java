@@ -14,7 +14,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 
 public class LSP {
-    private LSPClient client;
     private LSPServerManager serverManager;
     private LanguageServer server;
     private Future<Void> listenFuture;
@@ -25,6 +24,7 @@ public class LSP {
 
     private LSPDocumentManager documentManager;
     private LSPRequestManager requestManager;
+    private LSPRefactorManager refactorManager;
 
 
     public static LSP instance() {
@@ -45,7 +45,7 @@ public class LSP {
         serverManager = new LSPServerManager();
         serverManager.startServer(workspace);
 
-        client = new LSPClient();
+        LSPClient client = new LSPClient();
         Launcher<LanguageServer> launcher = Launcher.createLauncher(
                 client, LanguageServer.class,
                 serverManager.getInputStream(), serverManager.getOutputStream()
@@ -86,6 +86,7 @@ public class LSP {
     private void afterServerStart() {
         this.documentManager = new LSPDocumentManager(server);
         this.requestManager = new LSPRequestManager(server, documentManager);
+        this.refactorManager = new LSPRefactorManager(server);
     }
 
     public void stop() {
@@ -160,6 +161,10 @@ public class LSP {
 
     public void sendChangesDebounce(String filePath, String newText, long delay) throws IllegalStateException {
         debouncer.debounce(() -> documentManager.sendChange(filePath, newText), delay);
+    }
+
+    public void rename(String filePath, int line, int character, String newName) throws Exception {
+        refactorManager.rename(filePath, line, character, newName);
     }
 
     public Debouncer getDebouncer() {

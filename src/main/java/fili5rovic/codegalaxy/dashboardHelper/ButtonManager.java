@@ -1,6 +1,7 @@
 package fili5rovic.codegalaxy.dashboardHelper;
 
 import fili5rovic.codegalaxy.controller.DashboardController;
+import fili5rovic.codegalaxy.lsp.LSP;
 import fili5rovic.codegalaxy.util.SVGUtil;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.event.ActionEvent;
@@ -35,6 +36,14 @@ public class ButtonManager {
             divider.setPosition(0);
             controller.getShowHierarchyBtn().setGraphic(SVGUtil.getUI("expand", 16, 16));
         }
+
+//        try {
+//            LSP.instance().rename("D:\\MY_WORKSPACE\\Sex\\src\\Main.java", 2, 13, "Test");
+//
+//        } catch (Exception e) {
+//            System.err.println("Error renaming: " + e.getMessage());
+//            e.printStackTrace();
+//        }
     }
 
 
