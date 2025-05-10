@@ -3,9 +3,9 @@ package fili5rovic.codegalaxy.code.manager.codeActions.rightClick;
 import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.code.manager.Manager;
 import fili5rovic.codegalaxy.lsp.LSP;
-import fili5rovic.codegalaxy.settings.ProjectSettings;
 import fili5rovic.codegalaxy.util.SVGUtil;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 
 public class CodeRightClickManager extends Manager {
@@ -33,6 +33,7 @@ public class CodeRightClickManager extends Manager {
             updateContextMenuItems();
 
             codeGalaxy.setContextMenu(contextMenu);
+            contextMenu.show(codeGalaxy, e.getScreenX(), e.getScreenY());
         });
     }
 
@@ -60,8 +61,10 @@ public class CodeRightClickManager extends Manager {
         });
         contextMenu.getItems().add(cut);
 
-        MenuItem rename = createRenameMenuItem();
-        contextMenu.getItems().add(rename);
+        Menu refactor = new Menu("Refactor");
+        refactor.getItems().add(createRenameMenuItem());
+
+        contextMenu.getItems().add(refactor);
 
     }
 

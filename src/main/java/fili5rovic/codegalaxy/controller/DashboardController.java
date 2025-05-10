@@ -86,16 +86,13 @@ public class DashboardController extends ControllerBase {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Window.getWindowAt(Window.WINDOW_DASHBOARD).setController(this);
 
-
         CompletableFuture.runAsync(() -> {
             try {
                 LSP.instance().start();
             } catch (Exception e) {
                 System.out.println("Failed to start LSP server: " + e.getMessage());
             }
-        }).thenRunAsync(() -> {
-            tryToOpenLastProject();
-        }, Platform::runLater);
+        }).thenRunAsync(this::tryToOpenLastProject, Platform::runLater);
 
         MenuManager.initialize();
         ButtonManager.initialize();
