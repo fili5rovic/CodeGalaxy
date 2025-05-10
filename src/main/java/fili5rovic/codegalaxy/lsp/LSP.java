@@ -55,10 +55,8 @@ public class LSP {
 
         InitializeParams init = new InitializeParams();
 
-        // Create a workspace folder instead of using rootUri
         WorkspaceFolder workspaceFolder = new WorkspaceFolder();
         Path workspacePath = Paths.get(workspace);
-
 
         String uri = workspacePath.toUri().toString();
         workspaceFolder.setUri(uri);
@@ -68,11 +66,29 @@ public class LSP {
         ClientCapabilities capabilities = new ClientCapabilities();
 
         TextDocumentClientCapabilities textDocumentCapabilities = new TextDocumentClientCapabilities();
+
         DocumentSymbolCapabilities documentSymbolCapabilities = new DocumentSymbolCapabilities();
         documentSymbolCapabilities.setHierarchicalDocumentSymbolSupport(true);
         textDocumentCapabilities.setDocumentSymbol(documentSymbolCapabilities);
 
+        RenameCapabilities renameCapabilities = new RenameCapabilities();
+        renameCapabilities.setPrepareSupport(true);
+        textDocumentCapabilities.setRename(renameCapabilities);
+
         capabilities.setTextDocument(textDocumentCapabilities);
+
+        WorkspaceClientCapabilities workspaceCapabilities = new WorkspaceClientCapabilities();
+
+        WorkspaceEditCapabilities workspaceEditCapabilities = new WorkspaceEditCapabilities();
+        workspaceEditCapabilities.setDocumentChanges(true);
+        workspaceEditCapabilities.setResourceOperations(Arrays.asList("create", "rename", "delete"));
+        workspaceCapabilities.setWorkspaceEdit(workspaceEditCapabilities);
+
+        FileOperationsWorkspaceCapabilities fileOperations = new FileOperationsWorkspaceCapabilities();
+        workspaceCapabilities.setFileOperations(fileOperations);
+
+        capabilities.setWorkspace(workspaceCapabilities);
+
         init.setCapabilities(capabilities);
 
         server.initialize(init).get();
