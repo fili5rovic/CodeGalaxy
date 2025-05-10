@@ -1,5 +1,6 @@
 package fili5rovic.codegalaxy.code;
 
+import fili5rovic.codegalaxy.code.manager.codeActions.rightClick.CodeRightClickManager;
 import fili5rovic.codegalaxy.code.manager.file.FileManager;
 import fili5rovic.codegalaxy.code.manager.font.FontManager;
 import fili5rovic.codegalaxy.code.manager.Manager;
@@ -24,6 +25,8 @@ public class CodeGalaxy extends CodeArea {
 
     private Highlighter highlighter;
 
+    private VirtualizedScrollPane<CodeArea> scrollPane;
+
     public CodeGalaxy() {
         addLineNumbers();
         addManagers();
@@ -43,7 +46,7 @@ public class CodeGalaxy extends CodeArea {
 
     private void addLineNumbers() {
         setParagraphGraphicFactory(LineNumberFactory.get(this));
-        VirtualizedScrollPane<CodeArea> vsPane = new VirtualizedScrollPane<>(this);
+        this.scrollPane = new VirtualizedScrollPane<>(this);
     }
 
     private void addManagers() {
@@ -54,6 +57,7 @@ public class CodeGalaxy extends CodeArea {
         highlighter = new Highlighter(this);
         managers.add(highlighter);
         managers.add(new LSPManager(this));
+        managers.add(new CodeRightClickManager(this));
     }
 
     private void initManagers() {
@@ -83,5 +87,9 @@ public class CodeGalaxy extends CodeArea {
         if (fileManager != null)
             return fileManager.getPath();
         return null;
+    }
+
+    public VirtualizedScrollPane<CodeArea> getScrollPane() {
+        return scrollPane;
     }
 }
