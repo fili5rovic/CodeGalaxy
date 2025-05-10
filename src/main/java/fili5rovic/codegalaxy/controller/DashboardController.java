@@ -8,6 +8,7 @@ import fili5rovic.codegalaxy.settings.ProjectSettings;
 import fili5rovic.codegalaxy.dashboardHelper.ProjectManager;
 import fili5rovic.codegalaxy.util.SVGUtil;
 import fili5rovic.codegalaxy.window.Window;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -21,6 +22,7 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.CompletableFuture;
 
 public class DashboardController extends ControllerBase {
     @FXML
@@ -84,13 +86,17 @@ public class DashboardController extends ControllerBase {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Window.getWindowAt(Window.WINDOW_DASHBOARD).setController(this);
 
-        try {
-            LSP.instance().start();
-        } catch (Exception e) {
-            System.out.println("Failed to start LSP server: " + e.getMessage());
-        }
 
-        tryToOpenLastProject();
+        CompletableFuture.runAsync(() -> {
+            try {
+                LSP.instance().start();
+            } catch (Exception e) {
+                System.out.println("Failed to start LSP server: " + e.getMessage());
+            }
+        }).thenRunAsync(() -> {
+            tryToOpenLastProject();
+        }, Platform::runLater);
+
         MenuManager.initialize();
         ButtonManager.initialize();
     }

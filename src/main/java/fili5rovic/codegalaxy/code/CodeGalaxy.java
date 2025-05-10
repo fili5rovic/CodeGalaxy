@@ -92,4 +92,48 @@ public class CodeGalaxy extends CodeArea {
     public VirtualizedScrollPane<CodeArea> getScrollPane() {
         return scrollPane;
     }
+
+    public void selectWordAtCaret() {
+        int caretPosition = getCaretPosition();
+        int paragraphIndex = getCurrentParagraph();
+        String paragraphText = getParagraph(paragraphIndex).getText();
+
+        if (paragraphText.isEmpty())
+            return;
+
+        int localCaret = caretPosition - getAbsolutePosition(paragraphIndex, 0);
+        if (localCaret < 0 || localCaret >= paragraphText.length())
+            localCaret = Math.max(0, Math.min(paragraphText.length() - 1, localCaret));
+
+        // If caret is at end of word or whitespace, shift it left to land inside word
+        if (localCaret == paragraphText.length() || !Character.isLetterOrDigit(paragraphText.charAt(localCaret))) {
+            int temp = localCaret - 1;
+            while (temp >= 0 && !Character.isLetterOrDigit(paragraphText.charAt(temp))) {
+                temp--;
+            }
+            localCaret = temp;
+        }
+
+        // If still invalid, abort
+        if (localCaret < 0 || localCaret >= paragraphText.length())
+            return;
+
+        // Find word boundaries
+        int wordStart = localCaret;
+        int wordEnd = localCaret;
+
+        while (wordStart > 0 && Character.isLetterOrDigit(paragraphText.charAt(wordStart - 1))) {
+            wordStart--;
+        }
+        while (wordEnd < paragraphText.length() - 1 && Character.isLetterOrDigit(paragraphText.charAt(wordEnd + 1))) {
+            wordEnd++;
+        }
+
+        // Convert back to absolute positions
+        int absStart = getAbsolutePosition(paragraphIndex, wordStart);
+        int absEnd = getAbsolutePosition(paragraphIndex, wordEnd + 1); // exclusive
+
+        selectRange(absStart, absEnd);
+    }
+
 }
