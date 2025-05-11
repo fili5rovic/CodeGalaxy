@@ -4,14 +4,17 @@ import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.code.manager.Manager;
 import fili5rovic.codegalaxy.lsp.LSP;
 import fili5rovic.codegalaxy.util.SVGUtil;
+import fili5rovic.codegalaxy.window.Window;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.stage.Popup;
 
 public class CodeRightClickManager extends Manager {
 
     private final ContextMenu contextMenu = new ContextMenu();
 
+    private final TextFieldLabelPopup renamePopup = new TextFieldLabelPopup();
 
     public CodeRightClickManager(CodeGalaxy cg) {
         super(cg);
@@ -35,6 +38,8 @@ public class CodeRightClickManager extends Manager {
             codeGalaxy.setContextMenu(contextMenu);
             contextMenu.show(codeGalaxy, e.getScreenX(), e.getScreenY());
         });
+
+        renamePopup.hide();
     }
 
     private void updateContextMenuItems() {
@@ -75,11 +80,20 @@ public class CodeRightClickManager extends Manager {
             int startPosition = codeGalaxy.getSelection().getStart();
             int line = codeGalaxy.offsetToPosition(startPosition,  org.fxmisc.richtext.model.TwoDimensional.Bias.Forward).getMajor();     // line number (paragraph index)
             int column = codeGalaxy.offsetToPosition(startPosition,  org.fxmisc.richtext.model.TwoDimensional.Bias.Forward).getMinor();
-            try {
-                LSP.instance().rename(path, line, column, codeGalaxy.getSelectedText() + "1");
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
+
+            renamePopup.getTextField().setText(codeGalaxy.getSelectedText());
+
+            renamePopup.show(Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage());
+
+            renamePopup.getTextField().setOnAction(_ -> {
+                String newName = renamePopup.getTextField().getText();
+                try {
+                    LSP.instance().rename(path, line, column, newName);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                renamePopup.hide();
+            });
         });
         return rename;
     }
