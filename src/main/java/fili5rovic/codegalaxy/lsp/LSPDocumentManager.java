@@ -77,6 +77,7 @@ public class LSPDocumentManager {
         DidSaveTextDocumentParams saveParams = new DidSaveTextDocumentParams(docId);
 
         server.getTextDocumentService().didSave(saveParams);
+
     }
 
 
