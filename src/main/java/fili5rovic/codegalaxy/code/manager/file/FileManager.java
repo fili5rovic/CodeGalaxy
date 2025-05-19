@@ -17,6 +17,7 @@ public class FileManager extends Manager {
 
     @Override
     public void init() {
+        codeGalaxy.clear();
         codeGalaxy.insertText(0, FileHelper.readFromFile(path.toString()));
     }
 
@@ -27,7 +28,5 @@ public class FileManager extends Manager {
     public Path getPath() {
         return path;
     }
-
-
 
 }

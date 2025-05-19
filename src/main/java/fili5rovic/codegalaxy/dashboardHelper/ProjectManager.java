@@ -14,9 +14,20 @@ public class ProjectManager {
 
     private static final DashboardController controller = (DashboardController) Window.getController(Window.WINDOW_DASHBOARD);
 
+
     public static void openProject(Path path) {
         controller.getTreeViewPane().setCenter(new ProjectHierarchy(path.toString()));
         ProjectSettings.getInstance().set("lastProjectPath", path.toString());
+    }
+
+    public static void reloadHierarchy() {
+        String lastProjectPath = ProjectSettings.getInstance().get("lastProjectPath");
+        if (lastProjectPath != null) {
+            Path path = Paths.get(lastProjectPath);
+            openProject(path);
+        } else {
+            System.err.println("No last project path found in settings.");
+        }
     }
 
     public static void setWorkspace(String workspacePath) {
