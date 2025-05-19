@@ -15,6 +15,12 @@ public class TextFieldLabelPopup extends Popup {
 
         getContent().add(label);
         getContent().add(textField);
+
+        focusedProperty().addListener((observable, oldValue, isFocused) -> {
+            if (!isFocused) {
+                hide();
+            }
+        });
     }
 
     public TextField getTextField() {
