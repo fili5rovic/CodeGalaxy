@@ -44,7 +44,6 @@ class LSPRefactorManager {
 
         Either<WorkspaceEdit, List<Command>> result = wrappedFuture.get();
 
-
         if (result.isLeft()) {
             WorkspaceEdit edit = result.getLeft();
             handleRename(edit);
@@ -59,6 +58,7 @@ class LSPRefactorManager {
 
     private void handleRename(WorkspaceEdit workspaceEdit) {
         DashboardController controller = (DashboardController) Window.getController(Window.WINDOW_DASHBOARD);
+
         if(workspaceEdit.getDocumentChanges() == null) {
             System.out.println("No document changes found.");
             return;
@@ -134,13 +134,13 @@ class LSPRefactorManager {
                 Path oldPath = new File(URI.create(oldUri)).toPath();
                 Path newPath = new File(URI.create(newUri)).toPath();
 
+                LSP.instance().closeFile(oldPath.toString());
+
                 Files.move(oldPath, newPath, StandardCopyOption.REPLACE_EXISTING);
 
-                System.out.println("File renamed successfully");
+                LSP.instance().openFile(newPath.toString());
 
                 deleteBinFile(oldPath.toString());
-
-                LSP.instance().openFile(newPath.toString());
 
                 for (Tab t : controller.getTabPane().getTabs()) {
                     CodeGalaxy content = (CodeGalaxy) t.getContent();
@@ -154,10 +154,18 @@ class LSPRefactorManager {
                     }
                 }
                 ProjectManager.reloadHierarchy();
+
+                for (Tab tab : controller.getTabPane().getTabs()) {
+                    CodeGalaxy codeGalaxy = ((CodeGalaxy) tab.getContent());
+                    LSP.instance().sendSave(codeGalaxy.getFilePath().toString());
+                    codeGalaxy.save();
+                }
+
             } catch (Exception e) {
                 System.err.println("Error renaming file: " + e.getMessage());
                 e.printStackTrace();
             }
+            System.out.println("File renamed successfully");
         }
     }
 
@@ -168,6 +176,7 @@ class LSPRefactorManager {
         String outputPathToDelete = oldPath.toString().replace(sourceDir, outputDir);
 
         Files.deleteIfExists(Path.of(outputPathToDelete));
+        System.out.println("Deleted bin file: " + outputPathToDelete);
     }
 }
 

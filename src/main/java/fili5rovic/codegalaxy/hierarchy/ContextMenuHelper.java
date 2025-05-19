@@ -2,6 +2,7 @@ package fili5rovic.codegalaxy.hierarchy;
 
 import fili5rovic.codegalaxy.codeRunner.CodeRunnerService;
 import fili5rovic.codegalaxy.controller.DashboardController;
+import fili5rovic.codegalaxy.dashboardHelper.ProjectManager;
 import fili5rovic.codegalaxy.util.FileHelper;
 import fili5rovic.codegalaxy.util.JavaParserUtil;
 import fili5rovic.codegalaxy.util.SVGUtil;
@@ -54,6 +55,9 @@ public class ContextMenuHelper {
         menuItems.add(createCopyPath(items));
         menuItems.add(createOpen(items));
         menuItems.add(createDeleteMenu(items));
+        menuItems.add(new SeparatorMenuItem());
+        menuItems.add(refreshItem());
+
         return menuItems;
     }
 
@@ -166,6 +170,11 @@ public class ContextMenuHelper {
         return copyPathItem;
     }
 
-
+    private MenuItem refreshItem() {
+        MenuItem refreshItem = new MenuItem("Refresh");
+        refreshItem.setGraphic(SVGUtil.getEmoji("refresh", 16, 16));
+        refreshItem.setOnAction(e -> ProjectManager.reloadHierarchy());
+        return refreshItem;
+    }
 
 }
