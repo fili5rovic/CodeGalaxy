@@ -25,7 +25,7 @@ public class FormatManager extends Manager {
         });
     }
 
-    private void formatDocument() {
+    public void formatDocument() {
         LSP.instance().formatDocument(codeGalaxy.getFilePath().toString())
                 .thenAccept(edits -> {
                     Platform.runLater(() -> {

@@ -25,6 +25,8 @@ public class CodeGalaxy extends CodeArea {
 
     private Highlighter highlighter;
 
+    private FormatManager formatManager;
+
     private VirtualizedScrollPane<CodeArea> scrollPane;
 
     public CodeGalaxy() {
@@ -44,6 +46,11 @@ public class CodeGalaxy extends CodeArea {
             fileManager.save();
     }
 
+    public void format() {
+        if (formatManager != null)
+            formatManager.formatDocument();
+    }
+
     private void addLineNumbers() {
         setParagraphGraphicFactory(LineNumberFactory.get(this));
         this.scrollPane = new VirtualizedScrollPane<>(this);
@@ -53,7 +60,8 @@ public class CodeGalaxy extends CodeArea {
         managers.add(new FontManager(this));
         managers.add(new LineEditing(this));
         managers.add(new SuggestionManager(this));
-        managers.add(new FormatManager(this));
+        formatManager = new FormatManager(this);
+        managers.add(formatManager);
         highlighter = new Highlighter(this);
         managers.add(highlighter);
         managers.add(new LSPManager(this));

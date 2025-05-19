@@ -19,7 +19,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 class LSPRefactorManager {
@@ -59,7 +58,7 @@ class LSPRefactorManager {
     private void handleRename(WorkspaceEdit workspaceEdit) {
         DashboardController controller = (DashboardController) Window.getController(Window.WINDOW_DASHBOARD);
 
-        if(workspaceEdit.getDocumentChanges() == null) {
+        if (workspaceEdit.getDocumentChanges() == null) {
             System.out.println("No document changes found.");
             return;
         }
@@ -75,18 +74,17 @@ class LSPRefactorManager {
             }
         }
 
-        for(TextDocumentEdit edit : edits) {
+        for (TextDocumentEdit edit : edits) {
             handleTextDocumentEdits(edit, controller);
         }
 
-        for(ResourceOperation op : operations) {
+        for (ResourceOperation op : operations) {
             handleResourceOperation(op, controller);
         }
 
     }
 
     private static void handleTextDocumentEdits(TextDocumentEdit textDocEdit, DashboardController controller) {
-        System.out.println(textDocEdit);
         VersionedTextDocumentIdentifier docId = textDocEdit.getTextDocument();
         String uri = docId.getUri();
 
@@ -124,7 +122,6 @@ class LSPRefactorManager {
     }
 
     private static void handleResourceOperation(ResourceOperation op, DashboardController controller) {
-        System.out.println("Resource operation: " + op.getClass().getSimpleName());
         if (op instanceof RenameFile renameOp) {
             String oldUri = renameOp.getOldUri();
             String newUri = renameOp.getNewUri();
