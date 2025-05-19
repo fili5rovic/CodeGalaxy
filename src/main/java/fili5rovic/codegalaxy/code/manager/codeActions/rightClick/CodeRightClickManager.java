@@ -8,6 +8,7 @@ import fili5rovic.codegalaxy.window.Window;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SeparatorMenuItem;
 import javafx.stage.Popup;
 
 public class CodeRightClickManager extends Manager {
@@ -66,10 +67,22 @@ public class CodeRightClickManager extends Manager {
         });
         contextMenu.getItems().add(cut);
 
+        contextMenu.getItems().add(new SeparatorMenuItem());
+
         Menu refactor = new Menu("Refactor");
         refactor.getItems().add(createRenameMenuItem());
-
         contextMenu.getItems().add(refactor);
+
+        contextMenu.getItems().add(new SeparatorMenuItem());
+
+        MenuItem format = new MenuItem("Format Code");
+        format.setGraphic(SVGUtil.getUI("format",16,16));
+        format.setOnAction(e -> {
+            codeGalaxy.format();
+        });
+        contextMenu.getItems().add(format);
+
+
 
     }
 
