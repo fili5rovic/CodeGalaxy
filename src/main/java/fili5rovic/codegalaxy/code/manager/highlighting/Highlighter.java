@@ -28,13 +28,13 @@ public class Highlighter extends Manager {
     @Override
     public void init() {
         codeGalaxy.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/highlighter.css")).toExternalForm());
-        codeGalaxy.setParagraphGraphicFactory(LineNumberFactory.get(codeGalaxy));
         fillHashMap();
     }
 
     private void fillHashMap() {
         fileNameToStyleClassMap.put("javaKeywords.txt", "keywords");
     }
+
     public void applyHighlighting(CodeArea codeArea) {
         String text = codeArea.getText();
         codeArea.setStyleSpans(0, computeHighlighting(text));
@@ -51,20 +51,20 @@ public class Highlighter extends Manager {
 
         List<StyledRange> allRanges = new ArrayList<>();
 
-        for(String key : symbolRanges.keySet()) {
+        for (String key : symbolRanges.keySet()) {
             ArrayList<Range> ranges = symbolRanges.get(key);
             for (Range r : ranges) {
                 allRanges.add(new StyledRange(r.start(), r.end(), key));
             }
         }
 
-        for(Range r : keywordRanges)
+        for (Range r : keywordRanges)
             allRanges.add(new StyledRange(r.start(), r.end(), "keyword"));
 
-        for(Range r : stringLiteralRanges)
+        for (Range r : stringLiteralRanges)
             allRanges.add(new StyledRange(r.start(), r.end(), "string"));
 
-        for(Range r : getComments(text))
+        for (Range r : getComments(text))
             allRanges.add(new StyledRange(r.start(), r.end(), "comment"));
 
         allRanges.sort(Comparator.comparingInt(r -> r.start));
@@ -84,7 +84,8 @@ public class Highlighter extends Manager {
         return spansBuilder.create();
     }
 
-    record StyledRange(int start, int end, String styleClass) {}
+    record StyledRange(int start, int end, String styleClass) {
+    }
 
 
     private List<Range> getKeywords(String code) {
