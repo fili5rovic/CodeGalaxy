@@ -7,6 +7,7 @@ import io.github.classgraph.ClassInfo;
 import java.util.ArrayList;
 import java.util.List;
 
+// NOT YET USED
 // the reason why I am using this library and not lsp
 // is because lsp can't get out system classes
 public class ClassScanner {

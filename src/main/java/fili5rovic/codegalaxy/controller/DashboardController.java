@@ -3,6 +3,7 @@ package fili5rovic.codegalaxy.controller;
 import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.dashboardHelper.ButtonManager;
 import fili5rovic.codegalaxy.dashboardHelper.MenuManager;
+import fili5rovic.codegalaxy.dashboardHelper.SplitPaneManager;
 import fili5rovic.codegalaxy.lsp.LSP;
 import fili5rovic.codegalaxy.settings.ProjectSettings;
 import fili5rovic.codegalaxy.dashboardHelper.ProjectManager;
@@ -96,6 +97,7 @@ public class DashboardController extends ControllerBase {
 
         MenuManager.initialize();
         ButtonManager.initialize();
+        SplitPaneManager.setupLockPositions();
     }
 
     private void tryToOpenLastProject() {
