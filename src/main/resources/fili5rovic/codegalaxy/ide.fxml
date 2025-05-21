@@ -17,86 +17,92 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fili5rovic.codegalaxy.controller.DashboardController">
-   <top>
-          <BorderPane prefHeight="20.0" prefWidth="1075.0" BorderPane.alignment="CENTER">
-              <center>
-                  <MenuBar BorderPane.alignment="CENTER">
-                      <menus>
-                          <Menu mnemonicParsing="false" text="File">
-                              <items>
-                                  <MenuItem fx:id="open" mnemonicParsing="false" text="Open project folder" />
-                        <MenuItem fx:id="newProject" mnemonicParsing="false" text="New Project" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                                  <MenuItem fx:id="saveAll" accelerator="Ctrl+S" mnemonicParsing="false" text="Save all" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem fx:id="settings" mnemonicParsing="false" text="Settings" />
-                              </items>
-                          </Menu>
-                          <Menu mnemonicParsing="false" text="Edit">
-                              <items>
-                                  <MenuItem fx:id="undo" mnemonicParsing="false" text="Undo" />
-                        <MenuItem fx:id="redo" mnemonicParsing="false" text="Redo" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem fx:id="cut" mnemonicParsing="false" text="Cut" />
-                        <MenuItem fx:id="copy" mnemonicParsing="false" text="Copy" />
-                        <MenuItem fx:id="paste" mnemonicParsing="false" text="Paste" />
-                        <MenuItem fx:id="delete" mnemonicParsing="false" text="Delete" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem fx:id="selectAll" mnemonicParsing="false" text="Select All" />
-                              </items>
-                          </Menu>
-                      </menus>
-                  </MenuBar>
-              </center>
-          </BorderPane>
-   </top>
-   <center>
-          <SplitPane dividerPositions="0.7920656634746922" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
-              <items>
-                  <BorderPane>
-                      <center>
-                          <SplitPane fx:id="mainSplitPane" dividerPositions="0.19047619047619047, 0.9971988795518207" prefHeight="556.0" prefWidth="861.0" BorderPane.alignment="CENTER">
-                              <items>
-                                  <BorderPane fx:id="treeViewPane" />
-                        <StackPane>
-                           <children>
-                                        <TabPane fx:id="tabPane" />
-                                <Pane fx:id="filePane" prefHeight="505.0" prefWidth="851.0" visible="false">
+    <top>
+        <BorderPane prefHeight="20.0" prefWidth="1075.0" BorderPane.alignment="CENTER">
+            <center>
+                <MenuBar BorderPane.alignment="CENTER">
+                    <menus>
+                        <Menu mnemonicParsing="false" text="File">
+                            <items>
+                                <MenuItem fx:id="open" mnemonicParsing="false" text="Open project folder" />
+                                <MenuItem fx:id="newProject" mnemonicParsing="false" text="New Project" />
+                                <SeparatorMenuItem mnemonicParsing="false" />
+                                <MenuItem fx:id="saveAll" accelerator="Ctrl+S" mnemonicParsing="false" text="Save all" />
+                                <SeparatorMenuItem mnemonicParsing="false" />
+                                <MenuItem fx:id="settings" mnemonicParsing="false" text="Settings" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Edit">
+                            <items>
+                                <MenuItem fx:id="undo" mnemonicParsing="false" text="Undo" />
+                                <MenuItem fx:id="redo" mnemonicParsing="false" text="Redo" />
+                                <SeparatorMenuItem mnemonicParsing="false" />
+                                <MenuItem fx:id="cut" mnemonicParsing="false" text="Cut" />
+                                <MenuItem fx:id="copy" mnemonicParsing="false" text="Copy" />
+                                <MenuItem fx:id="paste" mnemonicParsing="false" text="Paste" />
+                                <MenuItem fx:id="delete" mnemonicParsing="false" text="Delete" />
+                                <SeparatorMenuItem mnemonicParsing="false" />
+                                <MenuItem fx:id="selectAll" mnemonicParsing="false" text="Select All" />
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+            </center>
+        </BorderPane>
+    </top>
+    <center>
+        <SplitPane dividerPositions="0.7920656634746922" orientation="VERTICAL" BorderPane.alignment="CENTER">
+            <items>
+                <BorderPane>
+                    <center>
+                        <SplitPane fx:id="mainSplitPane" dividerPositions="0.19032921810699588, 0.977366255144033" prefHeight="556.0" prefWidth="861.0" BorderPane.alignment="CENTER">
+                            <items>
+                                <BorderPane fx:id="treeViewPane" />
+                                <StackPane>
                                     <children>
-                                        <Pane layoutX="231.0" layoutY="227.0" prefHeight="93.0" prefWidth="200.0">
+                                        <TabPane fx:id="tabPane" />
+                                        <Pane fx:id="filePane" prefHeight="505.0" prefWidth="851.0" visible="false">
                                             <children>
-                                                <Label fx:id="fileNameLabel" layoutX="79.0" layoutY="1.0" text="Label">
-                                                    <font>
-                                                        <Font size="18.0" />
-                                                    </font>
-                                                </Label>
-                                                <TextField fx:id="fileNameTextField" layoutX="26.0" layoutY="28.0" />
-                                                <VBox layoutX="23.0" layoutY="53.0" prefHeight="36.0" prefWidth="149.0" />
+                                                <Pane layoutX="231.0" layoutY="227.0" prefHeight="93.0" prefWidth="200.0">
+                                                    <children>
+                                                        <Label fx:id="fileNameLabel" layoutX="79.0" layoutY="1.0" text="Label">
+                                                            <font>
+                                                                <Font size="18.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <TextField fx:id="fileNameTextField" layoutX="26.0" layoutY="28.0" />
+                                                        <VBox layoutX="23.0" layoutY="53.0" prefHeight="36.0" prefWidth="149.0" />
+                                                    </children>
+                                                </Pane>
                                             </children>
                                         </Pane>
                                     </children>
-                                </Pane>
-                           </children>
+                                </StackPane>
+                                <AnchorPane layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="520.0" prefWidth="292.0" />
+                            </items>
+                        </SplitPane>
+                    </center>
+                </BorderPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                    <children>
+                        <StackPane prefHeight="135.0" prefWidth="974.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <children>
+                                <TabPane fx:id="consoleTabPane" />
+                            </children>
                         </StackPane>
-                                  <AnchorPane layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="554.0" prefWidth="0.0" />
-                              </items>
-                          </SplitPane>
-                      </center>
-                  </BorderPane>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-               <children>
-                  <StackPane prefHeight="135.0" prefWidth="974.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <TabPane fx:id="consoleTabPane" />
-                     </children></StackPane>
-               </children></AnchorPane>
-              </items>
-          </SplitPane>
-   </center>
-   <left>
-      <AnchorPane prefHeight="665.0" prefWidth="8.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="showHierarchyBtn" mnemonicParsing="false" prefHeight="26.0" prefWidth="24.0" />
-         </children></AnchorPane>
-   </left>
+                    </children>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+    </center>
+    <left>
+        <AnchorPane prefHeight="665.0" prefWidth="8.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="showHierarchyBtn" mnemonicParsing="false" prefHeight="26.0" prefWidth="24.0" />
+            </children>
+        </AnchorPane>
+    </left>
+   <right>
+      <AnchorPane prefHeight="665.0" prefWidth="16.0" BorderPane.alignment="CENTER" />
+   </right>
 </BorderPane>

@@ -81,9 +81,6 @@ public class CodeRightClickManager extends Manager {
             codeGalaxy.format();
         });
         contextMenu.getItems().add(format);
-
-
-
     }
 
     private MenuItem createRenameMenuItem() {
