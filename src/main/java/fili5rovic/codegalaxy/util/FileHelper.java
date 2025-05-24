@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.stream.Stream;
 
 public class FileHelper {
 
@@ -83,5 +84,12 @@ public class FileHelper {
 
         builder.start();
     }
+
+    public static Path[] getAllFilesInDirectory(Path directory) throws IOException {
+        try (Stream<Path> stream = Files.walk(directory)) {
+            return stream.filter(Files::isRegularFile).toArray(Path[]::new);
+        }
+    }
+
 
 }

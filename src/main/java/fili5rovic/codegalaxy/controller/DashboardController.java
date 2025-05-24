@@ -1,21 +1,19 @@
 package fili5rovic.codegalaxy.controller;
 
 import fili5rovic.codegalaxy.code.CodeGalaxy;
-import fili5rovic.codegalaxy.dashboardHelper.ButtonManager;
-import fili5rovic.codegalaxy.dashboardHelper.MenuManager;
-import fili5rovic.codegalaxy.dashboardHelper.SplitPaneManager;
+import fili5rovic.codegalaxy.dashboardHelper.*;
 import fili5rovic.codegalaxy.lsp.LSP;
 import fili5rovic.codegalaxy.settings.ProjectSettings;
-import fili5rovic.codegalaxy.dashboardHelper.ProjectManager;
 import fili5rovic.codegalaxy.util.SVGUtil;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.application.Platform;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.WindowEvent;
 
 import java.io.File;
@@ -83,6 +81,9 @@ public class DashboardController extends ControllerBase {
     @FXML
     private SplitPane mainSplitPane;
 
+    @FXML
+    private Pane infoPaneNoTabs;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Window.getWindowAt(Window.WINDOW_DASHBOARD).setController(this);
@@ -98,7 +99,28 @@ public class DashboardController extends ControllerBase {
         MenuManager.initialize();
         ButtonManager.initialize();
         SplitPaneManager.setupLockPositions();
+
+        tabPane.getTabs().addListener((ListChangeListener<Tab>) change -> {
+            updateInfoPaneVisibility();
+        });
+
+        updateInfoPaneVisibility();
+
+        Platform.runLater(() -> {
+            Scene scene = Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage().getScene();
+            scene.setOnKeyPressed(event -> {
+                if (event.isControlDown() && event.getCode().toString().equals("E")) {
+                    FileFinder.getInstance().popup().show(scene.getWindow());
+                }
+            });
+        });
     }
+
+    private void updateInfoPaneVisibility() {
+        boolean hasTabs = !tabPane.getTabs().isEmpty();
+        infoPaneNoTabs.setVisible(!hasTabs);
+    }
+
 
     private void tryToOpenLastProject() {
         String lastProjectPath = ProjectSettings.getInstance().get("lastProjectPath");

@@ -76,6 +76,15 @@
                                                 </Pane>
                                             </children>
                                         </Pane>
+                              <Pane fx:id="infoPaneNoTabs" prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <Label layoutX="161.0" layoutY="241.0" styleClass="info-label" text="// waiting for you to open a file..." textFill="#7272721f">
+                                       <font>
+                                          <Font name="System Bold" size="27.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </Pane>
                                     </children>
                                 </StackPane>
                             </items>
@@ -95,13 +104,13 @@
         </SplitPane>
     </center>
     <left>
-        <AnchorPane prefHeight="665.0" prefWidth="8.0" BorderPane.alignment="CENTER">
+        <AnchorPane prefHeight="665.0" prefWidth="8.0" styleClass="anchor-pane" BorderPane.alignment="CENTER">
             <children>
                 <Button fx:id="showHierarchyBtn" mnemonicParsing="false" prefHeight="26.0" prefWidth="24.0" />
             </children>
         </AnchorPane>
     </left>
    <right>
-      <AnchorPane prefHeight="665.0" prefWidth="16.0" BorderPane.alignment="CENTER" />
+      <AnchorPane prefHeight="665.0" prefWidth="16.0" styleClass="anchor-pane" BorderPane.alignment="CENTER" />
    </right>
 </BorderPane>
