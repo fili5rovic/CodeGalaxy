@@ -11,7 +11,6 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
-import javafx.stage.Popup;
 
 public class CodeRightClickManager extends Manager {
 
@@ -48,6 +47,7 @@ public class CodeRightClickManager extends Manager {
     private void updateContextMenuItems() {
         contextMenu.getItems().clear();
 
+        // TODO Should check for Run after changing file content, right now it only works at the start
         if(codeGalaxy.getFilePath() != null && codeGalaxy.getFilePath().toString().endsWith(".java")) {
             if(JavaParserUtil.hasMainMethod(codeGalaxy.getFilePath().toFile())) {
                 MenuItem run = new MenuItem("Run");
