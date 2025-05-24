@@ -4,12 +4,12 @@
 
 .styled-text-area {
     -fx-font-size: 24px;
-
     -fx-background-color: #313131;
 }
 
 .styled-text-area .text {
-    -fx-font-family: "JetBrains Mono Medium"; /*OS font*/
+    /*-fx-font-family: "JetBrains Mono Medium"; !*OS font*!*/
+    /*-fx-font-family: "Consolas";*/
 }
 
 .styled-text-area .caret {

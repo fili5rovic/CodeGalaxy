@@ -1,39 +1,39 @@
 .keyword {
-    -fx-fill: #569CD6 ;
+    -fx-fill: #569CD6;
     -fx-font-weight: bold;
 }
 
 .package {
-    -fx-fill: #4EC9B0 ;
+    -fx-fill: #4EC9B0;
     -fx-font-weight: bold;
 }
 
 .constructor {
-    -fx-fill: #4EC9B0 ;
+    -fx-fill: #4EC9B0;
     -fx-font-weight: bold;
 }
 
 .class {
-    -fx-fill: #4EC9B0 ;
+    -fx-fill: #4EC9B0;
     -fx-font-weight: bold;
 }
 
 .method {
-    -fx-fill: #DCDCAA ;
+    -fx-fill: #DCDCAA;
     -fx-font-weight: bold;
 }
 
 .field {
-    -fx-fill: #9CDCFE ;
+    -fx-fill: #9CDCFE;
     -fx-font-weight: bold;
 }
 
 .method-variable {
-    -fx-fill: #9CDCFE ;
+    -fx-fill: #9CDCFE;
 }
 
 .string {
-    -fx-fill: #CE9178 ;
+    -fx-fill: #CE9178;
 }
 
 .comment {
@@ -42,6 +42,10 @@
 
 .default_text {
     -fx-fill: #e0e0e0;
+}
+
+.code-font {
+    -fx-font-family: "JetBrains Mono Medium";
 }
 
 .console_output {

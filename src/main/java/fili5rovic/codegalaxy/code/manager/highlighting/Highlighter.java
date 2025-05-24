@@ -71,14 +71,14 @@ public class Highlighter extends Manager {
 
         for (StyledRange r : allRanges) {
             if (r.start > lastIndex) {
-                spansBuilder.add(Collections.singleton("default_text"), r.start - lastIndex);
+                spansBuilder.add(List.of("default_text", "code-font"), r.start - lastIndex);
             }
-            spansBuilder.add(Collections.singleton(r.styleClass), r.end - r.start);
+            spansBuilder.add(List.of(r.styleClass, "code-font"), r.end - r.start);
             lastIndex = r.end;
         }
 
         if (lastIndex < text.length()) {
-            spansBuilder.add(Collections.singleton("default_text"), text.length() - lastIndex);
+            spansBuilder.add(List.of("default_text", "code-font"), text.length() - lastIndex);
         }
 
         return spansBuilder.create();
