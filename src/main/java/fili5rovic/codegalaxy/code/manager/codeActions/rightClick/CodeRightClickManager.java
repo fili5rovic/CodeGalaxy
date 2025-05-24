@@ -2,7 +2,9 @@ package fili5rovic.codegalaxy.code.manager.codeActions.rightClick;
 
 import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.code.manager.Manager;
+import fili5rovic.codegalaxy.codeRunner.CodeRunnerService;
 import fili5rovic.codegalaxy.lsp.LSP;
+import fili5rovic.codegalaxy.util.JavaParserUtil;
 import fili5rovic.codegalaxy.util.SVGUtil;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.scene.control.ContextMenu;
@@ -45,6 +47,17 @@ public class CodeRightClickManager extends Manager {
 
     private void updateContextMenuItems() {
         contextMenu.getItems().clear();
+
+        if(codeGalaxy.getFilePath() != null && codeGalaxy.getFilePath().toString().endsWith(".java")) {
+            if(JavaParserUtil.hasMainMethod(codeGalaxy.getFilePath().toFile())) {
+                MenuItem run = new MenuItem("Run");
+                run.setGraphic(SVGUtil.getEmoji("run", 16, 16));
+                run.setOnAction(e -> {
+                    CodeRunnerService.runJava(codeGalaxy.getFilePath());
+                });
+                contextMenu.getItems().add(run);
+            }
+        }
 
         MenuItem copy = new MenuItem("Copy");
         copy.setGraphic(SVGUtil.getUI("copy",16,16));

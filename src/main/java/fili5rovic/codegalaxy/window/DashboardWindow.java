@@ -28,8 +28,6 @@ public class DashboardWindow extends Window {
 
             this.stage.setOnCloseRequest(e-> ((DashboardController) Window.getController(Window.WINDOW_DASHBOARD)).onAppClose(e));
 
-
-
         } catch (Exception e) {
             System.err.println("Error loading dashboard window: " + e.getMessage());
         }
