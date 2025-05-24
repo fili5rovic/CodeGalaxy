@@ -46,6 +46,7 @@
 
 .code-font {
     -fx-font-family: "JetBrains Mono Medium";
+    /*TODO: This currently uses OS font, make it inside the app*/
 }
 
 .console_output {

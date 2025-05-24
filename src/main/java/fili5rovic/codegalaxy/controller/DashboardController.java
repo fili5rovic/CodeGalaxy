@@ -139,7 +139,7 @@ public class DashboardController extends ControllerBase {
         }
 
         ProjectSettings.getInstance().addTo("recentFiles", filePath.toString());
-        ImageView icon = SVGUtil.getIconByPath(filePath, 16, 16, -2);
+        ImageView icon = SVGUtil.getIconByPath(filePath, 12, 12, 0);
 
         Tab tab = new Tab(fileName, codeGalaxy);
         tab.setGraphic(icon);
