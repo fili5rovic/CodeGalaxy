@@ -53,7 +53,7 @@ public class TabManager {
         button.setFont(new Font(10));
         button.getStyleClass().clear();
         button.getStyleClass().add("tab-close-button");
-        button.setOnAction(e-> {
+        button.setOnAction(_ -> {
             TabPane tabPane = tab.getTabPane();
             if (tabPane != null) {
                 tabPane.getTabs().remove(tab);
