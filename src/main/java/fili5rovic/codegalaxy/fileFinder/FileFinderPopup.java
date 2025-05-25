@@ -98,9 +98,7 @@ public class FileFinderPopup extends Popup {
             }
         });
 
-        searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            update();
-        });
+        searchTextField.textProperty().addListener(_ -> update());
 
         searchTextField.setOnAction(event -> {
             if (listView.getItems().isEmpty())
