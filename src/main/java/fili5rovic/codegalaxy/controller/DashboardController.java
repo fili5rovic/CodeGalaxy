@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Popup;
 import javafx.stage.WindowEvent;
 
 import java.net.URL;
@@ -115,12 +116,28 @@ public class DashboardController extends ControllerBase {
 
         Platform.runLater(() -> {
             Scene scene = Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage().getScene();
+            javafx.stage.Window window = scene.getWindow();
+
             scene.setOnKeyPressed(event -> {
                 if (event.isControlDown() && event.getCode().toString().equals("E")) {
-                    FileFinder.getInstance().popup().show(scene.getWindow());
+                    Popup popup = FileFinder.getInstance().popup();
+
+                    if (!popup.isShowing()) {
+                        popup.show(window);
+                        popup.hide();
+                    }
+
+                    double popupWidth = popup.getWidth();
+                    double popupHeight = popup.getHeight();
+
+                    double centerX = window.getX() + (window.getWidth() - popupWidth) / 2;
+                    double centerY = window.getY() + (window.getHeight() - popupHeight) / 2;
+
+                    popup.show(window, centerX, centerY);
                 }
             });
         });
+
     }
 
     private void updateInfoPaneVisibility() {

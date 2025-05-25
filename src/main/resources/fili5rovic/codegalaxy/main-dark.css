@@ -295,7 +295,6 @@
     -fx-border-color: #444;
     -fx-border-width: 0 0 1 0;
 }
-
 .tab-pane .tab:selected {
     -fx-background-color: #2a2a2a;
     -fx-border-color: #5e9cff;
