@@ -1,9 +1,11 @@
 package fili5rovic.codegalaxy.dashboardHelper;
 
 import fili5rovic.codegalaxy.code.CodeGalaxy;
+import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.lsp.LSP;
 import fili5rovic.codegalaxy.settings.ProjectSettings;
 import fili5rovic.codegalaxy.util.SVGUtil;
+import fili5rovic.codegalaxy.window.Window;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -18,7 +20,10 @@ import java.nio.file.Path;
 
 public class TabManager {
 
-    public static void createTab(Path filePath, TabPane tabPane) {
+    private static final DashboardController controller = (DashboardController) Window.getController(Window.WINDOW_DASHBOARD);
+
+    public static void createTab(Path filePath) {
+        TabPane tabPane = controller.getTabPane();
         for (Tab tab : tabPane.getTabs()) {
             if (tab.getId().equals(filePath.toString())) {
                 tabPane.getSelectionModel().select(tab);
@@ -36,10 +41,17 @@ public class TabManager {
         ProjectSettings.getInstance().addTo("recentFiles", filePath.toString());
 
         Tab tab = new Tab();
-        tab.setClosable(false);
         tab.setId(filePath.toString());
         makeTabGraphic(filePath, tab);
         tab.setContent(codeGalaxy);
+        tab.setClosable(false);
+
+        tab.setOnSelectionChanged(e -> {
+            if (tab.isSelected()) {
+                codeGalaxy.requestFocus();
+                controller.getDisplayErrorsHandler().displayErrors();
+            }
+        });
 
         tabPane.getTabs().add(tab);
         tabPane.getSelectionModel().selectLast();
