@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -120,6 +121,13 @@
         <AnchorPane prefHeight="665.0" prefWidth="8.0" styleClass="anchor-pane" BorderPane.alignment="CENTER">
             <children>
                 <Button fx:id="showHierarchyBtn" mnemonicParsing="false" prefHeight="26.0" prefWidth="24.0" />
+            <VBox alignment="CENTER" layoutY="554.0">
+               <children>
+                  <Button fx:id="showRunBtn" mnemonicParsing="false" prefHeight="26.0" prefWidth="24.0" />
+                  <Region prefHeight="11.0" prefWidth="24.0" />
+                  <Button fx:id="showErrorsBtn" mnemonicParsing="false" prefHeight="26.0" prefWidth="24.0" />
+               </children>
+            </VBox>
             </children>
         </AnchorPane>
     </left>
