@@ -434,6 +434,13 @@
     -fx-border-width: 0;
 }
 
+.text-field {
+    -fx-background-color: #2e2e2e;
+    -fx-text-fill: #AFB1B3;
+    -fx-border-color: #4e4e4e;
+    -fx-padding: 5;
+}
+
 
 .tooltip {
     -fx-background-radius: 0;

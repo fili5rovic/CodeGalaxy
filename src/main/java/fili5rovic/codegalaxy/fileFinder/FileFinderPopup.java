@@ -5,8 +5,9 @@ import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.util.FileHelper;
 import fili5rovic.codegalaxy.util.MetaDataHelper;
 import fili5rovic.codegalaxy.window.Window;
-import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
 
 import java.io.IOException;
@@ -17,6 +18,10 @@ public class FileFinderPopup extends Popup {
 
     private final ListView<FileItem> listView;
 
+    private final TextField searchTextField;
+
+    private Path[] paths;
+
     public FileFinderPopup() {
         super();
         setAutoFix(true);
@@ -24,16 +29,66 @@ public class FileFinderPopup extends Popup {
         setHideOnEscape(true);
 
         this.listView = new ListView<>();
+        this.searchTextField = new TextField();
+
 
         getScene().getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/main-dark.css")).toExternalForm());
 
-        update();
+        updateFromDisk();
+        structure();
 
         listener();
     }
 
+    private void structure() {
+        VBox vbox = new VBox();
+
+        vbox.getChildren().add(searchTextField);
+
+        listView.setPrefHeight(500);
+        listView.setPrefWidth(300);
+
+        update();
+        vbox.getChildren().add(listView);
+
+        getContent().add(vbox);
+    }
+
+
+    public void update() {
+        listView.getItems().clear();
+
+        for (Path path : paths) {
+            if (searchTextField.getText().isEmpty() || path.getFileName().toString().toLowerCase().contains(searchTextField.getText().toLowerCase())) {
+                listView.getItems().add(new FileItem(path));
+            }
+        }
+    }
+
+    public void updateFromDisk() {
+        try {
+            Path srcDir = Path.of(Objects.requireNonNull(MetaDataHelper.getClasspathPath("src")));
+            this.paths = FileHelper.getAllFilesInDirectory(srcDir);
+        } catch (IOException e) {
+            System.err.println("Error reading srcDir: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void show(javafx.stage.Window owner) {
+        super.show(owner);
+        searchTextField.requestFocus();
+    }
+
+    @Override
+    public void hide() {
+        super.hide();
+        searchTextField.clear();
+    }
+
     private void listener() {
         DashboardController dashboardController = ((DashboardController) Window.getController(Window.WINDOW_DASHBOARD));
+
         listView.setOnMouseClicked(_ -> {
             FileItem selectedItem = listView.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
@@ -42,27 +97,20 @@ public class FileFinderPopup extends Popup {
                 hide();
             }
         });
-    }
 
-    public void update() {
-        listView.getItems().clear();
+        searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            update();
+        });
 
-        Path srcDir = Path.of(Objects.requireNonNull(MetaDataHelper.getClasspathPath("src")));
-        try {
-            for (Path path : FileHelper.getAllFilesInDirectory(srcDir)) {
-                listView.getItems().add(new FileItem(path));
-            }
-        } catch (IOException e) {
-            System.err.println("Error reading srcDir: " + e.getMessage());
-            return;
-        }
+        searchTextField.setOnAction(event -> {
+            if (listView.getItems().isEmpty())
+                return;
 
-        getContent().add(listView);
-    }
+            FileItem selectedItem = listView.getItems().getFirst();
+            dashboardController.createTab(selectedItem.getFilePath());
+            hide();
 
-    @Override
-    public void show(javafx.stage.Window owner) {
-        super.show(owner);
-        requestFocus();
+            event.consume();
+        });
     }
 }
