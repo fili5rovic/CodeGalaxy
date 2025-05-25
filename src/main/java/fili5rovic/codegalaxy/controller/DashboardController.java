@@ -1,6 +1,8 @@
 package fili5rovic.codegalaxy.controller;
 
+import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.dashboardHelper.*;
+import fili5rovic.codegalaxy.errors.DisplayErrorsHandler;
 import fili5rovic.codegalaxy.lsp.LSP;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.application.Platform;
@@ -92,7 +94,7 @@ public class DashboardController extends ControllerBase {
     @FXML
     private Pane infoPaneNoTabs;
 
-
+    private DisplayErrorsHandler displayErrorsHandler;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -114,6 +116,14 @@ public class DashboardController extends ControllerBase {
 
         updateInfoPaneVisibility();
 
+        this.displayErrorsHandler = new DisplayErrorsHandler();
+        this.displayErrorsHandler.init();
+
+        fileSearchPopupListener();
+
+    }
+
+    private static void fileSearchPopupListener() {
         Platform.runLater(() -> {
             Scene scene = Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage().getScene();
             javafx.stage.Window window = scene.getWindow();
@@ -137,7 +147,6 @@ public class DashboardController extends ControllerBase {
                 }
             });
         });
-
     }
 
     private void updateInfoPaneVisibility() {
@@ -146,7 +155,14 @@ public class DashboardController extends ControllerBase {
     }
 
     public void createTab(Path filePath) {
-        TabManager.createTab(filePath, tabPane);
+        TabManager.createTab(filePath);
+    }
+
+    public CodeGalaxy getOpenCodeGalaxy() {
+        if (tabPane.getSelectionModel().getSelectedItem() != null) {
+            return (CodeGalaxy) tabPane.getSelectionModel().getSelectedItem().getContent();
+        }
+        return null;
     }
 
 
@@ -247,6 +263,10 @@ public class DashboardController extends ControllerBase {
 
     public Button getShowErrorsBtn() {
         return showErrorsBtn;
+    }
+
+    public DisplayErrorsHandler getDisplayErrorsHandler() {
+        return displayErrorsHandler;
     }
 
 

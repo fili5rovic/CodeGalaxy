@@ -13,7 +13,7 @@ public class DiagnosticsPublisher {
 
     private DiagnosticsPublisher() {}
 
-    public DiagnosticsPublisher instance() {
+    public static DiagnosticsPublisher instance() {
         return instance;
     }
 
