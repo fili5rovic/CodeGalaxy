@@ -1,32 +1,61 @@
 package fili5rovic.codegalaxy.lsp.diagnostics;
 
+import fili5rovic.codegalaxy.code.CodeGalaxy;
+import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.util.SVGUtil;
+import fili5rovic.codegalaxy.window.Window;
+import javafx.geometry.Insets;
+import javafx.scene.Cursor;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import org.eclipse.lsp4j.Diagnostic;
 import org.eclipse.lsp4j.Range;
 
-public class ErrorItem extends Label {
+public class ErrorItem extends HBox {
 
     private final Range range;
 
-    public ErrorItem(Diagnostic diagnostic) {
-        super(diagnostic.getMessage() + " (" + diagnostic.getRange().getStart().getLine() + ":" + diagnostic.getRange().getStart().getCharacter() + ")");
-        setupIcon(diagnostic);
+    private static final DashboardController controller = (DashboardController) Window.getController(Window.WINDOW_DASHBOARD);
 
+
+    public ErrorItem(Diagnostic diagnostic) {
         this.range = diagnostic.getRange();
 
-        setPadding(new javafx.geometry.Insets(0, 0, 0, 20));
+        structure(diagnostic);
 
-        setFont(new Font(16));
+        listeners();
+
+        setPadding(new Insets(0, 0, 0, 20));
     }
 
-    private void setupIcon(Diagnostic diagnostic) {
+    private void listeners() {
+        setCursor(Cursor.HAND);
+
+        int line = range.getStart().getLine();
+        int column = range.getStart().getCharacter();
+
+        setOnMouseClicked(_ -> {
+            CodeGalaxy codeGalaxy = controller.getOpenCodeGalaxy();
+            codeGalaxy.requestFocus();
+            codeGalaxy.moveTo(line, column);
+            codeGalaxy.requestFollowCaret();
+        });
+
+    }
+
+    private void structure(Diagnostic diagnostic) {
+        Label label = new Label(diagnostic.getMessage());
+        label.setFont(new Font(16));
+
         String type = diagnostic.getSeverity().toString().toLowerCase();
-        setGraphic(SVGUtil.getIcon(type, 16, 16));
-    }
+        label.setGraphic(SVGUtil.getIcon(type, 16, 16));
 
-    public Range getRange() {
-        return range;
+        int line = range.getStart().getLine() + 1;
+        Label lineNumberLabel = new Label(" :" + line);
+        lineNumberLabel.getStyleClass().add("label-secondary");
+        lineNumberLabel.setFont(new Font(16));
+
+        getChildren().addAll(label, lineNumberLabel);
     }
 }
