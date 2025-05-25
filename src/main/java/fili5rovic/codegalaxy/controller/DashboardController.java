@@ -71,6 +71,12 @@ public class DashboardController extends ControllerBase {
     private Button showHierarchyBtn;
 
     @FXML
+    private Button showRunBtn;
+
+    @FXML
+    private Button showErrorsBtn;
+
+    @FXML
     private TabPane consoleTabPane;
 
     @FXML
@@ -216,6 +222,14 @@ public class DashboardController extends ControllerBase {
 
     public VBox getErrorVBox() {
         return errorVBox;
+    }
+
+    public Button getShowRunBtn() {
+        return showRunBtn;
+    }
+
+    public Button getShowErrorsBtn() {
+        return showErrorsBtn;
     }
 
 

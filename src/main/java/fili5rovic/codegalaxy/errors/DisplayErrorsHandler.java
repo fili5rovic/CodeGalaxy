@@ -10,10 +10,6 @@ public class DisplayErrorsHandler {
 
 
     public static void displayErrors() {
-        controller.getConsoleTabPane().setVisible(false);
-        controller.getErrorTabPane().setVisible(true);
-
-
 
     }
 }

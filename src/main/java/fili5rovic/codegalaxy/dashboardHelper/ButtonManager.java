@@ -20,10 +20,20 @@ public class ButtonManager {
 
     private static void buttonActions() {
         controller.getShowHierarchyBtn().setOnAction(ButtonManager::showHierarchy);
+        controller.getShowRunBtn().setOnAction(_ -> {
+            controller.getConsoleTabPane().setVisible(true);
+            controller.getErrorTabPane().setVisible(false);
+        });
+        controller.getShowErrorsBtn().setOnAction(_ -> {
+            controller.getConsoleTabPane().setVisible(false);
+            controller.getErrorTabPane().setVisible(true);
+        });
     }
 
     private static void buttonIcons() {
         controller.getShowHierarchyBtn().setGraphic(SVGUtil.getUI("expand", 16, 16));
+        controller.getShowRunBtn().setGraphic(SVGUtil.getUI("runBtn", 16, 16));
+        controller.getShowErrorsBtn().setGraphic(SVGUtil.getUI("error", 16, 16));
     }
 
     private static void showHierarchy(ActionEvent actionEvent) {
