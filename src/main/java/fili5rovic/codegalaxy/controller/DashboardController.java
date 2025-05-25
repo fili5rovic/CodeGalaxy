@@ -94,7 +94,7 @@ public class DashboardController extends ControllerBase {
             } catch (Exception e) {
                 System.out.println("Failed to start LSP server: " + e.getMessage());
             }
-        }).thenRunAsync(this::tryToOpenLastProject, Platform::runLater);
+        }).thenRunAsync(ProjectManager::tryToOpenLastProject, Platform::runLater);
 
         MenuManager.initialize();
         ButtonManager.initialize();
@@ -121,60 +121,10 @@ public class DashboardController extends ControllerBase {
         infoPaneNoTabs.setVisible(!hasTabs);
     }
 
-
-    private void tryToOpenLastProject() {
-        String lastProjectPath = ProjectSettings.getInstance().get("lastProjectPath");
-        if (lastProjectPath == null)
-            return;
-        File lastProjectFile = new File(lastProjectPath);
-        Path lastProjectPathFile = lastProjectFile.toPath();
-        if (lastProjectFile.exists() && lastProjectFile.isDirectory()) {
-            ProjectManager.openProject(lastProjectPathFile);
-        } else {
-            System.out.println("Last project path is not valid.");
-        }
-
-        List<String> recentFiles = ProjectSettings.getInstance().getMultiple("recentFiles");
-        for (String filePath : recentFiles) {
-            Path path = Path.of(filePath);
-            if (path.toFile().exists()) {
-                createTab(path);
-            }
-        }
-    }
-
     public void createTab(Path filePath) {
-        String fileName = filePath.getFileName().toString();
-
-        for (Tab tab : tabPane.getTabs()) {
-            if (tab.getText().equals(fileName)) {
-                tabPane.getSelectionModel().select(tab);
-                return;
-            }
-        }
-        CodeGalaxy codeGalaxy = new CodeGalaxy();
-        codeGalaxy.setFile(filePath);
-        try {
-            LSP.instance().openFile(codeGalaxy.getFilePath().toString());
-        } catch (Exception e) {
-            System.out.println("Failed to open file: " + e.getMessage());
-        }
-
-        ProjectSettings.getInstance().addTo("recentFiles", filePath.toString());
-        ImageView icon = SVGUtil.getIconByPath(filePath, 12, 12, 0);
-
-        Tab tab = new Tab(fileName, codeGalaxy);
-        tab.setGraphic(icon);
-        tab.setOnClosed(_ -> closedTab(filePath));
-
-        tabPane.getTabs().add(tab);
-        tabPane.getSelectionModel().selectLast();
+        TabManager.createTab(filePath, tabPane);
     }
 
-    private void closedTab(Path filePath) {
-        LSP.instance().closeFile(filePath.toString());
-        ProjectSettings.getInstance().removeFrom("recentFiles", filePath.toString());
-    }
 
     public void onAppClose(WindowEvent event) {
         System.out.println("App closed");

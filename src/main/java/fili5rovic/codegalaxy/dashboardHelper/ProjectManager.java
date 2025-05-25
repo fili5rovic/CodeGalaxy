@@ -5,10 +5,12 @@ import fili5rovic.codegalaxy.hierarchy.ProjectHierarchy;
 import fili5rovic.codegalaxy.settings.ProjectSettings;
 import fili5rovic.codegalaxy.window.Window;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 public class ProjectManager {
 
@@ -100,6 +102,25 @@ public class ProjectManager {
         }
     }
 
+    public static void tryToOpenLastProject() {
+        String lastProjectPath = ProjectSettings.getInstance().get("lastProjectPath");
+        if (lastProjectPath == null)
+            return;
+        File lastProjectFile = new File(lastProjectPath);
+        Path lastProjectPathFile = lastProjectFile.toPath();
+        if (lastProjectFile.exists() && lastProjectFile.isDirectory()) {
+            ProjectManager.openProject(lastProjectPathFile);
+        } else {
+            System.out.println("Last project path is not valid.");
+        }
 
+        List<String> recentFiles = ProjectSettings.getInstance().getMultiple("recentFiles");
+        for (String filePath : recentFiles) {
+            Path path = Path.of(filePath);
+            if (path.toFile().exists()) {
+                controller.createTab(path);
+            }
+        }
+    }
 
 }

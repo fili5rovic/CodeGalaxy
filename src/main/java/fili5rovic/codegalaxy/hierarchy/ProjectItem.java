@@ -24,7 +24,9 @@ public class ProjectItem extends TreeItem<Label> {
 
     public void refreshIcon() {
         Label label = new Label(path.getFileName().toString());
-        label.setGraphic(SVGUtil.getIconByPath(path, 16, 16, -2));
+        int size = (int) Math.round(label.getFont().getSize());
+        size += 4;
+        label.setGraphic(SVGUtil.getIconByPath(path, size, size, -2));
         this.setValue(label);
     }
 
