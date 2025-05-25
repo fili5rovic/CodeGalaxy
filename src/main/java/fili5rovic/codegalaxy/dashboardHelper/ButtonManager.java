@@ -40,11 +40,9 @@ public class ButtonManager {
         SplitPane.Divider divider = controller.getMainSplitPane().getDividers().getFirst();
         if (divider.getPosition() < 0.01) {
             divider.setPosition(previousSliderValue);
-            controller.getShowHierarchyBtn().setGraphic(SVGUtil.getUI("collapse", 16, 16));
         } else {
             previousSliderValue = divider.getPosition();
             divider.setPosition(0);
-            controller.getShowHierarchyBtn().setGraphic(SVGUtil.getUI("expand", 16, 16));
         }
     }
 
