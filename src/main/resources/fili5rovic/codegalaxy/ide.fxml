@@ -60,7 +60,7 @@
                                 <BorderPane fx:id="treeViewPane" />
                                 <StackPane>
                                     <children>
-                                        <TabPane fx:id="tabPane" />
+                                        <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" />
                                         <Pane fx:id="filePane" prefHeight="505.0" prefWidth="851.0" visible="false">
                                             <children>
                                                 <Pane layoutX="231.0" layoutY="227.0" prefHeight="93.0" prefWidth="200.0">

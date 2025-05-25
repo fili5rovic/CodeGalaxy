@@ -291,31 +291,70 @@
 
 /*<editor-fold desc="TabPane">*/
 .tab-header-area .tab-header-background {
-    -fx-background-color: #333;
-}
-.tab-pane .tab:selected {
-    -fx-background-color: #444;
-    /*-fx-background-insets: 0 0 0 0;*/
-    /*-fx-background-radius: 0 0 0 0;*/
-}
-.tab .tab-label {
-    -fx-alignment: CENTER;
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-padding: 0 10 0 10;
-}
-.tab-pane:top *.tab-header-area {
-    -fx-padding: 0 0 0 30;
-
-    /* NO SPACE LEFT OF FIRST TAB */
-    /* -fx-padding: 0 0 0 30; */
-}
-.tab-pane {
     -fx-background-color: transparent;
+    -fx-border-color: #444;
+    -fx-border-width: 0 0 1 0;
 }
+
+.tab-pane .tab:selected {
+    -fx-background-color: #2a2a2a;
+    -fx-border-color: #5e9cff;
+    -fx-border-width: 0 0 2 0;
+}
+
 .tab-pane .tab {
     -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-width: 0 0 2 0;
+    -fx-padding: 4 14 4 14;
+    -fx-min-height: 32px;
 }
+
+.tab .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: #e0e0e0;
+    -fx-font-weight: 600;
+    -fx-font-size: 13px;
+}
+
+.tab-pane:top *.tab-header-area {
+    /*-fx-padding: 0 0 0 20;*/
+}
+
+.tab-pane {
+    -fx-background-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-open-tab-animation: NONE;
+    -fx-close-tab-animation: NONE;
+}
+
+.tab-pane .tab:hover {
+    -fx-background-color: #3a3a3a;
+}
+
+.tab-pane .tab:selected .tab-container {
+    -fx-background-radius: 8 8 0 0;
+}
+
+.tab-close-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 50%;
+    -fx-text-fill: #AFB1B3;
+    -fx-padding: 0;
+    -fx-min-width: 16px;
+    -fx-min-height: 16px;
+    -fx-max-width: 16px;
+    -fx-max-height: 16px;
+    -fx-alignment: center;
+    -fx-shape: "M8,0 A8,8 0 1,1 7.99,0 Z";
+}
+
+.tab-close-button:hover {
+    -fx-background-color: rgba(149, 149, 149, 0.3);
+    -fx-text-fill: white;
+}
+
 
 
 /*</editor-fold>*/
