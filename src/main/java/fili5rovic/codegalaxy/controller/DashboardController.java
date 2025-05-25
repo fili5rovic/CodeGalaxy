@@ -111,6 +111,7 @@ public class DashboardController extends ControllerBase {
         MenuManager.initialize();
         ButtonManager.initialize();
         SplitPaneManager.setupLockPositions();
+        TooltipManager.init();
 
         tabPane.getTabs().addListener((ListChangeListener<Tab>) _ -> updateInfoPaneVisibility());
 

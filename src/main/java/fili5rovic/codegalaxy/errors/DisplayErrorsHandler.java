@@ -67,12 +67,12 @@ public class DisplayErrorsHandler implements DiagnosticsListener {
 
         Label fileLabel = new Label(filePath.getFileName().toString());
         fileLabel.setGraphic(SVGUtil.getIconByPath(filePath, 20, 20, 0));
-        fileLabel.setFont(new Font("Consolas", 20));
+        fileLabel.setFont(new Font(20));
 
         titleBox.getChildren().add(fileLabel);
 
         Label pathLabel = new Label(filePath.toString());
-        pathLabel.setFont(new Font("Consolas", 20));
+        pathLabel.setFont(new Font(20));
         pathLabel.getStyleClass().add("label-secondary");
 
         titleBox.getChildren().add(pathLabel);
