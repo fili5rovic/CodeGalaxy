@@ -1,25 +1,19 @@
 package fili5rovic.codegalaxy.controller;
 
-import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.dashboardHelper.*;
 import fili5rovic.codegalaxy.lsp.LSP;
-import fili5rovic.codegalaxy.settings.ProjectSettings;
-import fili5rovic.codegalaxy.util.SVGUtil;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.WindowEvent;
 
-import java.io.File;
 import java.net.URL;
 import java.nio.file.Path;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.CompletableFuture;
 
@@ -100,9 +94,7 @@ public class DashboardController extends ControllerBase {
         ButtonManager.initialize();
         SplitPaneManager.setupLockPositions();
 
-        tabPane.getTabs().addListener((ListChangeListener<Tab>) change -> {
-            updateInfoPaneVisibility();
-        });
+        tabPane.getTabs().addListener((ListChangeListener<Tab>) _ -> updateInfoPaneVisibility());
 
         updateInfoPaneVisibility();
 
