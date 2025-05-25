@@ -10,16 +10,20 @@ import java.util.concurrent.CompletableFuture;
 class LSPClient implements LanguageClient {
 
     @Override
-    public void telemetryEvent(Object object) {
-    }
+    public void telemetryEvent(Object object) {}
+
 
     @Override
     public void publishDiagnostics(PublishDiagnosticsParams diagnostics) {
-        if(diagnostics.getDiagnostics().isEmpty())
+        if (diagnostics.getDiagnostics().isEmpty())
             return;
         System.out.println("Diagnostics : " + diagnostics.getUri().split("///")[1] + ":");
-        diagnostics.getDiagnostics().forEach(d ->
-                System.out.println("\t[" + d.getSeverity() + "] : " + d.getMessage()));
+        diagnostics.getDiagnostics().forEach(d -> {
+            System.out.println("\t[" + d.getSeverity() + "] : " + d.getMessage());
+            if(d.getSeverity() == DiagnosticSeverity.Error)
+                System.out.println("\t\tRange: " + d.getRange().getStart().getLine() + ":" + d.getRange().getStart().getCharacter() + " - " + d.getRange().getEnd().getLine() + ":" + d.getRange().getEnd().getCharacter());
+        });
+
 
     }
 

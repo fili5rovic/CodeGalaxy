@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.WindowEvent;
 
 import java.net.URL;
@@ -73,10 +74,18 @@ public class DashboardController extends ControllerBase {
     private TabPane consoleTabPane;
 
     @FXML
+    private TabPane errorTabPane;
+
+    @FXML
+    private VBox errorVBox;
+
+    @FXML
     private SplitPane mainSplitPane;
 
     @FXML
     private Pane infoPaneNoTabs;
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -197,8 +206,16 @@ public class DashboardController extends ControllerBase {
         return consoleTabPane;
     }
 
+    public TabPane getErrorTabPane() {
+        return errorTabPane;
+    }
+
     public SplitPane getMainSplitPane() {
         return mainSplitPane;
+    }
+
+    public VBox getErrorVBox() {
+        return errorVBox;
     }
 
 
