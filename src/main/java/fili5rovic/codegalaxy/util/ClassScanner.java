@@ -13,6 +13,7 @@ import java.util.List;
 public class ClassScanner {
     /**
      * Scans the specified classpath output directory for all class names.
+     *
      * @return List of fully-qualified class names.
      */
     public static String[] getAllProjectClasses() {

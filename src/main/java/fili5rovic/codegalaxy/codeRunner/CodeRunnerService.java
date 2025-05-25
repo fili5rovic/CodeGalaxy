@@ -1,7 +1,6 @@
 package fili5rovic.codegalaxy.codeRunner;
 
 import fili5rovic.codegalaxy.console.ConsoleArea;
-import fili5rovic.codegalaxy.console.Redirector;
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.scene.control.Tab;
@@ -11,7 +10,6 @@ import java.nio.file.Path;
 public class CodeRunnerService {
 
     private static final DashboardController controller = (DashboardController) Window.getController(Window.WINDOW_DASHBOARD);
-
     public static void runJava(Path javaFilePath) {
         try {
             Process process = CodeRunner.runJava(javaFilePath);
