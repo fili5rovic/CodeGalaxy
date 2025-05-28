@@ -3,14 +3,18 @@ package fili5rovic.codegalaxy.code.manager.codeActions.rightClick;
 import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.code.manager.Manager;
 import fili5rovic.codegalaxy.codeRunner.CodeRunnerService;
+import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.lsp.LSP;
 import fili5rovic.codegalaxy.util.JavaParserUtil;
 import fili5rovic.codegalaxy.util.SVGUtil;
 import fili5rovic.codegalaxy.window.Window;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.SeparatorMenuItem;
+import javafx.application.Platform;
+import javafx.scene.control.*;
+import org.fxmisc.richtext.model.TwoDimensional;
+
+import java.net.URI;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class CodeRightClickManager extends Manager {
 
@@ -59,6 +63,8 @@ public class CodeRightClickManager extends Manager {
             }
         }
 
+        contextMenu.getItems().add(createGotoMenuItems());
+
         MenuItem copy = new MenuItem("Copy");
         copy.setGraphic(SVGUtil.getUI("copy",16,16));
         copy.setOnAction(e -> {
@@ -96,13 +102,61 @@ public class CodeRightClickManager extends Manager {
         contextMenu.getItems().add(format);
     }
 
+    private Menu createGotoMenuItems() {
+        Menu gotoMenu = new Menu("Go to");
+        MenuItem definition = new MenuItem("Definition");
+        definition.setOnAction(e -> {
+            DashboardController controller = (DashboardController) Window.getController(Window.WINDOW_DASHBOARD);
+
+            codeGalaxy.selectWordAtCaret();
+            int line = codeGalaxy.getCurrentParagraph();
+            int character = codeGalaxy.getCaretColumn();
+            LSP.instance().goToDefinition(codeGalaxy.getFilePath().toString(), line, character)
+                    .thenApply(list -> {
+                        System.out.println(list);
+                        if(list.size() == 1) {
+                            var location = list.getFirst();
+                            String uri = location.getUri();
+                            int defLine = location.getRange().getStart().getLine();
+                            int defCharacter = location.getRange().getStart().getCharacter();
+                            if(uri.equals(codeGalaxy.getFilePath().toUri().toString())) {
+                                Platform.runLater(() -> codeGalaxy.moveTo(defLine, defCharacter));
+                            } else {
+                                System.out.println("Other file");
+                                Platform.runLater(() -> {
+                                    try {
+                                        // Convert URI to Path properly
+                                        Path filePath = Paths.get(URI.create(uri));
+                                        controller.createTab(filePath);
+                                        Tab tab = controller.getTabPane().getSelectionModel().getSelectedItem();
+                                        CodeGalaxy content = (CodeGalaxy) tab.getContent();
+                                        content.requestFocus();
+                                        content.moveTo(defLine, defCharacter);
+                                    } catch (Exception ex) {
+                                        System.err.println("Failed to open file: " + uri);
+                                        ex.printStackTrace();
+                                    }
+                                });
+                            }
+                        } else {
+                            // TODO: Show a list of definitions to choose from
+                            System.out.println("Multiple definitions found, showing first one.");
+                        }
+
+                        return list;
+                    });
+        });
+        gotoMenu.getItems().add(definition);
+        return gotoMenu;
+    }
+
     private MenuItem createRenameMenuItem() {
         MenuItem rename = new MenuItem("Rename");
         rename.setOnAction(e -> {
             String path = codeGalaxy.getFilePath().toString();
             int startPosition = codeGalaxy.getSelection().getStart();
-            int line = codeGalaxy.offsetToPosition(startPosition,  org.fxmisc.richtext.model.TwoDimensional.Bias.Forward).getMajor();     // line number (paragraph index)
-            int column = codeGalaxy.offsetToPosition(startPosition,  org.fxmisc.richtext.model.TwoDimensional.Bias.Forward).getMinor();
+            int line = codeGalaxy.offsetToPosition(startPosition,  TwoDimensional.Bias.Forward).getMajor();     // line number (paragraph index)
+            int column = codeGalaxy.offsetToPosition(startPosition,  TwoDimensional.Bias.Forward).getMinor();
 
             renamePopup.getTextField().setText(codeGalaxy.getSelectedText());
 
