@@ -4,15 +4,9 @@ import org.eclipse.lsp4j.*;
 import org.eclipse.lsp4j.jsonrpc.messages.Either;
 import org.eclipse.lsp4j.services.LanguageServer;
 
-import java.io.IOException;
-import java.net.URI;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 public class LSPRequestManager {
@@ -85,11 +79,31 @@ public class LSPRequestManager {
         String uri = Paths.get(filePath).toUri().toString();
         TextDocumentIdentifier docId = new TextDocumentIdentifier(uri);
 
-        FormattingOptions options = new FormattingOptions(4, true); // 4 spaces, insertSpaces = true
+        FormattingOptions options = new FormattingOptions(4, true);
         DocumentFormattingParams params = new DocumentFormattingParams(docId, options);
 
         return server.getTextDocumentService()
                 .formatting(params);
+    }
+
+    public CompletableFuture<List<? extends Location>> goToDefinition(String filePath, int line, int character) {
+        String uri = Paths.get(filePath).toUri().toString();
+        TextDocumentIdentifier docId = new TextDocumentIdentifier(uri);
+        Position pos = new Position(line, character);
+        DefinitionParams params = new DefinitionParams(docId, pos);
+
+        return server.getTextDocumentService()
+                .definition(params)
+                .thenApply(either -> {
+                    if (either == null) return List.of();
+                    if (either.isLeft())
+                        return either.getLeft();
+                    // for LocationLink, it's not supported by the current LSP version
+                    System.err.println("Unexpected response type for goToDefinition: " + either.getRight());
+                    return List.of();
+
+                });
+
     }
 
 }

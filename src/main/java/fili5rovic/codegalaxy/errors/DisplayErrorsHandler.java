@@ -56,6 +56,9 @@ public class DisplayErrorsHandler implements DiagnosticsListener {
     @Override
     public void onDiagnosticsUpdated(String uri, PublishDiagnosticsParams params) {
         paramsMap.put(uri, params);
+        if(controller == null || controller.getOpenCodeGalaxy() == null) {
+            return;
+        }
         if (uri.equals(controller.getOpenCodeGalaxy().getFilePath().toUri().toString())) {
             Platform.runLater(this::displayErrors);
         }

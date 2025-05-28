@@ -183,6 +183,10 @@ public class LSP {
         refactorManager.rename(filePath, line, character, newName);
     }
 
+    public CompletableFuture<List<? extends Location>> goToDefinition(String filePath, int line, int character) {
+        return requestManager.goToDefinition(filePath, line, character);
+    }
+
     public Debouncer getDebouncer() {
         return debouncer;
     }
