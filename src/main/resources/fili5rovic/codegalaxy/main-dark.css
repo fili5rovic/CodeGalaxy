@@ -581,9 +581,6 @@
     -fx-text-fill: #323232;
 }
 
-.info-label:hover {
-    -fx-text-fill: #5b2a98;
-}
 /*</editor-fold>*/
 
 .separator {
@@ -594,6 +591,8 @@
     -fx-border-color: #444444; /* Light gray line */
     -fx-border-width: 0 0 1 0; /* Only bottom border */
 }
+
+
 
 
 

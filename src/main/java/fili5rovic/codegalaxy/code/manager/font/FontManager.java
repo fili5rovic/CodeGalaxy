@@ -1,7 +1,7 @@
 package fili5rovic.codegalaxy.code.manager.font;
 
 import fili5rovic.codegalaxy.code.CodeGalaxy;
-import fili5rovic.codegalaxy.settings.ProjectSettings;
+import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.code.manager.Manager;
 import fili5rovic.codegalaxy.util.Debouncer;
 import javafx.scene.Node;
@@ -35,10 +35,10 @@ public class FontManager extends Manager {
         fontPopUpManager = new FontPopUpManager(codeGalaxy);
         fontPopUpManager.init();
 
-        String fontSizeStr = ProjectSettings.getInstance().get("fontSize");
+        String fontSizeStr = IDESettings.getInstance().get("fontSize");
         if (fontSizeStr == null) {
             currentFontSize = DEFAULT_FONT_SIZE;
-            ProjectSettings.getInstance().set("fontSize", String.valueOf(currentFontSize));
+            IDESettings.getInstance().set("fontSize", String.valueOf(currentFontSize));
         } else {
             currentFontSize = Integer.parseInt(fontSizeStr);
         }
@@ -56,7 +56,7 @@ public class FontManager extends Manager {
                     decreaseSize();
                 updateUI();
                 popUp();
-                debouncer.debounce(() -> ProjectSettings.getInstance().set("fontSize", String.valueOf(currentFontSize)),5000);
+                debouncer.debounce(() -> IDESettings.getInstance().set("fontSize", String.valueOf(currentFontSize)),5000);
                 event.consume();
             }
         });

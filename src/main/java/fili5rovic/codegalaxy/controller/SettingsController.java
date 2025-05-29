@@ -2,7 +2,7 @@ package fili5rovic.codegalaxy.controller;
 
 import fili5rovic.codegalaxy.Main;
 import fili5rovic.codegalaxy.code.manager.editing.shortcuts.keystate.KeyState;
-import fili5rovic.codegalaxy.settings.ProjectSettings;
+import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.settings.ShortcutsTableHelper;
 import fili5rovic.codegalaxy.util.SVGUtil;
 import fili5rovic.codegalaxy.window.Window;
@@ -45,7 +45,7 @@ public class SettingsController extends ControllerBase {
 
     private void buttonActions() {
         apply.setOnAction(_ -> {
-            ProjectSettings.applyTempSettings();
+            IDESettings.applyTempSettings();
             WindowHelper.hideWindow(Window.SETTINGS);
         });
 

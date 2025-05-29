@@ -1,9 +1,12 @@
 package fili5rovic.codegalaxy.dashboardHelper;
 
+import fili5rovic.codegalaxy.Main;
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.hierarchy.ProjectHierarchy;
-import fili5rovic.codegalaxy.settings.ProjectSettings;
+import fili5rovic.codegalaxy.settings.IDESettings;
+import fili5rovic.codegalaxy.util.FileHelper;
 import fili5rovic.codegalaxy.window.Window;
+import javafx.scene.control.Alert;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
 
 public class ProjectManager {
 
@@ -19,11 +23,11 @@ public class ProjectManager {
 
     public static void openProject(Path path) {
         controller.getTreeViewPane().setCenter(new ProjectHierarchy(path.toString()));
-        ProjectSettings.getInstance().set("lastProjectPath", path.toString());
+        IDESettings.getInstance().set("lastProjectPath", path.toString());
     }
 
     public static void reloadHierarchy() {
-        String lastProjectPath = ProjectSettings.getInstance().get("lastProjectPath");
+        String lastProjectPath = IDESettings.getInstance().get("lastProjectPath");
         if (lastProjectPath != null) {
             Path path = Paths.get(lastProjectPath);
             openProject(path);
@@ -33,19 +37,23 @@ public class ProjectManager {
     }
 
     public static void setWorkspace(String workspacePath) {
-        ProjectSettings.getInstance().set("workspace", workspacePath);
+        IDESettings.getInstance().set("workspace", workspacePath);
     }
 
     public static void createProject(String projectName) {
         try {
-            String basePath = ProjectSettings.getInstance().get("workspace");
+            String basePath = IDESettings.getInstance().get("workspace");
+            if (basePath == null || basePath.isEmpty()) {
+                System.err.println("Workspace path is not set. Please set the workspace path first.");
+                return;
+            }
             Path projectDir = Paths.get(basePath).resolve(projectName).toAbsolutePath();
 
             Files.createDirectories(projectDir.resolve("src"));
             Files.createDirectories(projectDir.resolve("lib"));
             Files.createDirectories(projectDir.resolve("bin"));
 
-            // Create .classpath file
+            // create .classpath file
             Path classpathFile = projectDir.resolve(".classpath");
             String classPathContent = """
                     <?xml version="1.0" encoding="UTF-8"?>
@@ -58,7 +66,7 @@ public class ProjectManager {
                     """;
             Files.writeString(classpathFile, classPathContent);
 
-            // Create .project file
+            // create .project file
             Path projectFile = projectDir.resolve(".project");
             String projectFileContent = """
                     <?xml version="1.0" encoding="UTF-8"?>
@@ -85,7 +93,6 @@ public class ProjectManager {
             String mainFileContent = """
                     public class Main {
                         public static void main(String[] args) {
-                            int a = 3;
                             System.out.println("Hello, World!");
                         }
                     }
@@ -94,7 +101,6 @@ public class ProjectManager {
 
             System.out.println("Project created at: " + projectDir);
 
-            // Open the project in the tree view
             openProject(projectDir);
 
         } catch (IOException e) {
@@ -103,7 +109,7 @@ public class ProjectManager {
     }
 
     public static void tryToOpenLastProject() {
-        String lastProjectPath = ProjectSettings.getInstance().get("lastProjectPath");
+        String lastProjectPath = IDESettings.getInstance().get("lastProjectPath");
         if (lastProjectPath == null)
             return;
         File lastProjectFile = new File(lastProjectPath);
@@ -114,13 +120,40 @@ public class ProjectManager {
             System.out.println("Last project path is not valid.");
         }
 
-        List<String> recentFiles = ProjectSettings.getInstance().getMultiple("recentFiles");
+        List<String> recentFiles = IDESettings.getInstance().getMultiple("recentFiles");
         for (String filePath : recentFiles) {
             Path path = Path.of(filePath);
             if (path.toFile().exists()) {
                 controller.createTab(path);
             }
         }
+    }
+
+    public static void checkForValidWorkspace() {
+        String workspacePath = IDESettings.getInstance().get("workspace");
+        if (workspacePath != null && !workspacePath.isEmpty() && Files.exists(Paths.get(workspacePath))) {
+            return;
+        }
+
+        File folder = null;
+        while(folder == null || !folder.isDirectory()) {
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initOwner(Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage());
+            alert.getDialogPane().getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/main-dark.css")).toExternalForm());
+
+            alert.setTitle("Set valid workspace");
+            alert.setHeaderText("Valid workspace not set");
+            alert.setContentText("Please select a valid workspace directory to continue.");
+            alert.showAndWait();
+
+
+            folder = FileHelper.openFolderChooser(Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage());
+        }
+
+        setWorkspace(folder.getAbsolutePath());
+        System.out.println("Workspace set to: " + folder.getAbsolutePath());
+
     }
 
 }

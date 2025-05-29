@@ -3,7 +3,6 @@ package fili5rovic.codegalaxy.code.manager.codeActions.rightClick;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
-import javafx.stage.Window;
 import org.eclipse.lsp4j.Location;
 
 import java.net.URI;

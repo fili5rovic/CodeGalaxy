@@ -100,6 +100,8 @@ public class DashboardController extends ControllerBase {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Window.getWindowAt(Window.WINDOW_DASHBOARD).setController(this);
 
+        ProjectManager.checkForValidWorkspace();
+
         CompletableFuture.runAsync(() -> {
             try {
                 LSP.instance().start();
@@ -112,6 +114,8 @@ public class DashboardController extends ControllerBase {
         ButtonManager.initialize();
         SplitPaneManager.setupLockPositions();
         TooltipManager.init();
+
+//        ProjectManager.checkForValidWorkspace();
 
         tabPane.getTabs().addListener((ListChangeListener<Tab>) _ -> updateInfoPaneVisibility());
 

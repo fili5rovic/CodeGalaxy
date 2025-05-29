@@ -54,7 +54,7 @@ public class ShortcutsTableHelper {
         codeColumn.setOnEditCommit(event -> {
             KeyState keyState = event.getRowValue();
             keyState.setCode(event.getNewValue());
-            ProjectSettings.getTempInstance().set("shortcut_" + keyState.getShortcutName(), keyState.toString());
+            IDESettings.getTempInstance().set("shortcut_" + keyState.getShortcutName(), keyState.toString());
         });
 
         TableColumn<KeyState, Boolean> ctrlColumn = new TableColumn<>("Control");
@@ -66,7 +66,7 @@ public class ShortcutsTableHelper {
         ctrlColumn.setOnEditCommit(event -> {
             KeyState keyState = event.getRowValue();
             keyState.setControlDown(event.getNewValue());
-            ProjectSettings.getTempInstance().set("shortcut_" + keyState.getShortcutName(), keyState.toString());
+            IDESettings.getTempInstance().set("shortcut_" + keyState.getShortcutName(), keyState.toString());
         });
 
         TableColumn<KeyState, Boolean> shiftColumn = new TableColumn<>("Shift");
@@ -78,7 +78,7 @@ public class ShortcutsTableHelper {
         shiftColumn.setOnEditCommit(event -> {
             KeyState keyState = event.getRowValue();
             keyState.setShiftDown(event.getNewValue());
-            ProjectSettings.getTempInstance().set("shortcut_" + keyState.getShortcutName(), keyState.toString());
+            IDESettings.getTempInstance().set("shortcut_" + keyState.getShortcutName(), keyState.toString());
         });
 
         TableColumn<KeyState, Boolean> altColumn = new TableColumn<>("Alt");
@@ -90,7 +90,7 @@ public class ShortcutsTableHelper {
         altColumn.setOnEditCommit(event -> {
             KeyState keyState = event.getRowValue();
             keyState.setAltDown(event.getNewValue());
-            ProjectSettings.getTempInstance().set("shortcut_" + keyState.getShortcutName(), keyState.toString());
+            IDESettings.getTempInstance().set("shortcut_" + keyState.getShortcutName(), keyState.toString());
         });
 
         keyStateTable.getColumns().addAll(nameColumn, codeColumn, ctrlColumn, shiftColumn, altColumn);

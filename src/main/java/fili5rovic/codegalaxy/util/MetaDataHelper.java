@@ -3,7 +3,7 @@ package fili5rovic.codegalaxy.util;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import fili5rovic.codegalaxy.settings.ProjectSettings;
+import fili5rovic.codegalaxy.settings.IDESettings;
 import org.w3c.dom.*;
 
 import java.io.File;
@@ -13,7 +13,7 @@ public class MetaDataHelper {
 
     public static String getClasspathPath(String kind) {
         try {
-            String projectPath = ProjectSettings.getInstance().get("lastProjectPath");
+            String projectPath = IDESettings.getInstance().get("lastProjectPath");
             if (projectPath == null) {
                 System.err.println("Project path not set in settings.");
                 return null;
