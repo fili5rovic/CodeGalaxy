@@ -46,7 +46,7 @@ public class TabManager {
         tab.setContent(codeGalaxy);
         tab.setClosable(false);
 
-        tab.setOnSelectionChanged(e -> {
+        tab.setOnSelectionChanged(_ -> {
             if (tab.isSelected()) {
                 codeGalaxy.requestFocus();
                 controller.getDisplayErrorsHandler().displayErrors();
