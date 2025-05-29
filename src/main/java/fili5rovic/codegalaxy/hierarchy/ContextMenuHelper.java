@@ -47,6 +47,7 @@ public class ContextMenuHelper {
             runItem.setGraphic(SVGUtil.getEmoji("run",16,16));
             runItem.setOnAction(_ -> {
                 CodeRunnerService.runJava(firstItem.getPath());
+                ((DashboardController) Window.getController(Window.WINDOW_DASHBOARD)).getErrorTabPane().setVisible(false);
             });
             menuItems.add(runItem);
             menuItems.add(new SeparatorMenuItem());
