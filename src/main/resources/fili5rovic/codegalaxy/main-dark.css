@@ -313,11 +313,16 @@
     -fx-min-height: 32px;
 }
 
-.tab .tab-label {
+.tab-pane .tab .tab-label {
     -fx-alignment: CENTER;
-    -fx-text-fill: #e0e0e0;
+    -fx-text-fill: #b8b8b8;
     -fx-font-weight: 600;
     -fx-font-size: 13px;
+}
+
+.tab-pane .tab:hover .tab-label,
+.tab-pane .tab:selected .tab-label {
+    -fx-text-fill: #ffffff;
 }
 
 .tab-pane:top *.tab-header-area {
@@ -330,14 +335,6 @@
     -fx-faint-focus-color: transparent;
     -fx-open-tab-animation: NONE;
     -fx-close-tab-animation: NONE;
-}
-
-.tab-pane .tab:hover {
-    -fx-background-color: #3a3a3a;
-}
-
-.tab-pane .tab:selected .tab-container {
-    -fx-background-radius: 8 8 0 0;
 }
 
 .tab-close-button {
@@ -357,9 +354,6 @@
     -fx-background-color: rgba(149, 149, 149, 0.3);
     -fx-text-fill: white;
 }
-
-
-
 /*</editor-fold>*/
 
 /*<editor-fold desc="TableView">*/
@@ -588,8 +582,8 @@
 }
 
 .separator .line {
-    -fx-border-color: #444444; /* Light gray line */
-    -fx-border-width: 0 0 1 0; /* Only bottom border */
+    -fx-border-color: #444444;
+    -fx-border-width: 0 0 1 0;
 }
 
 
