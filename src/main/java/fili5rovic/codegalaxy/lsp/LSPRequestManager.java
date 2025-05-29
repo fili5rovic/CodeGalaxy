@@ -103,7 +103,26 @@ public class LSPRequestManager {
                     return List.of();
 
                 });
+    }
+
+    public CompletableFuture<List<? extends Location>> references(String filePath, int line, int character) {
+        String uri = Paths.get(filePath).toUri().toString();
+        TextDocumentIdentifier docId = new TextDocumentIdentifier(uri);
+        Position pos = new Position(line, character);
+        ReferenceContext context = new ReferenceContext(true);
+
+        ReferenceParams params = new ReferenceParams(docId, pos, context);
+
+        return server.getTextDocumentService().references(params).thenApply(e -> {
+            if (e == null || e.isEmpty()) {
+                System.out.println("No references found.");
+                return List.of();
+            }
+            System.out.println("References: " + e);
+            return e;
+        });
 
     }
+
 
 }

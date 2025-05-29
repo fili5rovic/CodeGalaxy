@@ -187,6 +187,10 @@ public class LSP {
         return requestManager.goToDefinition(filePath, line, character);
     }
 
+    public CompletableFuture<List<? extends Location>> references(String filePath, int line, int character) {
+        return requestManager.references(filePath, line, character);
+    }
+
     public Debouncer getDebouncer() {
         return debouncer;
     }

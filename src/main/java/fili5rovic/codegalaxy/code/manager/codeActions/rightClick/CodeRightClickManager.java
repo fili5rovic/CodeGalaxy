@@ -113,9 +113,19 @@ public class CodeRightClickManager extends Manager {
             int line = codeGalaxy.getCurrentParagraph();
             int character = codeGalaxy.getCaretColumn();
             LSP.instance().goToDefinition(codeGalaxy.getFilePath().toString(), line, character)
-                    .thenApply(list -> getDefinitions(list));
+                    .thenApply(this::getDefinitions);
         });
         gotoMenu.getItems().add(definition);
+
+        MenuItem references = new MenuItem("References");
+        references.setOnAction(e -> {
+            codeGalaxy.selectWordAtCaret();
+            int line = codeGalaxy.getCurrentParagraph();
+            int character = codeGalaxy.getCaretColumn();
+            LSP.instance().references(codeGalaxy.getFilePath().toString(), line, character)
+                    .thenApply(this::getDefinitions);
+        });
+        gotoMenu.getItems().add(references);
         return gotoMenu;
     }
 
@@ -126,6 +136,7 @@ public class CodeRightClickManager extends Manager {
             findInCodeGalaxy(list.getFirst());
         } else {
             // TODO: Test multiple definitions working
+            System.out.println("Multiple definitions found: " + list.size());
             ContextMenu definitionMenu = new ContextMenu();
             definitionMenu.setAutoHide(true);
             for (Location location : list) {
