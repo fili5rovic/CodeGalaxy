@@ -37,14 +37,11 @@ public class ContextMenuHelper {
         ArrayList<MenuItem> menuItems = new ArrayList<>();
         ProjectItem firstItem = items.getFirst();
 
-        if (Files.isDirectory(firstItem.getPath()))
-            menuItems.add(createNewFile(firstItem));
+        if (Files.isDirectory(firstItem.getPath())) menuItems.add(createNewFile(firstItem));
 
-        if(Files.isRegularFile(firstItem.getPath()) &&
-                firstItem.getPath().toString().endsWith(".java") &&
-                JavaParserUtil.hasMainMethod(firstItem.getPath().toFile())) {
+        if (Files.isRegularFile(firstItem.getPath()) && firstItem.getPath().toString().endsWith(".java") && JavaParserUtil.hasMainMethod(firstItem.getPath().toFile())) {
             MenuItem runItem = new MenuItem("Run");
-            runItem.setGraphic(SVGUtil.getEmoji("run",16,16));
+            runItem.setGraphic(SVGUtil.getEmoji("run", 16, 16));
             runItem.setOnAction(_ -> {
                 CodeRunnerService.runJava(firstItem.getPath());
                 ((DashboardController) Window.getController(Window.WINDOW_DASHBOARD)).getErrorTabPane().setVisible(false);
@@ -66,11 +63,7 @@ public class ContextMenuHelper {
         Menu newItem = new Menu("New");
         newItem.setGraphic(SVGUtil.getEmoji("baby", 16, 16));
 
-        newItem.getItems().addAll(
-                createMenuItem("Directory", item, ""),
-                createMenuItem("Java Class", item, "java"),
-                createMenuItem("Text File", item, "txt")
-        );
+        newItem.getItems().addAll(createMenuItem("Directory", item, ""), createMenuItem("Java Class", item, "java"), createMenuItem("Text File", item, "txt"));
         return newItem;
     }
 
@@ -100,7 +93,6 @@ public class ContextMenuHelper {
     }
 
 
-
     private void textFieldAction(ProjectItem item, String extension) throws IOException {
         String name = fileNameTextField.getText();
         Path path = item.getPath();
@@ -109,13 +101,11 @@ public class ContextMenuHelper {
         if (isDir) {
             path = path.resolve(name);
             Files.createDirectory(path);
-            if (!Files.isDirectory(path))
-                throw new FileAlreadyExistsException("Directory already exists");
+            if (!Files.isDirectory(path)) throw new FileAlreadyExistsException("Directory already exists");
         } else {
             path = path.resolve(name + '.' + extension);
             Files.createFile(path);
-            if (!Files.isRegularFile(path))
-                throw new FileAlreadyExistsException("File already exists");
+            if (!Files.isRegularFile(path)) throw new FileAlreadyExistsException("File already exists");
         }
         item.getChildren().add(new ProjectItem(path));
         filePane.setVisible(false);
@@ -146,8 +136,7 @@ public class ContextMenuHelper {
             items.forEach(item -> {
                 try {
                     Path path = item.getPath();
-                    if (!Files.isDirectory(item.getPath()))
-                        path = path.getParent();
+                    if (!Files.isDirectory(item.getPath())) path = path.getParent();
                     FileHelper.openDirectoryInExplorer(path.toFile());
                 } catch (IOException ioException) {
                     System.err.println("Couldn't open folder");

@@ -61,6 +61,8 @@ public class TabManager {
         ImageView icon = SVGUtil.getIconByPath(filePath, 12, 12, -2);
 
         Label label = new Label(filePath.getFileName().toString());
+        label.getStyleClass().clear();
+        label.getStyleClass().add("tab-label");
         Button button = new Button("✕");
         button.setFont(new Font(10));
         button.getStyleClass().clear();

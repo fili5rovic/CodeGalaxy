@@ -156,6 +156,8 @@ public class CodeRightClickManager extends Manager {
 
             locationsPopup.setLocations(list);
             locationsPopup.setOnLocationSelected(this::findInCodeGalaxy);
+            locationsPopup.setTitle(codeGalaxy.getSelectedText());
+
             locationsPopup.updateContent();
             locationsPopup.show(codeGalaxy.getScene().getWindow());
         }
