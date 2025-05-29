@@ -1,7 +1,7 @@
 package fili5rovic.codegalaxy.window;
 
 import fili5rovic.codegalaxy.Main;
-import fili5rovic.codegalaxy.settings.ProjectSettings;
+import fili5rovic.codegalaxy.settings.IDESettings;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -32,7 +32,7 @@ public class SettingsWindow extends Window {
             });
 
             this.stage.setOnShowing(_ -> {
-                ProjectSettings.copySettingsToTemp();
+                IDESettings.copySettingsToTemp();
             });
 
 

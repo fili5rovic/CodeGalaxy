@@ -1,6 +1,6 @@
 package fili5rovic.codegalaxy.code.manager.editing.shortcuts.keystate;
 
-import fili5rovic.codegalaxy.settings.ProjectSettings;
+import fili5rovic.codegalaxy.settings.IDESettings;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -22,7 +22,7 @@ public class KeyState {
 
     public KeyState(String savedKeyName) {
         this.shortcutName = savedKeyName;
-        String savedCode = ProjectSettings.getInstance().get("shortcut_" + savedKeyName);
+        String savedCode = IDESettings.getInstance().get("shortcut_" + savedKeyName);
 
         String[] parts = savedCode.split("\\|");
         this.code = KeyCode.valueOf(parts[0]);

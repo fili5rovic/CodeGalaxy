@@ -3,7 +3,7 @@ package fili5rovic.codegalaxy.dashboardHelper;
 import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.lsp.LSP;
-import fili5rovic.codegalaxy.settings.ProjectSettings;
+import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.util.SVGUtil;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.geometry.Pos;
@@ -38,7 +38,7 @@ public class TabManager {
             System.out.println("Failed to open file: " + e.getMessage());
         }
 
-        ProjectSettings.getInstance().addTo("recentFiles", filePath.toString());
+        IDESettings.getInstance().addTo("recentFiles", filePath.toString());
 
         Tab tab = new Tab();
         tab.setId(filePath.toString());
@@ -84,7 +84,7 @@ public class TabManager {
 
     private static void closedTab(Path filePath) {
         LSP.instance().closeFile(filePath.toString());
-        ProjectSettings.getInstance().removeFrom("recentFiles", filePath.toString());
+        IDESettings.getInstance().removeFrom("recentFiles", filePath.toString());
     }
 
     private static void onMouseEnter(MouseEvent e) {

@@ -1,6 +1,6 @@
 package fili5rovic.codegalaxy.hierarchy;
 
-import fili5rovic.codegalaxy.settings.ProjectSettings;
+import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.util.SVGUtil;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
@@ -16,9 +16,9 @@ public class ProjectItem extends TreeItem<Label> {
 
         expandedProperty().addListener((_, _, isExpanded) -> {
             if (isExpanded)
-                ProjectSettings.getInstance().addTo("expanded", path.toString());
+                IDESettings.getInstance().addTo("expanded", path.toString());
             else
-                ProjectSettings.getInstance().removeFrom("expanded", path.toString());
+                IDESettings.getInstance().removeFrom("expanded", path.toString());
         });
     }
 

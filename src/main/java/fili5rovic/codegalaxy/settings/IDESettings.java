@@ -7,37 +7,37 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-public class ProjectSettings {
+public class IDESettings {
     private final Properties props = new Properties();
 
-    private static ProjectSettings instance;
-    private static ProjectSettings tempInstance;
+    private static IDESettings instance;
+    private static IDESettings tempInstance;
 
     private String fileName;
 
     public static final String SETTINGS = "settings";
     public static final String TEMP_SETTINGS = "tempSettings";
 
-    public static ProjectSettings getInstance() {
+    public static IDESettings getInstance() {
         if (instance == null) {
 
-            instance = new ProjectSettings(SETTINGS);
+            instance = new IDESettings(SETTINGS);
         }
         return instance;
     }
-    public static ProjectSettings getTempInstance() {
+    public static IDESettings getTempInstance() {
         if (tempInstance == null) {
-            tempInstance = new ProjectSettings(TEMP_SETTINGS);
+            tempInstance = new IDESettings(TEMP_SETTINGS);
         }
         return tempInstance;
     }
 
-    private ProjectSettings(String fileName) {
+    private IDESettings(String fileName) {
         try {
             this.fileName = fileName;
             props.load(new FileReader(fileName));
         } catch (FileNotFoundException e) {
-            save();  // Creates file if not found
+            save();  // creates a new file if not found
         } catch (IOException e) {
             throw new RuntimeException("Failed to load settings", e);
         }
