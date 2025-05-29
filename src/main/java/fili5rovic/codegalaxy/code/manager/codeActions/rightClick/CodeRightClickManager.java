@@ -63,6 +63,7 @@ public class CodeRightClickManager extends Manager {
                 run.setGraphic(SVGUtil.getEmoji("run", 16, 16));
                 run.setOnAction(e -> {
                     CodeRunnerService.runJava(codeGalaxy.getFilePath());
+                    ((DashboardController) Window.getController(Window.WINDOW_DASHBOARD)).getErrorTabPane().setVisible(false);
                 });
                 contextMenu.getItems().add(run);
             }
