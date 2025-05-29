@@ -31,9 +31,7 @@ public class SettingsWindow extends Window {
                 }
             });
 
-            this.stage.setOnShowing(_ -> {
-                IDESettings.copySettingsToTemp();
-            });
+            this.stage.setOnShowing(_ -> IDESettings.copySettingsToTemp());
 
 
         } catch (Exception e) {

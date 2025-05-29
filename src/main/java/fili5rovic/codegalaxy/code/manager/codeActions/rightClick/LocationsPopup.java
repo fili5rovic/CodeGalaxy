@@ -43,7 +43,7 @@ public class LocationsPopup extends Popup {
 
             Label item = new Label(filename + " at line " + (line + 1));
             item.setStyle("-fx-cursor: hand; -fx-padding: 5;-fx-font-size: 18px"); // hardcoded for now
-            item.setOnMouseClicked(e -> {
+            item.setOnMouseClicked(_ -> {
                 if (onLocationSelected != null) {
                     onLocationSelected.accept(location);
                 }
