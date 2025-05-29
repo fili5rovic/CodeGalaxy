@@ -109,7 +109,7 @@ public class LSPRequestManager {
         String uri = Paths.get(filePath).toUri().toString();
         TextDocumentIdentifier docId = new TextDocumentIdentifier(uri);
         Position pos = new Position(line, character);
-        ReferenceContext context = new ReferenceContext(true);
+        ReferenceContext context = new ReferenceContext(false);
 
         ReferenceParams params = new ReferenceParams(docId, pos, context);
 
@@ -118,7 +118,6 @@ public class LSPRequestManager {
                 System.out.println("No references found.");
                 return List.of();
             }
-            System.out.println("References: " + e);
             return e;
         });
 

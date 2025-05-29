@@ -17,12 +17,15 @@ import java.net.URI;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class CodeRightClickManager extends Manager {
 
     private final ContextMenu contextMenu = new ContextMenu();
 
     private final TextFieldLabelPopup renamePopup = new TextFieldLabelPopup();
+
+    private final LocationsPopup locationsPopup = new LocationsPopup();
 
     public CodeRightClickManager(CodeGalaxy cg) {
         super(cg);
@@ -108,12 +111,17 @@ public class CodeRightClickManager extends Manager {
         Menu gotoMenu = new Menu("Go to");
         MenuItem definition = new MenuItem("Definition");
         definition.setOnAction(e -> {
-
             codeGalaxy.selectWordAtCaret();
             int line = codeGalaxy.getCurrentParagraph();
             int character = codeGalaxy.getCaretColumn();
-            LSP.instance().goToDefinition(codeGalaxy.getFilePath().toString(), line, character)
-                    .thenApply(this::getDefinitions);
+            try {
+                List<? extends Location> locations = LSP.instance().goToDefinition(codeGalaxy.getFilePath().toString(), line, character).get();
+                displayLocations(locations);
+            } catch (InterruptedException ex) {
+                System.out.println("Go to definition interrupted: " + ex.getMessage());
+            } catch (ExecutionException ex) {
+                System.err.println("Failed to get definition: " + ex.getMessage());
+            }
         });
         gotoMenu.getItems().add(definition);
 
@@ -122,37 +130,35 @@ public class CodeRightClickManager extends Manager {
             codeGalaxy.selectWordAtCaret();
             int line = codeGalaxy.getCurrentParagraph();
             int character = codeGalaxy.getCaretColumn();
-            LSP.instance().references(codeGalaxy.getFilePath().toString(), line, character)
-                    .thenApply(this::getDefinitions);
+            try {
+                List<? extends Location> locations = LSP.instance().references(codeGalaxy.getFilePath().toString(), line, character).get();
+                displayLocations(locations);
+            } catch (InterruptedException ex) {
+                System.out.println("Go to definition interrupted: " + ex.getMessage());
+            } catch (ExecutionException ex) {
+                System.err.println("Failed to get definition: " + ex.getMessage());
+            }
         });
         gotoMenu.getItems().add(references);
         return gotoMenu;
     }
 
-    private List<? extends Location> getDefinitions(List<? extends Location> list) {
+    private void displayLocations(List<? extends Location> list) {
         if (list.isEmpty())
-            return List.of();
+            return;
+
         if (list.size() == 1) {
             findInCodeGalaxy(list.getFirst());
         } else {
-            // TODO: Test multiple definitions working
-            System.out.println("Multiple definitions found: " + list.size());
-            ContextMenu definitionMenu = new ContextMenu();
-            definitionMenu.setAutoHide(true);
-            for (Location location : list) {
-                int line = location.getRange().getStart().getLine();
+            // TODO: Test multiple locations working
+            System.out.println("Multiple locations found: " + list.size());
 
-                URI uri = URI.create(location.getUri());
-                String filename = Paths.get(uri).getFileName().toString();
-                MenuItem definition = new MenuItem(filename + " at line " + (line + 1));
-                definition.setOnAction(_ -> findInCodeGalaxy(location));
-                definitionMenu.getItems().add(definition);
-            }
-
-            definitionMenu.show(codeGalaxy, codeGalaxy.getLayoutX() + 50, codeGalaxy.getLayoutY() + 50);
+            locationsPopup.setLocations(list);
+            locationsPopup.setOnLocationSelected(this::findInCodeGalaxy);
+            locationsPopup.updateContent();
+            locationsPopup.show(codeGalaxy.getScene().getWindow());
         }
 
-        return list;
     }
 
     private void findInCodeGalaxy(Location location) {
