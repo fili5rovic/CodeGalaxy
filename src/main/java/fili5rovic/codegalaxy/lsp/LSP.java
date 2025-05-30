@@ -191,6 +191,10 @@ public class LSP {
         return requestManager.references(filePath, line, character);
     }
 
+    public CompletableFuture<Hover> hover(String filePath, int line, int character) {
+        return requestManager.hover(filePath, line, character);
+    }
+
     public Debouncer getDebouncer() {
         return debouncer;
     }

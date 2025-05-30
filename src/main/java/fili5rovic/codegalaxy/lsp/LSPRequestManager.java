@@ -120,7 +120,16 @@ public class LSPRequestManager {
             }
             return e;
         });
+    }
 
+    public CompletableFuture<Hover> hover(String filePath, int line, int character) {
+        String uri = Paths.get(filePath).toUri().toString();
+        TextDocumentIdentifier docId = new TextDocumentIdentifier(uri);
+        Position pos = new Position(line, character);
+
+        HoverParams params = new HoverParams(docId, pos);
+
+        return server.getTextDocumentService().hover(params);
     }
 
 
