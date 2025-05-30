@@ -123,7 +123,7 @@
                 <Button fx:id="showHierarchyBtn" mnemonicParsing="false" prefHeight="26.0" prefWidth="24.0" />
             <VBox alignment="CENTER" layoutY="554.0">
                <children>
-                  <Button fx:id="showRunBtn" mnemonicParsing="false" prefHeight="26.0" prefWidth="24.0" />
+                  <Button fx:id="showRunBtn" mnemonicParsing="false" prefHeight="26.0" prefWidth="24.0" visible="false" />
                   <Region prefHeight="11.0" prefWidth="24.0" />
                   <Button fx:id="showErrorsBtn" mnemonicParsing="false" prefHeight="26.0" prefWidth="24.0" />
                </children>

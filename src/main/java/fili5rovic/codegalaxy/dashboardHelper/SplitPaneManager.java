@@ -17,7 +17,7 @@ public class SplitPaneManager {
         SplitPane mainSplitPane = controller.getMainSplitPane();
 
         Platform.runLater(() -> {
-            mainSplitPane.widthProperty().addListener((observable, oldValue, newValue) -> {
+            mainSplitPane.widthProperty().addListener((_, _, newValue) -> {
                 ObservableList<SplitPane.Divider> dividers = mainSplitPane.getDividers();
                 double ratio = 966.0 / newValue.doubleValue();
                 dividers.getFirst().setPosition(lastPositionFirstDivider * ratio);
@@ -30,7 +30,7 @@ public class SplitPaneManager {
                 });
             });
 
-            mainSplitPane.getDividers().getFirst().positionProperty().addListener((observable, oldValue, newValue) -> {
+            mainSplitPane.getDividers().getFirst().positionProperty().addListener((_, _, newValue) -> {
                 if (!windowResizing) {
                     lastPositionFirstDivider = newValue.doubleValue();
                 }

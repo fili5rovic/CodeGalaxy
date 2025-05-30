@@ -31,10 +31,17 @@ public class CodeRunnerService {
             } catch (Exception e) {
                 System.err.println("Couldn't destroy process: " + e.getMessage());
             }
+            if(controller.getConsoleTabPane().getTabs().size() == 1) {
+                controller.getShowRunBtn().setVisible(false);
+            }
         });
 
         controller.getConsoleTabPane().getTabs().add(tab);
         controller.getConsoleTabPane().getSelectionModel().select(tab);
+        controller.getShowRunBtn().setVisible(true);
+
+        controller.getConsoleTabPane().setVisible(true);
+        controller.getErrorTabPane().setVisible(false);
 
     }
 
