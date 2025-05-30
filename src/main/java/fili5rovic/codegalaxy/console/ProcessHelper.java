@@ -21,5 +21,8 @@ public class ProcessHelper {
     private static void onProcessExit(ConsoleArea console, int code) {
         console.setEditable(false);
         console.appendText("\nProcess finished with code: " + code + "\n");
+
+        console.moveTo(console.getLength());
+        console.requestFollowCaret();
     }
 }
