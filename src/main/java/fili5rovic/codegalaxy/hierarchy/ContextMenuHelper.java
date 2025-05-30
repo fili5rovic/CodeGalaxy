@@ -69,7 +69,7 @@ public class ContextMenuHelper {
 
     private MenuItem createMenuItem(String name, ProjectItem item, String extension) {
         MenuItem menuItem = new MenuItem(name);
-        menuItem.setOnAction(e -> onNewFile(item, extension));
+        menuItem.setOnAction(_ -> onNewFile(item, extension));
         return menuItem;
     }
 
@@ -82,7 +82,7 @@ public class ContextMenuHelper {
         fileNameTextField.clear();
         fileNameTextField.requestFocus();
 
-        fileNameTextField.setOnAction(e -> {
+        fileNameTextField.setOnAction(_ -> {
             try {
                 textFieldAction(item, extension);
             } catch (IOException ioException) {
@@ -115,7 +115,7 @@ public class ContextMenuHelper {
     private MenuItem createDeleteMenu(ArrayList<ProjectItem> items) {
         MenuItem deleteItem = new MenuItem("Delete");
         deleteItem.setGraphic(SVGUtil.getEmoji("trash", 16, 16));
-        deleteItem.setOnAction(e -> {
+        deleteItem.setOnAction(_ -> {
             items.forEach(item -> {
                 try {
                     FileHelper.deleteRecursively(item.getPath());
@@ -132,7 +132,7 @@ public class ContextMenuHelper {
     private MenuItem createOpen(ArrayList<ProjectItem> items) {
         MenuItem openItem = new MenuItem("Open Folder");
         openItem.setGraphic(SVGUtil.getEmoji("look", 16, 16));
-        openItem.setOnAction(e -> {
+        openItem.setOnAction(_ -> {
             items.forEach(item -> {
                 try {
                     Path path = item.getPath();
@@ -149,7 +149,7 @@ public class ContextMenuHelper {
     private MenuItem createCopyPath(ArrayList<ProjectItem> items) {
         MenuItem copyPathItem = new MenuItem("Copy Path");
         copyPathItem.setGraphic(SVGUtil.getEmoji("copy", 16, 16));
-        copyPathItem.setOnAction(e -> {
+        copyPathItem.setOnAction(_ -> {
             items.forEach(item -> {
                 Clipboard clipboard = Clipboard.getSystemClipboard();
                 ClipboardContent content = new ClipboardContent();
@@ -163,7 +163,7 @@ public class ContextMenuHelper {
     private MenuItem refreshItem() {
         MenuItem refreshItem = new MenuItem("Refresh");
         refreshItem.setGraphic(SVGUtil.getEmoji("refresh", 16, 16));
-        refreshItem.setOnAction(e -> ProjectManager.reloadHierarchy());
+        refreshItem.setOnAction(_ -> ProjectManager.reloadHierarchy());
         return refreshItem;
     }
 

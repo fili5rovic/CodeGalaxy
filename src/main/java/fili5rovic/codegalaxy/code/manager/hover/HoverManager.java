@@ -47,9 +47,7 @@ public class HoverManager extends Manager {
                             tooltipText.append(content);
                         }
                         hoverTooltip.setText(tooltipText.toString());
-                        Platform.runLater(() -> {
-                            hoverTooltip.show(codeGalaxy, event.getScreenX() + 10, event.getScreenY() + 10);
-                        });
+                        Platform.runLater(() -> hoverTooltip.show(codeGalaxy, event.getScreenX() + 10, event.getScreenY() + 10));
                     });
                 }, hoverDelay);
             } else {

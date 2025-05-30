@@ -61,7 +61,7 @@ public class CodeRightClickManager extends Manager {
             if (JavaParserUtil.hasMainMethod(codeGalaxy.getFilePath().toFile())) {
                 MenuItem run = new MenuItem("Run");
                 run.setGraphic(SVGUtil.getEmoji("run", 16, 16));
-                run.setOnAction(e -> {
+                run.setOnAction(_ -> {
                     CodeRunnerService.runJava(codeGalaxy.getFilePath());
                     ((DashboardController) Window.getController(Window.WINDOW_DASHBOARD)).getErrorTabPane().setVisible(false);
                 });
@@ -73,21 +73,21 @@ public class CodeRightClickManager extends Manager {
 
         MenuItem copy = new MenuItem("Copy");
         copy.setGraphic(SVGUtil.getUI("copy", 16, 16));
-        copy.setOnAction(e -> {
+        copy.setOnAction(_ -> {
             codeGalaxy.copy();
         });
         contextMenu.getItems().add(copy);
 
         MenuItem paste = new MenuItem("Paste");
         paste.setGraphic(SVGUtil.getUI("paste", 16, 16));
-        paste.setOnAction(e -> {
+        paste.setOnAction(_ -> {
             codeGalaxy.paste();
         });
         contextMenu.getItems().add(paste);
 
         MenuItem cut = new MenuItem("Cut");
         cut.setGraphic(SVGUtil.getUI("cut", 16, 16));
-        cut.setOnAction(e -> {
+        cut.setOnAction(_ -> {
             codeGalaxy.cut();
         });
         contextMenu.getItems().add(cut);
@@ -102,7 +102,7 @@ public class CodeRightClickManager extends Manager {
 
         MenuItem format = new MenuItem("Format Code");
         format.setGraphic(SVGUtil.getUI("format", 16, 16));
-        format.setOnAction(e -> {
+        format.setOnAction(_ -> {
             codeGalaxy.format();
         });
         contextMenu.getItems().add(format);
@@ -111,7 +111,7 @@ public class CodeRightClickManager extends Manager {
     private Menu createGotoMenuItems() {
         Menu gotoMenu = new Menu("Go to");
         MenuItem definition = new MenuItem("Definition");
-        definition.setOnAction(e -> {
+        definition.setOnAction(_ -> {
             codeGalaxy.selectWordAtCaret();
             int line = codeGalaxy.getCurrentParagraph();
             int character = codeGalaxy.getCaretColumn();
@@ -127,7 +127,7 @@ public class CodeRightClickManager extends Manager {
         gotoMenu.getItems().add(definition);
 
         MenuItem references = new MenuItem("References");
-        references.setOnAction(e -> {
+        references.setOnAction(_ -> {
             codeGalaxy.selectWordAtCaret();
             int line = codeGalaxy.getCurrentParagraph();
             int character = codeGalaxy.getCaretColumn();
@@ -192,7 +192,7 @@ public class CodeRightClickManager extends Manager {
 
     private MenuItem createRenameMenuItem() {
         MenuItem rename = new MenuItem("Rename");
-        rename.setOnAction(e -> {
+        rename.setOnAction(_ -> {
             String path = codeGalaxy.getFilePath().toString();
             int startPosition = codeGalaxy.getSelection().getStart();
             int line = codeGalaxy.offsetToPosition(startPosition, TwoDimensional.Bias.Forward).getMajor();     // line number (paragraph index)
