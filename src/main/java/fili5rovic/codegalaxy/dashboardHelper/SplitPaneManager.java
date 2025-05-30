@@ -9,16 +9,35 @@ import javafx.scene.control.SplitPane;
 public class SplitPaneManager {
     private static final DashboardController controller = (DashboardController) Window.getController(Window.WINDOW_DASHBOARD);
 
-    // When you want to add another pane to the right, make it a child of mainSplitPane
+    private static double lastPositionFirstDivider = 0;
+
+    private static boolean windowResizing = false;
+
     public static void setupLockPositions() {
+        SplitPane mainSplitPane = controller.getMainSplitPane();
+
         Platform.runLater(() -> {
-            SplitPane mainSplitPane = controller.getMainSplitPane();
             mainSplitPane.widthProperty().addListener((observable, oldValue, newValue) -> {
                 ObservableList<SplitPane.Divider> dividers = mainSplitPane.getDividers();
-
                 double ratio = 966.0 / newValue.doubleValue();
-                dividers.getFirst().setPosition(0.2 * ratio);
+                dividers.getFirst().setPosition(lastPositionFirstDivider * ratio);
             });
+
+            mainSplitPane.getScene().addPreLayoutPulseListener(() -> {
+                windowResizing = true;
+                Platform.runLater(() -> {
+                    windowResizing = false;
+                });
+            });
+
+            mainSplitPane.getDividers().getFirst().positionProperty().addListener((observable, oldValue, newValue) -> {
+                if (!windowResizing) {
+                    lastPositionFirstDivider = newValue.doubleValue();
+                }
+            });
+
+
         });
+
     }
 }

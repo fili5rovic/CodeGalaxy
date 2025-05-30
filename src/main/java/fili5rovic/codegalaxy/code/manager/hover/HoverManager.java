@@ -35,7 +35,6 @@ public class HoverManager extends Manager {
                 int column = position.getMinor();
                 hoverDebouncer.debounce(() -> {
                     LSP.instance().hover(codeGalaxy.getFilePath().toString(), line, column).thenAccept(hoverInfo -> {
-                        System.out.println(hoverInfo);
                         List<Either<String, MarkedString>> list = hoverInfo.getContents().getLeft();
                         if (list.isEmpty()) {
                             hoverTooltip.hide();
@@ -45,6 +44,10 @@ public class HoverManager extends Manager {
                         for (Either<String, MarkedString> item : list) {
                             String content = item.isLeft() ? item.getLeft() : item.getRight().getValue();
                             tooltipText.append(content);
+                        }
+                        if (tooltipText.isEmpty()) {
+                            hoverTooltip.hide();
+                            return;
                         }
                         hoverTooltip.setText(tooltipText.toString());
                         Platform.runLater(() -> hoverTooltip.show(codeGalaxy, event.getScreenX() + 10, event.getScreenY() + 10));
