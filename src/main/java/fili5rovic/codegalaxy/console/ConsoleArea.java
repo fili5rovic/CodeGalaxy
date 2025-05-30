@@ -18,6 +18,7 @@ public class ConsoleArea extends CodeArea {
         Highlighter.apply(this);
         BehaviourListener.apply(this);
 
+
         this.redirector = new Redirector(this, process);
         this.redirector.redirectStreams();
 
@@ -35,6 +36,9 @@ public class ConsoleArea extends CodeArea {
             default -> "console_error";
         };
         setStyleClass(start, getLength(), styleClass);
+
+        moveTo(getLength());
+        requestFollowCaret();
     }
 
     public void setTextType(int textType) {

@@ -46,6 +46,7 @@ public class SplitPaneManager {
             }
         });
 
+
     }
 
     public static void showHierarchy() {
