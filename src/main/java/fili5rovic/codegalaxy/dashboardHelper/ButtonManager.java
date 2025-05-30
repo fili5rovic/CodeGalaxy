@@ -61,7 +61,7 @@ public class ButtonManager {
                     .sorted(Comparator.comparingDouble(d -> ((Region) d).getLayoutX())) // sort left to right
                     .toList();
             if (!dividers.isEmpty()) {
-                Node firstDivider = dividers.get(0);
+                Node firstDivider = dividers.getFirst();
                 firstDivider.setMouseTransparent(!enable);
             }
         });
