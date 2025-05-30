@@ -53,7 +53,7 @@
         </BorderPane>
     </top>
     <center>
-        <SplitPane dividerPositions="0.7920656634746922" orientation="VERTICAL" BorderPane.alignment="CENTER">
+        <SplitPane fx:id="consoleSplitPane" dividerPositions="0.7662141779788839" orientation="VERTICAL" BorderPane.alignment="CENTER">
             <items>
                 <BorderPane>
                     <center>

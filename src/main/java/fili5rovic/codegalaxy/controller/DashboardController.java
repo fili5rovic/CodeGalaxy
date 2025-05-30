@@ -94,6 +94,9 @@ public class DashboardController extends ControllerBase {
     @FXML
     private Pane infoPaneNoTabs;
 
+    @FXML
+    private SplitPane consoleSplitPane;
+
     private DisplayErrorsHandler displayErrorsHandler;
 
     @Override
@@ -256,6 +259,10 @@ public class DashboardController extends ControllerBase {
 
     public SplitPane getMainSplitPane() {
         return mainSplitPane;
+    }
+
+    public SplitPane getConsoleSplitPane() {
+        return consoleSplitPane;
     }
 
     public VBox getErrorVBox() {
