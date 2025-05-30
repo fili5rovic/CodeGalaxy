@@ -7,6 +7,7 @@ import fili5rovic.codegalaxy.code.manager.Manager;
 import fili5rovic.codegalaxy.code.manager.editing.LineEditing;
 import fili5rovic.codegalaxy.code.manager.format.FormatManager;
 import fili5rovic.codegalaxy.code.manager.highlighting.Highlighter;
+import fili5rovic.codegalaxy.code.manager.hover.HoverManager;
 import fili5rovic.codegalaxy.code.manager.lsp.LSPManager;
 import fili5rovic.codegalaxy.code.manager.suggestions.SuggestionManager;
 import javafx.collections.ObservableList;
@@ -66,6 +67,7 @@ public class CodeGalaxy extends CodeArea {
         managers.add(highlighter);
         managers.add(new LSPManager(this));
         managers.add(new CodeRightClickManager(this));
+        managers.add(new HoverManager(this));
     }
 
     private void initManagers() {
