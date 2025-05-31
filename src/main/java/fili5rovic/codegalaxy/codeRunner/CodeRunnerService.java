@@ -56,17 +56,17 @@ public class CodeRunnerService {
                 System.err.println("Couldn't destroy process: " + e.getMessage());
             }
             if(controller.getConsoleTabPane().getTabs().size() == 1) {
-                controller.getShowRunBtn().setVisible(false);
-                controller.getErrorTabPane().setVisible(true);
+                controller.getConsoleToggleGroup().selectToggle(null);
+                controller.getShowRunToggle().setVisible(false);
             }
         });
 
+        controller.getConsoleTabPane().setVisible(true);
         controller.getConsoleTabPane().getTabs().add(tab);
         controller.getConsoleTabPane().getSelectionModel().select(tab);
-        controller.getShowRunBtn().setVisible(true);
 
-        controller.getConsoleTabPane().setVisible(true);
-        controller.getErrorTabPane().setVisible(false);
+        controller.getShowRunToggle().setVisible(true);
+        controller.getShowRunToggle().setSelected(true);
     }
 
 

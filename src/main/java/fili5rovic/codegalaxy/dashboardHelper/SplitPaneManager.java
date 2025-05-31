@@ -52,15 +52,16 @@ public class SplitPaneManager {
         SplitPane mainSplitPane = controller.getMainSplitPane();
         SplitPane.Divider divider = mainSplitPane.getDividers().getFirst();
         Node left = mainSplitPane.getItems().getFirst();
-        if (divider.getPosition() < 0.01) {
-            divider.setPosition(prevHierarchyDividerValue);
-            left.setVisible(true);
-            enableFirstDivider(mainSplitPane, true);
-        } else {
+        boolean selected = controller.getShowHierarchyToggle().isSelected();
+        if (selected) {
             prevHierarchyDividerValue = divider.getPosition();
             divider.setPosition(0);
             left.setVisible(false);
             enableFirstDivider(mainSplitPane, false);
+        } else {
+            divider.setPosition(prevHierarchyDividerValue);
+            left.setVisible(true);
+            enableFirstDivider(mainSplitPane, true);
         }
     }
 

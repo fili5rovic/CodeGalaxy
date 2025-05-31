@@ -9,8 +9,8 @@ public class TooltipManager {
     private static final DashboardController controller = (DashboardController) Window.getController(Window.WINDOW_DASHBOARD);
 
     public static void init() {
-        controller.getShowErrorsBtn().setTooltip(makeFastTooltip("Problems"));
-        controller.getShowRunBtn().setTooltip(makeFastTooltip("Run"));
+        controller.getShowProblemsToggle().setTooltip(makeFastTooltip("Problems"));
+        controller.getShowRunToggle().setTooltip(makeFastTooltip("Run"));
     }
 
     private static Tooltip makeFastTooltip(String text) {
