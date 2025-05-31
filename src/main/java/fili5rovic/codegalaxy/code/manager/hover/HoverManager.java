@@ -22,6 +22,7 @@ public class HoverManager extends Manager {
 
     public HoverManager(CodeGalaxy cg) {
         super(cg);
+        hoverTooltip.setAutoHide(true);
     }
 
     @Override
