@@ -1,5 +1,6 @@
 package fili5rovic.codegalaxy.dashboardHelper;
 
+import fili5rovic.codegalaxy.Main;
 import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.lsp.LSP;
@@ -13,6 +14,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputDialog;
 
 import java.io.File;
+import java.util.Objects;
 
 public class MenuManager {
 
@@ -71,9 +73,12 @@ public class MenuManager {
 
     private static void newProject(ActionEvent a) {
         TextInputDialog dialog = new TextInputDialog();
+        dialog.setGraphic(null);
+        dialog.setHeaderText("");
         dialog.setTitle("New Project");
-        dialog.setHeaderText("Enter project name:");
         dialog.setContentText("Project name:");
+
+        dialog.getDialogPane().getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/main-dark.css")).toExternalForm());
 
         dialog.showAndWait().ifPresent(ProjectManager::createProject);
     }

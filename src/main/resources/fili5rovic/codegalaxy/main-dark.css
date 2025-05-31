@@ -1,4 +1,17 @@
 /*<editor-fold desc="Dialog pane">*/
+
+.dialog-pane {
+    -fx-background-color: #2e2e2e;
+    -fx-border-color: #444;
+    -fx-border-width: 1px;
+    -fx-padding: 10;
+}
+
+.dialog-pane .header-panel {
+    -fx-background-color: #444;
+    -fx-text-fill: #ddd;
+}
+
 .alert {
     -fx-background-color: #333;
     -fx-text-fill: #ddd;
@@ -585,6 +598,47 @@
     -fx-border-color: #444444;
     -fx-border-width: 0 0 1 0;
 }
+
+.locations-popup {
+    -fx-padding: 10;
+    -fx-background-color: #2b2b2b;
+    -fx-spacing: 8;
+    -fx-border-color: #444;
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+}
+
+.locations-popup-title {
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 6;
+}
+
+.location-item {
+    -fx-cursor: hand;
+    -fx-padding: 6 10;
+    -fx-background-color: transparent;
+    -fx-background-radius: 3;
+}
+
+.location-item:hover {
+    -fx-background-color: #3c3f41;
+}
+
+.location-filename {
+    -fx-font-size: 14px;
+    -fx-text-fill: #dddddd;
+}
+
+.location-line {
+    -fx-font-size: 14px;
+    -fx-text-fill: #aaaaaa;
+    -fx-font-family: monospace;
+}
+
+
 
 
 

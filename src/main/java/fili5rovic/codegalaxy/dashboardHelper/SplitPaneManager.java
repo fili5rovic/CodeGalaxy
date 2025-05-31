@@ -5,7 +5,6 @@ import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.Region;

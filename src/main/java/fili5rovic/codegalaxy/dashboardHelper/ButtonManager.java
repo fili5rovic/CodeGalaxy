@@ -1,17 +1,8 @@
 package fili5rovic.codegalaxy.dashboardHelper;
 
 import fili5rovic.codegalaxy.controller.DashboardController;
-import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.util.SVGUtil;
 import fili5rovic.codegalaxy.window.Window;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.scene.Node;
-import javafx.scene.control.SplitPane;
-import javafx.scene.layout.Region;
-
-import java.util.Comparator;
-import java.util.List;
 
 public class ButtonManager {
 
