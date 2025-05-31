@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -10,10 +9,11 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -53,7 +53,7 @@
         </BorderPane>
     </top>
     <center>
-        <SplitPane fx:id="consoleSplitPane" dividerPositions="0.7662141779788839" orientation="VERTICAL" BorderPane.alignment="CENTER">
+        <SplitPane fx:id="consoleSplitPane" dividerPositions="1.0" orientation="VERTICAL" BorderPane.alignment="CENTER">
             <items>
                 <BorderPane>
                     <center>
@@ -98,7 +98,7 @@
                         <StackPane prefHeight="135.0" prefWidth="974.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
                                 <TabPane fx:id="consoleTabPane" />
-                        <TabPane fx:id="errorTabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+                        <TabPane fx:id="errorTabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" visible="false">
                            <tabs>
                               <Tab text="File">
                                  <content>
@@ -120,12 +120,19 @@
     <left>
         <AnchorPane prefHeight="665.0" prefWidth="8.0" styleClass="anchor-pane" BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="showHierarchyBtn" mnemonicParsing="false" prefHeight="26.0" prefWidth="24.0" />
+            <VBox AnchorPane.bottomAnchor="640.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <ToggleButton fx:id="showHierarchyToggle" maxHeight="25.0" minHeight="22.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="23.0" />
+               </children>
+            </VBox>
             <VBox alignment="CENTER" layoutY="554.0">
                <children>
-                  <Button fx:id="showRunBtn" mnemonicParsing="false" prefHeight="26.0" prefWidth="24.0" visible="false" />
-                  <Region prefHeight="11.0" prefWidth="24.0" />
-                  <Button fx:id="showErrorsBtn" mnemonicParsing="false" prefHeight="26.0" prefWidth="24.0" />
+                  <ToggleButton fx:id="showProblemsToggle" mnemonicParsing="false" prefHeight="25.0" prefWidth="21.0">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="console" />
+                     </toggleGroup>
+                  </ToggleButton>
+                  <ToggleButton fx:id="showRunToggle" layoutX="12.0" layoutY="73.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="21.0" toggleGroup="$console" visible="false" />
                </children>
             </VBox>
             </children>

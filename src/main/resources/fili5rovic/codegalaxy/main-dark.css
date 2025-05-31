@@ -280,6 +280,49 @@
     -fx-background-color: #2b2b2b;
 }
 
+/*<editor-fold desc="Toggle button">*/
+.toggle-button {
+    -fx-background-radius: 10;
+    -fx-border-width: 0;
+    -fx-border-color: #222222;
+    -fx-background-color: #404040;
+    -fx-text-fill: #AFB1B3;
+    -fx-min-height: 25;
+}
+
+.toggle-button:focused {
+    -fx-border-color: #4e4e4e;
+    -fx-background-color: #595959;
+}
+
+.toggle-button:hover {
+    -fx-border-color: #222222;
+    -fx-background-color: #5b2a98;
+    -fx-cursor: hand;
+}
+
+.toggle-button:pressed {
+    -fx-border-color: #5b2a98;
+    -fx-background-color: #4e4e4e;
+    -fx-cursor: hand;
+}
+
+/* Selected (checked) state */
+.toggle-button:selected {
+    -fx-background-color: #5b2a98;
+    -fx-border-color: #5b2a98;
+    -fx-text-fill: white;
+}
+
+/* Selected + Hover for clarity */
+.toggle-button:selected:hover {
+    -fx-background-color: #6a3fb3;
+    -fx-border-color: #6a3fb3;
+}
+/*</editor-fold>*/
+
+
+
 
 /*<editor-fold desc="Button">*/
 .button{

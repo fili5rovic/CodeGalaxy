@@ -71,15 +71,6 @@ public class DashboardController extends ControllerBase {
     private MenuItem settings;
 
     @FXML
-    private Button showHierarchyBtn;
-
-    @FXML
-    private Button showRunBtn;
-
-    @FXML
-    private Button showErrorsBtn;
-
-    @FXML
     private TabPane consoleTabPane;
 
     @FXML
@@ -96,6 +87,15 @@ public class DashboardController extends ControllerBase {
 
     @FXML
     private SplitPane consoleSplitPane;
+
+    @FXML
+    private ToggleButton showHierarchyToggle;
+
+    @FXML
+    private ToggleButton showProblemsToggle;
+
+    @FXML
+    private ToggleButton showRunToggle;
 
     private DisplayErrorsHandler displayErrorsHandler;
 
@@ -114,7 +114,7 @@ public class DashboardController extends ControllerBase {
         }).thenRunAsync(ProjectManager::tryToOpenLastProject, Platform::runLater);
 
         MenuManager.initialize();
-        ButtonManager.initialize();
+        ToggleManager.initialize();
         SplitPaneManager.setupLockPositions();
         TooltipManager.init();
 
@@ -245,10 +245,6 @@ public class DashboardController extends ControllerBase {
         return tabPane;
     }
 
-    public Button getShowHierarchyBtn() {
-        return showHierarchyBtn;
-    }
-
     public TabPane getConsoleTabPane() {
         return consoleTabPane;
     }
@@ -269,12 +265,20 @@ public class DashboardController extends ControllerBase {
         return errorVBox;
     }
 
-    public Button getShowRunBtn() {
-        return showRunBtn;
+    public ToggleButton getShowProblemsToggle() {
+        return showProblemsToggle;
     }
 
-    public Button getShowErrorsBtn() {
-        return showErrorsBtn;
+    public ToggleButton getShowRunToggle() {
+        return showRunToggle;
+    }
+
+    public ToggleButton getShowHierarchyToggle() {
+        return showHierarchyToggle;
+    }
+
+    public ToggleGroup getConsoleToggleGroup() {
+        return showRunToggle.getToggleGroup();
     }
 
     public DisplayErrorsHandler getDisplayErrorsHandler() {
