@@ -5,7 +5,10 @@ import fili5rovic.codegalaxy.code.manager.Manager;
 import fili5rovic.codegalaxy.lsp.LSP;
 import fili5rovic.codegalaxy.util.Debouncer;
 import javafx.application.Platform;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tooltip;
+import javafx.util.Duration;
 import org.eclipse.lsp4j.MarkedString;
 import org.eclipse.lsp4j.jsonrpc.messages.Either;
 import org.fxmisc.richtext.model.TwoDimensional;
@@ -16,6 +19,8 @@ public class HoverManager extends Manager {
 
     private final Tooltip hoverTooltip = new Tooltip();
 
+    private final Label content = new Label();
+
     private final Debouncer hoverDebouncer = new Debouncer();
 
     private final int hoverDelay = 1000;
@@ -23,12 +28,20 @@ public class HoverManager extends Manager {
     public HoverManager(CodeGalaxy cg) {
         super(cg);
         hoverTooltip.setAutoHide(true);
+
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setMaxSize(600, 400);
+        scrollPane.setContent(content);
+        hoverTooltip.setGraphic(scrollPane);
+        hoverTooltip.setHideDelay(Duration.millis(300));
+
+        hoverTooltip.setOnHidden(e -> content.setText(""));
+        content.setOnMouseExited(e -> hoverTooltip.hide());
     }
 
     @Override
     public void init() {
         codeGalaxy.setOnMouseMoved(event -> {
-            hoverTooltip.hide();
             int characterIndex = offsetAt(codeGalaxy, event.getX(), event.getY());
             if (characterIndex != -1 && characterIndex < codeGalaxy.getLength()) {
                 TwoDimensional.Position position = codeGalaxy.offsetToPosition(characterIndex, TwoDimensional.Bias.Forward);
@@ -38,7 +51,7 @@ public class HoverManager extends Manager {
                     LSP.instance().hover(codeGalaxy.getFilePath().toString(), line, column).thenAccept(hoverInfo -> {
                         List<Either<String, MarkedString>> list = hoverInfo.getContents().getLeft();
                         if (list.isEmpty()) {
-                            hoverTooltip.hide();
+                            Platform.runLater(hoverTooltip::hide);
                             return;
                         }
                         StringBuilder tooltipText = new StringBuilder();
@@ -47,11 +60,13 @@ public class HoverManager extends Manager {
                             tooltipText.append(content);
                         }
                         if (tooltipText.isEmpty()) {
-                            hoverTooltip.hide();
+                            Platform.runLater(hoverTooltip::hide);
                             return;
                         }
-                        hoverTooltip.setText(tooltipText.toString());
-                        Platform.runLater(() -> hoverTooltip.show(codeGalaxy, event.getScreenX() + 10, event.getScreenY() + 10));
+                        Platform.runLater(() -> {
+                            content.setText(tooltipText.toString());
+                            hoverTooltip.show(codeGalaxy, event.getScreenX() + 10, event.getScreenY() + 10);
+                        });
                     });
                 }, hoverDelay);
             } else {

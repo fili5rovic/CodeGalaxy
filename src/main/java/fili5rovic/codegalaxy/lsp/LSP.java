@@ -62,7 +62,17 @@ public class LSP {
         workspaceFolder.setUri(uri);
         workspaceFolder.setName(workspacePath.getFileName().toString());
         init.setWorkspaceFolders(Collections.singletonList(workspaceFolder));
+        init.setCapabilities(createClientCapabilities());
 
+        server.initialize(init).get();
+        server.initialized(new InitializedParams());
+
+        afterServerStart();
+
+        Runtime.getRuntime().addShutdownHook(new Thread(this::stop));
+    }
+
+    private ClientCapabilities createClientCapabilities() {
         ClientCapabilities capabilities = new ClientCapabilities();
 
         TextDocumentClientCapabilities textDocumentCapabilities = new TextDocumentClientCapabilities();
@@ -89,14 +99,7 @@ public class LSP {
 
         capabilities.setWorkspace(workspaceCapabilities);
 
-        init.setCapabilities(capabilities);
-
-        server.initialize(init).get();
-        server.initialized(new InitializedParams());
-
-        afterServerStart();
-
-        Runtime.getRuntime().addShutdownHook(new Thread(this::stop));
+        return capabilities;
     }
 
     private void afterServerStart() {
@@ -122,7 +125,7 @@ public class LSP {
             server = null;
             System.out.println("Server stopped.");
         } catch (Exception e) {
-            System.out.println("Error stopping server: " + e.getMessage());
+            System.err.println("Error stopping server: " + e.getMessage());
         }
     }
 
