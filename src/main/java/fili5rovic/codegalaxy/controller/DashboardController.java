@@ -23,19 +23,10 @@ import java.util.concurrent.CompletableFuture;
 
 public class DashboardController extends ControllerBase {
     @FXML
-    private Pane filePane;
-
-    @FXML
     private TabPane tabPane;
 
     @FXML
     private BorderPane treeViewPane;
-
-    @FXML
-    private TextField fileNameTextField;
-
-    @FXML
-    private Label fileNameLabel;
 
     @FXML
     private MenuItem open;
@@ -186,18 +177,6 @@ public class DashboardController extends ControllerBase {
 
     public BorderPane getTreeViewPane() {
         return treeViewPane;
-    }
-
-    public TextField getFileNameTextField() {
-        return fileNameTextField;
-    }
-
-    public Label getFileNameLabel() {
-        return fileNameLabel;
-    }
-
-    public Pane getFilePane() {
-        return filePane;
     }
 
     public MenuItem getOpen() {

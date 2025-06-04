@@ -8,7 +8,6 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -63,21 +62,6 @@
                                 <StackPane>
                                     <children>
                                         <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" />
-                                        <Pane fx:id="filePane" prefHeight="505.0" prefWidth="851.0" visible="false">
-                                            <children>
-                                                <Pane layoutX="231.0" layoutY="227.0" prefHeight="93.0" prefWidth="200.0">
-                                                    <children>
-                                                        <Label fx:id="fileNameLabel" layoutX="79.0" layoutY="1.0" text="Label">
-                                                            <font>
-                                                                <Font size="18.0" />
-                                                            </font>
-                                                        </Label>
-                                                        <TextField fx:id="fileNameTextField" layoutX="26.0" layoutY="28.0" />
-                                                        <VBox layoutX="23.0" layoutY="53.0" prefHeight="36.0" prefWidth="149.0" />
-                                                    </children>
-                                                </Pane>
-                                            </children>
-                                        </Pane>
                               <Pane fx:id="infoPaneNoTabs" prefHeight="200.0" prefWidth="200.0">
                                  <children>
                                     <Label layoutX="161.0" layoutY="241.0" styleClass="info-label" text="// waiting for you to open a file..." textFill="#7272721f">
