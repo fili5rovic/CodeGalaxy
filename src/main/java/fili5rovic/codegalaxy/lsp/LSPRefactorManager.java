@@ -35,11 +35,9 @@ class LSPRefactorManager {
         Position pos = new Position(line, character);
         RenameParams params = new RenameParams(docId, pos, newName);
 
-        CompletableFuture<WorkspaceEdit> future =
-                server.getTextDocumentService().rename(params);
+        CompletableFuture<WorkspaceEdit> future = server.getTextDocumentService().rename(params);
 
-        CompletableFuture<Either<WorkspaceEdit, List<Command>>> wrappedFuture =
-                future.thenApply(edit -> Either.forLeft(edit));
+        CompletableFuture<Either<WorkspaceEdit, List<Command>>> wrappedFuture = future.thenApply(edit -> Either.forLeft(edit));
 
         Either<WorkspaceEdit, List<Command>> result = wrappedFuture.get();
 
@@ -82,13 +80,14 @@ class LSPRefactorManager {
             handleResourceOperation(op, controller);
         }
 
+        CodeGalaxy openCodeGalaxy = controller.getOpenCodeGalaxy();
+        LSP.instance().sendChange(openCodeGalaxy.getFilePath().toString(), openCodeGalaxy.getText());
+
     }
 
-    private static void handleTextDocumentEdits(TextDocumentEdit textDocEdit, DashboardController controller) {
+    private void handleTextDocumentEdits(TextDocumentEdit textDocEdit, DashboardController controller) {
         VersionedTextDocumentIdentifier docId = textDocEdit.getTextDocument();
         String uri = docId.getUri();
-
-        System.out.println("Document edit: " + uri);
 
         CodeGalaxy codeGalaxy = null;
         for (Tab t : controller.getTabPane().getTabs()) {
@@ -102,8 +101,7 @@ class LSPRefactorManager {
             }
         }
         if (codeGalaxy == null) {
-            System.out.println("Tab not open: " + uri);
-            // change the file directly here
+            handleFileTextEdit(textDocEdit);
             return;
         }
 
@@ -118,6 +116,7 @@ class LSPRefactorManager {
 
             codeGalaxy.replaceText(startOffset, endOffset, textEdit.getNewText());
         }
+
         codeGalaxy.save();
     }
 
@@ -164,6 +163,34 @@ class LSPRefactorManager {
             }
             System.out.println("File renamed successfully");
         }
+    }
+
+    private void handleFileTextEdit(TextDocumentEdit textDocEdit) {
+        String uri = textDocEdit.getTextDocument().getUri();
+        Path filePath = Paths.get(URI.create(uri));
+
+        try {
+            for (TextEdit textEdit : textDocEdit.getEdits()) {
+                int startLine = textEdit.getRange().getStart().getLine();
+                int startChar = textEdit.getRange().getStart().getCharacter();
+                int endLine = textEdit.getRange().getEnd().getLine();
+                int endChar = textEdit.getRange().getEnd().getCharacter();
+
+                String newText = textEdit.getNewText();
+
+                List<String> lines = Files.readAllLines(filePath);
+                if (startLine < lines.size()) {
+                    String line = lines.get(startLine);
+                    String updatedLine = line.substring(0, startChar) + newText + line.substring(endChar);
+                    lines.set(startLine, updatedLine);
+                    Files.write(filePath, lines);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error handling file text edit: " + e.getMessage());
+            e.printStackTrace();
+        }
+
     }
 
     private static void deleteBinFile(String oldPath) throws IOException {

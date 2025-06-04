@@ -63,7 +63,7 @@ public class MenuManager {
         }
     }
 
-    private static void saveAllFiles(ActionEvent e) {
+    public static void saveAllFiles(ActionEvent e) {
         for (Tab tab : tabPane.getTabs()) {
             CodeGalaxy codeGalaxy = ((CodeGalaxy) tab.getContent());
             LSP.instance().sendSave(codeGalaxy.getFilePath().toString());

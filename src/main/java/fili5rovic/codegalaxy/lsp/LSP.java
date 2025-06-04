@@ -1,5 +1,6 @@
 package fili5rovic.codegalaxy.lsp;
 
+import fili5rovic.codegalaxy.dashboardHelper.MenuManager;
 import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.util.Debouncer;
 import org.eclipse.lsp4j.*;
@@ -183,6 +184,7 @@ public class LSP {
     }
 
     public void rename(String filePath, int line, int character, String newName) throws Exception {
+        MenuManager.saveAllFiles(null);
         refactorManager.rename(filePath, line, character, newName);
     }
 
