@@ -7,8 +7,11 @@ A **custom Java IDE** built with JavaFX, designed to provide a lightweight yet p
 - **Code Completion**: Smart suggestions powered by the **Eclipse JDT Language Server**.
 - **Syntax Highlighting**: Java syntax-aware code coloring.
 - **Real-Time Diagnostics**: Error and warning detection via LSP.
+- **Go to Definition**: Jump to the declaration of classes, methods, or variables.
+- **Find References**: Locate all usages of symbols in your codebase.
+- **Code Suggestions**: Intelligent hints and quick-fixes.
 - **Lightweight**: Minimal resource usage compared to traditional IDEs.
-- **Customizable UI**: Flexible theming and layout (**work in progress**).
+- **Customizable UI**: Flexible theming and layout
 
 ## Technologies Used 🛠️
 
@@ -45,18 +48,17 @@ A **custom Java IDE** built with JavaFX, designed to provide a lightweight yet p
 ## Usage 📖
 
 - Start the IDE and create/open a **Java project**.
-- Write code with **real-time diagnostics** and **code completion** (trigger with `Ctrl + Space`).
-- Customize the UI theme via **Settings > Appearance** (upcoming feature).
+- Write code with **real-time diagnostics**, **code completion**, **go to definition**, and **find references**.
+- Trigger suggestions with `Ctrl + Space`.
+- Customize the UI theme via **Settings > Appearance**.
 
 ## Roadmap 🗺️
 
 Planned features:
 
-- ✅ LSP Integration (basic)
 - ⏳ Debugging support
 - ⏳ Git integration
 - ⏳ Plugin system
-- ⏳ Dark/Light theme toggle
 
 ---
 
