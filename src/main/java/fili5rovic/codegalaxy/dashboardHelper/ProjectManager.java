@@ -4,12 +4,15 @@ import fili5rovic.codegalaxy.Main;
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.hierarchy.ProjectHierarchy;
 import fili5rovic.codegalaxy.hierarchy.ProjectItem;
+import fili5rovic.codegalaxy.lsp.diagnostics.DiagnosticsListener;
+import fili5rovic.codegalaxy.lsp.diagnostics.DiagnosticsPublisher;
 import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.util.FileHelper;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
+import org.eclipse.lsp4j.PublishDiagnosticsParams;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,13 +38,6 @@ public class ProjectManager {
 
     public static void reloadHierarchy() {
         projectHierarchy.reloadHierarchy();
-//        String lastProjectPath = IDESettings.getInstance().get("lastProjectPath");
-//        if (lastProjectPath != null) {
-//            Path path = Paths.get(lastProjectPath);
-//            projectHierarchy.loadHierarchy();
-//        } else {
-//            System.err.println("No last project path found in settings.");
-//        }
     }
 
     public static void reloadHierarchy(ProjectItem item) {
@@ -127,7 +123,7 @@ public class ProjectManager {
         File lastProjectFile = new File(lastProjectPath);
         Path lastProjectPathFile = lastProjectFile.toPath();
         if (lastProjectFile.exists() && lastProjectFile.isDirectory()) {
-            ProjectManager.openProject(lastProjectPathFile);
+            openProject(lastProjectPathFile);
         } else {
             System.out.println("Last project path is not valid.");
         }

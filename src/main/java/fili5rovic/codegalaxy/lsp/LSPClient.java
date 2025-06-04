@@ -22,12 +22,12 @@ class LSPClient implements LanguageClient {
         if (diagnostics.getDiagnostics().isEmpty())
             return;
 
-        System.out.println("Diagnostics : " + diagnostics.getUri().split("///")[1] + ":");
-        diagnostics.getDiagnostics().forEach(d -> {
-            System.out.println("\t[" + d.getSeverity() + "] : " + d.getMessage());
-            if (d.getSeverity() == DiagnosticSeverity.Error)
-                System.out.println("\t\tRange: " + d.getRange().getStart().getLine() + ":" + d.getRange().getStart().getCharacter() + " - " + d.getRange().getEnd().getLine() + ":" + d.getRange().getEnd().getCharacter());
-        });
+//        System.out.println("Diagnostics : " + diagnostics.getUri().split("///")[1] + ":");
+//        diagnostics.getDiagnostics().forEach(d -> {
+//            System.out.println("\t[" + d.getSeverity() + "] : " + d.getMessage());
+//            if (d.getSeverity() == DiagnosticSeverity.Error)
+//                System.out.println("\t\tRange: " + d.getRange().getStart().getLine() + ":" + d.getRange().getStart().getCharacter() + " - " + d.getRange().getEnd().getLine() + ":" + d.getRange().getEnd().getCharacter());
+//        });
 
     }
 

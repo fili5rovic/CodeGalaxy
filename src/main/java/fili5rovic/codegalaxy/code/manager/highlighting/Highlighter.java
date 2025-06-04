@@ -8,7 +8,6 @@ import org.fxmisc.richtext.CodeArea;
 import org.fxmisc.richtext.model.StyleSpans;
 import org.fxmisc.richtext.model.StyleSpansBuilder;
 
-
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -36,8 +35,7 @@ public class Highlighter extends Manager {
 
     public void applyHighlighting(CodeArea codeArea) {
         String text = codeArea.getText();
-        if (text.isEmpty())
-            return;
+        if (text.isEmpty()) return;
 
         codeArea.setStyleSpans(0, computeHighlighting(text));
     }
