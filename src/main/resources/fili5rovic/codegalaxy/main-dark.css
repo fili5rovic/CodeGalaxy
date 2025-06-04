@@ -682,6 +682,10 @@
 }
 
 
+.project-item-error {
+    -fx-text-fill: #8f1a1a;
+}
+
 
 
 
