@@ -126,9 +126,8 @@ public class ContextMenuHelper {
 
             controller.createTab(path);
         }
-        item.getChildren().add(new ProjectItem(path));
+        ProjectManager.reloadHierarchy(item);
         filePanePopup.hide();
-        item.refreshIcon();
     }
 
     private MenuItem createDeleteMenu(ArrayList<ProjectItem> items) {

@@ -67,7 +67,6 @@ public class LSPRequestManager {
                 .documentSymbol(params);
     }
 
-
     private void collect(DocumentSymbol ds, List<DocumentSymbol> out) {
         out.add(ds);
         if (ds.getChildren() != null) {

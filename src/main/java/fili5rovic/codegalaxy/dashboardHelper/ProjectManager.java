@@ -3,6 +3,7 @@ package fili5rovic.codegalaxy.dashboardHelper;
 import fili5rovic.codegalaxy.Main;
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.hierarchy.ProjectHierarchy;
+import fili5rovic.codegalaxy.hierarchy.ProjectItem;
 import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.util.FileHelper;
 import fili5rovic.codegalaxy.window.Window;
@@ -24,20 +25,27 @@ public class ProjectManager {
 
     private static final DashboardController controller = (DashboardController) Window.getController(Window.WINDOW_DASHBOARD);
 
+    private static ProjectHierarchy projectHierarchy;
 
     public static void openProject(Path path) {
-        controller.getTreeViewPane().setCenter(new ProjectHierarchy(path.toString()));
+        projectHierarchy = new ProjectHierarchy(path);
+        controller.getTreeViewPane().setCenter(projectHierarchy);
         IDESettings.getInstance().set("lastProjectPath", path.toString());
     }
 
     public static void reloadHierarchy() {
-        String lastProjectPath = IDESettings.getInstance().get("lastProjectPath");
-        if (lastProjectPath != null) {
-            Path path = Paths.get(lastProjectPath);
-            openProject(path);
-        } else {
-            System.err.println("No last project path found in settings.");
-        }
+        projectHierarchy.reloadHierarchy();
+//        String lastProjectPath = IDESettings.getInstance().get("lastProjectPath");
+//        if (lastProjectPath != null) {
+//            Path path = Paths.get(lastProjectPath);
+//            projectHierarchy.loadHierarchy();
+//        } else {
+//            System.err.println("No last project path found in settings.");
+//        }
+    }
+
+    public static void reloadHierarchy(ProjectItem item) {
+        projectHierarchy.reloadHierarchy(item);
     }
 
     public static void setWorkspace(String workspacePath) {

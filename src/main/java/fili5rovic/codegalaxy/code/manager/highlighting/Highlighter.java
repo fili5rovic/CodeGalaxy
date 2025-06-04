@@ -5,7 +5,6 @@ import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.code.manager.Manager;
 import fili5rovic.codegalaxy.util.FileHelper;
 import org.fxmisc.richtext.CodeArea;
-import org.fxmisc.richtext.LineNumberFactory;
 import org.fxmisc.richtext.model.StyleSpans;
 import org.fxmisc.richtext.model.StyleSpansBuilder;
 
@@ -37,6 +36,9 @@ public class Highlighter extends Manager {
 
     public void applyHighlighting(CodeArea codeArea) {
         String text = codeArea.getText();
+        if (text.isEmpty())
+            return;
+
         codeArea.setStyleSpans(0, computeHighlighting(text));
     }
 
