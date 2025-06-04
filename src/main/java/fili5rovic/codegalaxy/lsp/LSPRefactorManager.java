@@ -173,7 +173,6 @@ class LSPRefactorManager {
             for (TextEdit textEdit : textDocEdit.getEdits()) {
                 int startLine = textEdit.getRange().getStart().getLine();
                 int startChar = textEdit.getRange().getStart().getCharacter();
-                int endLine = textEdit.getRange().getEnd().getLine();
                 int endChar = textEdit.getRange().getEnd().getCharacter();
 
                 String newText = textEdit.getNewText();

@@ -151,9 +151,6 @@ public class CodeRightClickManager extends Manager {
         if (list.size() == 1) {
             findInCodeGalaxy(list.getFirst());
         } else {
-            // TODO: Test multiple locations working
-            System.out.println("Multiple locations found: " + list.size());
-
             locationsPopup.setLocations(list);
             locationsPopup.setOnLocationSelected(this::findInCodeGalaxy);
             locationsPopup.setTitle(codeGalaxy.getSelectedText());

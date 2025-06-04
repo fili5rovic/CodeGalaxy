@@ -103,22 +103,26 @@ public class DashboardController extends ControllerBase {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Window.getWindowAt(Window.WINDOW_DASHBOARD).setController(this);
 
-        ProjectManager.checkForValidWorkspace();
+        ProjectManager.checkForValidWorkspace().thenAcceptAsync(success -> {
+            if (!success) {
+                Platform.exit();
+                Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage().close();
+                return;
+            }
 
-        CompletableFuture.runAsync(() -> {
             try {
                 LSP.instance().start();
+                Platform.runLater(ProjectManager::tryToOpenLastProject);
             } catch (Exception e) {
-                System.out.println("Failed to start LSP server: " + e.getMessage());
+                System.err.println("Failed to start LSP server: " + e.getMessage());
+                System.err.println("Fatal error: LSP server is not running. Please check your configuration.");
             }
-        }).thenRunAsync(ProjectManager::tryToOpenLastProject, Platform::runLater);
+        });
 
         MenuManager.initialize();
         ToggleManager.initialize();
         SplitPaneManager.setupLockPositions();
         TooltipManager.init();
-
-//        ProjectManager.checkForValidWorkspace();
 
         tabPane.getTabs().addListener((ListChangeListener<Tab>) _ -> updateInfoPaneVisibility());
 
@@ -128,7 +132,6 @@ public class DashboardController extends ControllerBase {
         this.displayErrorsHandler.init();
 
         fileSearchPopupListener();
-
     }
 
     private static void fileSearchPopupListener() {

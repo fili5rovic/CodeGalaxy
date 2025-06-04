@@ -7,6 +7,8 @@ import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.util.FileHelper;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,6 +17,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 public class ProjectManager {
 
@@ -129,31 +133,38 @@ public class ProjectManager {
         }
     }
 
-    public static void checkForValidWorkspace() {
+    public static CompletableFuture<Boolean> checkForValidWorkspace() {
         String workspacePath = IDESettings.getInstance().get("workspace");
         if (workspacePath != null && !workspacePath.isEmpty() && Files.exists(Paths.get(workspacePath))) {
-            return;
+            return CompletableFuture.completedFuture(true);
         }
 
         File folder = null;
         while(folder == null || !folder.isDirectory()) {
-
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initOwner(Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage());
             alert.getDialogPane().getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/main-dark.css")).toExternalForm());
+            alert.getDialogPane().setGraphic(null);
 
             alert.setTitle("Set valid workspace");
             alert.setHeaderText("Valid workspace not set");
             alert.setContentText("Please select a valid workspace directory to continue.");
-            alert.showAndWait();
 
+            ButtonType chooseButton = new ButtonType("Choose", ButtonBar.ButtonData.OK_DONE);
+            ButtonType closeButton = new ButtonType("Close", ButtonBar.ButtonData.CANCEL_CLOSE);
+            alert.getButtonTypes().setAll(chooseButton, closeButton);
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isEmpty() || result.get() == closeButton) {
+                return CompletableFuture.completedFuture(false);
+            }
 
             folder = FileHelper.openFolderChooser(Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage());
         }
 
         setWorkspace(folder.getAbsolutePath());
         System.out.println("Workspace set to: " + folder.getAbsolutePath());
-
+        return CompletableFuture.completedFuture(true);
     }
 
 }
