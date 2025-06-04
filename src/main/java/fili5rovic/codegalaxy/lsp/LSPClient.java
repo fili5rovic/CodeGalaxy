@@ -19,9 +19,9 @@ class LSPClient implements LanguageClient {
     public void publishDiagnostics(PublishDiagnosticsParams diagnostics) {
         DiagnosticsPublisher.instance().publish(diagnostics.getUri(), diagnostics);
 
-        if (diagnostics.getDiagnostics().isEmpty())
-            return;
-
+//        if (diagnostics.getDiagnostics().isEmpty())
+//            return;
+//
 //        System.out.println("Diagnostics : " + diagnostics.getUri().split("///")[1] + ":");
 //        diagnostics.getDiagnostics().forEach(d -> {
 //            System.out.println("\t[" + d.getSeverity() + "] : " + d.getMessage());

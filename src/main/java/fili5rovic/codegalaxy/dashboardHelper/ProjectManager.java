@@ -4,15 +4,12 @@ import fili5rovic.codegalaxy.Main;
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.hierarchy.ProjectHierarchy;
 import fili5rovic.codegalaxy.hierarchy.ProjectItem;
-import fili5rovic.codegalaxy.lsp.diagnostics.DiagnosticsListener;
-import fili5rovic.codegalaxy.lsp.diagnostics.DiagnosticsPublisher;
 import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.util.FileHelper;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
-import org.eclipse.lsp4j.PublishDiagnosticsParams;
 
 import java.io.File;
 import java.io.IOException;
