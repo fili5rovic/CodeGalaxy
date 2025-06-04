@@ -74,7 +74,7 @@ public class DashboardController extends ControllerBase {
     private SplitPane mainSplitPane;
 
     @FXML
-    private Pane infoPaneNoTabs;
+    private BorderPane infoPaneNoTabs;
 
     @FXML
     private SplitPane consoleSplitPane;

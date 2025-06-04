@@ -49,9 +49,12 @@ public class FileHelper {
         Files.delete(path);
     }
 
-    public static File openFolderChooser(Stage stage) {
+    public static File openFolderChooser(Stage stage, File initialDirectory) {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Select Folder");
+        if (initialDirectory != null)
+            directoryChooser.setInitialDirectory(initialDirectory);
+        
         return directoryChooser.showDialog(stage);
     }
 

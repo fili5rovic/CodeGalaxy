@@ -159,7 +159,7 @@ public class ProjectManager {
                 return CompletableFuture.completedFuture(false);
             }
 
-            folder = FileHelper.openFolderChooser(Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage());
+            folder = FileHelper.openFolderChooser(Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage(), null);
         }
 
         setWorkspace(folder.getAbsolutePath());
