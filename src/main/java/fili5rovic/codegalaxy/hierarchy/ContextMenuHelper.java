@@ -90,6 +90,8 @@ public class ContextMenuHelper {
                 filePane.setVisible(false);
             }
         });
+
+
     }
 
 
@@ -106,6 +108,14 @@ public class ContextMenuHelper {
             path = path.resolve(name + '.' + extension);
             Files.createFile(path);
             if (!Files.isRegularFile(path)) throw new FileAlreadyExistsException("File already exists");
+            if( extension.equals("java")) {
+                String content = """
+                        public class %s {
+                           \s
+                        }
+                       \s""".formatted(name);
+                Files.writeString(path, content);
+            }
         }
         item.getChildren().add(new ProjectItem(path));
         filePane.setVisible(false);
