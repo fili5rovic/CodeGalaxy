@@ -64,6 +64,10 @@ public class HoverManager extends Manager {
                             return;
                         }
                         Platform.runLater(() -> {
+                            if(codeGalaxy.getScene() == null || !codeGalaxy.getScene().getWindow().isFocused()) {
+                                hoverTooltip.hide();
+                                return;
+                            }
                             content.setText(tooltipText.toString());
                             hoverTooltip.show(codeGalaxy, event.getScreenX() + 10, event.getScreenY() + 10);
                         });
