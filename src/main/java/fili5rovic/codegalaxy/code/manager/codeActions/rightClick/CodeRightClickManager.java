@@ -52,11 +52,11 @@ public class CodeRightClickManager extends Manager {
 
         renamePopup.hide();
     }
-
+    //TODO maybe context menu shouldn't be updated every time, make it always the same and hide some items
     private void updateContextMenuItems() {
         contextMenu.getItems().clear();
-
-        // TODO Should check for Run after changing file content, right now it only works at the start
+        // TODO should call save, but wait a certain time like 300ms. Check FormatManager
+        // Should check for Run after changing file content, right now it only works at the start
         if (codeGalaxy.getFilePath() != null && codeGalaxy.getFilePath().toString().endsWith(".java")) {
             if (JavaParserUtil.hasMainMethod(codeGalaxy.getFilePath().toFile())) {
                 MenuItem run = new MenuItem("Run");

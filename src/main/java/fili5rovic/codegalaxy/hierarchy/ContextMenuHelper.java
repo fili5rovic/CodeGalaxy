@@ -10,7 +10,8 @@ import fili5rovic.codegalaxy.window.Window;
 import javafx.scene.control.*;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Popup;
 
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
@@ -20,17 +21,23 @@ import java.util.ArrayList;
 
 public class ContextMenuHelper {
 
-    private final Pane filePane;
     private final TextField fileNameTextField;
     private final Label fileNameLabel;
 
-    public ContextMenuHelper() {
-        DashboardController controller = ((DashboardController) Window.getController(Window.WINDOW_DASHBOARD));
-        filePane = controller.getFilePane();
-        fileNameTextField = controller.getFileNameTextField();
-        fileNameLabel = controller.getFileNameLabel();
+    private final Popup filePanePopup = new Popup();
 
-        fileNameTextField.setOnAction(_ -> filePane.setVisible(false));
+    private final DashboardController controller;
+
+
+    public ContextMenuHelper() {
+        controller = ((DashboardController) Window.getController(Window.WINDOW_DASHBOARD));
+        fileNameTextField = new TextField();
+        fileNameLabel = new Label();
+        VBox vbox = new VBox(fileNameLabel, fileNameTextField);
+
+        filePanePopup.getContent().add(vbox);
+
+        fileNameTextField.setOnAction(_ -> filePanePopup.hide());
     }
 
     public ArrayList<MenuItem> createMenuItems(ArrayList<ProjectItem> items) {
@@ -74,7 +81,7 @@ public class ContextMenuHelper {
     }
 
     private void onNewFile(ProjectItem item, String extension) {
-        filePane.setVisible(true);
+        filePanePopup.show(controller.getOpenCodeGalaxy().getScene().getWindow());
         item.setExpanded(true);
 
         fileNameLabel.setText("New File");
@@ -87,7 +94,7 @@ public class ContextMenuHelper {
                 textFieldAction(item, extension);
             } catch (IOException ioException) {
                 System.out.println("Couldn't create file");
-                filePane.setVisible(false);
+                filePanePopup.hide();
             }
         });
 
@@ -108,17 +115,19 @@ public class ContextMenuHelper {
             path = path.resolve(name + '.' + extension);
             Files.createFile(path);
             if (!Files.isRegularFile(path)) throw new FileAlreadyExistsException("File already exists");
-            if( extension.equals("java")) {
+            if (extension.equals("java")) {
                 String content = """
-                        public class %s {
-                           \s
-                        }
-                       \s""".formatted(name);
+                         public class %s {
+                            \s
+                         }
+                        \s""".formatted(name);
                 Files.writeString(path, content);
             }
+
+            controller.createTab(path);
         }
         item.getChildren().add(new ProjectItem(path));
-        filePane.setVisible(false);
+        filePanePopup.hide();
         item.refreshIcon();
     }
 
