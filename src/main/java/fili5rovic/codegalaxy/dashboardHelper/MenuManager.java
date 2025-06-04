@@ -4,6 +4,7 @@ import fili5rovic.codegalaxy.Main;
 import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.lsp.LSP;
+import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.util.FileHelper;
 import fili5rovic.codegalaxy.util.SVGUtil;
 import fili5rovic.codegalaxy.window.Window;
@@ -12,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputDialog;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.util.Objects;
@@ -28,7 +30,7 @@ public class MenuManager {
     }
 
     private static void menuActions() {
-        controller.getOpen().setOnAction(MenuManager::chooseFolder);
+        controller.getOpen().setOnAction(MenuManager::openProject);
         controller.getSaveAll().setOnAction(MenuManager::saveAllFiles);
         controller.getNewProject().setOnAction(MenuManager::newProject);
         controller.getUndo().setOnAction(MenuManager::undo);
@@ -56,8 +58,10 @@ public class MenuManager {
     }
 
     //<editor-fold desc="MenuActions">
-    private static void chooseFolder(ActionEvent a) {
-        File folder = FileHelper.openFolderChooser(Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage());
+    private static void openProject(ActionEvent a) {
+        File workspace = new File(IDESettings.getInstance().get("workspace"));
+        Stage stage = Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage();
+        File folder = FileHelper.openFolderChooser(stage, workspace);
         if (folder != null && folder.isDirectory()) {
             ProjectManager.openProject(folder.getAbsoluteFile().toPath());
         }
