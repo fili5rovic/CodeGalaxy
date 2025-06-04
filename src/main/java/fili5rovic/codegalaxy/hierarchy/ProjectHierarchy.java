@@ -12,48 +12,55 @@ import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ProjectHierarchy extends TreeView<Label> {
 
-    private final String path;
+    private final Path filePath;
 
     private final ContextMenu contextMenu;
     private final ContextMenuHelper contextMenuHelper;
 
     private static final DashboardController controller = ((DashboardController) Window.getController(Window.WINDOW_DASHBOARD));
 
-    public ProjectHierarchy(String path) {
-        this.path = path;
+    private List<String> expandedPaths;
+
+    public ProjectHierarchy(Path path) {
+        this.filePath = path;
         this.contextMenu = new ContextMenu();
         this.contextMenuHelper = new ContextMenuHelper();
         getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        loadHierarchy();
+
+        reloadHierarchy();
         setupContextMenu();
-        openPreviouslyExpanded();
     }
 
-    private void openPreviouslyExpanded() {
-        List<String> expandedPaths = IDESettings.getInstance().getMultiple("expanded");
-        if (getRoot() != null)
-            restoreExpandedState((ProjectItem) getRoot(), expandedPaths);
+    public void reloadHierarchy() {
+        ProjectItem rootItem = new ProjectItem(filePath);
+        this.setRoot(rootItem);
+        rootItem.setExpanded(true);
+
+        this.expandedPaths = IDESettings.getInstance().getMultiple("expanded");
+        populateTreeItem(rootItem, filePath);
+    }
+
+    public void reloadHierarchy(ProjectItem item) {
+        this.expandedPaths = IDESettings.getInstance().getMultiple("expanded");
+        item.getChildren().clear();
+        item.setExpanded(true);
+        populateTreeItem(item, item.getPath());
     }
 
     private void restoreExpandedState(ProjectItem item, List<String> expandedPaths) {
         if (expandedPaths.contains(item.getPath().toString())) {
             item.setExpanded(true);
         }
-
-        for (TreeItem<Label> child : item.getChildren()) {
-            restoreExpandedState((ProjectItem) child, expandedPaths);
-        }
     }
 
     private void setupContextMenu() {
-        setOnContextMenuRequested(this::contextMenuPopUp);
+        setOnContextMenuRequested(this::contextMenuPopup);
         setOnMouseClicked(this::handleMouseClick);
     }
 
@@ -67,7 +74,7 @@ public class ProjectHierarchy extends TreeView<Label> {
         }
     }
 
-    private void contextMenuPopUp(ContextMenuEvent e) {
+    private void contextMenuPopup(ContextMenuEvent e) {
         contextMenu.getItems().clear();
 
         ObservableList<TreeItem<Label>> selectedItems = this.getSelectionModel().getSelectedItems();
@@ -79,16 +86,6 @@ public class ProjectHierarchy extends TreeView<Label> {
         contextMenu.show(this, e.getScreenX(), e.getScreenY());
     }
 
-    public void loadHierarchy() {
-        Path filePath = Paths.get(path);
-
-        ProjectItem rootItem = new ProjectItem(filePath);
-        rootItem.setExpanded(true);
-
-        populateTreeItem(rootItem, filePath);
-        this.setRoot(rootItem);
-    }
-
     private void populateTreeItem(TreeItem<Label> parentItem, Path path) {
         try {
             Files.list(path).forEach(p -> {
@@ -96,11 +93,12 @@ public class ProjectHierarchy extends TreeView<Label> {
 
                 if (Files.isDirectory(p)) {
                     populateTreeItem(item, p);
+                    restoreExpandedState(item, expandedPaths);
                 }
                 parentItem.getChildren().add(item);
             });
         } catch (IOException e) {
-            System.out.println("Failed to load project hierarchy: " + e.getMessage());
+            System.err.println("Failed to load project hierarchy: " + e.getMessage());
         }
     }
 
