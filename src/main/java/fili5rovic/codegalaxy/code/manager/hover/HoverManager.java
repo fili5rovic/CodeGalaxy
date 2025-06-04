@@ -29,14 +29,14 @@ public class HoverManager extends Manager {
         super(cg);
         hoverTooltip.setAutoHide(true);
 
-        ScrollPane scrollPane = new ScrollPane();
+        var scrollPane = new ScrollPane();
         scrollPane.setMaxSize(600, 400);
         scrollPane.setContent(content);
         hoverTooltip.setGraphic(scrollPane);
         hoverTooltip.setHideDelay(Duration.millis(300));
 
-        hoverTooltip.setOnHidden(e -> content.setText(""));
-        content.setOnMouseExited(e -> hoverTooltip.hide());
+        hoverTooltip.setOnHidden(_ -> content.setText(""));
+        content.setOnMouseExited(_ -> hoverTooltip.hide());
     }
 
     @Override
