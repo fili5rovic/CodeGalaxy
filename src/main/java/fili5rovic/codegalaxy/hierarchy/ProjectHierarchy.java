@@ -23,7 +23,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ProjectHierarchy extends TreeView<Label> implements DiagnosticsListener {
+public class ProjectHierarchy extends TreeView<Label> {
 
     private final Path filePath;
 
@@ -41,7 +41,6 @@ public class ProjectHierarchy extends TreeView<Label> implements DiagnosticsList
         this.contextMenu = new ContextMenu();
         this.contextMenuHelper = new ContextMenuHelper();
         getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        DiagnosticsPublisher.instance().subscribe(this);
 
         reloadHierarchy();
         setupContextMenu();
@@ -60,23 +59,6 @@ public class ProjectHierarchy extends TreeView<Label> implements DiagnosticsList
         item.getChildren().clear();
         item.setExpanded(true);
         populateTreeItem(item, item.getPath());
-    }
-
-    @Override
-    public void onDiagnosticsUpdated(String uri, PublishDiagnosticsParams params) {
-        if (params == null || params.getDiagnostics() == null || params.getDiagnostics().isEmpty()) {
-            errorOnPath(Paths.get(URI.create(uri)), false);
-            return;
-        }
-
-        boolean hasError = false;
-        for (var diagnostic : params.getDiagnostics()) {
-            if (diagnostic.getSeverity() == DiagnosticSeverity.Error) {
-                hasError = true;
-                break;
-            }
-        }
-        errorOnPath(Paths.get(URI.create(uri)), hasError);
     }
 
     public void errorOnPath(Path path, boolean error) {
