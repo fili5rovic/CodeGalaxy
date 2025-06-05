@@ -19,7 +19,6 @@ public class DisplayHierarchyErrors implements DiagnosticsListener {
     @Override
     public void onDiagnosticsUpdated(String uri, PublishDiagnosticsParams params) {
         if (params == null || params.getDiagnostics() == null || params.getDiagnostics().isEmpty()) {
-            System.out.println("clearing errors for: " + uri);
             ProjectManager.errorOnPath(Paths.get(URI.create(uri)), false);
             return;
         }

@@ -11,7 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import org.eclipse.lsp4j.DiagnosticSeverity;
+
 import org.eclipse.lsp4j.PublishDiagnosticsParams;
 
 import java.net.URI;
@@ -24,11 +24,9 @@ public class DisplayErrorsHandler implements DiagnosticsListener {
 
     private final HashMap<String, PublishDiagnosticsParams> paramsMap = new HashMap<>();
 
-    private DisplayHierarchyErrors hierarchyErrors;
-
     public void init() {
         DiagnosticsPublisher.instance().subscribe(this);
-        hierarchyErrors = new DisplayHierarchyErrors();
+        DisplayHierarchyErrors hierarchyErrors = new DisplayHierarchyErrors();
         hierarchyErrors.init();
     }
 
@@ -46,6 +44,7 @@ public class DisplayErrorsHandler implements DiagnosticsListener {
     public void displayErrors() {
         VBox errorVBox = controller.getErrorVBox();
         errorVBox.getChildren().clear();
+
 
         Path openedPath = controller.getOpenCodeGalaxy().getFilePath();
         if (openedPath == null) {

@@ -21,20 +21,12 @@ public class SymbolUtil {
             List<DocumentSymbol> documentSymbols = symbols.get();
 
             for (DocumentSymbol symbol : documentSymbols) {
-                Range range = new Range(
-                        codeGalaxy.position(
-                                symbol.getSelectionRange().getStart().getLine(),
-                                symbol.getSelectionRange().getStart().getCharacter()).toOffset(),
-                        codeGalaxy.position(
-                                symbol.getSelectionRange().getEnd().getLine(),
-                                symbol.getSelectionRange().getEnd().getCharacter()).toOffset()
-                );
+                Range range = new Range(codeGalaxy.position(symbol.getSelectionRange().getStart().getLine(), symbol.getSelectionRange().getStart().getCharacter()).toOffset(), codeGalaxy.position(symbol.getSelectionRange().getEnd().getLine(), symbol.getSelectionRange().getEnd().getCharacter()).toOffset());
 
                 if (symbol.getKind() == SymbolKind.Package) {
                     range = new Range(range.start() + 8, range.end() - 1);
                 }
-                symbolRanges.computeIfAbsent(symbol.getKind().toString().toLowerCase(), _ -> new ArrayList<>())
-                        .add(range);
+                symbolRanges.computeIfAbsent(symbol.getKind().toString().toLowerCase(), _ -> new ArrayList<>()).add(range);
             }
         } catch (InterruptedException | ExecutionException e) {
             System.err.println("Error while getting symbol ranges: " + e.getMessage());
