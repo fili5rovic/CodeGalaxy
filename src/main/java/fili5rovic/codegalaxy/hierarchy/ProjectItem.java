@@ -40,8 +40,11 @@ public class ProjectItem extends TreeItem<Label> {
         if (getParent() == null || !(getParent() instanceof ProjectItem parentItem))
             return;
 
+        boolean hasMoreErrors = parentItem.getChildren().stream()
+          .anyMatch(child -> child instanceof ProjectItem projectChild && projectChild.errorFlag && !projectChild.equals(this));
 
-
+        if(!hasMoreErrors)
+            parentItem.error(errorFlag);
     }
 
     public void refreshIcon() {
