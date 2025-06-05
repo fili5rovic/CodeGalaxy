@@ -14,7 +14,7 @@ import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 
-public class LSP {
+public class LSP {   //TODO Ability to change workspace without restarting
     private LSPServerManager serverManager;
     private LanguageServer server;
     private Future<Void> listenFuture;

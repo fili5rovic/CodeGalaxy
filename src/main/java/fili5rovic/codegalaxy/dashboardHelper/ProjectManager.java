@@ -41,6 +41,14 @@ public class ProjectManager {
         projectHierarchy.reloadHierarchy(item);
     }
 
+    public static void errorOnPath(Path path, boolean isError) {
+        if (projectHierarchy == null) {
+            System.err.println("Project hierarchy is not initialized.");
+            return;
+        }
+        projectHierarchy.errorOnPath(path, isError);
+    }
+
     public static void setWorkspace(String workspacePath) {
         IDESettings.getInstance().set("workspace", workspacePath);
     }

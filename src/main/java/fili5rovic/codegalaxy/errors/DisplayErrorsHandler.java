@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import org.eclipse.lsp4j.DiagnosticSeverity;
 import org.eclipse.lsp4j.PublishDiagnosticsParams;
 
 import java.net.URI;
@@ -23,8 +24,23 @@ public class DisplayErrorsHandler implements DiagnosticsListener {
 
     private final HashMap<String, PublishDiagnosticsParams> paramsMap = new HashMap<>();
 
+    private DisplayHierarchyErrors hierarchyErrors;
+
     public void init() {
         DiagnosticsPublisher.instance().subscribe(this);
+        hierarchyErrors = new DisplayHierarchyErrors();
+        hierarchyErrors.init();
+    }
+
+    @Override
+    public void onDiagnosticsUpdated(String uri, PublishDiagnosticsParams params) {
+        paramsMap.put(uri, params);
+        if(controller == null || controller.getOpenCodeGalaxy() == null) {
+            return;
+        }
+        if (uri.equals(controller.getOpenCodeGalaxy().getFilePath().toUri().toString())) {
+            Platform.runLater(this::displayErrors);
+        }
     }
 
     public void displayErrors() {
@@ -44,24 +60,13 @@ public class DisplayErrorsHandler implements DiagnosticsListener {
         URI uri = URI.create(params.getUri());
         Path filePath = Path.of(uri);
 
-
         errorVBox.getChildren().add(titleDisplay(filePath));
-
         params.getDiagnostics().forEach(diagnostic -> {
             ErrorItem errorItem = new ErrorItem(diagnostic);
             errorVBox.getChildren().add(errorItem);
         });
-    }
 
-    @Override
-    public void onDiagnosticsUpdated(String uri, PublishDiagnosticsParams params) {
-        paramsMap.put(uri, params);
-        if(controller == null || controller.getOpenCodeGalaxy() == null) {
-            return;
-        }
-        if (uri.equals(controller.getOpenCodeGalaxy().getFilePath().toUri().toString())) {
-            Platform.runLater(this::displayErrors);
-        }
+
     }
 
     private HBox titleDisplay(Path filePath) {

@@ -11,10 +11,11 @@ public class ProjectItem extends TreeItem<Label> {
 
     private final Path path;
 
-    private boolean hasError = false;
+    private boolean errorFlag = false;
 
     public ProjectItem(Path path) {
         this.path = path;
+        setValue(new Label(path.getFileName().toString()));
         refreshIcon();
 
         expandedProperty().addListener((_, _, isExpanded) -> {
@@ -26,28 +27,30 @@ public class ProjectItem extends TreeItem<Label> {
     }
 
     public void error(boolean error) {
-        this.hasError = error;
+        this.errorFlag = error;
 
-        if (getValue() != null) {
-            if (error)
+        if (errorFlag) {
+            if (!getValue().getStyleClass().contains("project-item-error"))
                 getValue().getStyleClass().add("project-item-error");
-            else
-                getValue().getStyleClass().remove("project-item-error");
-            getValue().applyCss();
-        }
+        } else
+            getValue().getStyleClass().remove("project-item-error");
 
-        if (getParent() instanceof ProjectItem parent) {
-            parent.error(error);
-        }
+        getValue().applyCss();
+
+        if (getParent() == null || !(getParent() instanceof ProjectItem parentItem))
+            return;
+
+
+
     }
 
     public void refreshIcon() {
-        Label label = new Label(path.getFileName().toString());
+        Label label = getValue();
         int size = (int) Math.round(label.getFont().getSize());
         size += 4;
         label.setGraphic(SVGUtil.getIconByPath(path, size, size, -2));
 
-        if (hasError) {
+        if (errorFlag) {
             label.getStyleClass().add("project-item-error");
         }
 
