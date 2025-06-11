@@ -57,7 +57,16 @@
                     <center>
                         <SplitPane fx:id="mainSplitPane" dividerPositions="0.2" prefHeight="556.0" prefWidth="861.0" BorderPane.alignment="CENTER">
                             <items>
-                                <BorderPane fx:id="treeViewPane" />
+                        <StackPane>
+                           <children>
+                                      <BorderPane fx:id="treeViewPane" />
+                              <BorderPane fx:id="gitBorderPane" prefHeight="200.0" prefWidth="200.0" visible="false">
+                                 <center>
+                                    <Label text="TEST" BorderPane.alignment="CENTER" />
+                                 </center>
+                              </BorderPane>
+                           </children>
+                        </StackPane>
                                 <StackPane>
                                     <children>
                                         <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" />
@@ -103,9 +112,13 @@
     <left>
         <AnchorPane prefHeight="665.0" prefWidth="8.0" styleClass="anchor-pane" BorderPane.alignment="CENTER">
             <children>
-            <VBox AnchorPane.bottomAnchor="640.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <VBox prefHeight="50.0" prefWidth="21.0" AnchorPane.bottomAnchor="612.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <ToggleButton fx:id="showHierarchyToggle" maxHeight="25.0" minHeight="22.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="23.0" />
+                  <ToggleButton fx:id="showHierarchyToggle" maxHeight="25.0" minHeight="22.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="23.0">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="left" />
+                     </toggleGroup></ToggleButton>
+                  <ToggleButton fx:id="showGitToggle" layoutX="10.0" layoutY="10.0" maxHeight="25.0" minHeight="22.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="23.0" toggleGroup="$left" />
                </children>
             </VBox>
             <VBox alignment="CENTER" layoutY="554.0">

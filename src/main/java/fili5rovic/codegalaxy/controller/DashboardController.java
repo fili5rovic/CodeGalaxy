@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
 import javafx.stage.WindowEvent;
@@ -83,10 +84,16 @@ public class DashboardController extends ControllerBase {
     private ToggleButton showHierarchyToggle;
 
     @FXML
+    private ToggleButton showGitToggle;
+
+    @FXML
     private ToggleButton showProblemsToggle;
 
     @FXML
     private ToggleButton showRunToggle;
+
+    @FXML
+    private BorderPane gitBorderPane;
 
     private DisplayErrorsHandler displayErrorsHandler;
 
@@ -263,8 +270,20 @@ public class DashboardController extends ControllerBase {
         return showRunToggle.getToggleGroup();
     }
 
+    public ToggleGroup getLeftToggleGroup() {
+        return showGitToggle.getToggleGroup();
+    }
+
     public DisplayErrorsHandler getDisplayErrorsHandler() {
         return displayErrorsHandler;
+    }
+
+    public BorderPane getGitBorderPane() {
+        return gitBorderPane;
+    }
+
+    public ToggleButton getShowGitToggle() {
+        return showGitToggle;
     }
 
 

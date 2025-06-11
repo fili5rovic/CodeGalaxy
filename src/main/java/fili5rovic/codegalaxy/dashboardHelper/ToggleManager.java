@@ -17,7 +17,19 @@ public class ToggleManager {
     }
 
     private static void toggleActions() {
-        controller.getShowHierarchyToggle().setOnAction(_ -> SplitPaneManager.showHierarchy());
+        controller.getLeftToggleGroup().selectedToggleProperty().addListener((_, _, selected) ->  {
+            SplitPaneManager.showLeftPanel(selected == null);
+        });
+
+        controller.getShowHierarchyToggle().setOnAction(_ -> {
+            controller.getGitBorderPane().setVisible(false);
+            controller.getTreeViewPane().setVisible(true);
+        });
+
+        controller.getShowGitToggle().setOnAction(_ -> {
+            controller.getGitBorderPane().setVisible(true);
+            controller.getTreeViewPane().setVisible(false);
+        });
 
         controller.getConsoleToggleGroup().selectedToggleProperty().addListener((_, oldToggle, newToggle) -> {
             SplitPane.Divider divider = controller.getConsoleSplitPane().getDividers().getFirst();
@@ -47,10 +59,13 @@ public class ToggleManager {
             }
         });
 
+
     }
 
     private static void toggleIcons() {
         controller.getShowHierarchyToggle().setGraphic(SVGUtil.getUI("expand", 16, 16));
+        controller.getShowGitToggle().setGraphic(SVGUtil.getUI("expand", 16, 16));
+
         controller.getShowProblemsToggle().setGraphic(SVGUtil.getUI("error", 16, 16));
         controller.getShowRunToggle().setGraphic(SVGUtil.getUI("runBtn", 16, 16));
 
