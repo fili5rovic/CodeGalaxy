@@ -60,11 +60,20 @@
                         <StackPane>
                            <children>
                                       <BorderPane fx:id="treeViewPane" />
-                              <BorderPane fx:id="gitBorderPane" prefHeight="200.0" prefWidth="200.0" visible="false">
-                                 <center>
-                                    <Label text="TEST" BorderPane.alignment="CENTER" />
-                                 </center>
-                              </BorderPane>
+                              <StackPane fx:id="gitPane">
+                                 <children>
+                                    <BorderPane fx:id="gitInitPane" prefHeight="200.0" prefWidth="200.0">
+                                       <center>
+                                          <Label text="NOT INIT" BorderPane.alignment="CENTER" />
+                                       </center>
+                                    </BorderPane>
+                                    <BorderPane fx:id="gitBorderPane" prefHeight="200.0" prefWidth="200.0">
+                                       <center>
+                                          <Label text="SUCCESS" BorderPane.alignment="CENTER" />
+                                       </center>
+                                    </BorderPane>
+                                 </children>
+                              </StackPane>
                            </children>
                         </StackPane>
                                 <StackPane>

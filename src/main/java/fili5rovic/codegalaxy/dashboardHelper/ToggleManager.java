@@ -20,13 +20,14 @@ public class ToggleManager {
         controller.getLeftToggleGroup().selectedToggleProperty().addListener((_, _, selected) -> SplitPaneManager.showLeftPanel(selected == null));
 
         controller.getShowHierarchyToggle().setOnAction(_ -> {
-            controller.getGitBorderPane().setVisible(false);
+            controller.getGitPane().setVisible(false);
             controller.getTreeViewPane().setVisible(true);
         });
 
         controller.getShowGitToggle().setOnAction(_ -> {
-            controller.getGitBorderPane().setVisible(true);
+            controller.getGitPane().setVisible(true);
             controller.getTreeViewPane().setVisible(false);
+
         });
 
         controller.getConsoleToggleGroup().selectedToggleProperty().addListener((_, oldToggle, newToggle) -> {
