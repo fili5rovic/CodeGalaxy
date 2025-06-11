@@ -12,6 +12,7 @@ module fili5rovic.codegalaxy {
     requires javafx.swing;
     requires java.compiler;
     requires io.github.classgraph;
+    requires org.eclipse.jgit;
 
 
     opens fili5rovic.codegalaxy to javafx.fxml;
