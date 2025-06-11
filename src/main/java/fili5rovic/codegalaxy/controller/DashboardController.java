@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
 import javafx.stage.WindowEvent;
@@ -90,7 +91,15 @@ public class DashboardController extends ControllerBase {
     private ToggleButton showRunToggle;
 
     @FXML
+    private BorderPane gitInitPane;
+
+    @FXML
     private BorderPane gitBorderPane;
+
+    @FXML
+    private StackPane gitPane;
+
+
 
     private DisplayErrorsHandler displayErrorsHandler;
 
@@ -281,6 +290,14 @@ public class DashboardController extends ControllerBase {
 
     public ToggleButton getShowGitToggle() {
         return showGitToggle;
+    }
+
+    public StackPane getGitPane() {
+        return gitPane;
+    }
+
+    public BorderPane getGitInitPane() {
+        return gitInitPane;
     }
 
 

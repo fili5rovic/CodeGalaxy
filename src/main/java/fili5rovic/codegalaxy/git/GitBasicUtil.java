@@ -3,6 +3,7 @@ package fili5rovic.codegalaxy.git;
 import org.eclipse.jgit.api.AddCommand;
 import org.eclipse.jgit.api.CommitCommand;
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.Status;
 import org.eclipse.jgit.api.errors.GitAPIException;
 
 import java.io.File;
@@ -44,7 +45,8 @@ public class GitBasicUtil {
     }
 
     public void add(String filepattern) {
-        checkGitOpen();
+        if (git == null)
+            throw new IllegalStateException("Git repository is not open or initialized");
         try {
             AddCommand addCommand = git.add().addFilepattern(filepattern);
             addCommand.call();
@@ -54,12 +56,26 @@ public class GitBasicUtil {
     }
 
     public void commit(String message) {
-        checkGitOpen();
+        if (git == null)
+            throw new IllegalStateException("Git repository is not open or initialized");
         try {
             CommitCommand commitCommand = git.commit().setMessage(message);
             commitCommand.call();
         } catch (GitAPIException e) {
             throw new RuntimeException("Failed to commit", e);
+        }
+    }
+
+    public Status status() {
+        if (git == null)
+            throw new IllegalStateException("Git repository is not open or initialized");
+
+        try {
+            return git.status().call();
+
+
+        } catch (GitAPIException e) {
+            throw new RuntimeException("Failed to get git status", e);
         }
     }
 
@@ -70,11 +86,7 @@ public class GitBasicUtil {
         }
     }
 
-    private void checkGitOpen() {
-        if (git == null) {
-            throw new IllegalStateException("Git repository is not open or initialized");
-        }
-    }
+    // TODO: Implement project settings, .codegalaxy, where you can store where .git is located, as well as other things
 
     public static void main(String[] args) {
         GitBasicUtil gitUtil = new GitBasicUtil();
@@ -88,8 +100,6 @@ public class GitBasicUtil {
             gitUtil.init(path);
         }
 
-        gitUtil.add(".");
-        gitUtil.commit("Initial commit");
         gitUtil.close();
     }
 }

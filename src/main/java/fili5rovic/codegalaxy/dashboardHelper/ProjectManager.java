@@ -4,6 +4,7 @@ import fili5rovic.codegalaxy.Main;
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.hierarchy.ProjectHierarchy;
 import fili5rovic.codegalaxy.hierarchy.ProjectItem;
+import fili5rovic.codegalaxy.projectSetings.ProjectSettingsUtil;
 import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.util.FileHelper;
 import fili5rovic.codegalaxy.window.Window;
@@ -28,6 +29,8 @@ public class ProjectManager {
     private static ProjectHierarchy projectHierarchy;
 
     public static void openProject(Path path) {
+        ProjectSettingsUtil.ensureProjectSettingsInitialized(path);
+
         projectHierarchy = new ProjectHierarchy(path);
         controller.getTreeViewPane().setCenter(projectHierarchy);
         IDESettings.getInstance().set("lastProjectPath", path.toString());
@@ -61,6 +64,8 @@ public class ProjectManager {
                 return;
             }
             Path projectDir = Paths.get(basePath).resolve(projectName).toAbsolutePath();
+
+            ProjectSettingsUtil.ensureProjectSettingsInitialized(projectDir);
 
             Files.createDirectories(projectDir.resolve("src"));
             Files.createDirectories(projectDir.resolve("lib"));
@@ -98,10 +103,10 @@ public class ProjectManager {
                         </natures>
                     </projectDescription>
                     """.formatted(projectName);
-            // remove .formatted later
+
             Files.writeString(projectFile, projectFileContent);
 
-            // create Main.java
+
             Path mainFile = projectDir.resolve("src").resolve("Main.java");
             String mainFileContent = """
                     public class Main {
