@@ -128,6 +128,7 @@ public class DashboardController extends ControllerBase {
 
         MenuManager.initialize();
         ToggleManager.initialize();
+        ButtonManager.initialize();
         SplitPaneManager.setupLockPositions();
         TooltipManager.init();
 
