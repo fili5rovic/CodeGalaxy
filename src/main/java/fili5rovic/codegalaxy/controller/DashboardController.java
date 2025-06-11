@@ -11,8 +11,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
 import javafx.stage.WindowEvent;
@@ -20,7 +18,6 @@ import javafx.stage.WindowEvent;
 import java.net.URL;
 import java.nio.file.Path;
 import java.util.ResourceBundle;
-import java.util.concurrent.CompletableFuture;
 
 public class DashboardController extends ControllerBase {
     @FXML
