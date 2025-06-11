@@ -73,7 +73,7 @@ public class ToggleManager {
 
     private static void toggleIcons() {
         controller.getShowHierarchyToggle().setGraphic(SVGUtil.getUI("expand", 16, 16));
-        controller.getShowGitToggle().setGraphic(SVGUtil.getUI("expand", 16, 16));
+        controller.getShowGitToggle().setGraphic(SVGUtil.getUI("commit", 16, 16));
 
         controller.getShowProblemsToggle().setGraphic(SVGUtil.getUI("error", 16, 16));
         controller.getShowRunToggle().setGraphic(SVGUtil.getUI("runBtn", 16, 16));
