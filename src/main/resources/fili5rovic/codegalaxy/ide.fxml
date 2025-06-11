@@ -69,6 +69,7 @@
                                              <children>
                                                 <Label layoutX="43.0" layoutY="275.0" text="Repository is not initialized" />
                                                 <Button fx:id="initRepoBtn" layoutX="70.0" layoutY="307.0" mnemonicParsing="false" text="Init repository" />
+                                                <Label layoutX="98.0" layoutY="341.0" text="TODO" />
                                              </children>
                                           </AnchorPane>
                                        </center>
