@@ -45,14 +45,12 @@ public class SplitPaneManager {
             }
         });
 
-
     }
 
-    public static void showHierarchy() {
+    public static void showLeftPanel(boolean selected) {
         SplitPane mainSplitPane = controller.getMainSplitPane();
         SplitPane.Divider divider = mainSplitPane.getDividers().getFirst();
         Node left = mainSplitPane.getItems().getFirst();
-        boolean selected = controller.getShowHierarchyToggle().isSelected();
         if (selected) {
             prevHierarchyDividerValue = divider.getPosition();
             divider.setPosition(0);
