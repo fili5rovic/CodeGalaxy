@@ -1,5 +1,8 @@
 package fili5rovic.codegalaxy.projectSetings;
 
+import fili5rovic.codegalaxy.util.JsonUtil;
+import fili5rovic.codegalaxy.projectSetings.dataclass.VcsSettings;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -17,6 +20,7 @@ public class ProjectSettingsUtil {
             Path vcsFile = settingsDir.resolve("vcs.json");
             if (Files.notExists(vcsFile)) {
                 Files.createFile(vcsFile);
+                JsonUtil.writeJson(vcsFile, new VcsSettings());
             }
 
         } catch (IOException e) {

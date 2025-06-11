@@ -1,4 +1,4 @@
-package fili5rovic.codegalaxy.git;
+package fili5rovic.codegalaxy.vcs;
 
 import org.eclipse.jgit.api.AddCommand;
 import org.eclipse.jgit.api.CommitCommand;
@@ -9,7 +9,7 @@ import org.eclipse.jgit.api.errors.GitAPIException;
 import java.io.File;
 import java.io.IOException;
 
-public class GitBasicUtil {
+class GitBasicUtil {
 
     private Git git;
 

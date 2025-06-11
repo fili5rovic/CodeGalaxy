@@ -13,6 +13,7 @@ module fili5rovic.codegalaxy {
     requires java.compiler;
     requires io.github.classgraph;
     requires org.eclipse.jgit;
+    requires com.fasterxml.jackson.databind;
 
 
     opens fili5rovic.codegalaxy to javafx.fxml;
@@ -21,4 +22,6 @@ module fili5rovic.codegalaxy {
     exports fili5rovic.codegalaxy;
     exports fili5rovic.codegalaxy.controller;
     opens fili5rovic.codegalaxy.util to org.eclipse.lsp4j.jsonrpc;
+    exports fili5rovic.codegalaxy.projectSetings.dataclass to com.fasterxml.jackson.databind;
+
 }
