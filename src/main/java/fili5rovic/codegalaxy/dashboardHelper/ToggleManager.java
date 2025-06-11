@@ -1,6 +1,7 @@
 package fili5rovic.codegalaxy.dashboardHelper;
 
 import fili5rovic.codegalaxy.controller.DashboardController;
+import fili5rovic.codegalaxy.projectSetings.ProjectSettingsUtil;
 import fili5rovic.codegalaxy.util.SVGUtil;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.scene.control.SplitPane;
@@ -27,6 +28,15 @@ public class ToggleManager {
         controller.getShowGitToggle().setOnAction(_ -> {
             controller.getGitPane().setVisible(true);
             controller.getTreeViewPane().setVisible(false);
+
+            // todo search for .git when folder is opened and VCS is not set
+            if(ProjectSettingsUtil.isVCSInit()) {
+                controller.getGitBorderPane().setVisible(true);
+                controller.getGitInitPane().setVisible(false);
+            } else {
+                controller.getGitBorderPane().setVisible(false);
+                controller.getGitInitPane().setVisible(true);
+            }
 
         });
 

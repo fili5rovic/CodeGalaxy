@@ -44,11 +44,11 @@ class GitBasicUtil {
         }
     }
 
-    public void add(String filepattern) {
+    public void add(String filePattern) {
         if (git == null)
             throw new IllegalStateException("Git repository is not open or initialized");
         try {
-            AddCommand addCommand = git.add().addFilepattern(filepattern);
+            AddCommand addCommand = git.add().addFilepattern(filePattern);
             addCommand.call();
         } catch (GitAPIException e) {
             throw new RuntimeException("Failed to add file(s)", e);
@@ -84,22 +84,5 @@ class GitBasicUtil {
             git.close();
             git = null;
         }
-    }
-
-    // TODO: Implement project settings, .codegalaxy, where you can store where .git is located, as well as other things
-
-    public static void main(String[] args) {
-        GitBasicUtil gitUtil = new GitBasicUtil();
-
-        String path = "C:\\Users\\fili5\\OneDrive\\Desktop\\gaySex";
-
-        File gitFolder = new File(path, ".git");
-        if (gitFolder.exists()) {
-            gitUtil.open(path);
-        } else {
-            gitUtil.init(path);
-        }
-
-        gitUtil.close();
     }
 }
