@@ -17,9 +17,7 @@ public class ToggleManager {
     }
 
     private static void toggleActions() {
-        controller.getLeftToggleGroup().selectedToggleProperty().addListener((_, _, selected) ->  {
-            SplitPaneManager.showLeftPanel(selected == null);
-        });
+        controller.getLeftToggleGroup().selectedToggleProperty().addListener((_, _, selected) -> SplitPaneManager.showLeftPanel(selected == null));
 
         controller.getShowHierarchyToggle().setOnAction(_ -> {
             controller.getGitBorderPane().setVisible(false);
