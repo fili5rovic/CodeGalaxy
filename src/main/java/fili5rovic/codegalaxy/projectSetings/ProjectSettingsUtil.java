@@ -1,5 +1,6 @@
 package fili5rovic.codegalaxy.projectSetings;
 
+import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.util.JsonUtil;
 import fili5rovic.codegalaxy.projectSetings.dataclass.VcsSettings;
 
@@ -27,4 +28,13 @@ public class ProjectSettingsUtil {
             System.err.println("Failed to create .codegalaxy project settings: " + e.getMessage());
         }
     }
+
+    public static void setVCSRepoPath(String repositoryPath) {
+        VCSUtil.setVCSRepoPath(repositoryPath);
+    }
+
+    public static boolean isVCSInit() {
+        return VCSUtil.isVCSInit();
+    }
+
 }

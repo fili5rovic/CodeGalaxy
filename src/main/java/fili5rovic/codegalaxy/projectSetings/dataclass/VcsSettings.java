@@ -1,11 +1,17 @@
 package fili5rovic.codegalaxy.projectSetings.dataclass;
 
 public class VcsSettings {
-    public String vcsType;
-    public String repositoryPath;
+    private String vcsType;
+    private String repositoryPath;
 
     public VcsSettings() {
         this.vcsType = "git";
         this.repositoryPath = "";
     }
+
+    public String getVcsType() { return vcsType; }
+    public void setVcsType(String vcsType) { this.vcsType = vcsType; }
+
+    public String getRepositoryPath() { return repositoryPath; }
+    public void setRepositoryPath(String repositoryPath) { this.repositoryPath = repositoryPath; }
 }
