@@ -61,7 +61,7 @@
                         <StackPane>
                            <children>
                                       <BorderPane fx:id="treeViewPane" />
-                              <StackPane fx:id="gitPane">
+                              <StackPane fx:id="gitPane" visible="false">
                                  <children>
                                     <BorderPane fx:id="gitInitPane" prefHeight="200.0" prefWidth="200.0">
                                        <center>
