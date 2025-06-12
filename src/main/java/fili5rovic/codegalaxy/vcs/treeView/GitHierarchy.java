@@ -1,0 +1,52 @@
+package fili5rovic.codegalaxy.vcs.treeView;
+
+import fili5rovic.codegalaxy.controller.DashboardController;
+import fili5rovic.codegalaxy.window.Window;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.TreeCell;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
+import javafx.scene.layout.BorderPane;
+
+public class GitHierarchy extends TreeView<GitTreeItem> {
+
+    private TreeItem<GitTreeItem> changes;
+
+    public GitHierarchy() {
+        super();
+        setShowRoot(false);
+        setEditable(false);
+
+        TreeItem<GitTreeItem> root = new TreeItem<>(new GitTreeItem("Root"));
+        root.setExpanded(true);
+        setRoot(root);
+
+        changes = new TreeItem<>(new GitTreeItem("Changes"));
+        changes.setExpanded(true);
+
+        root.getChildren().add(changes);
+
+        setCellFactory(tv -> new TreeCell<>() {
+            @Override
+            protected void updateItem(GitTreeItem item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    setText(null);
+                    setGraphic(item.getValue());
+                }
+            }
+        });
+
+    }
+
+
+
+    public static void addHierarchy() {
+        BorderPane pane = ((DashboardController) Window.getController(Window.WINDOW_DASHBOARD)).getGitTreeViewPane();
+        pane.setCenter(new GitHierarchy());
+    }
+
+}

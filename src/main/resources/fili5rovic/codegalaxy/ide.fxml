@@ -62,9 +62,9 @@
                         <StackPane>
                            <children>
                                       <BorderPane fx:id="treeViewPane" />
-                              <StackPane fx:id="gitPane" visible="false">
+                              <StackPane fx:id="gitPane">
                                  <children>
-                                    <BorderPane fx:id="gitInitPane" prefHeight="200.0" prefWidth="200.0">
+                                    <BorderPane fx:id="gitInitPane" prefHeight="200.0" prefWidth="200.0" visible="false">
                                        <center>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" BorderPane.alignment="CENTER">
                                              <children>
@@ -75,9 +75,18 @@
                                           </AnchorPane>
                                        </center>
                                     </BorderPane>
-                                    <BorderPane fx:id="gitBorderPane" prefHeight="200.0" prefWidth="200.0" visible="false">
+                                    <BorderPane fx:id="gitBorderPane" prefHeight="200.0" prefWidth="200.0">
                                        <center>
-                                          <Label text="SUCCESS" BorderPane.alignment="CENTER" />
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" BorderPane.alignment="CENTER">
+                                             <children>
+                                                <BorderPane fx:id="gitTreeViewPane" layoutX="5.0" layoutY="14.0" minHeight="0.0" minWidth="0.0" prefHeight="571.0" prefWidth="220.0" />
+                                                <Button layoutX="14.0" layoutY="596.0" mnemonicParsing="false" text="Commit">
+                                                   <font>
+                                                      <Font size="16.0" />
+                                                   </font>
+                                                </Button>
+                                             </children>
+                                          </AnchorPane>
                                        </center>
                                     </BorderPane>
                                  </children>

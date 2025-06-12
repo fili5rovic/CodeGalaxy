@@ -4,6 +4,7 @@ import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.dashboardHelper.*;
 import fili5rovic.codegalaxy.errors.DisplayErrorsHandler;
 import fili5rovic.codegalaxy.lsp.LSP;
+import fili5rovic.codegalaxy.vcs.treeView.GitHierarchy;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
@@ -21,6 +22,7 @@ import java.nio.file.Path;
 import java.util.ResourceBundle;
 
 public class DashboardController extends ControllerBase {
+
     @FXML
     private TabPane tabPane;
 
@@ -102,7 +104,8 @@ public class DashboardController extends ControllerBase {
     @FXML
     private Button initRepoBtn;
 
-
+    @FXML
+    private BorderPane gitTreeViewPane;
 
     private DisplayErrorsHandler displayErrorsHandler;
 
@@ -140,6 +143,8 @@ public class DashboardController extends ControllerBase {
         this.displayErrorsHandler.init();
 
         fileSearchPopupListener();
+
+        GitHierarchy.addHierarchy();
     }
 
     private static void fileSearchPopupListener() {
@@ -308,6 +313,9 @@ public class DashboardController extends ControllerBase {
         return initRepoBtn;
     }
 
+    public BorderPane getGitTreeViewPane() {
+        return gitTreeViewPane;
+    }
 
     //</editor-fold>
 }
