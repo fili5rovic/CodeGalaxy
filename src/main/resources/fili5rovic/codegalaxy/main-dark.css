@@ -321,8 +321,12 @@
 }
 /*</editor-fold>*/
 
-
-
+.git-toggle-button {
+    -fx-min-height: 20;
+    -fx-min-width: 20;
+    -fx-max-width: 20;
+    -fx-max-height: 20;
+}
 
 /*<editor-fold desc="Button">*/
 .button{
