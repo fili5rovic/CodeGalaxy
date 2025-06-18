@@ -1,11 +1,13 @@
 package fili5rovic.codegalaxy.vcs.treeView;
 
 import fili5rovic.codegalaxy.controller.DashboardController;
+import fili5rovic.codegalaxy.vcs.GitUtil;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.BorderPane;
+import org.eclipse.jgit.api.Status;
 
 public class GitHierarchy extends TreeView<GitTreeItem> {
 
@@ -34,8 +36,11 @@ public class GitHierarchy extends TreeView<GitTreeItem> {
         listeners();
     }
 
-    public void update() {
-
+    public void update(Status status) {
+        untracked.getChildren().clear();
+        for (String untrackedFile : status.getUntracked()) {
+            untracked.getChildren().add(new TreeItem<>(new GitTreeItem(untrackedFile)));
+        }
     }
 
     private void listeners() {
@@ -48,11 +53,20 @@ public class GitHierarchy extends TreeView<GitTreeItem> {
                     setText(null);
                 } else {
                     setText(item.getName());
-                    setGraphic(item.getValue());
+                    setGraphic(item.getToggle());
                 }
             }
         });
+        untracked.getValue().getToggle().selectedProperty().addListener((_, _, selected) -> expandChildren(untracked, selected));
+    }
 
+    private void expandChildren(TreeItem<GitTreeItem> item, boolean selected) {
+        if (item != null) {
+            item.getValue().getToggle().setSelected(selected);
+            for (TreeItem<GitTreeItem> child : item.getChildren()) {
+                expandChildren(child, selected);
+            }
+        }
     }
 
     private void addChange(GitTreeItem item) {
@@ -62,7 +76,9 @@ public class GitHierarchy extends TreeView<GitTreeItem> {
 
     public static void addHierarchy() {
         BorderPane pane = ((DashboardController) Window.getController(Window.WINDOW_DASHBOARD)).getGitTreeViewPane();
-        pane.setCenter(new GitHierarchy());
+        GitHierarchy gitHierarchy = new GitHierarchy();
+        GitUtil.instance().setHierarchy(gitHierarchy);
+        pane.setCenter(gitHierarchy);
     }
 
 }

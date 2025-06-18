@@ -1,10 +1,14 @@
 package fili5rovic.codegalaxy.dashboardHelper;
 
 import fili5rovic.codegalaxy.controller.DashboardController;
+import fili5rovic.codegalaxy.vcs.GitUtil;
 import fili5rovic.codegalaxy.projectSetings.ProjectSettingsUtil;
+import fili5rovic.codegalaxy.projectSetings.VCSUtil;
 import fili5rovic.codegalaxy.util.SVGUtil;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.scene.control.SplitPane;
+
+import java.io.IOException;
 
 public class ToggleManager {
 
@@ -26,11 +30,19 @@ public class ToggleManager {
         });
 
         controller.getShowGitToggle().setOnAction(_ -> {
+            if(!controller.getShowGitToggle().isSelected())
+                return;
             controller.getGitPane().setVisible(true);
             controller.getTreeViewPane().setVisible(false);
 
             // todo search for .git when folder is opened and VCS is not set
             if(ProjectSettingsUtil.isVCSInit()) {
+                try {
+                    GitUtil.instance().open(VCSUtil.readVcsSettings().getRepositoryPath());
+                } catch (IOException e) {
+                    System.err.println("Failed to open VCS repository: " + e.getMessage());
+                }
+                GitUtil.instance().updateHierarchy();
                 controller.getGitBorderPane().setVisible(true);
                 controller.getGitInitPane().setVisible(false);
             } else {

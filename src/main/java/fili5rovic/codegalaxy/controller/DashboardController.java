@@ -105,6 +105,9 @@ public class DashboardController extends ControllerBase {
     private Button initRepoBtn;
 
     @FXML
+    private Button commitBtn;
+
+    @FXML
     private BorderPane gitTreeViewPane;
 
     private DisplayErrorsHandler displayErrorsHandler;
@@ -311,6 +314,10 @@ public class DashboardController extends ControllerBase {
 
     public Button getInitRepoBtn() {
         return initRepoBtn;
+    }
+
+    public Button getCommitBtn() {
+        return commitBtn;
     }
 
     public BorderPane getGitTreeViewPane() {
