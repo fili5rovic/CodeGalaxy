@@ -7,7 +7,7 @@ import fili5rovic.codegalaxy.util.JsonUtil;
 import java.io.IOException;
 import java.nio.file.Path;
 
-class VCSUtil {
+public class VCSUtil {
 
     private static Path getSettingsDir() {
         String lastProjectPath = IDESettings.getInstance().get("lastProjectPath");
@@ -21,7 +21,7 @@ class VCSUtil {
         return getSettingsDir().resolve("vcs.json");
     }
 
-    private static VcsSettings readVcsSettings() throws IOException {
+    public static VcsSettings readVcsSettings() throws IOException {
         Path vcsFile = getVcsFilePath();
         return JsonUtil.readJson(vcsFile, VcsSettings.class);
     }

@@ -10,12 +10,9 @@ public class GitTreeItem {
         this.name = name;
         this.button = new ToggleButton();
         this.button.getStyleClass().add("git-toggle-button");
-        this.button.setOnAction(event -> {
-            System.out.println("Toggle button clicked: " + name);
-        });
     }
 
-    public ToggleButton getValue() {
+    public ToggleButton getToggle() {
         return button;
     }
 

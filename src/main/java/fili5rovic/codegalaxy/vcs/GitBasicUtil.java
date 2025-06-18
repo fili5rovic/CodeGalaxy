@@ -13,6 +13,8 @@ class GitBasicUtil {
 
     private Git git;
 
+    private boolean opened = false;
+
     public void init(String repositoryPath) {
         File repoDir = new File(repositoryPath);
         if (!repoDir.exists() || !repoDir.isDirectory()) {
@@ -27,6 +29,9 @@ class GitBasicUtil {
     }
 
     public void open(String repositoryPath) {
+        if (opened)
+            return;
+
         File repoDir = new File(repositoryPath);
         if (!repoDir.exists() || !repoDir.isDirectory()) {
             throw new IllegalArgumentException("Invalid path: " + repositoryPath);
@@ -42,6 +47,7 @@ class GitBasicUtil {
         } catch (IOException e) {
             throw new RuntimeException("Failed to open Git repository", e);
         }
+        this.opened = true;
     }
 
     public void add(String filePattern) {
@@ -84,5 +90,6 @@ class GitBasicUtil {
             git.close();
             git = null;
         }
+        opened = false;
     }
 }

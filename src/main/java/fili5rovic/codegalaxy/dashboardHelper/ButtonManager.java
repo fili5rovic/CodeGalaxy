@@ -21,6 +21,10 @@ public class ButtonManager {
         controller.getInitRepoBtn().setOnAction(_ -> {
             initRepoBtn();
         });
+
+        controller.getCommitBtn().setOnAction(_ -> {
+            GitUtil.instance().updateHierarchy();
+        });
     }
 
     private static void initRepoBtn() {
