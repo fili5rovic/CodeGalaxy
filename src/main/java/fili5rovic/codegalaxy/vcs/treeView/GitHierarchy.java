@@ -32,14 +32,26 @@ public class GitHierarchy extends TreeView<GitTreeItem> {
         untracked.setExpanded(true);
         root.getChildren().add(untracked);
 
-
         listeners();
     }
 
     public void update(Status status) {
         untracked.getChildren().clear();
-        for (String untrackedFile : status.getUntracked()) {
-            untracked.getChildren().add(new TreeItem<>(new GitTreeItem(untrackedFile)));
+        status.getUntracked().forEach(item -> addUntracked(new GitTreeItem(item)));
+
+        if(untracked.getChildren().isEmpty()) {
+            getRoot().getChildren().remove(untracked);
+        } else if(!getRoot().getChildren().contains(untracked)) {
+            getRoot().getChildren().add(untracked);
+        }
+
+        changes.getChildren().clear();
+        status.getChanged().forEach(item -> addChange(new GitTreeItem(item)));
+
+        if(changes.getChildren().isEmpty()) {
+            getRoot().getChildren().remove(changes);
+        } else if(!getRoot().getChildren().contains(changes)) {
+            getRoot().getChildren().add(changes);
         }
     }
 
@@ -71,6 +83,10 @@ public class GitHierarchy extends TreeView<GitTreeItem> {
 
     private void addChange(GitTreeItem item) {
         changes.getChildren().add(new TreeItem<>(item));
+    }
+
+    private void addUntracked(GitTreeItem item) {
+        untracked.getChildren().add(new TreeItem<>(item));
     }
 
 
