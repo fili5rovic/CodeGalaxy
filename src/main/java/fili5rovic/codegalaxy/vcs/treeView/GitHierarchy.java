@@ -12,7 +12,6 @@ import org.eclipse.jgit.api.Status;
 public class GitHierarchy extends TreeView<GitTreeItem> {
 
     private final TreeItem<GitTreeItem> changes;
-
     private final TreeItem<GitTreeItem> untracked;
 
     public GitHierarchy() {
