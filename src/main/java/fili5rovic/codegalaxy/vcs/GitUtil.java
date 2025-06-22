@@ -3,6 +3,8 @@ package fili5rovic.codegalaxy.vcs;
 import fili5rovic.codegalaxy.vcs.treeView.GitHierarchy;
 import fili5rovic.codegalaxy.projectSetings.ProjectSettingsUtil;
 
+import java.io.IOException;
+
 public class GitUtil {
     private final GitBasicUtil gitBasicUtil;
 
@@ -51,6 +53,10 @@ public class GitUtil {
 
     public void add(String filePattern) {
         gitBasicUtil.add(filePattern);
+    }
+
+    public int getFileCountInLastCommit() throws Exception {
+        return GitAdvancedUtil.getChangedFileCount(gitBasicUtil.getRepository());
     }
 
     public void setHierarchy(GitHierarchy hierarchy) {
