@@ -1,0 +1,35 @@
+package fili5rovic.codegalaxy.notification;
+
+import fili5rovic.codegalaxy.controller.DashboardController;
+import fili5rovic.codegalaxy.window.Window;
+import javafx.application.Platform;
+import javafx.scene.layout.VBox;
+
+public class NotificationManager {
+
+    private static VBox container;
+    private static boolean initialized = false;
+
+    private static void ensureInitialized() {
+        if (!initialized) {
+            DashboardController controller = (DashboardController) Window.getController(Window.WINDOW_DASHBOARD);
+            container = controller.getNotificationVBox();
+            initialized = true;
+        }
+    }
+
+    public static void show(String title, String message) {
+        ensureInitialized();
+
+        Platform.runLater(() -> {
+            NotificationBox[] boxHolder = new NotificationBox[1];
+
+            boxHolder[0] = new NotificationBox(title, message, () -> {
+                container.getChildren().remove(boxHolder[0]);
+            });
+
+            container.getChildren().add(0, boxHolder[0]);
+        });
+    }
+
+}

@@ -115,6 +115,9 @@
                                                     </font>
                                                 </Label>
                                             </center>
+                                 <right>
+                                    <VBox fx:id="notificationVBox" mouseTransparent="true" prefHeight="629.0" prefWidth="252.0" BorderPane.alignment="CENTER" />
+                                 </right>
                                         </BorderPane>
                                     </children>
                                 </StackPane>
