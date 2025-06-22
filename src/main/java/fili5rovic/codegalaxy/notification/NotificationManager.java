@@ -24,11 +24,9 @@ public class NotificationManager {
         Platform.runLater(() -> {
             NotificationBox[] boxHolder = new NotificationBox[1];
 
-            boxHolder[0] = new NotificationBox(title, message, () -> {
-                container.getChildren().remove(boxHolder[0]);
-            });
+            boxHolder[0] = new NotificationBox(title, message);
 
-            container.getChildren().add(0, boxHolder[0]);
+            container.getChildren().addLast(boxHolder[0]);
         });
     }
 
