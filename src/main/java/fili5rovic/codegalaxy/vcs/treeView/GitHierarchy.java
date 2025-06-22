@@ -9,10 +9,14 @@ import javafx.scene.control.TreeView;
 import javafx.scene.layout.BorderPane;
 import org.eclipse.jgit.api.Status;
 
+import java.util.HashSet;
+
 public class GitHierarchy extends TreeView<GitTreeItem> {
 
     private final TreeItem<GitTreeItem> changes;
     private final TreeItem<GitTreeItem> untracked;
+
+    private final HashSet<String> changesSet = new HashSet<>();
 
     public GitHierarchy() {
         super();
@@ -34,22 +38,46 @@ public class GitHierarchy extends TreeView<GitTreeItem> {
         listeners();
     }
 
+    private void printStatus(Status status) {
+        System.out.print("Changed files: ");
+        status.getChanged().forEach(item -> System.out.print("  " + item));
+
+        System.out.print("\nModified files: ");
+        status.getModified().forEach(item -> System.out.print("  " + item));
+
+        System.out.print("\nAdded files: ");
+        status.getAdded().forEach(item -> System.out.print("  " + item));
+
+        System.out.print("\nUncommitted changes: ");
+        System.out.println("  " + status.getUncommittedChanges());
+
+        System.out.println("Untracked files:");
+        status.getUntracked().forEach(item -> System.out.print("  " + item));
+        System.out.println();
+    }
+
     public void update(Status status) {
+        printStatus(status);
         untracked.getChildren().clear();
+        untracked.getValue().getToggle().setSelected(false);
         status.getUntracked().forEach(item -> addUntracked(new GitTreeItem(item)));
 
-        if(untracked.getChildren().isEmpty()) {
+        if (untracked.getChildren().isEmpty()) {
             getRoot().getChildren().remove(untracked);
-        } else if(!getRoot().getChildren().contains(untracked)) {
+        } else if (!getRoot().getChildren().contains(untracked)) {
             getRoot().getChildren().add(untracked);
         }
 
+        changesSet.clear();
         changes.getChildren().clear();
+        changes.getValue().getToggle().setSelected(false);
+        status.getModified().forEach(item -> addChange(new GitTreeItem(item).modified()));
+        status.getAdded().forEach(item -> addChange(new GitTreeItem(item)));
         status.getChanged().forEach(item -> addChange(new GitTreeItem(item)));
 
-        if(changes.getChildren().isEmpty()) {
+        if (changes.getChildren().isEmpty()) {
             getRoot().getChildren().remove(changes);
-        } else if(!getRoot().getChildren().contains(changes)) {
+        } else if (!getRoot().getChildren().contains(changes)) {
             getRoot().getChildren().add(changes);
         }
     }
@@ -68,19 +96,24 @@ public class GitHierarchy extends TreeView<GitTreeItem> {
                 }
             }
         });
-        untracked.getValue().getToggle().selectedProperty().addListener((_, _, selected) -> expandChildren(untracked, selected));
+        untracked.getValue().getToggle().selectedProperty().addListener((_, _, selected) -> applySelectionToChildren(untracked, selected));
+        changes.getValue().getToggle().selectedProperty().addListener((_, _, selected) -> applySelectionToChildren(changes, selected));
     }
 
-    private void expandChildren(TreeItem<GitTreeItem> item, boolean selected) {
+    private void applySelectionToChildren(TreeItem<GitTreeItem> item, boolean selected) {
         if (item != null) {
             item.getValue().getToggle().setSelected(selected);
             for (TreeItem<GitTreeItem> child : item.getChildren()) {
-                expandChildren(child, selected);
+                applySelectionToChildren(child, selected);
             }
         }
     }
 
     private void addChange(GitTreeItem item) {
+        if (changesSet.contains(item.getPathGit())) {
+            return;
+        }
+        changesSet.add(item.getPathGit());
         changes.getChildren().add(new TreeItem<>(item));
     }
 
@@ -94,6 +127,14 @@ public class GitHierarchy extends TreeView<GitTreeItem> {
         GitHierarchy gitHierarchy = new GitHierarchy();
         GitUtil.instance().setHierarchy(gitHierarchy);
         pane.setCenter(gitHierarchy);
+    }
+
+    public TreeItem<GitTreeItem> getChanges() {
+        return changes;
+    }
+
+    public TreeItem<GitTreeItem> getUntracked() {
+        return untracked;
     }
 
 }

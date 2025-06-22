@@ -5,15 +5,26 @@ import javafx.scene.control.ToggleButton;
 import java.nio.file.Path;
 
 public class GitTreeItem {
-    private ToggleButton button;
-    private String name;
+    private final ToggleButton button;
+    private final String name;
     private final Path path;
+
+    private boolean modified = false;
 
     public GitTreeItem(String name) {
         this.path = Path.of(name);
         this.name = path.getFileName().toString();
         this.button = new ToggleButton();
         this.button.getStyleClass().add("git-toggle-button");
+    }
+
+    public GitTreeItem modified() {
+        this.modified = true;
+        return this;
+    }
+
+    public boolean isModified() {
+        return modified;
     }
 
     public ToggleButton getToggle() {
@@ -24,7 +35,7 @@ public class GitTreeItem {
         return name;
     }
 
-    public Path getPath() {
-        return path;
+    public String getPathGit() {
+        return path.toString().replace("\\", "/");
     }
 }

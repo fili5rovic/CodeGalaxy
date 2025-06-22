@@ -1,9 +1,6 @@
 package fili5rovic.codegalaxy.vcs;
 
-import org.eclipse.jgit.api.AddCommand;
-import org.eclipse.jgit.api.CommitCommand;
-import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.api.Status;
+import org.eclipse.jgit.api.*;
 import org.eclipse.jgit.api.errors.GitAPIException;
 
 import java.io.File;
@@ -14,6 +11,14 @@ class GitBasicUtil {
     private Git git;
 
     private boolean opened = false;
+
+    public static void main(String[] args) {
+        GitBasicUtil gitUtil = new GitBasicUtil();
+        gitUtil.init("D:\\TEST_WORKSPACE\\Test");
+        gitUtil.add("src/Main.java");
+        gitUtil.commit("Initial commit");
+        gitUtil.close();
+    }
 
     public void init(String repositoryPath) {
         File repoDir = new File(repositoryPath);
@@ -69,6 +74,16 @@ class GitBasicUtil {
             commitCommand.call();
         } catch (GitAPIException e) {
             throw new RuntimeException("Failed to commit", e);
+        }
+    }
+
+    public void restore(String filePattern) {
+        if (git == null)
+            throw new IllegalStateException("Git repository is not open or initialized");
+        try {
+            git.reset().addPath(filePattern).call();
+        } catch (GitAPIException e) {
+            throw new RuntimeException("Failed to restore file(s)", e);
         }
     }
 
