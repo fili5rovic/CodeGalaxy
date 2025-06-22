@@ -8,9 +8,15 @@ class GitFileHelper {
 
     public static void makeGitIgnore(String repositoryPath) {
         String gitIgnoreContent = """
+                # Ignore codegalaxy specific files
+                .codegalaxy/
+                
                 # Ignore the .idea directory
                 .idea/
-                .codegalaxy/
+                
+                # Ignore eclipse project files
+                .project
+                .classpath
                 
                 # Ignore build directories
                 /build/

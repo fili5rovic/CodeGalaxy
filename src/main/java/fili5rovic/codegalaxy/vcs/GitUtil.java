@@ -45,6 +45,14 @@ public class GitUtil {
         gitBasicUtil.commit(message);
     }
 
+    public void restore(String filePattern) {
+        gitBasicUtil.restore(filePattern);
+    }
+
+    public void add(String filePattern) {
+        gitBasicUtil.add(filePattern);
+    }
+
     public void setHierarchy(GitHierarchy hierarchy) {
         this.gitHierarchy = hierarchy;
     }

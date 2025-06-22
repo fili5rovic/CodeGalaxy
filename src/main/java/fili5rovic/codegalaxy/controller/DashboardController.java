@@ -110,6 +110,9 @@ public class DashboardController extends ControllerBase {
     @FXML
     private BorderPane gitTreeViewPane;
 
+    @FXML
+    private TextArea commitMsg;
+
     private DisplayErrorsHandler displayErrorsHandler;
 
     @Override
@@ -318,6 +321,10 @@ public class DashboardController extends ControllerBase {
 
     public Button getCommitBtn() {
         return commitBtn;
+    }
+
+    public TextArea getCommitMsg() {
+        return commitMsg;
     }
 
     public BorderPane getGitTreeViewPane() {

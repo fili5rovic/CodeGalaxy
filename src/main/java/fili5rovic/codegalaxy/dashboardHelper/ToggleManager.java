@@ -19,6 +19,10 @@ public class ToggleManager {
     public static void initialize() {
         toggleIcons();
         toggleActions();
+
+        controller.getGitPane().setVisible(false);
+        controller.getGitBorderPane().setVisible(false);
+        controller.getGitInitPane().setVisible(false);
     }
 
     private static void toggleActions() {
