@@ -58,29 +58,43 @@ public class GitHierarchy extends TreeView<GitTreeItem> {
 
     public void update(Status status) {
         printStatus(status);
-        untracked.getChildren().clear();
-        untracked.getValue().getToggle().setSelected(false);
-        status.getUntracked().forEach(item -> addUntracked(new GitTreeItem(item)));
+        updateChangesSection(status);
+        updateUntrackedSection(status);
+        updateTree();
+    }
 
-        if (untracked.getChildren().isEmpty()) {
-            getRoot().getChildren().remove(untracked);
-        } else if (!getRoot().getChildren().contains(untracked)) {
-            getRoot().getChildren().add(untracked);
-        }
+    private void updateTree() {
+        updateTreeItemVisibility(changes, 0);
+        updateTreeItemVisibility(untracked, getRoot().getChildren().size());
+    }
 
+    private void updateChangesSection(Status status) {
         changesSet.clear();
         changes.getChildren().clear();
         changes.getValue().getToggle().setSelected(false);
         status.getModified().forEach(item -> addChange(new GitTreeItem(item).modified()));
         status.getAdded().forEach(item -> addChange(new GitTreeItem(item)));
         status.getChanged().forEach(item -> addChange(new GitTreeItem(item)));
+    }
 
-        if (changes.getChildren().isEmpty()) {
-            getRoot().getChildren().remove(changes);
-        } else if (!getRoot().getChildren().contains(changes)) {
-            getRoot().getChildren().add(changes);
+    private void updateUntrackedSection(Status status) {
+        untracked.getChildren().clear();
+        untracked.getValue().getToggle().setSelected(false);
+        status.getUntracked().forEach(item -> addUntracked(new GitTreeItem(item)));
+    }
+
+    private void updateTreeItemVisibility(TreeItem<GitTreeItem> item, int targetIndex) {
+        boolean hasChildren = !item.getChildren().isEmpty();
+        boolean isInTree = getRoot().getChildren().contains(item);
+
+        if (!hasChildren && isInTree) {
+            getRoot().getChildren().remove(item);
+        } else if (hasChildren && !isInTree) {
+            getRoot().getChildren().add(targetIndex, item);
         }
     }
+
+
 
     private void listeners() {
         setCellFactory(tv -> new TreeCell<>() {
