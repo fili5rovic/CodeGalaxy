@@ -4,6 +4,7 @@ import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.dashboardHelper.*;
 import fili5rovic.codegalaxy.errors.DisplayErrorsHandler;
 import fili5rovic.codegalaxy.lsp.LSP;
+import fili5rovic.codegalaxy.notification.Notification;
 import fili5rovic.codegalaxy.vcs.treeView.GitHierarchy;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.application.Platform;
@@ -151,6 +152,10 @@ public class DashboardController extends ControllerBase {
         fileSearchPopupListener();
 
         GitHierarchy.addHierarchy();
+
+        Platform.runLater(() -> {
+            Notification.show("Welcome to CodeGalaxy!", "Your coding journey begins here!");
+        });
     }
 
     private static void fileSearchPopupListener() {
