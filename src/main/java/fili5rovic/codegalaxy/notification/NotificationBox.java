@@ -43,6 +43,7 @@ public class NotificationBox extends VBox {
             });
             fadeOut.play();
         });
+
         delay.play();
     }
 }
