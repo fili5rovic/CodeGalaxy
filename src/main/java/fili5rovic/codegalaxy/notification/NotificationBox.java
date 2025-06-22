@@ -8,18 +8,24 @@ import javafx.util.Duration;
 
 public class NotificationBox extends VBox {
 
-    public NotificationBox(String titleText, String messageText, Runnable onHide) {
+    public NotificationBox(String titleText, String messageText) {
         setSpacing(5);
         getStyleClass().add("notification-popup");
 
         Label title = new Label(titleText);
         title.getStyleClass().add("notification-title");
+        getChildren().addAll(title);
 
-        Label message = new Label(messageText);
-        message.getStyleClass().add("notification-message");
+        if(messageText != null) {
+            Label message = new Label(messageText);
+            message.getStyleClass().add("notification-message");
+            getChildren().add(message);
+        }
 
-        getChildren().addAll(title, message);
+        animations();
+    }
 
+    private void animations() {
         FadeTransition fadeIn = new FadeTransition(Duration.millis(200), this);
         fadeIn.setFromValue(0);
         fadeIn.setToValue(1);
@@ -30,7 +36,11 @@ public class NotificationBox extends VBox {
             FadeTransition fadeOut = new FadeTransition(Duration.millis(200), this);
             fadeOut.setFromValue(1);
             fadeOut.setToValue(0);
-            fadeOut.setOnFinished(ev -> onHide.run());
+            fadeOut.setOnFinished(ev -> {
+                if (getParent() instanceof VBox parent) {
+                    parent.getChildren().remove(this);
+                }
+            });
             fadeOut.play();
         });
         delay.play();

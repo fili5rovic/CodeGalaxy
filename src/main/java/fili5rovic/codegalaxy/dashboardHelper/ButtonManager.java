@@ -7,6 +7,7 @@ import fili5rovic.codegalaxy.util.FileHelper;
 import fili5rovic.codegalaxy.vcs.GitUtil;
 import fili5rovic.codegalaxy.vcs.treeView.GitHierarchy;
 import fili5rovic.codegalaxy.window.Window;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -59,7 +60,7 @@ public class ButtonManager {
 
             GitUtil.instance().updateHierarchy();
 
-            NotificationManager.show("Test","Test 123");
+            Platform.runLater(() -> NotificationManager.show("Commit successful",null));
         });
     }
 

@@ -158,9 +158,6 @@ public class DashboardController extends ControllerBase {
 
         Platform.runLater(() -> {
             NotificationManager.show("Test","Test 123");
-            NotificationManager.show("Test 2","Test 123 2");
-            NotificationManager.show("Test 3","Test 123 3");
-            NotificationManager.show("Test 4","Test 123 4");
         });
     }
 
