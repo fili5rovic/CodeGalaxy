@@ -14,6 +14,7 @@ public class NotificationManager {
         if (!initialized) {
             DashboardController controller = (DashboardController) Window.getController(Window.WINDOW_DASHBOARD);
             container = controller.getNotificationVBox();
+            container.setPadding(new javafx.geometry.Insets(20, 0, 0, 0));
             initialized = true;
         }
     }

@@ -155,10 +155,6 @@ public class DashboardController extends ControllerBase {
         fileSearchPopupListener();
 
         GitHierarchy.addHierarchy();
-
-        Platform.runLater(() -> {
-            NotificationManager.show("Test","Test 123");
-        });
     }
 
     private static void fileSearchPopupListener() {

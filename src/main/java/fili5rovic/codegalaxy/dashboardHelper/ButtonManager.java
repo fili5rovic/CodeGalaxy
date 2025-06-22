@@ -60,7 +60,15 @@ public class ButtonManager {
 
             GitUtil.instance().updateHierarchy();
 
-            Platform.runLater(() -> NotificationManager.show("Commit successful",null));
+            int fileCount = 0;
+
+            try {
+                fileCount = GitUtil.instance().getFileCountInLastCommit();
+            } catch (Exception e) {
+                System.err.println("Couldn't get file count: " + e.getMessage());
+            }
+
+            NotificationManager.show("Commit successful",fileCount + " files commited successful");
         });
     }
 

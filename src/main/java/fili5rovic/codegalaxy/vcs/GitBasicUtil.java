@@ -2,6 +2,11 @@ package fili5rovic.codegalaxy.vcs;
 
 import org.eclipse.jgit.api.*;
 import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.lib.ObjectId;
+import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.revwalk.RevCommit;
+import org.eclipse.jgit.revwalk.RevWalk;
+import org.eclipse.jgit.treewalk.TreeWalk;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,14 +16,6 @@ class GitBasicUtil {
     private Git git;
 
     private boolean opened = false;
-
-    public static void main(String[] args) {
-        GitBasicUtil gitUtil = new GitBasicUtil();
-        gitUtil.init("D:\\TEST_WORKSPACE\\Test");
-        gitUtil.add("src/Main.java");
-        gitUtil.commit("Initial commit");
-        gitUtil.close();
-    }
 
     public void init(String repositoryPath) {
         File repoDir = new File(repositoryPath);
@@ -31,6 +28,13 @@ class GitBasicUtil {
         } catch (GitAPIException e) {
             throw new RuntimeException("Failed to initialize Git repository", e);
         }
+    }
+
+    public Repository getRepository() {
+        if (git == null) {
+            throw new IllegalStateException("Git repository is not open or initialized");
+        }
+        return git.getRepository();
     }
 
     public void open(String repositoryPath) {
