@@ -76,30 +76,29 @@
                                                     </center>
                                                 </BorderPane>
                                                 <BorderPane fx:id="gitBorderPane" prefHeight="200.0" prefWidth="200.0">
-                                       <center>
-                                          <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-                                             <children>
-                                                                <SplitPane dividerPositions="0.7316239316239316" orientation="VERTICAL" prefHeight="587.0" prefWidth="227.0">
-                                                                    <items>
-                                                                        <BorderPane fx:id="gitTreeViewPane" minHeight="0.0" minWidth="0.0" prefHeight="585.0" prefWidth="220.0" />
-                                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                                                         <children>
-                                                            <TextArea fx:id="commitMsg" prefHeight="154.0" prefWidth="225.0" promptText="Commit message..." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                               <font>
-                                                                  <Font size="14.0" />
-                                                               </font>
-                                                            </TextArea>
-                                                         </children></AnchorPane>
-                                                                    </items>
-                                                                </SplitPane>
-                                                                <Button fx:id="commitBtn" mnemonicParsing="false" text="Commit">
-                                                                    <font>
-                                                                        <Font size="16.0" />
-                                                                    </font>
-                                                                </Button>
-                                             </children>
-                                          </VBox>
-                                       </center>
+                                       <top>
+                                                          <SplitPane dividerPositions="0.7435897435897436" orientation="VERTICAL" prefHeight="617.0" prefWidth="206.0" BorderPane.alignment="CENTER">
+                                                              <items>
+                                                                  <BorderPane fx:id="gitTreeViewPane" minHeight="0.0" minWidth="0.0" prefHeight="585.0" prefWidth="220.0" />
+                                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                                   <children>
+                                                      <TextArea fx:id="commitMsg" prefHeight="154.0" prefWidth="225.0" promptText="Commit message..." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </TextArea>
+                                                   </children>
+                                                </AnchorPane>
+                                                              </items>
+                                                          </SplitPane>
+                                       </top>
+                                       <bottom>
+                                                          <Button fx:id="commitBtn" mnemonicParsing="false" text="Commit" BorderPane.alignment="CENTER">
+                                                              <font>
+                                                                  <Font size="16.0" />
+                                                              </font>
+                                                          </Button>
+                                       </bottom>
                                                 </BorderPane>
                                             </children>
                                         </StackPane>

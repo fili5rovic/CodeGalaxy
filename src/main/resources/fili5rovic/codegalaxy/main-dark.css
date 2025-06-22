@@ -161,19 +161,20 @@
 
 /*<editor-fold desc="Text Area">*/
 .text-area {
-    -fx-background-color: #2e2e2e;
+    -fx-background-color: #2b2b2b;
     -fx-text-fill: #AFB1B3;
-    -fx-border-color: #4e4e4e;
-    -fx-padding: 5;
+
+    -fx-border-color: #4e4e4e transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+    -fx-border-style: solid none none none;
 }
 
 .text-area .scroll-pane {
     -fx-background: #2e2e2e;
-    -fx-background-color: #2e2e2e;
 }
 
 .text-area .content {
-    -fx-background-color: #2e2e2e;
+    -fx-background-color: #2b2b2b;
 }
 
 .text-area .text {
@@ -197,20 +198,20 @@
 
 /*<editor-fold desc="TreeView">*/
 .tree-view {
-    -fx-background-color: #2e2e2e;
+    -fx-background-color: #2b2b2b;
     -fx-text-fill: #ccc;
+    -fx-border-width: 0px;
     -fx-border-color: #444;
-    -fx-border-width: 1px;
 }
 
 /* Stil za TreeView unutar */
 .tree-view .tree-cell {
-    -fx-background-color: #2e2e2e;
+    -fx-background-color: #2b2b2b;
     -fx-text-fill: #ccc;
 }
 
 .tree-view .tree-cell:hover {
-    -fx-background-color: #444444;
+    -fx-background-color: #444;
 }
 
 .tree-view .tree-cell:selected {
