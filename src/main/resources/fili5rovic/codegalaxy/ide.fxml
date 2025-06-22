@@ -58,12 +58,12 @@
             <items>
                 <BorderPane>
                     <center>
-                        <SplitPane fx:id="mainSplitPane" dividerPositions="0.2" prefHeight="556.0" prefWidth="861.0" BorderPane.alignment="CENTER">
+                        <SplitPane fx:id="mainSplitPane" dividerPositions="0.18032786885245902" prefHeight="556.0" prefWidth="861.0" BorderPane.alignment="CENTER">
                             <items>
                                 <StackPane>
                                     <children>
                                         <BorderPane fx:id="treeViewPane" />
-                                        <StackPane fx:id="gitPane" visible="false">
+                                        <StackPane fx:id="gitPane">
                                             <children>
                                                 <BorderPane fx:id="gitInitPane" prefHeight="200.0" prefWidth="200.0" visible="false">
                                                     <center>
@@ -76,14 +76,9 @@
                                                     </center>
                                                 </BorderPane>
                                                 <BorderPane fx:id="gitBorderPane" prefHeight="200.0" prefWidth="200.0">
-                                                    <center>
-                                                        <AnchorPane minHeight="0.0" minWidth="0.0" BorderPane.alignment="CENTER">
-                                                            <children>
-                                                                <Button fx:id="commitBtn" layoutX="14.0" layoutY="596.0" mnemonicParsing="false" text="Commit">
-                                                                    <font>
-                                                                        <Font size="16.0" />
-                                                                    </font>
-                                                                </Button>
+                                       <center>
+                                          <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                                             <children>
                                                                 <SplitPane dividerPositions="0.7316239316239316" orientation="VERTICAL" prefHeight="587.0" prefWidth="227.0">
                                                                     <items>
                                                                         <BorderPane fx:id="gitTreeViewPane" minHeight="0.0" minWidth="0.0" prefHeight="585.0" prefWidth="220.0" />
@@ -97,9 +92,14 @@
                                                          </children></AnchorPane>
                                                                     </items>
                                                                 </SplitPane>
-                                                            </children>
-                                                        </AnchorPane>
-                                                    </center>
+                                                                <Button fx:id="commitBtn" mnemonicParsing="false" text="Commit">
+                                                                    <font>
+                                                                        <Font size="16.0" />
+                                                                    </font>
+                                                                </Button>
+                                             </children>
+                                          </VBox>
+                                       </center>
                                                 </BorderPane>
                                             </children>
                                         </StackPane>
