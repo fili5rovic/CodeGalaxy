@@ -1,7 +1,7 @@
 package fili5rovic.codegalaxy.dashboardHelper;
 
 import fili5rovic.codegalaxy.controller.DashboardController;
-import fili5rovic.codegalaxy.notification.Notification;
+import fili5rovic.codegalaxy.notification.NotificationManager;
 import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.util.FileHelper;
 import fili5rovic.codegalaxy.vcs.GitUtil;
@@ -59,7 +59,7 @@ public class ButtonManager {
 
             GitUtil.instance().updateHierarchy();
 
-            Notification.show("Commit Successful", "Your changes have been committed successfully.");
+            NotificationManager.show("Test","Test 123");
         });
     }
 

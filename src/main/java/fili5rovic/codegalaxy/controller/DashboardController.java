@@ -4,7 +4,7 @@ import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.dashboardHelper.*;
 import fili5rovic.codegalaxy.errors.DisplayErrorsHandler;
 import fili5rovic.codegalaxy.lsp.LSP;
-import fili5rovic.codegalaxy.notification.Notification;
+import fili5rovic.codegalaxy.notification.NotificationManager;
 import fili5rovic.codegalaxy.vcs.treeView.GitHierarchy;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.application.Platform;
@@ -114,6 +114,9 @@ public class DashboardController extends ControllerBase {
     @FXML
     private TextArea commitMsg;
 
+    @FXML
+    private VBox notificationVBox;
+
     private DisplayErrorsHandler displayErrorsHandler;
 
     @Override
@@ -154,7 +157,10 @@ public class DashboardController extends ControllerBase {
         GitHierarchy.addHierarchy();
 
         Platform.runLater(() -> {
-            Notification.show("Welcome to CodeGalaxy!", "Your coding journey begins here!");
+            NotificationManager.show("Test","Test 123");
+            NotificationManager.show("Test 2","Test 123 2");
+            NotificationManager.show("Test 3","Test 123 3");
+            NotificationManager.show("Test 4","Test 123 4");
         });
     }
 
@@ -330,6 +336,10 @@ public class DashboardController extends ControllerBase {
 
     public TextArea getCommitMsg() {
         return commitMsg;
+    }
+
+    public VBox getNotificationVBox() {
+        return notificationVBox;
     }
 
     public BorderPane getGitTreeViewPane() {

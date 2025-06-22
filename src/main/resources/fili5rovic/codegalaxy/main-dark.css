@@ -714,23 +714,23 @@
     -fx-text-fill: #8f1a1a;
 }
 
-/*.notification-popup {*/
-/*    -fx-background-color: #2e2e2e;*/
-/*    -fx-padding: 12;*/
-/*    -fx-background-radius: 8;*/
-/*    -fx-effect: dropshadow(gaussian, black, 8, 0.5, 0, 2);*/
-/*}*/
+.notification-popup {
+    -fx-background-color: #2e2e2e;
+    -fx-padding: 12;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(gaussian, black, 8, 0.5, 0, 2);
+}
 
-/*.notification-title {*/
-/*    -fx-font-weight: bold;*/
-/*    -fx-text-fill: white;*/
-/*    -fx-font-size: 14px;*/
-/*}*/
+.notification-title {
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
 
-/*.notification-message {*/
-/*    -fx-text-fill: #cccccc;*/
-/*    -fx-font-size: 13px;*/
-/*}*/
+.notification-message {
+    -fx-text-fill: #cccccc;
+    -fx-font-size: 13px;
+}
 
 
 
