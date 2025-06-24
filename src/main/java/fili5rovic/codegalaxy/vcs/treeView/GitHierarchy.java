@@ -1,6 +1,7 @@
 package fili5rovic.codegalaxy.vcs.treeView;
 
 import fili5rovic.codegalaxy.controller.DashboardController;
+import fili5rovic.codegalaxy.vcs.GitListenerUtil;
 import fili5rovic.codegalaxy.vcs.GitUtil;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.scene.control.TreeCell;
@@ -28,10 +29,14 @@ public class GitHierarchy extends TreeView<GitTreeItem> {
         setRoot(root);
 
         changes = new TreeItem<>(new GitTreeItem("Changes"));
+        changes.getValue().getToggle().selectedProperty().addListener((_,_,selected) -> GitListenerUtil.toggleListener(selected, getRoot()));
+
         changes.setExpanded(true);
         root.getChildren().add(changes);
 
         untracked = new TreeItem<>(new GitTreeItem("Untracked"));
+        untracked.getValue().getToggle().selectedProperty().addListener((_,_,selected) -> GitListenerUtil.toggleListener(selected, getRoot()));
+
         untracked.setExpanded(true);
         root.getChildren().add(untracked);
 
@@ -112,6 +117,8 @@ public class GitHierarchy extends TreeView<GitTreeItem> {
         });
         untracked.getValue().getToggle().selectedProperty().addListener((_, _, selected) -> applySelectionToChildren(untracked, selected));
         changes.getValue().getToggle().selectedProperty().addListener((_, _, selected) -> applySelectionToChildren(changes, selected));
+
+        GitListenerUtil.applyGitCommitTextListener(getRoot());
     }
 
     private void applySelectionToChildren(TreeItem<GitTreeItem> item, boolean selected) {
@@ -129,10 +136,12 @@ public class GitHierarchy extends TreeView<GitTreeItem> {
         }
         changesSet.add(item.getPathGit());
         changes.getChildren().add(new TreeItem<>(item));
+        item.getToggle().selectedProperty().addListener((_,_,selected) -> GitListenerUtil.toggleListener(selected, getRoot()));
     }
 
     private void addUntracked(GitTreeItem item) {
         untracked.getChildren().add(new TreeItem<>(item));
+        item.getToggle().selectedProperty().addListener((_,_,selected) -> GitListenerUtil.toggleListener(selected, getRoot()));
     }
 
 
