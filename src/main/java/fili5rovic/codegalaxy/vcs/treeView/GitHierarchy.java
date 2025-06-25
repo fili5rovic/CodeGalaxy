@@ -1,13 +1,16 @@
 package fili5rovic.codegalaxy.vcs.treeView;
 
 import fili5rovic.codegalaxy.controller.DashboardController;
+import fili5rovic.codegalaxy.util.SVGUtil;
 import fili5rovic.codegalaxy.vcs.GitListenerUtil;
 import fili5rovic.codegalaxy.vcs.GitUtil;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import org.eclipse.jgit.api.Status;
 
 import java.util.HashSet;
@@ -92,7 +95,15 @@ public class GitHierarchy extends TreeView<GitTreeItem> {
                     setText(null);
                 } else {
                     setText(item.getName());
-                    setGraphic(item.getToggle());
+                    TreeItem<GitTreeItem> treeItem = getTreeItem();
+                    if (treeItem != null && treeItem.getParent() == tv.getRoot()) {
+                        setGraphic(item.getToggle());
+                    } else if (treeItem != null) {
+                        ImageView icon = SVGUtil.getIconByPath(item.getPath(), 16, 16, 2);
+                        setGraphic(new HBox(item.getToggle(), icon));
+                    } else {
+                        setGraphic(item.getToggle());
+                    }
                 }
             }
         });
