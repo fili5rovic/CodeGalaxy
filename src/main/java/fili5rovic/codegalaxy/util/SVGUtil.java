@@ -74,14 +74,9 @@ public class SVGUtil {
             }
 
             String content = new String(svgUrl.openStream().readAllBytes());
-            String newContent = "";
             if(!CSSUtil.isDarkTheme()) {
-                newContent = content.replace("fill=\"#fff\"", "fill=\"#000\"");
-                newContent = newContent.replace("stroke=\"#fff\"", "stroke=\"#000\"");
-                if(newContent.equals(content)) {
-                    System.out.println(relativePath);
-                }
-                content = newContent;
+                content = content.replace("fill=\"#fff\"", "fill=\"#000\"");
+                content = content.replace("stroke=\"#fff\"", "stroke=\"#000\"");
             }
             SVGUniverse universe = new SVGUniverse();
             URI uri = universe.loadSVG(new java.io.StringReader(content), relativePath);
