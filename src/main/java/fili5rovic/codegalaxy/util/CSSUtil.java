@@ -21,8 +21,8 @@ public class CSSUtil {
         String theme = IDESettings.getInstance().get("theme");
         String otherTheme = theme.equals("light") ? "dark" : "light";
 
-        String newPath = toExternalForm(name + "-" + theme + ".css");
-        String oldPath = toExternalFormNullable(name + "-" + otherTheme + ".css");
+        String newPath = toExternalForm("css/" + name + "-" + theme + ".css");
+        String oldPath = toExternalFormNullable("css/" + name + "-" + otherTheme + ".css");
 
         if (oldPath != null) stylesheet.remove(oldPath);
         if (!stylesheet.contains(newPath)) stylesheet.add(newPath);
@@ -38,17 +38,16 @@ public class CSSUtil {
 
         DashboardController controller = (DashboardController) Window.getController(Window.WINDOW_DASHBOARD);
         for (CodeGalaxy codeGalaxy : controller.getOpenCodeGalaxies()) {
-            System.out.println("Setting highlighter CSS for: " + codeGalaxy.getFilePath());
             codeGalaxy.getHighlighter().setupHighlighterCSS();
         }
         controller.onThemeChanged();
     }
 
     private static void replaceStylesheet(Scene scene, String baseName, String theme) {
-        String lightPath = toExternalForm("/fili5rovic/codegalaxy/" + baseName + "-light.css");
-        String darkPath = toExternalForm("/fili5rovic/codegalaxy/" + baseName + "-dark.css");
+        String lightPath = toExternalForm("/fili5rovic/codegalaxy/css/" + baseName + "-light.css");
+        String darkPath = toExternalForm("/fili5rovic/codegalaxy/css/" + baseName + "-dark.css");
 
-        // Always remove both, add only the selected one
+        // always remove both, add only the selected one, priorities
         scene.getStylesheets().removeAll(lightPath, darkPath);
 
         String selectedPath = theme.equals("light") ? lightPath : darkPath;

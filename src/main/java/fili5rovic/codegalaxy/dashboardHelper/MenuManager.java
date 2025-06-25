@@ -90,7 +90,7 @@ public class MenuManager {
         dialog.setTitle("New Project");
         dialog.setContentText("Project name:");
 
-        dialog.getDialogPane().getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/main-dark.css")).toExternalForm());
+        dialog.getDialogPane().getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/css/main-dark.css")).toExternalForm());
 
         dialog.showAndWait().ifPresent(ProjectManager::createProject);
     }

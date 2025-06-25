@@ -15,7 +15,7 @@ public class DashboardWindow extends Window {
     @Override
     public void init(Stage stage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("ide.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("fxml/ide.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             CSSUtil.applyStylesheet(scene.getStylesheets(), "main");
             CSSUtil.applyStylesheet(scene.getStylesheets(), "codegalaxy");
