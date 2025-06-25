@@ -7,6 +7,7 @@ import fili5rovic.codegalaxy.lsp.LSP;
 import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.util.FileHelper;
 import fili5rovic.codegalaxy.util.SVGUtil;
+import fili5rovic.codegalaxy.vcs.GitUtil;
 import fili5rovic.codegalaxy.window.Window;
 import fili5rovic.codegalaxy.window.WindowHelper;
 import javafx.event.ActionEvent;
@@ -73,6 +74,8 @@ public class MenuManager {
             LSP.instance().sendSave(codeGalaxy.getFilePath().toString());
             codeGalaxy.save();
         }
+        if(controller.getShowGitToggle().isSelected())
+            GitUtil.instance().updateHierarchy();
     }
 
     private static void newProject(ActionEvent a) {
