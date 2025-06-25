@@ -1,6 +1,8 @@
 package fili5rovic.codegalaxy.vcs.treeView;
 
 import fili5rovic.codegalaxy.controller.DashboardController;
+import fili5rovic.codegalaxy.projectSetings.ProjectSettingsUtil;
+import fili5rovic.codegalaxy.projectSetings.VCSUtil;
 import fili5rovic.codegalaxy.util.SVGUtil;
 import fili5rovic.codegalaxy.vcs.GitListenerUtil;
 import fili5rovic.codegalaxy.vcs.GitUtil;
@@ -13,6 +15,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import org.eclipse.jgit.api.Status;
 
+import java.io.IOException;
 import java.util.HashSet;
 
 public class GitHierarchy extends TreeView<GitTreeItem> {
@@ -32,13 +35,13 @@ public class GitHierarchy extends TreeView<GitTreeItem> {
         setRoot(root);
 
         changes = new TreeItem<>(new GitTreeItem("Changes"));
-        changes.getValue().getToggle().selectedProperty().addListener((_,_,selected) -> GitListenerUtil.toggleListener(selected, getRoot()));
+        changes.getValue().getToggle().selectedProperty().addListener((_, _, selected) -> GitListenerUtil.toggleListener(selected, getRoot()));
 
         changes.setExpanded(true);
         root.getChildren().add(changes);
 
         untracked = new TreeItem<>(new GitTreeItem("Untracked"));
-        untracked.getValue().getToggle().selectedProperty().addListener((_,_,selected) -> GitListenerUtil.toggleListener(selected, getRoot()));
+        untracked.getValue().getToggle().selectedProperty().addListener((_, _, selected) -> GitListenerUtil.toggleListener(selected, getRoot()));
 
         untracked.setExpanded(true);
         root.getChildren().add(untracked);
@@ -84,7 +87,6 @@ public class GitHierarchy extends TreeView<GitTreeItem> {
     }
 
 
-
     private void listeners() {
         setCellFactory(tv -> new TreeCell<>() {
             @Override
@@ -99,8 +101,11 @@ public class GitHierarchy extends TreeView<GitTreeItem> {
                     if (treeItem != null && treeItem.getParent() == tv.getRoot()) {
                         setGraphic(item.getToggle());
                     } else if (treeItem != null) {
-                        ImageView icon = SVGUtil.getIconByPath(item.getPath(), 16, 16, 2);
-                        setGraphic(new HBox(item.getToggle(), icon));
+                        ImageView icon = SVGUtil.getIconByPath(item.getPath(), 20, 20, 2);
+                        HBox hbox = new HBox(item.getToggle(), icon);
+                        hbox.setSpacing(5);
+                        setGraphic(hbox);
+                        setGraphicTextGap(0);
                     } else {
                         setGraphic(item.getToggle());
                     }
@@ -128,12 +133,12 @@ public class GitHierarchy extends TreeView<GitTreeItem> {
         }
         changesSet.add(item.getPathGit());
         changes.getChildren().add(new TreeItem<>(item));
-        item.getToggle().selectedProperty().addListener((_,_,selected) -> GitListenerUtil.toggleListener(selected, getRoot()));
+        item.getToggle().selectedProperty().addListener((_, _, selected) -> GitListenerUtil.toggleListener(selected, getRoot()));
     }
 
     private void addUntracked(GitTreeItem item) {
         untracked.getChildren().add(new TreeItem<>(item));
-        item.getToggle().selectedProperty().addListener((_,_,selected) -> GitListenerUtil.toggleListener(selected, getRoot()));
+        item.getToggle().selectedProperty().addListener((_, _, selected) -> GitListenerUtil.toggleListener(selected, getRoot()));
     }
 
 
@@ -142,6 +147,16 @@ public class GitHierarchy extends TreeView<GitTreeItem> {
         GitHierarchy gitHierarchy = new GitHierarchy();
         GitUtil.instance().setHierarchy(gitHierarchy);
         pane.setCenter(gitHierarchy);
+
+        if (ProjectSettingsUtil.isVCSInit()) {
+            new Thread(() -> {
+                try {
+                    GitUtil.instance().open(VCSUtil.readVcsSettings().getRepositoryPath());
+                } catch (IOException e) {
+                    System.err.println("Failed to open VCS repository: " + e.getMessage());
+                }
+            }).start();
+        }
     }
 
     public TreeItem<GitTreeItem> getChanges() {

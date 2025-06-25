@@ -37,6 +37,9 @@ public class ErrorItem extends HBox {
 
         setOnMouseClicked(_ -> {
             CodeGalaxy codeGalaxy = controller.getOpenCodeGalaxy();
+            if(codeGalaxy == null)
+                return;
+
             codeGalaxy.requestFocus();
             codeGalaxy.moveTo(line, column);
             codeGalaxy.requestFollowCaret();
