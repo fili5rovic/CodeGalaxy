@@ -35,6 +35,10 @@ public class GitTreeItem {
         return name;
     }
 
+    public Path getPath() {
+        return path;
+    }
+
     public String getPathGit() {
         return path.toString().replace("\\", "/");
     }
