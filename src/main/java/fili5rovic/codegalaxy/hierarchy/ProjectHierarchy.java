@@ -104,20 +104,29 @@ public class ProjectHierarchy extends TreeView<Label> {
     private void populateTreeItem(TreeItem<Label> parentItem, Path path) {
         try {
             Files.list(path).forEach(p -> {
-                ProjectItem item = new ProjectItem(p);
+                try {
+                    if (Files.isHidden(p))
+                        return;
 
-                if (Files.isDirectory(p)) {
-                    populateTreeItem(item, p);
-                    restoreExpandedState(item, expandedPaths);
-                } else if (p.toString().endsWith(".java")) {
-                    javaFiles.add(item);
+                    ProjectItem item = new ProjectItem(p);
+
+                    if (Files.isDirectory(p)) {
+                        populateTreeItem(item, p);
+                        restoreExpandedState(item, expandedPaths);
+                    } else if (p.toString().endsWith(".java")) {
+                        javaFiles.add(item);
+                    }
+
+                    parentItem.getChildren().add(item);
+                } catch (IOException e) {
+                    System.err.println("Error checking file: " + p + " - " + e.getMessage());
                 }
-                parentItem.getChildren().add(item);
             });
         } catch (IOException e) {
             System.err.println("Failed to load project hierarchy: " + e.getMessage());
         }
     }
+
 
 
 }
