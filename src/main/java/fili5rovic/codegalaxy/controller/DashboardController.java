@@ -182,6 +182,12 @@ public class DashboardController extends ControllerBase {
         });
     }
 
+    public void onThemeChanged() {
+        ToggleManager.refreshIcons();
+        MenuManager.refreshIcons();
+        ProjectManager.reloadHierarchy();
+    }
+
     private void updateInfoPaneVisibility() {
         boolean hasTabs = !tabPane.getTabs().isEmpty();
         infoPaneNoTabs.setVisible(!hasTabs);
@@ -345,6 +351,8 @@ public class DashboardController extends ControllerBase {
     public BorderPane getGitTreeViewPane() {
         return gitTreeViewPane;
     }
+
+
 
     //</editor-fold>
 }

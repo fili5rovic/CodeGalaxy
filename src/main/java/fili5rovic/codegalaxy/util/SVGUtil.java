@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
 import java.nio.file.Files;
@@ -72,13 +73,23 @@ public class SVGUtil {
                 }
             }
 
+            String content = new String(svgUrl.openStream().readAllBytes());
+            String newContent = "";
+            if(!CSSUtil.isDarkTheme()) {
+                newContent = content.replace("fill=\"#fff\"", "fill=\"#000\"");
+                newContent = newContent.replace("stroke=\"#fff\"", "stroke=\"#000\"");
+                if(newContent.equals(content)) {
+                    System.out.println(relativePath);
+                }
+                content = newContent;
+            }
             SVGUniverse universe = new SVGUniverse();
-            URI uri = universe.loadSVG(svgUrl);
+            URI uri = universe.loadSVG(new java.io.StringReader(content), relativePath);
+
             SVGDiagram diagram = universe.getDiagram(uri);
 
             BufferedImage bufferedImage = new BufferedImage((int) width, (int) height, BufferedImage.TYPE_INT_ARGB);
             Graphics2D g2d = bufferedImage.createGraphics();
-            g2d.setColor(Color.RED);
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             g2d.translate(0, translateY);
 
@@ -90,6 +101,9 @@ public class SVGUtil {
 
         } catch (SVGException e) {
             System.err.println("Failed to render SVG: " + e.getMessage());
+            return new ImageView();
+        } catch (IOException e) {
+            System.err.println("Failed to read SVG file:" + e.getMessage());
             return new ImageView();
         }
     }

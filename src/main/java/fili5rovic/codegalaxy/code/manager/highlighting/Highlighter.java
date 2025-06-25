@@ -32,7 +32,6 @@ public class Highlighter extends Manager {
 
     public void setupHighlighterCSS() {
         CSSUtil.applyStylesheet(codeGalaxy.getStylesheets(), "highlighter");
-
     }
 
     private void fillHashMap() {

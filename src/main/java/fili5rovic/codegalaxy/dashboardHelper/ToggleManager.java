@@ -25,6 +25,10 @@ public class ToggleManager {
         controller.getGitInitPane().setVisible(false);
     }
 
+    public static void refreshIcons() {
+        toggleIcons();
+    }
+
     private static void toggleActions() {
         controller.getLeftToggleGroup().selectedToggleProperty().addListener((_, _, selected) -> SplitPaneManager.showLeftPanel(selected == null));
 

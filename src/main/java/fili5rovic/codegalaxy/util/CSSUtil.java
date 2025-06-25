@@ -41,6 +41,7 @@ public class CSSUtil {
             System.out.println("Setting highlighter CSS for: " + codeGalaxy.getFilePath());
             codeGalaxy.getHighlighter().setupHighlighterCSS();
         }
+        controller.onThemeChanged();
     }
 
     private static void replaceStylesheet(Scene scene, String baseName, String theme) {
