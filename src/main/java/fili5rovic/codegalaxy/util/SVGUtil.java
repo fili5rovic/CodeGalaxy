@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.net.URI;
 import java.net.URL;
 import java.nio.file.Files;
@@ -20,8 +21,10 @@ public class SVGUtil {
 
     public static ImageView getIconByPath(Path path, double width, double height, int translateY) {
         String iconName;
+
         if (Files.isDirectory(path)) {
-            if (path.toFile().listFiles() == null || path.toFile().listFiles().length == 0) {
+            File[] files = path.toFile().listFiles();
+            if (files == null || files.length == 0) {
                 iconName = "folderEmpty";
             } else {
                 iconName = "folder";
@@ -32,10 +35,10 @@ public class SVGUtil {
             iconName = "class";
         } else if (path.toString().endsWith(".gitignore")) {
             iconName = "gitignore";
-        }
-        else {
+        } else {
             iconName = "file";
         }
+
         return getSVG("hierarchy/" + iconName + ".svg", width, height, translateY);
     }
 
