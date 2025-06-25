@@ -30,6 +30,10 @@ public class MenuManager {
         menuActions();
     }
 
+    public static void refreshIcons() {
+        menuIcons();
+    }
+
     private static void menuActions() {
         controller.getOpen().setOnAction(MenuManager::openProject);
         controller.getSaveAll().setOnAction(MenuManager::saveAllFiles);
