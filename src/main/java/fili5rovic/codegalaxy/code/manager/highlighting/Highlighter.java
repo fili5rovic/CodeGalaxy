@@ -3,6 +3,7 @@ package fili5rovic.codegalaxy.code.manager.highlighting;
 import fili5rovic.codegalaxy.Main;
 import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.code.manager.Manager;
+import fili5rovic.codegalaxy.util.CSSUtil;
 import fili5rovic.codegalaxy.util.FileHelper;
 import org.fxmisc.richtext.CodeArea;
 import org.fxmisc.richtext.model.StyleSpans;
@@ -25,8 +26,13 @@ public class Highlighter extends Manager {
 
     @Override
     public void init() {
-        codeGalaxy.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/highlighter.css")).toExternalForm());
+        setupHighlighterCSS();
         fillHashMap();
+    }
+
+    public void setupHighlighterCSS() {
+        CSSUtil.applyStylesheet(codeGalaxy.getStylesheets(), "highlighter");
+
     }
 
     private void fillHashMap() {

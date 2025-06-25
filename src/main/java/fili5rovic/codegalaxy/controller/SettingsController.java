@@ -1,9 +1,9 @@
 package fili5rovic.codegalaxy.controller;
 
-import fili5rovic.codegalaxy.Main;
 import fili5rovic.codegalaxy.code.manager.editing.shortcuts.keystate.KeyState;
 import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.settings.ShortcutsTableHelper;
+import fili5rovic.codegalaxy.util.CSSUtil;
 import fili5rovic.codegalaxy.util.SVGUtil;
 import fili5rovic.codegalaxy.window.Window;
 import fili5rovic.codegalaxy.window.WindowHelper;
@@ -134,7 +134,12 @@ public class SettingsController extends ControllerBase {
         Label dark = createThemeLabel("Dark");
 
         themeComboBox.getItems().addAll(dark, light);
-        themeComboBox.setValue(dark);
+
+        String ideTheme = IDESettings.getInstance().get("theme");
+        if(ideTheme.equals("light"))
+            themeComboBox.setValue(light);
+        else if(ideTheme.equals("dark"))
+            themeComboBox.setValue(dark);
 
         themeComboBox.setCellFactory(_ -> new ListCell<>() {
             @Override
@@ -163,7 +168,9 @@ public class SettingsController extends ControllerBase {
         themeComboBox.setOnAction(_ -> {
             Label selectedTheme = themeComboBox.getValue();
             if (selectedTheme != null) {
-                selectTheme(selectedTheme.getText());
+                String theme = selectedTheme.getText().toLowerCase();
+                IDESettings.getInstance().set("theme", theme);
+                CSSUtil.selectTheme(theme);
             }
         });
 
@@ -183,31 +190,6 @@ public class SettingsController extends ControllerBase {
         }
 
         return label;
-    }
-
-    private static void selectTheme(String theme) {
-        final Scene dashboardScene = Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage().getScene();
-        final Scene settingsScene = Window.getWindowAt(Window.SETTINGS).getStage().getScene();
-        switch (theme) {
-            case "Light" -> {
-                dashboardScene.getStylesheets().remove(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/main-dark.css")).toExternalForm());
-                dashboardScene.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/main-light.css")).toExternalForm());
-                dashboardScene.getStylesheets().remove(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/codegalaxy-dark.css")).toExternalForm());
-                dashboardScene.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/codegalaxy-light.css")).toExternalForm());
-
-                settingsScene.getStylesheets().remove(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/settings-dark.css")).toExternalForm());
-                settingsScene.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/settings-light.css")).toExternalForm());
-            }
-            case "Dark" -> {
-                dashboardScene.getStylesheets().remove(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/main-light.css")).toExternalForm());
-                dashboardScene.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/main-dark.css")).toExternalForm());
-                dashboardScene.getStylesheets().remove(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/codegalaxy-light.css")).toExternalForm());
-                dashboardScene.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/codegalaxy-dark.css")).toExternalForm());
-
-                settingsScene.getStylesheets().remove(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/settings-light.css")).toExternalForm());
-                settingsScene.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/settings-dark.css")).toExternalForm());
-            }
-        }
     }
 
 

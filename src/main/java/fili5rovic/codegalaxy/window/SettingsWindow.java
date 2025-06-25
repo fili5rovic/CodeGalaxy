@@ -2,6 +2,7 @@ package fili5rovic.codegalaxy.window;
 
 import fili5rovic.codegalaxy.Main;
 import fili5rovic.codegalaxy.settings.IDESettings;
+import fili5rovic.codegalaxy.util.CSSUtil;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -17,7 +18,7 @@ public class SettingsWindow extends Window {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("settings.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
-            scene.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/settings-dark.css")).toExternalForm());
+            CSSUtil.applyStylesheet(scene.getStylesheets(), "settings");
             stage.setScene(scene);
             stage.setTitle("Settings");
 

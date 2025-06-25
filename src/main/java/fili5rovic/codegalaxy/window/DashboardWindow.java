@@ -2,6 +2,7 @@ package fili5rovic.codegalaxy.window;
 
 import fili5rovic.codegalaxy.Main;
 import fili5rovic.codegalaxy.controller.DashboardController;
+import fili5rovic.codegalaxy.util.CSSUtil;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -16,8 +17,8 @@ public class DashboardWindow extends Window {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("ide.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
-            scene.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/main-dark.css")).toExternalForm());
-            scene.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/codegalaxy-dark.css")).toExternalForm());
+            CSSUtil.applyStylesheet(scene.getStylesheets(), "main");
+            CSSUtil.applyStylesheet(scene.getStylesheets(), "codegalaxy");
             stage.setTitle("CodeGalaxy");
             stage.setScene(scene);
             stage.initStyle(StageStyle.UNIFIED);
