@@ -218,6 +218,11 @@
     -fx-background-color: #6b6b6b;
 }
 
+.tree-cell > .tree-disclosure-node > .arrow {
+    -fx-shape: "M 0 0 L 8 8 L 0 16 Z";
+    -fx-background-color: #ffffff;
+}
+
 /*<editor-fold desc="ScrollBar">*/
 .scroll-bar{
     -fx-background-color: rgb(96,96,96);

@@ -30,7 +30,10 @@ public class SVGUtil {
             iconName = "java";
         } else if (path.toString().endsWith(".class")) {
             iconName = "class";
-        } else {
+        } else if (path.toString().endsWith(".gitignore")) {
+            iconName = "gitignore";
+        }
+        else {
             iconName = "file";
         }
         return getSVG("hierarchy/" + iconName + ".svg", width, height, translateY);
