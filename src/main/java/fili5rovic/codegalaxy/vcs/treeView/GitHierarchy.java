@@ -43,26 +43,7 @@ public class GitHierarchy extends TreeView<GitTreeItem> {
         listeners();
     }
 
-    private void printStatus(Status status) {
-        System.out.print("Changed files: ");
-        status.getChanged().forEach(item -> System.out.print("  " + item));
-
-        System.out.print("\nModified files: ");
-        status.getModified().forEach(item -> System.out.print("  " + item));
-
-        System.out.print("\nAdded files: ");
-        status.getAdded().forEach(item -> System.out.print("  " + item));
-
-        System.out.print("\nUncommitted changes: ");
-        System.out.println("  " + status.getUncommittedChanges());
-
-        System.out.println("Untracked files:");
-        status.getUntracked().forEach(item -> System.out.print("  " + item));
-        System.out.println();
-    }
-
     public void update(Status status) {
-        printStatus(status);
         updateChangesSection(status);
         updateUntrackedSection(status);
         updateTree();

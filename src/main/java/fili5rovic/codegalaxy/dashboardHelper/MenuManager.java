@@ -76,6 +76,7 @@ public class MenuManager {
         }
         if(controller.getShowGitToggle().isSelected())
             GitUtil.instance().updateHierarchy();
+
     }
 
     private static void newProject(ActionEvent a) {
