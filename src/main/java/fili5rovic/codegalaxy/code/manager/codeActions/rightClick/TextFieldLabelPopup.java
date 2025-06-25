@@ -16,7 +16,7 @@ public class TextFieldLabelPopup extends Popup {
         this.textField = new TextField();
         this.label = new Label("Rename");
 
-        this.label.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/main-dark.css")).toExternalForm());
+        this.label.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/css/main-dark.css")).toExternalForm());
 
         getContent().add(label);
         getContent().add(textField);

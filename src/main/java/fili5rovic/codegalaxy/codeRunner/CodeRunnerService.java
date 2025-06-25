@@ -38,7 +38,7 @@ public class CodeRunnerService {
                 alert.setHeaderText("The process is still running.");
                 alert.setContentText("Are you sure you want to close this tab and terminate the process?");
                 alert.setGraphic(null);
-                alert.getDialogPane().getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/main-dark.css")).toExternalForm());
+                alert.getDialogPane().getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/css/main-dark.css")).toExternalForm());
 
                 ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
                 ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);

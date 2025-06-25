@@ -157,7 +157,7 @@ public class ProjectManager {
         while(folder == null || !folder.isDirectory()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initOwner(Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage());
-            alert.getDialogPane().getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/main-dark.css")).toExternalForm());
+            alert.getDialogPane().getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/css/main-dark.css")).toExternalForm());
             alert.getDialogPane().setGraphic(null);
 
             alert.setTitle("Set valid workspace");

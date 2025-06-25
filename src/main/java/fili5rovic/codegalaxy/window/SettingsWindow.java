@@ -16,7 +16,7 @@ public class SettingsWindow extends Window {
     @Override
     public void init(Stage stage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("settings.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("fxml/settings.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             CSSUtil.applyStylesheet(scene.getStylesheets(), "settings");
             stage.setScene(scene);

@@ -12,7 +12,7 @@ import java.util.Objects;
 public class Highlighter {
 
     public static void apply(ConsoleArea consoleArea) {
-        consoleArea.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/highlighter-light.css")).toExternalForm());
+        consoleArea.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/css/highlighter-light.css")).toExternalForm());
         listener(consoleArea);
     }
 
