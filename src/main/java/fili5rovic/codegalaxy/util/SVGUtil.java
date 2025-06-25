@@ -78,6 +78,7 @@ public class SVGUtil {
 
             BufferedImage bufferedImage = new BufferedImage((int) width, (int) height, BufferedImage.TYPE_INT_ARGB);
             Graphics2D g2d = bufferedImage.createGraphics();
+            g2d.setColor(Color.RED);
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             g2d.translate(0, translateY);
 

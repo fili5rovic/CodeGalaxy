@@ -13,6 +13,10 @@ import java.util.Objects;
 
 public class CSSUtil {
 
+    public static boolean isDarkTheme() {
+        return "dark".equals(IDESettings.getInstance().get("theme"));
+    }
+
     public static void applyStylesheet(ObservableList<String> stylesheet, String name) {
         String theme = IDESettings.getInstance().get("theme");
         String otherTheme = theme.equals("light") ? "dark" : "light";
