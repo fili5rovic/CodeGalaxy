@@ -5,6 +5,7 @@ import fili5rovic.codegalaxy.dashboardHelper.*;
 import fili5rovic.codegalaxy.errors.DisplayErrorsHandler;
 import fili5rovic.codegalaxy.lsp.LSP;
 import fili5rovic.codegalaxy.notification.NotificationManager;
+import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.vcs.treeView.GitHierarchy;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.application.Platform;
@@ -199,10 +200,18 @@ public class DashboardController extends ControllerBase {
         return null;
     }
 
+    public CodeGalaxy[] getOpenCodeGalaxies() {
+        return tabPane.getTabs().stream()
+                .map(tab -> (CodeGalaxy) tab.getContent())
+                .toArray(CodeGalaxy[]::new);
+    }
 
-    public void onAppClose(WindowEvent event) {
+
+    public void onAppClose(WindowEvent ignored) {
         System.out.println("App closed");
         LSP.instance().stop();
+        Platform.exit();
+        System.exit(0);
     }
 
     //<editor-fold desc="Getters">

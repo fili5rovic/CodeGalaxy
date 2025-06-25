@@ -2,6 +2,7 @@ package fili5rovic.codegalaxy.fileFinder;
 
 import fili5rovic.codegalaxy.Main;
 import fili5rovic.codegalaxy.controller.DashboardController;
+import fili5rovic.codegalaxy.util.CSSUtil;
 import fili5rovic.codegalaxy.util.FileHelper;
 import fili5rovic.codegalaxy.util.MetaDataHelper;
 import fili5rovic.codegalaxy.window.Window;
@@ -31,8 +32,7 @@ public class FileFinderPopup extends Popup {
         this.listView = new ListView<>();
         this.searchTextField = new TextField();
 
-
-        getScene().getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/main-dark.css")).toExternalForm());
+        CSSUtil.applyStylesheet(getScene().getStylesheets(), "main");
 
         updateFromDisk();
         structure();

@@ -1,0 +1,52 @@
+.keyword {
+    -fx-fill: #0b61a4;
+    -fx-font-weight: bold;
+}
+
+.package,
+.constructor,
+.class {
+    -fx-fill: #008080;
+    -fx-font-weight: bold;
+}
+
+.method {
+    -fx-fill: #b58900;
+    -fx-font-weight: bold;
+}
+
+.field,
+.method-variable {
+    -fx-fill: #007acc;
+}
+
+.string {
+    -fx-fill: #a31515;
+}
+
+.comment {
+    -fx-fill: #6a737d;
+    -fx-font-style: italic;
+}
+
+.default_text {
+    -fx-fill: #1f1f1f;
+}
+
+.code-font {
+    -fx-font-family: "JetBrains Mono Medium";
+    /*TODO: This currently uses OS font, make it inside the app*/
+}
+
+.console_output {
+    -fx-fill: #444444;
+}
+
+.console_input {
+    -fx-fill: #005f3c;
+}
+
+.console_error {
+    -fx-fill: #b00020;
+}
+
