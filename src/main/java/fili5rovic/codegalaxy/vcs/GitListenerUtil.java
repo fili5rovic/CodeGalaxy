@@ -1,6 +1,7 @@
 package fili5rovic.codegalaxy.vcs;
 
 import fili5rovic.codegalaxy.controller.DashboardController;
+import fili5rovic.codegalaxy.vcs.treeView.GitHierarchy;
 import fili5rovic.codegalaxy.vcs.treeView.GitTreeItem;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.scene.control.TextArea;
@@ -18,6 +19,8 @@ public class GitListenerUtil {
             toggleListener(hasCommitMessage, root);
         });
     }
+
+
 
     public static void toggleListener(boolean selected, TreeItem<GitTreeItem> root) {
         boolean commitMsgEmpty = controller.getCommitMsg().getText().isEmpty();
