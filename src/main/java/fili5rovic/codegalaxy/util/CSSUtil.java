@@ -2,10 +2,13 @@ package fili5rovic.codegalaxy.util;
 
 import fili5rovic.codegalaxy.Main;
 import fili5rovic.codegalaxy.code.CodeGalaxy;
+import fili5rovic.codegalaxy.console.ConsoleArea;
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 import java.net.URL;
@@ -40,6 +43,14 @@ public class CSSUtil {
         for (CodeGalaxy codeGalaxy : controller.getOpenCodeGalaxies()) {
             codeGalaxy.getHighlighter().setupHighlighterCSS();
         }
+
+        controller.getConsoleTabPane().getTabs().forEach(tab -> {
+            Node content = tab.getContent();
+            if (content instanceof Parent parent) {
+                replaceStylesheet(parent, "highlighter", theme);
+            }
+        });
+
         controller.onThemeChanged();
     }
 
@@ -52,6 +63,16 @@ public class CSSUtil {
 
         String selectedPath = theme.equals("light") ? lightPath : darkPath;
         scene.getStylesheets().add(selectedPath);
+    }
+
+    private static void replaceStylesheet(Parent parent, String baseName, String theme) {
+        String lightPath = toExternalForm("/fili5rovic/codegalaxy/css/" + baseName + "-light.css");
+        String darkPath = toExternalForm("/fili5rovic/codegalaxy/css/" + baseName + "-dark.css");
+
+        parent.getStylesheets().removeAll(lightPath, darkPath);
+
+        String selectedPath = theme.equals("light") ? lightPath : darkPath;
+        parent.getStylesheets().add(selectedPath);
     }
 
     private static String toExternalForm(String name) {

@@ -2,6 +2,7 @@ package fili5rovic.codegalaxy.console.highlighter;
 
 import fili5rovic.codegalaxy.Main;
 import fili5rovic.codegalaxy.console.ConsoleArea;
+import fili5rovic.codegalaxy.util.CSSUtil;
 import org.fxmisc.richtext.model.StyleSpans;
 import org.fxmisc.richtext.model.StyleSpansBuilder;
 
@@ -12,7 +13,7 @@ import java.util.Objects;
 public class Highlighter {
 
     public static void apply(ConsoleArea consoleArea) {
-        consoleArea.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/css/highlighter-light.css")).toExternalForm());
+        CSSUtil.applyStylesheet(consoleArea.getStylesheets(), "highlighter");
         listener(consoleArea);
     }
 
