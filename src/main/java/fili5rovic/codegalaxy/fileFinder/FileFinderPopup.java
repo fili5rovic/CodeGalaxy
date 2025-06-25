@@ -1,6 +1,5 @@
 package fili5rovic.codegalaxy.fileFinder;
 
-import fili5rovic.codegalaxy.Main;
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.util.CSSUtil;
 import fili5rovic.codegalaxy.util.FileHelper;
