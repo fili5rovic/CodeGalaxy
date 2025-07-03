@@ -1,5 +1,13 @@
 package fili5rovic.codegalaxy.fileFinder;
 
+import fili5rovic.codegalaxy.util.SVGUtil;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
+import javafx.util.Callback;
+
 import java.nio.file.Path;
 
 public class FileItem {
@@ -14,5 +22,24 @@ public class FileItem {
     public Path getFilePath() { return filePath; }
     @Override
     public String toString() { return fileName; }
+
+    public static Callback<ListView<FileItem>, ListCell<FileItem>> createCellFactory() {
+        return listView -> new ListCell<>() {
+            @Override
+            protected void updateItem(FileItem item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null) {
+                    setGraphic(null);
+                    setText(null);
+                } else {
+                    ImageView icon = SVGUtil.getIconByPath(item.getFilePath(), 16, 16, 0);
+                    icon.setMouseTransparent(true);
+                    setGraphic(icon);
+                    setText(item.getFilePath().getFileName().toString());
+                }
+            }
+        };
+    }
 }
 
