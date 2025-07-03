@@ -52,13 +52,7 @@ A **custom Java IDE** built with JavaFX, designed to provide a lightweight yet p
       <em>Intelligent hints and quick-fixes.</em>
     </td>
   </tr>
-  <tr>
-    <td align="center">
-      <strong>Lightweight</strong><br>
-      <em>Minimal resource usage compared to traditional IDEs.</em>
-    </td>
-    <td></td>
-  </tr>
+  
 </table>
 
 ## Technologies Used
