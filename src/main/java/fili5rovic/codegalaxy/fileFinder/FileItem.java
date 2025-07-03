@@ -4,8 +4,6 @@ import fili5rovic.codegalaxy.util.SVGUtil;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
 import javafx.util.Callback;
 
 import java.nio.file.Path;
@@ -24,7 +22,7 @@ public class FileItem {
     public String toString() { return fileName; }
 
     public static Callback<ListView<FileItem>, ListCell<FileItem>> createCellFactory() {
-        return listView -> new ListCell<>() {
+        return _ -> new ListCell<>() {
             @Override
             protected void updateItem(FileItem item, boolean empty) {
                 super.updateItem(item, empty);
