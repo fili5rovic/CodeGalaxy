@@ -47,6 +47,8 @@ public class FileFinderPopup extends Popup {
         listView.setPrefHeight(500);
         listView.setPrefWidth(300);
 
+        listView.setCellFactory(FileItem.createCellFactory());
+
         update();
         vbox.getChildren().add(listView);
 
