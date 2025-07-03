@@ -67,7 +67,7 @@ public class CodeGalaxy extends CodeArea {
         managers.add(highlighter);
         managers.add(new LSPManager(this));
         managers.add(new CodeRightClickManager(this));
-//        managers.add(new HoverManager(this)); TODO uncomment
+        managers.add(new HoverManager(this));
     }
 
     private void initManagers() {
