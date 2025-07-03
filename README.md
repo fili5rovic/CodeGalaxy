@@ -60,6 +60,7 @@ A **custom Java IDE** built with JavaFX, designed to provide a lightweight yet p
 - **JavaFX** – For the desktop UI and rendering.
 - **Eclipse JDT Language Server** – Backend for Java language features.
 - **LSP4J** – Java implementation of the Language Server Protocol.
+- **JGIT** - Git integration
 - **Maven** – Dependency and build management.
 
 ## Installation & Setup
