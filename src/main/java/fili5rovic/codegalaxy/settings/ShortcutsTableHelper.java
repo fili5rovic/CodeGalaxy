@@ -101,6 +101,7 @@ public class ShortcutsTableHelper {
         keyStateTable.getItems().add(new KeyState("duplicate_line_above"));
         keyStateTable.getItems().add(new KeyState("duplicate_line_below"));
         keyStateTable.getItems().add(new KeyState("word_select"));
+        keyStateTable.getItems().add(new KeyState("comment_line"));
 
         keyStateTable.setFixedCellSize(30);
         keyStateTable.prefHeightProperty().bind(Bindings.size(keyStateTable.getItems()).multiply(keyStateTable.getFixedCellSize()).add(30));
