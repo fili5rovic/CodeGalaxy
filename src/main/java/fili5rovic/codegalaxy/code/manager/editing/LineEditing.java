@@ -15,6 +15,7 @@ public class LineEditing extends Manager {
             new MoveLineUp(codeGalaxy),
             new MoveLineDown(codeGalaxy),
             new WordSelect(codeGalaxy),
+            new CommentLine(codeGalaxy),
     };
 
     public final Shortcut[] tabShortcuts = new Shortcut[] {
