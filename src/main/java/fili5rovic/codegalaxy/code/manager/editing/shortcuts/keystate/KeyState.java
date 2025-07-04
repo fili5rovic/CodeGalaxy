@@ -87,7 +87,4 @@ public class KeyState {
                 (altDown ? "1" : "0");
     }
 
-    public static void main(String[] args) {
-        System.out.println(KeyCode.UP);
-    }
 }

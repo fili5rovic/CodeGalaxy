@@ -2,8 +2,6 @@ package fili5rovic.codegalaxy.code.manager.editing.shortcuts;
 
 import fili5rovic.codegalaxy.code.CodeGalaxy;
 
-import java.security.InvalidParameterException;
-
 public class CommentLine extends Shortcut {
 
     public CommentLine(CodeGalaxy cg) {

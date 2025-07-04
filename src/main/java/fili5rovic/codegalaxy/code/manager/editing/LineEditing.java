@@ -8,7 +8,7 @@ import javafx.scene.input.KeyEvent;
 
 public class LineEditing extends Manager {
 
-    public final Shortcut[] shortcuts = {
+    private final Shortcut[] shortcuts = {
             new DeleteLineShortcut(codeGalaxy),
             new DuplicateLineBelow(codeGalaxy),
             new DuplicateLineAbove(codeGalaxy),
@@ -18,7 +18,7 @@ public class LineEditing extends Manager {
             new CommentLine(codeGalaxy),
     };
 
-    public final Shortcut[] tabShortcuts = new Shortcut[] {
+    private final Shortcut[] tabShortcuts = new Shortcut[] {
             new IndentForward(codeGalaxy),
             new IndentBackward(codeGalaxy)
     };

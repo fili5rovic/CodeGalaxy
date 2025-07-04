@@ -58,40 +58,49 @@ public class ShortcutsTableHelper {
         });
 
         TableColumn<KeyState, Boolean> ctrlColumn = new TableColumn<>("Control");
-        ctrlColumn.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue().isControlDown()));
+        ctrlColumn.setCellValueFactory(cellData -> {
+            KeyState ks = cellData.getValue();
+            SimpleBooleanProperty property = new SimpleBooleanProperty(ks.isControlDown());
+            property.addListener((_, _, newVal) -> {
+                ks.setControlDown(newVal);
+                IDESettings.getTempInstance().set("shortcut_" + ks.getShortcutName(), ks.toString());
+            });
+            return property;
+        });
         ctrlColumn.setCellFactory(CheckBoxTableCell.forTableColumn(ctrlColumn));
         ctrlColumn.setEditable(true);
         ctrlColumn.setMaxWidth(60);
         ctrlColumn.setReorderable(false);
-        ctrlColumn.setOnEditCommit(event -> {
-            KeyState keyState = event.getRowValue();
-            keyState.setControlDown(event.getNewValue());
-            IDESettings.getTempInstance().set("shortcut_" + keyState.getShortcutName(), keyState.toString());
-        });
 
         TableColumn<KeyState, Boolean> shiftColumn = new TableColumn<>("Shift");
-        shiftColumn.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue().isShiftDown()));
+        shiftColumn.setCellValueFactory(cellData -> {
+            KeyState ks = cellData.getValue();
+            SimpleBooleanProperty property = new SimpleBooleanProperty(ks.isShiftDown());
+            property.addListener((_, _, newVal) -> {
+                ks.setShiftDown(newVal);
+                IDESettings.getTempInstance().set("shortcut_" + ks.getShortcutName(), ks.toString());
+            });
+            return property;
+        });
         shiftColumn.setCellFactory(CheckBoxTableCell.forTableColumn(shiftColumn));
         shiftColumn.setEditable(true);
         shiftColumn.setMaxWidth(50);
         shiftColumn.setReorderable(false);
-        shiftColumn.setOnEditCommit(event -> {
-            KeyState keyState = event.getRowValue();
-            keyState.setShiftDown(event.getNewValue());
-            IDESettings.getTempInstance().set("shortcut_" + keyState.getShortcutName(), keyState.toString());
-        });
 
         TableColumn<KeyState, Boolean> altColumn = new TableColumn<>("Alt");
-        altColumn.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue().isAltDown()));
+        altColumn.setCellValueFactory(cellData -> {
+            KeyState ks = cellData.getValue();
+            SimpleBooleanProperty property = new SimpleBooleanProperty(ks.isAltDown());
+            property.addListener((_, _, newVal) -> {
+                ks.setAltDown(newVal);
+                IDESettings.getTempInstance().set("shortcut_" + ks.getShortcutName(), ks.toString());
+            });
+            return property;
+        });
         altColumn.setCellFactory(CheckBoxTableCell.forTableColumn(altColumn));
         altColumn.setEditable(true);
         altColumn.setMaxWidth(50);
         altColumn.setReorderable(false);
-        altColumn.setOnEditCommit(event -> {
-            KeyState keyState = event.getRowValue();
-            keyState.setAltDown(event.getNewValue());
-            IDESettings.getTempInstance().set("shortcut_" + keyState.getShortcutName(), keyState.toString());
-        });
 
         keyStateTable.getColumns().addAll(nameColumn, codeColumn, ctrlColumn, shiftColumn, altColumn);
 
