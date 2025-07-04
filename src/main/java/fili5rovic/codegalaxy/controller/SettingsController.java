@@ -1,5 +1,6 @@
 package fili5rovic.codegalaxy.controller;
 
+import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.code.manager.editing.shortcuts.keystate.KeyState;
 import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.settings.ShortcutsTableHelper;
@@ -45,6 +46,7 @@ public class SettingsController extends ControllerBase {
         apply.setOnAction(_ -> {
             IDESettings.applyTempSettings();
             WindowHelper.hideWindow(Window.SETTINGS);
+            DashboardController controller = (DashboardController) Window.getController(Window.WINDOW_DASHBOARD);
         });
 
         cancel.setOnAction(_ -> WindowHelper.hideWindow(Window.SETTINGS));
