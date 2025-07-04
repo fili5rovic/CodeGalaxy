@@ -1,6 +1,5 @@
 package fili5rovic.codegalaxy.controller;
 
-import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.code.manager.editing.shortcuts.keystate.KeyState;
 import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.settings.ShortcutsTableHelper;
