@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // NOT YET USED
+// !!!!!!!!! I DON'T WANT TO USE THIS BECAUSE IT'S USING COMPILED CLASSES
 // the reason why I am using this library and not lsp
 // is because lsp can't get out system classes
 public class ClassScanner {

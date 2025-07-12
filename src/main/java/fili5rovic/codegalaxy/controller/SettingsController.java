@@ -40,7 +40,6 @@ public class SettingsController extends ControllerBase {
 
     }
 
-
     private void buttonActions() {
         apply.setOnAction(_ -> {
             IDESettings.applyTempSettings();

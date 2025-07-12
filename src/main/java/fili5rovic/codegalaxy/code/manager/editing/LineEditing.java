@@ -3,6 +3,7 @@ package fili5rovic.codegalaxy.code.manager.editing;
 import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.code.manager.Manager;
 import fili5rovic.codegalaxy.code.manager.editing.shortcuts.*;
+import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -23,6 +24,9 @@ public class LineEditing extends Manager {
             new IndentBackward(codeGalaxy)
     };
 
+    private EventHandler<KeyEvent> tabEventFilter;
+
+
     public LineEditing(CodeGalaxy cg) {
         super(cg);
     }
@@ -34,8 +38,11 @@ public class LineEditing extends Manager {
                 s.check(e);
             }
         });
+        if (tabEventFilter != null) {
+            codeGalaxy.removeEventFilter(KeyEvent.KEY_PRESSED, tabEventFilter);
+        }
 
-        codeGalaxy.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+        tabEventFilter = event -> {
             if (event.getCode() == KeyCode.TAB) {
                 if(codeGalaxy.hasSelection())
                     event.consume();
@@ -43,7 +50,9 @@ public class LineEditing extends Manager {
                     tabS.check(event);
                 }
             }
-        });
+        };
+
+        codeGalaxy.addEventFilter(KeyEvent.KEY_PRESSED, tabEventFilter);
 
     }
 }
