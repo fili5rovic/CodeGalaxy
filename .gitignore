@@ -37,5 +37,9 @@ build/
 ### Mac OS ###
 .DS_Storelsp/config_win/
 
+### My own settings ###
 settings
 tempSettings
+
+### LSP ###
+lsp

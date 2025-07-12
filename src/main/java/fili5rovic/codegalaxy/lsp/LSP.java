@@ -64,7 +64,6 @@ public class LSP {   //TODO Ability to change workspace without restarting
         workspaceFolder.setName(workspacePath.getFileName().toString());
         init.setWorkspaceFolders(Collections.singletonList(workspaceFolder));
         init.setCapabilities(createClientCapabilities());
-
         server.initialize(init).get();
         server.initialized(new InitializedParams());
 
