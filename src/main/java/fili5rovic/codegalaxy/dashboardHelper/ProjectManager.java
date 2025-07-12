@@ -12,6 +12,8 @@ import fili5rovic.codegalaxy.window.Window;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
@@ -161,7 +163,10 @@ public class ProjectManager {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initOwner(Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage());
             alert.getDialogPane().getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/css/main-dark.css")).toExternalForm());
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(new Image(Objects.requireNonNull(Main.class.getResourceAsStream("/fili5rovic/codegalaxy/png/app/codeGalaxy.png"))));
             alert.getDialogPane().setGraphic(null);
+
 
             alert.setTitle("Set valid workspace");
             alert.setHeaderText("Valid workspace not set");

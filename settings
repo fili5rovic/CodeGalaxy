@@ -1,9 +1,9 @@
-#Sun Jul 13 00:35:48 CEST 2025
-expanded=
+#Sun Jul 13 00:45:28 CEST 2025
+expanded=D\:\\TEST_WORKSPACE\\ExampleProject|D\:\\TEST_WORKSPACE\\ExampleProject\\src|D\:\\TEST_WORKSPACE\\ExampleProject\\src\\test
 fontSize=24
-lastProjectPath=
-prevHierarchyDividerValue=0.2
-recentFiles=
+lastProjectPath=D\:\\TEST_WORKSPACE\\ExampleProject
+prevHierarchyDividerValue=0.14634146341463414
+recentFiles=D\:\\TEST_WORKSPACE\\ExampleProject\\src\\Main.java|D\:\\TEST_WORKSPACE\\ExampleProject\\src\\Point.java|D\:\\TEST_WORKSPACE\\ExampleProject\\src\\test\\Test.java
 shortcut_comment_line=SLASH|1|0|0
 shortcut_delete_line=D|1|0|0
 shortcut_duplicate_line_above=UP|1|0|1
@@ -12,4 +12,4 @@ shortcut_move_line_down=DOWN|0|1|1
 shortcut_move_line_up=UP|0|1|1
 shortcut_word_select=W|1|0|0
 theme=dark
-workspace=
+workspace=D\:\\TEST_WORKSPACE
