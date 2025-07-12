@@ -28,8 +28,6 @@ public class CodeGalaxy extends CodeArea {
 
     private FormatManager formatManager;
 
-    private LineEditing lineEditing;
-
     private VirtualizedScrollPane<CodeArea> scrollPane;
 
     public CodeGalaxy(Path path) {
@@ -66,8 +64,7 @@ public class CodeGalaxy extends CodeArea {
 
     private void addManagers() {
         managers.add(new FontManager(this));
-        lineEditing = new LineEditing(this);
-        managers.add(lineEditing);
+        managers.add(new LineEditing(this));
         managers.add(new SuggestionManager(this));
         formatManager = new FormatManager(this);
         managers.add(formatManager);

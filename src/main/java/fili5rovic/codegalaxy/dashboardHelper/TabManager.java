@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
@@ -76,6 +77,7 @@ public class TabManager {
         HBox hbox = new HBox(icon, label, button);
         hbox.setOnMouseEntered(TabManager::onMouseEnter);
         hbox.setOnMouseExited(TabManager::onMouseExit);
+        hbox.setOnMouseClicked(e -> onMouseClicked(e, tab));
         hbox.setSpacing(5);
         hbox.setAlignment(Pos.CENTER_LEFT);
         tab.setGraphic(hbox);
@@ -91,6 +93,11 @@ public class TabManager {
             if (hbox.getChildren().getLast() instanceof Button button) {
                 button.setVisible(true);
             }
+        }
+    }
+    private static void onMouseClicked(MouseEvent e, Tab tab) {
+        if (e.getButton() == MouseButton.MIDDLE) {
+            tab.getTabPane().getTabs().remove(tab);
         }
     }
 
