@@ -1,8 +1,6 @@
 package fili5rovic.codegalaxy.dashboardHelper;
 
 import fili5rovic.codegalaxy.controller.Controllers;
-import fili5rovic.codegalaxy.controller.DashboardController;
-import fili5rovic.codegalaxy.window.Window;
 import javafx.scene.control.Tooltip;
 
 public class TooltipManager {

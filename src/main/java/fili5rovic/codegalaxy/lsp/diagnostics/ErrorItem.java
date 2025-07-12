@@ -2,9 +2,7 @@ package fili5rovic.codegalaxy.lsp.diagnostics;
 
 import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.controller.Controllers;
-import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.util.SVGUtil;
-import fili5rovic.codegalaxy.window.Window;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;

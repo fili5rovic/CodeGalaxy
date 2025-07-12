@@ -1,24 +1,16 @@
 package fili5rovic.codegalaxy.hierarchy;
 
 import fili5rovic.codegalaxy.controller.Controllers;
-import fili5rovic.codegalaxy.controller.DashboardController;
-import fili5rovic.codegalaxy.lsp.diagnostics.DiagnosticsListener;
-import fili5rovic.codegalaxy.lsp.diagnostics.DiagnosticsPublisher;
 import fili5rovic.codegalaxy.settings.IDESettings;
-import fili5rovic.codegalaxy.window.Window;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import org.eclipse.lsp4j.DiagnosticSeverity;
-import org.eclipse.lsp4j.PublishDiagnosticsParams;
 
 import java.io.IOException;
-import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;

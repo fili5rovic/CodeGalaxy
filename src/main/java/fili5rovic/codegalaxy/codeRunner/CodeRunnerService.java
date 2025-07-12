@@ -4,7 +4,6 @@ import fili5rovic.codegalaxy.Main;
 import fili5rovic.codegalaxy.console.ConsoleArea;
 import fili5rovic.codegalaxy.controller.Controllers;
 import fili5rovic.codegalaxy.controller.DashboardController;
-import fili5rovic.codegalaxy.window.Window;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;

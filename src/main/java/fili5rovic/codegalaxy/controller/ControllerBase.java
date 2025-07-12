@@ -1,6 +1,5 @@
 package fili5rovic.codegalaxy.controller;
 
-import javafx.fxml.Initializable;
 import javafx.stage.Stage;
 
 public abstract class ControllerBase {

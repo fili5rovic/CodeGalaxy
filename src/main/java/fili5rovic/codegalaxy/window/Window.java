@@ -3,12 +3,10 @@ package fili5rovic.codegalaxy.window;
 
 import fili5rovic.codegalaxy.Main;
 import fili5rovic.codegalaxy.controller.ControllerBase;
-import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.util.CSSUtil;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.util.Objects;

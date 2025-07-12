@@ -2,7 +2,6 @@ package fili5rovic.codegalaxy.util;
 
 import fili5rovic.codegalaxy.Main;
 import fili5rovic.codegalaxy.code.CodeGalaxy;
-import fili5rovic.codegalaxy.console.ConsoleArea;
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.window.Window;

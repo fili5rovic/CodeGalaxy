@@ -6,7 +6,6 @@ import fili5rovic.codegalaxy.vcs.GitUtil;
 import fili5rovic.codegalaxy.projectSetings.ProjectSettingsUtil;
 import fili5rovic.codegalaxy.projectSetings.VCSUtil;
 import fili5rovic.codegalaxy.util.SVGUtil;
-import fili5rovic.codegalaxy.window.Window;
 import javafx.scene.control.SplitPane;
 
 import java.io.IOException;

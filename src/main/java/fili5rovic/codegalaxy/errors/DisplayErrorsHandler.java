@@ -6,7 +6,6 @@ import fili5rovic.codegalaxy.lsp.diagnostics.DiagnosticsListener;
 import fili5rovic.codegalaxy.lsp.diagnostics.DiagnosticsPublisher;
 import fili5rovic.codegalaxy.lsp.diagnostics.ErrorItem;
 import fili5rovic.codegalaxy.util.SVGUtil;
-import fili5rovic.codegalaxy.window.Window;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;

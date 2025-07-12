@@ -18,9 +18,7 @@ import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-import java.net.URL;
 import java.nio.file.Path;
-import java.util.ResourceBundle;
 
 public class DashboardController extends ControllerBase {
 

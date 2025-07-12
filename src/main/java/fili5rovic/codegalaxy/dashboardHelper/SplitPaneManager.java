@@ -1,7 +1,6 @@
 package fili5rovic.codegalaxy.dashboardHelper;
 
 import fili5rovic.codegalaxy.controller.Controllers;
-import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.application.Platform;
