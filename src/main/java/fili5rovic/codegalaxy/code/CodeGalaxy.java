@@ -32,16 +32,21 @@ public class CodeGalaxy extends CodeArea {
 
     private VirtualizedScrollPane<CodeArea> scrollPane;
 
-    public CodeGalaxy() {
+    public CodeGalaxy(Path path) {
         addLineNumbers();
         addManagers();
         initManagers();
+        setFile(path);
     }
 
-
     public void setFile(Path path) {
-        fileManager = new FileManager(this, path);
-        fileManager.init();
+        if (!path.equals(getFilePath())) {
+            highlighter = new Highlighter(this);
+            highlighter.init();
+
+            fileManager = new FileManager(this, path);
+            fileManager.init();
+        }
     }
 
     public void save() {
@@ -66,8 +71,6 @@ public class CodeGalaxy extends CodeArea {
         managers.add(new SuggestionManager(this));
         formatManager = new FormatManager(this);
         managers.add(formatManager);
-        highlighter = new Highlighter(this);
-        managers.add(highlighter);
         managers.add(new LSPManager(this));
         managers.add(new CodeRightClickManager(this));
         managers.add(new HoverManager(this));

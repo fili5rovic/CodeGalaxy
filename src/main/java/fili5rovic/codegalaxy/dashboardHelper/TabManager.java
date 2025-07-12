@@ -28,8 +28,7 @@ public class TabManager {
                 return;
             }
         }
-        CodeGalaxy codeGalaxy = new CodeGalaxy();
-        codeGalaxy.setFile(filePath);
+        CodeGalaxy codeGalaxy = new CodeGalaxy(filePath);
         try {
             LSP.instance().openFile(codeGalaxy.getFilePath().toString());
         } catch (Exception e) {
