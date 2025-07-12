@@ -80,6 +80,26 @@ public class LSPDocumentManager {
 
     }
 
+    public void sendFolderChange(String folderPath) {
+        String uri = Paths.get(folderPath).toUri().toString();
+        WorkspaceFolder folder = new WorkspaceFolder(uri, Paths.get(folderPath).getFileName().toString());
+
+        WorkspaceFoldersChangeEvent event = new WorkspaceFoldersChangeEvent(
+                Collections.singletonList(folder),
+                Collections.emptyList()
+        );
+
+        DidChangeWorkspaceFoldersParams params = new DidChangeWorkspaceFoldersParams(event);
+
+        if (server.getWorkspaceService() != null) {
+            server.getWorkspaceService().didChangeWorkspaceFolders(params);
+            System.out.println("Sent folder registration for: " + uri);
+        } else {
+            System.err.println("WorkspaceService is null. Cannot send workspace folder change.");
+        }
+    }
+
+
 
     public Map<String, String> getDocumentContents() {
         return documentContents;

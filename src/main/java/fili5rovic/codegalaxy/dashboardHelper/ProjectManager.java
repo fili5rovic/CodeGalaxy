@@ -4,6 +4,7 @@ import fili5rovic.codegalaxy.Main;
 import fili5rovic.codegalaxy.controller.Controllers;
 import fili5rovic.codegalaxy.hierarchy.ProjectHierarchy;
 import fili5rovic.codegalaxy.hierarchy.ProjectItem;
+import fili5rovic.codegalaxy.lsp.LSP;
 import fili5rovic.codegalaxy.projectSetings.ProjectSettingsUtil;
 import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.util.FileHelper;
@@ -118,6 +119,8 @@ public class ProjectManager {
             Files.writeString(mainFile, mainFileContent);
 
             System.out.println("Project created at: " + projectDir);
+
+            LSP.instance().sendFolderChange(projectDir.toString());
 
             openProject(projectDir);
 

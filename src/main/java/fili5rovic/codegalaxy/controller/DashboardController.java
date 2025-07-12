@@ -139,6 +139,7 @@ public class DashboardController extends ControllerBase {
         Controllers.setDashboardController(this);
         ProjectManager.checkForValidWorkspace().thenAcceptAsync(success -> {
             if (!success) {
+                System.err.println("Fatal error: No valid workspace found. Please set a valid workspace path in settings.");
                 Platform.exit();
                 return;
             }

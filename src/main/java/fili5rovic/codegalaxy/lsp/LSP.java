@@ -74,7 +74,6 @@ public class LSP {   //TODO Ability to change workspace without restarting
 
     private ClientCapabilities createClientCapabilities() {
         ClientCapabilities capabilities = new ClientCapabilities();
-
         TextDocumentClientCapabilities textDocumentCapabilities = new TextDocumentClientCapabilities();
 
         DocumentSymbolCapabilities documentSymbolCapabilities = new DocumentSymbolCapabilities();
@@ -197,6 +196,10 @@ public class LSP {   //TODO Ability to change workspace without restarting
 
     public CompletableFuture<Hover> hover(String filePath, int line, int character) {
         return requestManager.hover(filePath, line, character);
+    }
+
+    public void sendFolderChange(String folderPath) {
+        documentManager.sendFolderChange(folderPath);
     }
 
     public Debouncer getDebouncer() {
