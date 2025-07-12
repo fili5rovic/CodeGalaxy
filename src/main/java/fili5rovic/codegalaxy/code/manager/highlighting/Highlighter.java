@@ -19,8 +19,10 @@ public class Highlighter extends Manager {
 
     private final HashMap<String, ArrayList<Range>> symbolRanges = new HashMap<>();
 
-    public Highlighter(CodeGalaxy cg) {
+    private final String fileExtension;
+    public Highlighter(CodeGalaxy cg, String fileName) {
         super(cg);
+        this.fileExtension = fileName.contains(".") ? fileName.substring(fileName.lastIndexOf('.') + 1) : "";
     }
 
     @Override
@@ -41,7 +43,21 @@ public class Highlighter extends Manager {
         String text = codeGalaxy.getText();
         if (text.isEmpty()) return;
 
-        codeGalaxy.setStyleSpans(0, computeHighlighting(text));
+        if(fileExtension.equals("java")) {
+            codeGalaxy.setStyleSpans(0, computeHighlighting(text));
+        } else {
+            codeGalaxy.setStyleSpans(0, computeDefaultHighlighting(text));
+        }
+    }
+
+    private StyleSpans<Collection<String>> computeDefaultHighlighting(String text) {
+        StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
+
+        if (!text.isEmpty()) {
+            spansBuilder.add(List.of("default_text", "code-font"), text.length());
+        }
+
+        return spansBuilder.create();
     }
 
     private StyleSpans<Collection<String>> computeHighlighting(String text) {

@@ -41,7 +41,7 @@ public class CodeGalaxy extends CodeArea {
 
     public void setFile(Path path) {
         if (!path.equals(getFilePath())) {
-            highlighter = new Highlighter(this);
+            highlighter = new Highlighter(this, path.getFileName().toString());
             highlighter.init();
 
             fileManager = new FileManager(this, path);
