@@ -45,6 +45,7 @@ class LSPServerManager {
                     System.err.println("[LSP-ERR] " + line);
                 }
             } catch (IOException e) {
+                System.err.println("[LSP-ERR] Error reading LSP process error stream.");
                 e.printStackTrace();
             }
         }).start();
