@@ -132,11 +132,18 @@ public class DashboardController extends ControllerBase {
         fileSearchPopupListener();
 
         GitHierarchy.addHierarchy();
+
+
+    }
+
+    private void applyCssClasses() {
+        errorTabPane.getStyleClass().add("no-background");
     }
 
     @FXML
     public void initialize() {
         Controllers.setDashboardController(this);
+        applyCssClasses();
         ProjectManager.checkForValidWorkspace().thenAcceptAsync(success -> {
             if (!success) {
                 System.err.println("Fatal error: No valid workspace found. Please set a valid workspace path in settings.");

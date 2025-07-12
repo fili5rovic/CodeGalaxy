@@ -1,34 +1,43 @@
 /*<editor-fold desc="Dialog pane">*/
 
+.root {
+    -fx-color1: #252525;
+    -fx-color2: #444;
+    -fx-color3: #ddd;
+    -fx-color4: #5b2a98;
+    -fx-color-darkest: #222222;
+    -fx-code-bg-color: #1e1e1e;
+}
+
 .dialog-pane {
-    -fx-background-color: #2e2e2e;
-    -fx-border-color: #444;
+    -fx-background-color: -fx-color1;
+    -fx-border-color: -fx-color2;
     -fx-border-width: 1px;
     -fx-padding: 10;
 }
 
 .dialog-pane .header-panel {
-    -fx-background-color: #444;
-    -fx-text-fill: #ddd;
+    -fx-background-color: -fx-color2;
+    -fx-text-fill: -fx-color3;
 }
 
 .alert {
-    -fx-background-color: #333;
-    -fx-text-fill: #ddd;
+    -fx-background-color: -fx-color2;
+    -fx-text-fill: -fx-color3;
 }
 
 .alert .header-panel {
-    -fx-background-color: #444;
+    -fx-background-color: -fx-color2;
 }
 
 .alert .content {
-    -fx-background-color: #333;
-    -fx-text-fill: #ddd;
+    -fx-background-color: -fx-color2;
+    -fx-text-fill: -fx-color3;
 }
 
 .alert .button {
     -fx-background-color: #555;
-    -fx-text-fill: #ddd;
+    -fx-text-fill: -fx-color3;
     -fx-border-color: #666;
     -fx-border-width: 1px;
 }
@@ -49,12 +58,8 @@
 
 /*<editor-fold desc="Menu">*/
 /* Stil za MenuBar */
-.anchor-pane {
-    -fx-background-color: #414040;
-}
-
 .menu-bar {
-    -fx-background-color: #2e2e2e;
+    -fx-background-color: -fx-color1;
     -fx-padding: 5px;
 }
 
@@ -66,7 +71,7 @@
 }
 
 .menu:hover {
-    -fx-background-color: #5b2a98;
+    -fx-background-color: #-fx-color4;
     -fx-cursor: HAND;
 }
 
@@ -161,7 +166,7 @@
 
 /*<editor-fold desc="Text Area">*/
 .text-area {
-    -fx-background-color: #2b2b2b;
+    -fx-background-color: -fx-color1;
     -fx-text-fill: #AFB1B3;
 
     -fx-border-color: #4e4e4e transparent transparent transparent;
@@ -170,11 +175,11 @@
 }
 
 .text-area .scroll-pane {
-    -fx-background: #2e2e2e;
+    -fx-background: -fx-color1;
 }
 
 .text-area .content {
-    -fx-background-color: #2b2b2b;
+    -fx-background-color: -fx-color1;
 }
 
 .text-area .text {
@@ -193,25 +198,25 @@
 }
 
 .anchor-pane {
-    -fx-background-color: #2e2e2e;
+    -fx-background-color: -fx-color1;
 }
 
 /*<editor-fold desc="TreeView">*/
 .tree-view {
-    -fx-background-color: #2b2b2b;
+    -fx-background-color: -fx-color1;
     -fx-text-fill: #ccc;
     -fx-border-width: 0px;
-    -fx-border-color: #444;
+    -fx-border-color: -fx-color2;
 }
 
 /* Stil za TreeView unutar */
 .tree-view .tree-cell {
-    -fx-background-color: #2b2b2b;
+    -fx-background-color: -fx-color1;
     -fx-text-fill: #ccc;
 }
 
 .tree-view .tree-cell:hover {
-    -fx-background-color: #444;
+    -fx-background-color: -fx-color2;
 }
 
 .tree-view .tree-cell:selected {
@@ -299,22 +304,23 @@
 /*</editor-fold>*/
 
 .split-pane {
-    -fx-background-color: #2b2b2b;
+    -fx-background-color: -fx-color1;
 }
 
 .split-pane-divider {
     -fx-background-color: transparent;
 }
 
+
 .border-pane {
-    -fx-background-color: #2b2b2b;
+    -fx-background-color: -fx-color1;
 }
 
 /*<editor-fold desc="Toggle button">*/
 .toggle-button {
     -fx-background-radius: 10;
     -fx-border-width: 0;
-    -fx-border-color: #222222;
+    -fx-border-color: -fx-color-darkest;
     -fx-background-color: #404040;
     -fx-text-fill: #AFB1B3;
     -fx-min-height: 25;
@@ -326,21 +332,21 @@
 }
 
 .toggle-button:hover {
-    -fx-border-color: #222222;
-    -fx-background-color: #5b2a98;
+    -fx-border-color: -fx-color-darkest;
+    -fx-background-color: #-fx-color4;
     -fx-cursor: hand;
 }
 
 .toggle-button:pressed {
-    -fx-border-color: #5b2a98;
+    -fx-border-color: #-fx-color4;
     -fx-background-color: #4e4e4e;
     -fx-cursor: hand;
 }
 
 /* Selected (checked) state */
 .toggle-button:selected {
-    -fx-background-color: #5b2a98;
-    -fx-border-color: #5b2a98;
+    -fx-background-color: #-fx-color4;
+    -fx-border-color: #-fx-color4;
     -fx-text-fill: white;
 }
 
@@ -362,7 +368,7 @@
 .button{
     -fx-background-radius: 10;
     -fx-border-width: 0;
-    -fx-border-color: #222222;
+    -fx-border-color: -fx-color-darkest;
     -fx-background-color: #404040;
     -fx-text-fill: #AFB1B3;
     -fx-min-height: 25;
@@ -372,12 +378,12 @@
     -fx-background-color: #595959;
 }
 .button:hover{
-    -fx-border-color: #222222;
-    -fx-background-color: #5b2a98;
+    -fx-border-color: -fx-color-darkest;
+    -fx-background-color: #-fx-color4;
     -fx-cursor: HAND;
 }
 .button:pressed{
-    -fx-border-color: #5b2a98;
+    -fx-border-color: #-fx-color4;
     -fx-background-color: #4e4e4e;
     -fx-cursor: HAND;
 }
@@ -385,10 +391,15 @@
 
 /*<editor-fold desc="TabPane">*/
 .tab-header-area .tab-header-background {
-    -fx-background-color: transparent;
-    -fx-border-color: #444;
+    -fx-background-color: -fx-code-bg-color;
+    -fx-border-color: -fx-color2;
     -fx-border-width: 0 0 1 0;
 }
+
+.no-background .tab-header-area .tab-header-background {
+    -fx-background-color: transparent;
+}
+
 .tab-pane .tab:selected {
     -fx-background-color: #2a2a2a;
     -fx-border-color: #5e9cff;
@@ -400,7 +411,9 @@
     -fx-border-color: transparent;
     -fx-border-width: 0 0 2 0;
     -fx-padding: 4 14 4 14;
-    -fx-min-height: 32px;
+    fx-min-height: -1;
+    -fx-max-height: Infinity;
+    -fx-pref-height: -1;
 }
 
 .tab-pane .tab .tab-label {
@@ -416,7 +429,7 @@
 }
 
 .tab-pane:top *.tab-header-area {
-    /*-fx-padding: 0 0 0 20;*/
+    -fx-padding: 0 0 0 0;
 }
 
 .tab-pane {
@@ -452,12 +465,12 @@
     border-width: 1;
     -fx-border-radius: 0;
     border-radius: 0;
-    -fx-border-color: #222222;
-    border-color: #222222;
+    -fx-border-color: -fx-color-darkest;
+    border-color: -fx-color-darkest;
     -fx-background-radius: 0;
     -fx-background-color: #1A1A1A;
     background-color: #1A1A1A;
-    -fx-table-cell-border-color: #222222;
+    -fx-table-cell-border-color: -fx-color-darkest;
 }
 .table-view:focused {
     -fx-border-width: 1;
@@ -473,14 +486,14 @@
 }
 .table-view .column-header-background {
     -fx-border-width: 0 0 1 0;
-    -fx-border-color: #222222;
+    -fx-border-color: -fx-color-darkest;
     -fx-background-radius: 0;
     -fx-background-color: #1A1A1A;
     -fx-text-fill: #AFB1B3;
 }
 .table-view .column-header {
     -fx-background-color: transparent;
-    -fx-border-color: #222222;
+    -fx-border-color: -fx-color-darkest;
 }
 
 .table-view .column-resize-line {
@@ -498,7 +511,7 @@
     -fx-background-radius: 0;
 }
 .table-row-cell:selected {
-    -fx-table-cell-border-color: #222222;
+    -fx-table-cell-border-color: -fx-color-darkest;
     -fx-background-color: #3E3E40;
     -fx-background-insets: 0;
     -fx-background-radius: 0;
@@ -554,14 +567,14 @@
 }
 
 .list-view {
-    -fx-background-color: #2e2e2e;
-    -fx-control-inner-background: #2e2e2e;
+    -fx-background-color: -fx-color1;
+    -fx-control-inner-background: -fx-color1;
     -fx-padding: 0;
     -fx-border-width: 0;
 }
 
 .text-field {
-    -fx-background-color: #2e2e2e;
+    -fx-background-color: -fx-color1;
     -fx-text-fill: #AFB1B3;
     -fx-border-color: #4e4e4e;
     -fx-padding: 5;
@@ -581,14 +594,14 @@
 
 /*<editor-fold desc="Completion popup">*/
 .completion-popup {
-    -fx-background-color: #2e2e2e;
+    -fx-background-color: -fx-color1;
     -fx-background-radius: 6;
     -fx-padding: 6;
 }
 
 .completion-list-view {
-    -fx-background-color: #2e2e2e;
-    -fx-control-inner-background: #2e2e2e;
+    -fx-background-color: -fx-color1;
+    -fx-control-inner-background: -fx-color1;
     -fx-background-insets: 0;
     -fx-padding: 0;
     -fx-border-width: 0;
@@ -606,7 +619,7 @@
 }
 
 .completion-list-view:focused {
-    -fx-background-color: #2e2e2e;
+    -fx-background-color: -fx-color1;
 }
 
 .completion-list-view .scroll-bar:horizontal,
@@ -672,15 +685,15 @@
 }
 
 .separator .line {
-    -fx-border-color: #444444;
+    -fx-border-color: -fx-color2444;
     -fx-border-width: 0 0 1 0;
 }
 
 .locations-popup {
     -fx-padding: 10;
-    -fx-background-color: #2b2b2b;
+    -fx-background-color: -fx-color1;
     -fx-spacing: 8;
-    -fx-border-color: #444;
+    -fx-border-color: -fx-color2;
     -fx-border-width: 1;
     -fx-border-radius: 4;
     -fx-background-radius: 4;
@@ -706,7 +719,7 @@
 
 .location-filename {
     -fx-font-size: 14px;
-    -fx-text-fill: #dddddd;
+    -fx-text-fill: -fx-color3ddd;
 }
 
 .location-line {
@@ -720,7 +733,7 @@
 }
 
 .notification-popup {
-    -fx-background-color: #2e2e2e;
+    -fx-background-color: -fx-color1;
     -fx-padding: 12;
     -fx-background-radius: 8;
     -fx-effect: dropshadow(gaussian, black, 8, 0.5, 0, 2);
