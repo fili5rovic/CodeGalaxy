@@ -19,7 +19,7 @@ module fili5rovic.codegalaxy {
     opens fili5rovic.codegalaxy to javafx.fxml;
     opens fili5rovic.codegalaxy.lsp to org.eclipse.lsp4j.jsonrpc;
     opens fili5rovic.codegalaxy.controller to javafx.fxml;
-    exports fili5rovic.codegalaxy;
+    exports fili5rovic.codegalaxy.code;
     exports fili5rovic.codegalaxy.controller;
     opens fili5rovic.codegalaxy.util to org.eclipse.lsp4j.jsonrpc;
     exports fili5rovic.codegalaxy.projectSetings.dataclass to com.fasterxml.jackson.databind;
