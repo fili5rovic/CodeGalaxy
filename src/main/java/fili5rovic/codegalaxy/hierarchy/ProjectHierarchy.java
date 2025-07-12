@@ -1,5 +1,6 @@
 package fili5rovic.codegalaxy.hierarchy;
 
+import fili5rovic.codegalaxy.controller.Controllers;
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.lsp.diagnostics.DiagnosticsListener;
 import fili5rovic.codegalaxy.lsp.diagnostics.DiagnosticsPublisher;
@@ -30,7 +31,6 @@ public class ProjectHierarchy extends TreeView<Label> {
     private final ContextMenu contextMenu;
     private final ContextMenuHelper contextMenuHelper;
 
-    private static final DashboardController controller = ((DashboardController) Window.getController(Window.WINDOW_DASHBOARD));
 
     private List<String> expandedPaths;
 
@@ -86,7 +86,7 @@ public class ProjectHierarchy extends TreeView<Label> {
         if (e.getButton() == MouseButton.PRIMARY && e.getClickCount() == 2) {
             ProjectItem item = (ProjectItem) this.getSelectionModel().getSelectedItem();
             if (item == null || Files.isDirectory(item.getPath())) return;
-            controller.createTab(item.getPath());
+            Controllers.dashboardController().createTab(item.getPath());
         }
     }
 

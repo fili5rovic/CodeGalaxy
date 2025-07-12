@@ -2,6 +2,7 @@ package fili5rovic.codegalaxy.codeRunner;
 
 import fili5rovic.codegalaxy.Main;
 import fili5rovic.codegalaxy.console.ConsoleArea;
+import fili5rovic.codegalaxy.controller.Controllers;
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.scene.control.Alert;
@@ -15,7 +16,6 @@ import java.util.Optional;
 
 public class CodeRunnerService {
 
-    private static final DashboardController controller = (DashboardController) Window.getController(Window.WINDOW_DASHBOARD);
     public static void runJava(Path javaFilePath) {
         try {
             Process process = CodeRunner.runJava(javaFilePath);
@@ -30,6 +30,8 @@ public class CodeRunnerService {
         String title = javaFilePath.getFileName().toString();
         Tab tab = new Tab(title);
         tab.setContent(new ConsoleArea(process));
+
+        DashboardController controller = Controllers.dashboardController();
 
         tab.setOnCloseRequest(event -> {
             if (process.isAlive()) {

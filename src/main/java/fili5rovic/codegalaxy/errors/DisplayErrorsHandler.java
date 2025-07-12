@@ -1,5 +1,6 @@
 package fili5rovic.codegalaxy.errors;
 
+import fili5rovic.codegalaxy.controller.Controllers;
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.lsp.diagnostics.DiagnosticsListener;
 import fili5rovic.codegalaxy.lsp.diagnostics.DiagnosticsPublisher;
@@ -20,11 +21,12 @@ import java.util.HashMap;
 
 public class DisplayErrorsHandler implements DiagnosticsListener {
 
-    private static final DashboardController controller = (DashboardController) Window.getController(Window.WINDOW_DASHBOARD);
+    private static DashboardController controller;
 
     private final HashMap<String, PublishDiagnosticsParams> paramsMap = new HashMap<>();
 
     public void init() {
+        controller = Controllers.dashboardController();
         DiagnosticsPublisher.instance().subscribe(this);
         DisplayHierarchyErrors hierarchyErrors = new DisplayHierarchyErrors();
         hierarchyErrors.init();

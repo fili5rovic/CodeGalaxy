@@ -1,5 +1,6 @@
 package fili5rovic.codegalaxy.dashboardHelper;
 
+import fili5rovic.codegalaxy.controller.Controllers;
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.vcs.GitUtil;
 import fili5rovic.codegalaxy.projectSetings.ProjectSettingsUtil;
@@ -12,11 +13,12 @@ import java.io.IOException;
 
 public class ToggleManager {
 
-    private static final DashboardController controller = (DashboardController) Window.getController(Window.WINDOW_DASHBOARD);
+    private static DashboardController controller;
 
     private static double lastConsoleDividerValue = 0.7;
 
     public static void initialize() {
+        controller = Controllers.dashboardController();
         toggleIcons();
         toggleActions();
 

@@ -13,6 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -33,7 +34,13 @@ public class SettingsController extends ControllerBase {
     private Button cancel;
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void lateInitialize(Stage stage) {
+
+    }
+
+    @FXML
+    public void initialize() {
+        Controllers.setSettingsController(this);
         Window.getWindowAt(Window.SETTINGS).setController(this);
         initTreeView();
         buttonActions();
@@ -44,7 +51,6 @@ public class SettingsController extends ControllerBase {
         apply.setOnAction(_ -> {
             IDESettings.applyTempSettings();
             WindowHelper.hideWindow(Window.SETTINGS);
-            DashboardController controller = (DashboardController) Window.getController(Window.WINDOW_DASHBOARD);
         });
 
         cancel.setOnAction(_ -> WindowHelper.hideWindow(Window.SETTINGS));

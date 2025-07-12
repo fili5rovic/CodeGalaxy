@@ -1,5 +1,6 @@
 package fili5rovic.codegalaxy.dashboardHelper;
 
+import fili5rovic.codegalaxy.controller.Controllers;
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.window.Window;
@@ -13,7 +14,6 @@ import java.util.Comparator;
 import java.util.List;
 
 public class SplitPaneManager {
-    private static final DashboardController controller = (DashboardController) Window.getController(Window.WINDOW_DASHBOARD);
 
     private static double prevHierarchyDividerValue = 0;
 
@@ -22,7 +22,7 @@ public class SplitPaneManager {
     public static void setupLockPositions() {
         prevHierarchyDividerValue = Double.parseDouble(IDESettings.getInstance().get("prevHierarchyDividerValue"));
 
-        SplitPane mainSplitPane = controller.getMainSplitPane();
+        SplitPane mainSplitPane = Controllers.dashboardController().getMainSplitPane();
         mainSplitPane.getDividers().getFirst().setPosition(prevHierarchyDividerValue);
 
         mainSplitPane.widthProperty().addListener((_, _, newValue) -> {
@@ -31,7 +31,7 @@ public class SplitPaneManager {
             dividers.getFirst().setPosition(prevHierarchyDividerValue * ratio);
         });
 
-        Platform.runLater(() -> mainSplitPane.getScene().addPreLayoutPulseListener(() -> {
+        Platform.runLater(() -> Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage().getScene().addPreLayoutPulseListener(() -> {
             windowResizing = true;
             Platform.runLater(() -> {
                 windowResizing = false;
@@ -48,7 +48,7 @@ public class SplitPaneManager {
     }
 
     public static void showLeftPanel(boolean selected) {
-        SplitPane mainSplitPane = controller.getMainSplitPane();
+        SplitPane mainSplitPane = Controllers.dashboardController().getMainSplitPane();
         SplitPane.Divider divider = mainSplitPane.getDividers().getFirst();
         Node left = mainSplitPane.getItems().getFirst();
         if (selected) {

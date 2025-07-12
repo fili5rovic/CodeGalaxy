@@ -15,6 +15,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
+import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 import java.net.URL;
@@ -119,13 +120,28 @@ public class DashboardController extends ControllerBase {
     private DisplayErrorsHandler displayErrorsHandler;
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        Window.getWindowAt(Window.WINDOW_DASHBOARD).setController(this);
+    public void lateInitialize(Stage stage) {
+        SplitPaneManager.setupLockPositions();
 
+        MenuManager.initialize();
+        ToggleManager.initialize();
+        ButtonManager.initialize();
+
+        TooltipManager.init();
+
+        updateInfoPaneVisibility();
+
+        fileSearchPopupListener();
+
+        GitHierarchy.addHierarchy();
+    }
+
+    @FXML
+    public void initialize() {
+        Controllers.setDashboardController(this);
         ProjectManager.checkForValidWorkspace().thenAcceptAsync(success -> {
             if (!success) {
                 Platform.exit();
-                Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage().close();
                 return;
             }
 
@@ -138,22 +154,10 @@ public class DashboardController extends ControllerBase {
             }
         });
 
-        MenuManager.initialize();
-        ToggleManager.initialize();
-        ButtonManager.initialize();
-        SplitPaneManager.setupLockPositions();
-        TooltipManager.init();
-
         tabPane.getTabs().addListener((ListChangeListener<Tab>) _ -> updateInfoPaneVisibility());
-
-        updateInfoPaneVisibility();
 
         this.displayErrorsHandler = new DisplayErrorsHandler();
         this.displayErrorsHandler.init();
-
-        fileSearchPopupListener();
-
-        GitHierarchy.addHierarchy();
     }
 
     private static void fileSearchPopupListener() {
@@ -351,7 +355,6 @@ public class DashboardController extends ControllerBase {
     public BorderPane getGitTreeViewPane() {
         return gitTreeViewPane;
     }
-
 
 
     //</editor-fold>

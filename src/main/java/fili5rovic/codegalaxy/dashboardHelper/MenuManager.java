@@ -2,6 +2,7 @@ package fili5rovic.codegalaxy.dashboardHelper;
 
 import fili5rovic.codegalaxy.Main;
 import fili5rovic.codegalaxy.code.CodeGalaxy;
+import fili5rovic.codegalaxy.controller.Controllers;
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.lsp.LSP;
 import fili5rovic.codegalaxy.settings.IDESettings;
@@ -22,11 +23,13 @@ import java.util.Objects;
 
 public class MenuManager {
 
-    private static final DashboardController controller = (DashboardController) Window.getController(Window.WINDOW_DASHBOARD);
+    private static DashboardController controller;
 
-    private static final TabPane tabPane = controller.getTabPane();
+    private static TabPane tabPane;
 
     public static void initialize() {
+        controller = Controllers.dashboardController();
+        tabPane = controller.getTabPane();
         menuIcons();
         menuActions();
     }

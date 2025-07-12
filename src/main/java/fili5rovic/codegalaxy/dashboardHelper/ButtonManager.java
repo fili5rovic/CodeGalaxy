@@ -1,5 +1,6 @@
 package fili5rovic.codegalaxy.dashboardHelper;
 
+import fili5rovic.codegalaxy.controller.Controllers;
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.notification.NotificationManager;
 import fili5rovic.codegalaxy.settings.IDESettings;
@@ -14,9 +15,10 @@ import java.io.File;
 import java.util.HashSet;
 
 public class ButtonManager {
-    private static final DashboardController controller = (DashboardController) Window.getController(Window.WINDOW_DASHBOARD);
+    private static DashboardController controller;
 
     public static void initialize() {
+        controller = Controllers.dashboardController();
         buttonIcons();
         buttonActions();
     }

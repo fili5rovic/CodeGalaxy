@@ -21,6 +21,9 @@ public class CSSUtil {
     }
 
     public static void applyStylesheet(ObservableList<String> stylesheet, String name) {
+        if(name == null || name.isEmpty())
+            return;
+
         String theme = IDESettings.getInstance().get("theme");
         String otherTheme = theme.equals("light") ? "dark" : "light";
 

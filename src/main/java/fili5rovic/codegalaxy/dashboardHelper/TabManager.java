@@ -1,6 +1,7 @@
 package fili5rovic.codegalaxy.dashboardHelper;
 
 import fili5rovic.codegalaxy.code.CodeGalaxy;
+import fili5rovic.codegalaxy.controller.Controllers;
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.lsp.LSP;
 import fili5rovic.codegalaxy.settings.IDESettings;
@@ -20,10 +21,9 @@ import java.nio.file.Path;
 
 public class TabManager {
 
-    private static final DashboardController controller = (DashboardController) Window.getController(Window.WINDOW_DASHBOARD);
 
     public static void createTab(Path filePath) {
-        TabPane tabPane = controller.getTabPane();
+        TabPane tabPane = Controllers.dashboardController().getTabPane();
         for (Tab tab : tabPane.getTabs()) {
             if (tab.getId().equals(filePath.toString())) {
                 tabPane.getSelectionModel().select(tab);
@@ -49,7 +49,7 @@ public class TabManager {
         tab.setOnSelectionChanged(_ -> {
             if (tab.isSelected()) {
                 codeGalaxy.requestFocus();
-                controller.getDisplayErrorsHandler().displayErrors();
+                Controllers.dashboardController().getDisplayErrorsHandler().displayErrors();
             }
         });
 

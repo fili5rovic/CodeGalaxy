@@ -1,16 +1,16 @@
 package fili5rovic.codegalaxy.dashboardHelper;
 
+import fili5rovic.codegalaxy.controller.Controllers;
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.scene.control.Tooltip;
 
 public class TooltipManager {
 
-    private static final DashboardController controller = (DashboardController) Window.getController(Window.WINDOW_DASHBOARD);
 
     public static void init() {
-        controller.getShowProblemsToggle().setTooltip(makeFastTooltip("Problems"));
-        controller.getShowRunToggle().setTooltip(makeFastTooltip("Run"));
+        Controllers.dashboardController().getShowProblemsToggle().setTooltip(makeFastTooltip("Problems"));
+        Controllers.dashboardController().getShowRunToggle().setTooltip(makeFastTooltip("Run"));
     }
 
     private static Tooltip makeFastTooltip(String text) {

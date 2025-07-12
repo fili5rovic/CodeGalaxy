@@ -1,6 +1,7 @@
 package fili5rovic.codegalaxy.lsp.diagnostics;
 
 import fili5rovic.codegalaxy.code.CodeGalaxy;
+import fili5rovic.codegalaxy.controller.Controllers;
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.util.SVGUtil;
 import fili5rovic.codegalaxy.window.Window;
@@ -15,9 +16,6 @@ import org.eclipse.lsp4j.Range;
 public class ErrorItem extends HBox {
 
     private final Range range;
-
-    private static final DashboardController controller = (DashboardController) Window.getController(Window.WINDOW_DASHBOARD);
-
 
     public ErrorItem(Diagnostic diagnostic) {
         this.range = diagnostic.getRange();
@@ -36,7 +34,7 @@ public class ErrorItem extends HBox {
         int column = range.getStart().getCharacter();
 
         setOnMouseClicked(_ -> {
-            CodeGalaxy codeGalaxy = controller.getOpenCodeGalaxy();
+            CodeGalaxy codeGalaxy = Controllers.dashboardController().getOpenCodeGalaxy();
             if(codeGalaxy == null)
                 return;
 

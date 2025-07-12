@@ -1,7 +1,7 @@
 package fili5rovic.codegalaxy.dashboardHelper;
 
 import fili5rovic.codegalaxy.Main;
-import fili5rovic.codegalaxy.controller.DashboardController;
+import fili5rovic.codegalaxy.controller.Controllers;
 import fili5rovic.codegalaxy.hierarchy.ProjectHierarchy;
 import fili5rovic.codegalaxy.hierarchy.ProjectItem;
 import fili5rovic.codegalaxy.projectSetings.ProjectSettingsUtil;
@@ -24,7 +24,6 @@ import java.util.concurrent.CompletableFuture;
 
 public class ProjectManager {
 
-    private static final DashboardController controller = (DashboardController) Window.getController(Window.WINDOW_DASHBOARD);
 
     private static ProjectHierarchy projectHierarchy;
 
@@ -32,7 +31,8 @@ public class ProjectManager {
         ProjectSettingsUtil.ensureProjectSettingsInitialized(path);
 
         projectHierarchy = new ProjectHierarchy(path);
-        controller.getTreeViewPane().setCenter(projectHierarchy);
+
+        Controllers.dashboardController().getTreeViewPane().setCenter(projectHierarchy);
         IDESettings.getInstance().set("lastProjectPath", path.toString());
     }
 
@@ -142,7 +142,7 @@ public class ProjectManager {
         for (String filePath : recentFiles) {
             Path path = Path.of(filePath);
             if (path.toFile().exists()) {
-                controller.createTab(path);
+                Controllers.dashboardController().createTab(path);
             }
         }
     }
