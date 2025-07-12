@@ -43,6 +43,6 @@ public class LSPManager extends Manager {
 
         HashMap<String, ArrayList<Range>> highlightRanges = SymbolUtil.getHighlightRanges(codeGalaxy, symbols);
         codeGalaxy.getHighlighter().setSymbolRanges(highlightRanges);
-        codeGalaxy.getHighlighter().applyHighlighting(codeGalaxy);
+        codeGalaxy.getHighlighter().applyHighlighting();
     }
 }

@@ -5,7 +5,6 @@ import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.code.manager.Manager;
 import fili5rovic.codegalaxy.util.CSSUtil;
 import fili5rovic.codegalaxy.util.FileHelper;
-import org.fxmisc.richtext.CodeArea;
 import org.fxmisc.richtext.model.StyleSpans;
 import org.fxmisc.richtext.model.StyleSpansBuilder;
 
@@ -38,11 +37,11 @@ public class Highlighter extends Manager {
         fileNameToStyleClassMap.put("javaKeywords.txt", "keywords");
     }
 
-    public void applyHighlighting(CodeArea codeArea) {
-        String text = codeArea.getText();
+    public void applyHighlighting() {
+        String text = codeGalaxy.getText();
         if (text.isEmpty()) return;
 
-        codeArea.setStyleSpans(0, computeHighlighting(text));
+        codeGalaxy.setStyleSpans(0, computeHighlighting(text));
     }
 
     private StyleSpans<Collection<String>> computeHighlighting(String text) {
