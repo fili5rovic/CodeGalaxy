@@ -1,11 +1,10 @@
 .root {
     -fx-background-color: #2e2e2e;
-    -fx-code-bg-color: #1e1e1e
 }
 
 .styled-text-area {
     -fx-font-size: 24px;
-    -fx-background-color: -fx-code-bg-color;
+    -fx-background-color: #1e1e1e;
 }
 
 .styled-text-area .text {
@@ -28,7 +27,7 @@
 .lineno {
     -fx-text-fill: #707070;
     -fx-font-size: 24px;
-    -fx-background-color: -fx-code-bg-color;
+    -fx-background-color: #1e1e1e;
 }
 
 .text-flow .text {

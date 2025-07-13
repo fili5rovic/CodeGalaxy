@@ -132,8 +132,6 @@ public class DashboardController extends ControllerBase {
         fileSearchPopupListener();
 
         GitHierarchy.addHierarchy();
-
-
     }
 
     private void applyCssClasses() {

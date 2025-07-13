@@ -1,4 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-    <path fill="#b3882f"
-          d="M10 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V8C22 6.9 21.1 6 20 6H12L10 4Z"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+    <g fill="none">
+        <path fill="url(#fluentColorFolder240)"
+              d="M4 4h6l2 2h8c1.1 0 2 .9 2 2v10c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+        <path fill="url(#fluentColorFolder241)"
+              d="M4 4h6l2 2h8c1.1 0 2 .9 2 2v1H2V6c0-1.1.9-2 2-2z"/>
+        <defs>
+            <linearGradient id="fluentColorFolder240" x1="2" x2="22" y1="4" y2="20"
+                            gradientUnits="userSpaceOnUse">
+                <stop stop-color="#9ca3af"/>
+                <stop offset="1" stop-color="#6b7280"/>
+            </linearGradient>
+            <linearGradient id="fluentColorFolder241" x1="2" x2="22" y1="4" y2="9"
+                            gradientUnits="userSpaceOnUse">
+                <stop stop-color="#d1d5db"/>
+                <stop offset="1" stop-color="#9ca3af"/>
+            </linearGradient>
+            <radialGradient id="fluentColorFolder242" cx="0" cy="0" r="1"
+                            gradientTransform="matrix(-10 8 -4 -5 22 4)"
+                            gradientUnits="userSpaceOnUse">
+                <stop offset=".362" stop-color="#374151"/>
+                <stop offset="1" stop-color="#374151" stop-opacity="0"/>
+            </radialGradient>
+        </defs>
+    </g>
 </svg>

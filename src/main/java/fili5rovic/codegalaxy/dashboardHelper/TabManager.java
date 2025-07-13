@@ -5,6 +5,7 @@ import fili5rovic.codegalaxy.controller.Controllers;
 import fili5rovic.codegalaxy.lsp.LSP;
 import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.util.SVGUtil;
+import fili5rovic.codegalaxy.util.TabColorAnimator;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,7 +20,6 @@ import javafx.scene.text.Font;
 import java.nio.file.Path;
 
 public class TabManager {
-
 
     public static void createTab(Path filePath) {
         TabPane tabPane = Controllers.dashboardController().getTabPane();
@@ -53,6 +53,8 @@ public class TabManager {
 
         tabPane.getTabs().add(tab);
         tabPane.getSelectionModel().selectLast();
+
+        TabColorAnimator.animateTabBorder(tab);
     }
 
     private static void makeTabGraphic(Path filePath, Tab tab) {

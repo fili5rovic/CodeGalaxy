@@ -8,19 +8,19 @@
         <defs>
             <linearGradient id="fluentColorDocument240" x1="15.2" x2="16.822" y1="2" y2="18.87"
                             gradientUnits="userSpaceOnUse">
-                <stop stop-color="#d1d5db"/>
-                <stop offset="1" stop-color="#6b7280"/>
+                <stop stop-color="#6ce0ff"/>
+                <stop offset="1" stop-color="#4894fe"/>
             </linearGradient>
             <linearGradient id="fluentColorDocument241" x1="16.488" x2="14.738" y1="4.917" y2="7.833"
                             gradientUnits="userSpaceOnUse">
-                <stop stop-color="#f3f4f6"/>
-                <stop offset="1" stop-color="#e5e7eb"/>
+                <stop stop-color="#9ff0f9"/>
+                <stop offset="1" stop-color="#b3e0ff"/>
             </linearGradient>
             <radialGradient id="fluentColorDocument242" cx="0" cy="0" r="1"
                             gradientTransform="matrix(-8.66665 9.09357 -5.3691 -5.11703 20.667 2.625)"
                             gradientUnits="userSpaceOnUse">
-                <stop offset=".362" stop-color="#374151"/>
-                <stop offset="1" stop-color="#374151" stop-opacity="0"/>
+                <stop offset=".362" stop-color="#4a43cb"/>
+                <stop offset="1" stop-color="#4a43cb" stop-opacity="0"/>
             </radialGradient>
         </defs>
     </g>
