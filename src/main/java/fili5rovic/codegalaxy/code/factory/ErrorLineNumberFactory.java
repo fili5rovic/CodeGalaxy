@@ -134,18 +134,9 @@ public class ErrorLineNumberFactory implements IntFunction<Node>, DiagnosticsLis
             indicator.getStyleClass().add("info-indicator");
         }
 
-        // Set icon if available
-        try {
-            int iconSize = Math.max(MIN_ICON_SIZE, indicatorSize - ICON_SIZE_REDUCTION);
-            indicator.setGraphic(SVGUtil.getIcon(iconType, iconSize, iconSize));
-        } catch (Exception e) {
-            // Fallback to colored circle if icon not found
-            indicator.setText("●");
-            indicator.setTextFill(Color.WHITE);
-            indicator.setFont(Font.font(Math.max(MIN_FALLBACK_FONT, fontSize / FALLBACK_FONT_DIVIDER)));
-        }
+        int iconSize = Math.max(MIN_ICON_SIZE, indicatorSize - ICON_SIZE_REDUCTION);
+        indicator.setGraphic(SVGUtil.getIcon(iconType, iconSize, iconSize));
 
-        // Add tooltip with error messages
         if (tooltipText != null && !tooltipText.isEmpty()) {
             Tooltip tooltip = new Tooltip(tooltipText);
             tooltip.setShowDelay(javafx.util.Duration.millis(TOOLTIP_DELAY_MS));
