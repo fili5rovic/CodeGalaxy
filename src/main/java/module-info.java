@@ -14,6 +14,7 @@ module fili5rovic.codegalaxy {
     requires io.github.classgraph;
     requires org.eclipse.jgit;
     requires com.fasterxml.jackson.databind;
+    requires MaterialFX;
 
 
     opens fili5rovic.codegalaxy to javafx.fxml;

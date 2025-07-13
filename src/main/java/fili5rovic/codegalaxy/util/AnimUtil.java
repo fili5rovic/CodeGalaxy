@@ -95,7 +95,7 @@ public class AnimUtil {
 
         // Create rapid matrix-style flashing effect
         for (int i = 0; i < 30; i++) {
-            double time = i * 0.12; // Fast transitions for matrix effect
+            double time = i * 0.12;
             String color = matrixColors[random.nextInt(matrixColors.length)];
 
             // Random intensity values

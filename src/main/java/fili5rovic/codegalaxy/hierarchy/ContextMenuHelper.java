@@ -1,8 +1,11 @@
 package fili5rovic.codegalaxy.hierarchy;
 
 import fili5rovic.codegalaxy.codeRunner.CodeRunnerService;
+import fili5rovic.codegalaxy.controller.Controllers;
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.dashboardHelper.ProjectManager;
+import fili5rovic.codegalaxy.hierarchy.newfilepopup.listview.ItemEntry;
+import fili5rovic.codegalaxy.hierarchy.newfilepopup.listview.SuggestedJavaTypeListView;
 import fili5rovic.codegalaxy.util.FileHelper;
 import fili5rovic.codegalaxy.util.JavaParserUtil;
 import fili5rovic.codegalaxy.util.SVGUtil;
@@ -10,6 +13,7 @@ import fili5rovic.codegalaxy.window.Window;
 import javafx.scene.control.*;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
 
@@ -22,19 +26,21 @@ import java.util.ArrayList;
 public class ContextMenuHelper {
 
     private final TextField fileNameTextField;
-    private final Label fileNameLabel;
 
     private final Popup filePanePopup = new Popup();
 
+    private final SuggestedJavaTypeListView listView;
+
     private final DashboardController controller;
 
-
     public ContextMenuHelper() {
-        controller = ((DashboardController) Window.getController(Window.WINDOW_DASHBOARD));
+        controller = Controllers.dashboardController();
         fileNameTextField = new TextField();
-        fileNameLabel = new Label();
-        VBox vbox = new VBox(fileNameLabel, fileNameTextField);
+        VBox vbox = new VBox(fileNameTextField);
 
+        listView = new SuggestedJavaTypeListView();
+
+        vbox.getChildren().add(listView);
         filePanePopup.getContent().add(vbox);
 
         fileNameTextField.setOnAction(_ -> filePanePopup.hide());
@@ -83,8 +89,6 @@ public class ContextMenuHelper {
     private void onNewFile(ProjectItem item, String extension) {
         filePanePopup.show(controller.getOpenCodeGalaxy().getScene().getWindow());
         item.setExpanded(true);
-
-        fileNameLabel.setText("New File");
 
         fileNameTextField.clear();
         fileNameTextField.requestFocus();
