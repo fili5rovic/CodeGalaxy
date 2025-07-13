@@ -11,9 +11,7 @@ import fili5rovic.codegalaxy.util.JavaParserUtil;
 import fili5rovic.codegalaxy.util.SVGUtil;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.scene.control.*;
-import javafx.scene.input.Clipboard;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.layout.HBox;
+import javafx.scene.input.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
 
@@ -44,7 +42,14 @@ public class ContextMenuHelper {
         filePanePopup.getContent().add(vbox);
 
         filePanePopup.setAutoHide(true);
-        fileNameTextField.setOnAction(_ -> filePanePopup.hide());
+        fileNameTextField.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+            if (e.getCode().equals(KeyCode.UP) || e.getCode().equals(KeyCode.DOWN)) {
+                listView.fireEvent(e.copyFor(listView, listView));
+                e.consume();
+            }
+        });
+
+
     }
 
     public ArrayList<MenuItem> createMenuItems(ArrayList<ProjectItem> items) {
@@ -96,18 +101,31 @@ public class ContextMenuHelper {
 
         fileNameTextField.setOnAction(_ -> {
             try {
-                textFieldAction(item, extension);
-            } catch (IOException ioException) {
-                System.out.println("Couldn't create file");
-                filePanePopup.hide();
+                createJavaFileAction(item, extension);
+            } catch (IOException e) {
+                System.err.println("Couldn't create file");
+                System.err.println(e.getMessage());
             }
+            filePanePopup.hide();
         });
 
-
+        listView.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2 && event.getButton() == MouseButton.PRIMARY && !fileNameTextField.getText().isBlank()) {
+                ItemEntry selectedItem = listView.getSelectionModel().getSelectedItem();
+                if (selectedItem != null) {
+                    try {
+                        createJavaFileAction(item, extension);
+                    } catch (IOException e) {
+                        System.err.println("Couldn't create file");
+                        System.err.println(e.getMessage());
+                    }
+                    filePanePopup.hide();
+                }
+            }
+        });
     }
 
-
-    private void textFieldAction(ProjectItem item, String extension) throws IOException {
+    private void createJavaFileAction(ProjectItem item, String extension) throws IOException {
         String name = fileNameTextField.getText();
         Path path = item.getPath();
         boolean isDir = extension.isEmpty();
@@ -121,11 +139,7 @@ public class ContextMenuHelper {
             Files.createFile(path);
             if (!Files.isRegularFile(path)) throw new FileAlreadyExistsException("File already exists");
             if (extension.equals("java")) {
-                String content = """
-                         public class %s {
-                            \s
-                         }
-                        \s""".formatted(name);
+                String content = getContentForNewFile(name);
                 Files.writeString(path, content);
             }
 
@@ -133,6 +147,28 @@ public class ContextMenuHelper {
         }
         ProjectManager.reloadHierarchy(item);
         filePanePopup.hide();
+    }
+
+    private String getContentForNewFile(String name) {
+        ItemEntry selectedRow = listView.getSelectionModel().getSelectedItem();
+        String type = selectedRow.label().toLowerCase();
+        if(type.equals("exception")) {
+            return """
+                    public class %s extends RuntimeException {
+                      public %s(String message) {
+                        super(message);
+                      }
+                    }
+                    """.formatted(name, name);
+        }
+        if(type.equals("annotation")) {
+            type = "@interface";
+        }
+        return """
+                 public %s %s {
+                    \s
+                 }
+                \s""".formatted(type, name);
     }
 
     private MenuItem createDeleteMenu(ArrayList<ProjectItem> items) {
