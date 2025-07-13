@@ -48,7 +48,7 @@ public class AnimUtil {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
 
-        tab.setOnSelectionChanged(event -> {
+        tab.setOnSelectionChanged(_ -> {
             if (!tab.isSelected()) {
                 timeline.stop();
                 selectedTab.setStyle("");
@@ -68,9 +68,7 @@ public class AnimUtil {
             if(!button.isDisabled())
                 animateNodeNeon(button);
         });
-        button.setOnMouseExited(_ -> {
-            stopNeonAnimation(button);
-        });
+        button.setOnMouseExited(_ -> stopNeonAnimation(button));
     }
 
     public static void animateNodeNeon(Node node) {

@@ -25,9 +25,7 @@ public class ButtonManager {
     }
 
     private static void buttonActions() {
-        controller.getInitRepoBtn().setOnAction(_ -> {
-            initRepoBtn();
-        });
+        controller.getInitRepoBtn().setOnAction(_ -> initRepoBtn());
 
         controller.getCommitBtn().setOnAction(_ -> {
             String commitMsg = controller.getCommitMsg().getText();
