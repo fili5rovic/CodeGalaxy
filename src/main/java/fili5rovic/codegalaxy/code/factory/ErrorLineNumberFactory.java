@@ -14,8 +14,6 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import org.eclipse.lsp4j.Diagnostic;
 import org.eclipse.lsp4j.DiagnosticSeverity;
 import org.eclipse.lsp4j.PublishDiagnosticsParams;
@@ -38,9 +36,6 @@ public class ErrorLineNumberFactory implements IntFunction<Node>, DiagnosticsLis
     private static final int INDICATOR_SIZE_DIVIDER = 2;
     private static final int ICON_SIZE_REDUCTION = 0;
     private static final int MIN_ICON_SIZE = 8;
-
-    private static final int FALLBACK_FONT_DIVIDER = 3;
-    private static final int MIN_FALLBACK_FONT = 6;
 
     private static final int TOOLTIP_DELAY_MS = 300;
 

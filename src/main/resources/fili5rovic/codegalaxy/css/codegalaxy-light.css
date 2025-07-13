@@ -23,10 +23,20 @@
     -fx-fill: #d0d0d0;
 }
 
-.lineno {
-    -fx-text-fill: #505050;
-    -fx-font-size: 24px;
-    -fx-background-color: #ffffff;
+/*.lineno {*/
+/*    -fx-text-fill: #505050;*/
+/*    -fx-font-size: 24px;*/
+/*    -fx-background-color: #ffffff;*/
+/*}*/
+
+.line-number-text {
+    -fx-fill: #373737;
+}
+
+.line-number-box {
+    -fx-background-color: #1e1e1e;
+    -fx-border-color: #979797;
+    -fx-border-width: 0 1 0 0;
 }
 
 .text-flow .text {
