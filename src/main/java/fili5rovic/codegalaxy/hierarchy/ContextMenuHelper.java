@@ -43,6 +43,7 @@ public class ContextMenuHelper {
         vbox.getChildren().add(listView);
         filePanePopup.getContent().add(vbox);
 
+        filePanePopup.setAutoHide(true);
         fileNameTextField.setOnAction(_ -> filePanePopup.hide());
     }
 
