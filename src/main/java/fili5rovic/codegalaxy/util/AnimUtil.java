@@ -48,7 +48,7 @@ public class AnimUtil {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
 
-        tab.setOnSelectionChanged(_ -> {
+        tab.selectedProperty().addListener((_, _, _) -> {
             if (!tab.isSelected()) {
                 timeline.stop();
                 selectedTab.setStyle("");
@@ -56,6 +56,7 @@ public class AnimUtil {
                 timeline.play();
             }
         });
+
     }
 
     public static void commitBtnNeon(Button button) {
