@@ -4,11 +4,7 @@ import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.code.manager.Manager;
 import fili5rovic.codegalaxy.util.Debouncer;
-import javafx.scene.Node;
 import javafx.scene.input.ScrollEvent;
-import org.fxmisc.richtext.LineNumberFactory;
-
-import java.util.function.IntFunction;
 
 public class FontManager extends Manager {
     private static final int MIN_FONT_SIZE;
@@ -17,7 +13,6 @@ public class FontManager extends Manager {
     private int currentFontSize;
 
     private FontPopUpManager fontPopUpManager;
-
     private final Debouncer debouncer = new Debouncer();
 
     static {
@@ -56,7 +51,7 @@ public class FontManager extends Manager {
                     decreaseSize();
                 updateUI();
                 popUp();
-                debouncer.debounce(() -> IDESettings.getInstance().set("fontSize", String.valueOf(currentFontSize)),5000);
+                debouncer.debounce(() -> IDESettings.getInstance().set("fontSize", String.valueOf(currentFontSize)), 5000);
                 event.consume();
             }
         });
@@ -73,16 +68,12 @@ public class FontManager extends Manager {
     }
 
     private void updateUI() {
+        // Update the main code area font size
         codeGalaxy.setStyle("-fx-font-size: " + currentFontSize);
 
-
-        IntFunction<Node> lineNumberFactory = LineNumberFactory.get(codeGalaxy);
-        codeGalaxy.setParagraphGraphicFactory(line -> {
-            Node lineNumber = lineNumberFactory.apply(line);
-            lineNumber.setStyle("-fx-font-size: " + currentFontSize + "px;");
-            return lineNumber;
-        });
-
+        // Update the custom line number factory font size
+        // The factory will handle applying the CSS class and font size styling
+        codeGalaxy.updateLineNumberFontSize(currentFontSize);
     }
 
     public void popUp() {
@@ -97,5 +88,7 @@ public class FontManager extends Manager {
         return MIN_FONT_SIZE;
     }
 
-
+    public int getCurrentFontSize() {
+        return currentFontSize;
+    }
 }

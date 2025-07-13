@@ -1,5 +1,6 @@
 package fili5rovic.codegalaxy.code;
 
+import fili5rovic.codegalaxy.code.factory.ErrorLineNumberFactory;
 import fili5rovic.codegalaxy.code.manager.codeActions.rightClick.CodeRightClickManager;
 import fili5rovic.codegalaxy.code.manager.file.FileManager;
 import fili5rovic.codegalaxy.code.manager.font.FontManager;
@@ -14,7 +15,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import org.fxmisc.flowless.VirtualizedScrollPane;
 import org.fxmisc.richtext.CodeArea;
-import org.fxmisc.richtext.LineNumberFactory;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -30,6 +30,8 @@ public class CodeGalaxy extends CodeArea {
 
     private VirtualizedScrollPane<CodeArea> scrollPane;
 
+    private ErrorLineNumberFactory errorLineNumberFactory;
+
     public CodeGalaxy(Path path) {
         addLineNumbers();
         addManagers();
@@ -44,6 +46,12 @@ public class CodeGalaxy extends CodeArea {
 
             fileManager = new FileManager(this, path);
             fileManager.init();
+
+            if (errorLineNumberFactory != null) {
+                errorLineNumberFactory.dispose();
+            }
+            errorLineNumberFactory = new ErrorLineNumberFactory(this);
+            setParagraphGraphicFactory(errorLineNumberFactory);
         }
     }
 
@@ -58,7 +66,8 @@ public class CodeGalaxy extends CodeArea {
     }
 
     private void addLineNumbers() {
-        setParagraphGraphicFactory(LineNumberFactory.get(this));
+        errorLineNumberFactory = new ErrorLineNumberFactory(this);
+        setParagraphGraphicFactory(errorLineNumberFactory);
         this.scrollPane = new VirtualizedScrollPane<>(this);
     }
 
@@ -85,6 +94,7 @@ public class CodeGalaxy extends CodeArea {
     }
 
     public boolean hasSelection() {
+
         return !this.getSelectedText().isEmpty();
     }
 
@@ -104,6 +114,15 @@ public class CodeGalaxy extends CodeArea {
 
     public VirtualizedScrollPane<CodeArea> getScrollPane() {
         return scrollPane;
+    }
+
+    public void updateLineNumberFontSize(int fontSize) {
+        if (errorLineNumberFactory != null) {
+            errorLineNumberFactory.setFontSize(fontSize);
+            // Force refresh of line numbers
+            setParagraphGraphicFactory(null);
+            setParagraphGraphicFactory(errorLineNumberFactory);
+        }
     }
 
     public void selectWordAtCaret() {
@@ -141,8 +160,12 @@ public class CodeGalaxy extends CodeArea {
 
         int absStart = getAbsolutePosition(paragraphIndex, wordStart);
         int absEnd = getAbsolutePosition(paragraphIndex, wordEnd + 1); // exclusive
-
         selectRange(absStart, absEnd);
     }
 
+    public void dispose() {
+        if (errorLineNumberFactory != null) {
+            errorLineNumberFactory.dispose();
+        }
+    }
 }

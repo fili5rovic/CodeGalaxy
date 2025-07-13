@@ -13,6 +13,7 @@
     -fx-font-weight: bold;
 }
 
+.interface,
 .class {
     -fx-fill: #4EC9B0;
     -fx-font-weight: bold;

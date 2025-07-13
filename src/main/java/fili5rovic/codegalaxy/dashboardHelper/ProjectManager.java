@@ -49,7 +49,6 @@ public class ProjectManager {
 
     public static void errorOnPath(Path path, boolean isError) {
         if (projectHierarchy == null) {
-            System.err.println("Project hierarchy is not initialized.");
             return;
         }
         projectHierarchy.errorOnPath(path, isError);
