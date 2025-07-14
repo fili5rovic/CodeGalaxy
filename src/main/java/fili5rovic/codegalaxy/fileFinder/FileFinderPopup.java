@@ -40,21 +40,16 @@ public class FileFinderPopup extends Popup {
     }
 
     private void structure() {
-        VBox vbox = new VBox();
+        VBox vbox = new VBox(searchTextField);
 
-        vbox.getChildren().add(searchTextField);
-
-        listView.setPrefHeight(500);
         listView.setPrefWidth(300);
-
         listView.setCellFactory(FileItem.createCellFactory());
 
         update();
         vbox.getChildren().add(listView);
-
         getContent().add(vbox);
-    }
 
+    }
 
     public void update() {
         listView.getItems().clear();

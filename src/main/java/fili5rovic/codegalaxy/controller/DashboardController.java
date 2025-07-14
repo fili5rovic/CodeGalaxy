@@ -128,14 +128,13 @@ public class DashboardController extends ControllerBase {
         TooltipManager.init();
 
         updateInfoPaneVisibility();
-
         fileSearchPopupListener();
-
         GitHierarchy.addHierarchy();
     }
 
     private void applyCssClasses() {
         errorTabPane.getStyleClass().add("no-background");
+        infoPaneNoTabs.getStyleClass().add("dark-background");
     }
 
     @FXML

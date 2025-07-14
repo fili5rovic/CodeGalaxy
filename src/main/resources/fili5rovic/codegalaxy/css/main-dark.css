@@ -4,7 +4,9 @@
 /*-fx-color4: #5b2a98;*/
 /*-fx-color-darkest: #222222;*/
 
-
+.dark-background {
+    -fx-background-color: #1e1e1e;
+}
 
 /*<editor-fold desc="Dialog pane">*/
 .dialog-pane {
@@ -215,6 +217,10 @@
 
 .tree-view .tree-cell:hover {
     -fx-background-color: #444;
+}
+
+.tree-view .tree-cell:empty:hover {
+    -fx-background-color: transparent;
 }
 
 .tree-view .tree-cell:selected {
@@ -559,6 +565,10 @@
 .list-cell:hover {
     -fx-background-color: #3E3E40;
     -fx-text-fill: white;
+}
+
+.list-cell:empty:hover {
+    -fx-background-color: transparent;
 }
 
 .list-cell:selected {
