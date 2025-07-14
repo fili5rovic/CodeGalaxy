@@ -6,7 +6,6 @@ import fili5rovic.codegalaxy.code.manager.editing.shortcuts_new.ShortcutManager;
 import fili5rovic.codegalaxy.code.manager.file.FileManager;
 import fili5rovic.codegalaxy.code.manager.font.FontManager;
 import fili5rovic.codegalaxy.code.manager.Manager;
-import fili5rovic.codegalaxy.code.manager.editing.LineEditing;
 import fili5rovic.codegalaxy.code.manager.format.FormatManager;
 import fili5rovic.codegalaxy.code.manager.highlighting.Highlighter;
 import fili5rovic.codegalaxy.code.manager.hover.HoverManager;
