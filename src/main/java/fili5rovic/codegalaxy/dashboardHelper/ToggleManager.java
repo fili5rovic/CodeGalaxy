@@ -3,8 +3,8 @@ package fili5rovic.codegalaxy.dashboardHelper;
 import fili5rovic.codegalaxy.controller.Controllers;
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.vcs.GitUtil;
-import fili5rovic.codegalaxy.projectSetings.ProjectSettingsUtil;
-import fili5rovic.codegalaxy.projectSetings.VCSUtil;
+import fili5rovic.codegalaxy.projectSettings.ProjectSettingsUtil;
+import fili5rovic.codegalaxy.projectSettings.VCSUtil;
 import fili5rovic.codegalaxy.util.SVGUtil;
 import javafx.scene.control.SplitPane;
 

@@ -12,11 +12,16 @@ public class IDESettings {
 
     private static IDESettings instance;
     private static IDESettings tempInstance;
+    private static IDESettings recentInstance;
 
-    private String fileName;
+    /**
+     * The path is from content root.
+     */
+    private String filePath;
 
-    public static final String SETTINGS = "settings";
-    public static final String TEMP_SETTINGS = "tempSettings";
+    private static final String SETTINGS = ".settings/general.properties";
+    private static final String TEMP_SETTINGS = ".settings/general.properties.tmp";
+    private static final String RECENT_SETTINGS = ".settings/general.properties.recent";
 
     public static IDESettings getInstance() {
         if (instance == null) {
@@ -32,14 +37,21 @@ public class IDESettings {
         return tempInstance;
     }
 
-    private IDESettings(String fileName) {
+    public static IDESettings getRecentInstance() {
+        if (recentInstance == null) {
+            recentInstance = new IDESettings(RECENT_SETTINGS);
+        }
+        return recentInstance;
+    }
+
+    private IDESettings(String filePath) {
         try {
-            this.fileName = fileName;
-            props.load(new FileReader(fileName));
+            this.filePath = filePath;
+            props.load(new FileReader(this.filePath));
         } catch (FileNotFoundException e) {
             save();  // creates a new file if not found
         } catch (IOException e) {
-            throw new RuntimeException("Failed to load settings", e);
+            throw new RuntimeException("Failed to load properties", e);
         }
     }
 
@@ -81,10 +93,10 @@ public class IDESettings {
     }
 
     public void save() {
-        try (FileWriter writer = new FileWriter(fileName)) {
+        try (FileWriter writer = new FileWriter(filePath)) {
             props.store(writer, null);
         } catch (IOException e) {
-            System.out.println("Couldn't save settings");
+            System.out.println("Couldn't save properties");
         }
     }
 
@@ -95,7 +107,8 @@ public class IDESettings {
                 writer.write(settingsStr);
             }
         } catch (IOException e) {
-            System.out.println("Couldn't copy settings to temp: " + e.getMessage());
+            System.out.println("Couldn't copy properties to temp: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -106,7 +119,7 @@ public class IDESettings {
                 writer.write(settingsStr);
             }
         } catch (IOException e) {
-            System.out.println("Couldn't copy temp to settings: " + e.getMessage());
+            System.out.println("Couldn't copy temp to properties: " + e.getMessage());
         }
     }
 }

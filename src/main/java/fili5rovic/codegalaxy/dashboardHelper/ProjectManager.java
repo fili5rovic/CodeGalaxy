@@ -5,7 +5,7 @@ import fili5rovic.codegalaxy.controller.Controllers;
 import fili5rovic.codegalaxy.hierarchy.ProjectHierarchy;
 import fili5rovic.codegalaxy.hierarchy.ProjectItem;
 import fili5rovic.codegalaxy.lsp.LSP;
-import fili5rovic.codegalaxy.projectSetings.ProjectSettingsUtil;
+import fili5rovic.codegalaxy.projectSettings.ProjectSettingsUtil;
 import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.util.FileHelper;
 import fili5rovic.codegalaxy.window.Window;

@@ -1,8 +1,8 @@
 package fili5rovic.codegalaxy.vcs.treeView;
 
 import fili5rovic.codegalaxy.controller.DashboardController;
-import fili5rovic.codegalaxy.projectSetings.ProjectSettingsUtil;
-import fili5rovic.codegalaxy.projectSetings.VCSUtil;
+import fili5rovic.codegalaxy.projectSettings.ProjectSettingsUtil;
+import fili5rovic.codegalaxy.projectSettings.VCSUtil;
 import fili5rovic.codegalaxy.util.SVGUtil;
 import fili5rovic.codegalaxy.vcs.GitListenerUtil;
 import fili5rovic.codegalaxy.vcs.GitUtil;

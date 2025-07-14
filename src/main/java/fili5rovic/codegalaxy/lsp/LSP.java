@@ -41,7 +41,7 @@ public class LSP {   //TODO Ability to change workspace without restarting
 
         String workspace = IDESettings.getInstance().get("workspace");
         if (workspace == null)
-            throw new IllegalStateException("Workspace not set in settings.");
+            throw new IllegalStateException("Workspace not set in properties.");
 
         serverManager = new LSPServerManager();
         serverManager.startServer(workspace);

@@ -1,6 +1,6 @@
-package fili5rovic.codegalaxy.projectSetings;
+package fili5rovic.codegalaxy.projectSettings;
 
-import fili5rovic.codegalaxy.projectSetings.dataclass.VcsSettings;
+import fili5rovic.codegalaxy.projectSettings.dataclass.VcsSettings;
 import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.util.JsonUtil;
 

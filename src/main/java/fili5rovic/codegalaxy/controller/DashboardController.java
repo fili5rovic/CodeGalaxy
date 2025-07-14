@@ -143,7 +143,7 @@ public class DashboardController extends ControllerBase {
         applyCssClasses();
         ProjectManager.checkForValidWorkspace().thenAcceptAsync(success -> {
             if (!success) {
-                System.err.println("Fatal error: No valid workspace found. Please set a valid workspace path in settings.");
+                System.err.println("Fatal error: No valid workspace found. Please set a valid workspace path in properties.");
                 Platform.exit();
                 return;
             }

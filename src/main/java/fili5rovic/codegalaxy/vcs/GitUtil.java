@@ -1,9 +1,7 @@
 package fili5rovic.codegalaxy.vcs;
 
 import fili5rovic.codegalaxy.vcs.treeView.GitHierarchy;
-import fili5rovic.codegalaxy.projectSetings.ProjectSettingsUtil;
-
-import java.io.IOException;
+import fili5rovic.codegalaxy.projectSettings.ProjectSettingsUtil;
 
 public class GitUtil {
     private final GitBasicUtil gitBasicUtil;

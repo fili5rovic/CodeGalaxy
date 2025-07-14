@@ -1,4 +1,4 @@
-package fili5rovic.codegalaxy.projectSetings.dataclass;
+package fili5rovic.codegalaxy.projectSettings.dataclass;
 
 public class VcsSettings {
     private String vcsType;

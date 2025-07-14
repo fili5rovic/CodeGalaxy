@@ -20,9 +20,9 @@ public class ProjectItem extends TreeItem<Label> {
 
         expandedProperty().addListener((_, _, isExpanded) -> {
             if (isExpanded)
-                IDESettings.getInstance().addTo("expanded", path.toString());
+                IDESettings.getRecentInstance().addTo("expanded", path.toString());
             else
-                IDESettings.getInstance().removeFrom("expanded", path.toString());
+                IDESettings.getRecentInstance().removeFrom("expanded", path.toString());
         });
     }
 

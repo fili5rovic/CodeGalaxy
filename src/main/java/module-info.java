@@ -23,6 +23,6 @@ module fili5rovic.codegalaxy {
     exports fili5rovic.codegalaxy;
     exports fili5rovic.codegalaxy.controller;
     opens fili5rovic.codegalaxy.util to org.eclipse.lsp4j.jsonrpc;
-    exports fili5rovic.codegalaxy.projectSetings.dataclass to com.fasterxml.jackson.databind;
+    exports fili5rovic.codegalaxy.projectSettings.dataclass to com.fasterxml.jackson.databind;
 
 }

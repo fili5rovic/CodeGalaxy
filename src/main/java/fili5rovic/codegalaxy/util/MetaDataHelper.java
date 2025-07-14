@@ -15,7 +15,7 @@ public class MetaDataHelper {
         try {
             String projectPath = IDESettings.getInstance().get("lastProjectPath");
             if (projectPath == null) {
-                System.err.println("Project path not set in settings.");
+                System.err.println("Project path not set in properties.");
                 return null;
             }
             String classpathFilePath = projectPath + "/.classpath";

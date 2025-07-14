@@ -38,8 +38,8 @@ build/
 .DS_Storelsp/config_win/
 
 ### My own settings ###
-settings
-tempSettings
+.settings/general.properties
+.settings/general.properties.tmp
 
 ### LSP ###
 lsp
