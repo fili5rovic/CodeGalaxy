@@ -132,10 +132,8 @@ public class IDESettings {
         File tempFile = new File(TEMP_SETTINGS);
         if (tempFile.exists()) {
             if (!tempFile.delete()) {
-                System.out.println("Failed to delete temporary settings file: " + TEMP_SETTINGS);
+                System.err.println("Failed to delete temporary settings file: " + TEMP_SETTINGS);
             }
-        } else {
-            System.out.println("Temporary settings file does not exist: " + TEMP_SETTINGS);
         }
     }
 }

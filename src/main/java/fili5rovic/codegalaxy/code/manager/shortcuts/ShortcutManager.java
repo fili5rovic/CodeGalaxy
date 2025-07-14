@@ -3,6 +3,7 @@ package fili5rovic.codegalaxy.code.manager.shortcuts;
 import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.code.manager.Manager;
 import fili5rovic.codegalaxy.settings.IDESettings;
+import javafx.event.EventHandler;
 import javafx.scene.input.*;
 
 import java.util.*;
@@ -36,6 +37,16 @@ public class ShortcutManager extends Manager {
                         callback.run();
                         e.consume();
                     }
+                }
+            }
+
+            if (e.getCode() == KeyCode.TAB) {
+                if(codeGalaxy.hasSelection())
+                    e.consume();
+                if(e.isShiftDown()) {
+                    ShortcutActions.indentBackward(codeGalaxy);
+                } else {
+                    ShortcutActions.indentForward(codeGalaxy);
                 }
             }
         });

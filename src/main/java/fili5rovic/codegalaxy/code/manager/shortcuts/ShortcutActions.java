@@ -4,14 +4,69 @@ import fili5rovic.codegalaxy.code.CodeGalaxy;
 
 public class ShortcutActions {
 
-    // todo indent forward and backward
+    public static void indentForward(CodeGalaxy codeGalaxy) {
+        if (!codeGalaxy.hasSelection())
+            return;
+
+        int startParagraph = codeGalaxy.getCaretSelectionBind().getStartParagraphIndex();
+        int endParagraph = codeGalaxy.getCaretSelectionBind().getEndParagraphIndex();
+        int startPosition = codeGalaxy.getCaretSelectionBind().getStartPosition();
+        int endPosition = codeGalaxy.getCaretSelectionBind().getEndPosition();
+
+        StringBuilder indentedBlock = new StringBuilder();
+        int newCharsCount = 0;
+
+        for (int i = startParagraph; i <= endParagraph; i++) {
+            indentedBlock.append('\t');
+            indentedBlock.append(codeGalaxy.getText(i));
+            newCharsCount++;
+
+            if (i < endParagraph) {
+                indentedBlock.append('\n');
+            }
+        }
+
+        codeGalaxy.replaceText(
+                startParagraph, 0,
+                endParagraph, codeGalaxy.getText(endParagraph).length(),
+                indentedBlock.toString()
+        );
+
+        codeGalaxy.selectRange(startPosition + 1, endPosition + newCharsCount);
+
+    }
+
+    public static void indentBackward(CodeGalaxy codeGalaxy) {
+        int startPar = codeGalaxy.getCaretSelectionBind().getStartParagraphIndex();
+        int endPar = codeGalaxy.getCaretSelectionBind().getEndParagraphIndex();
+
+        String selectedText = codeGalaxy.getText(startPar, 0, endPar, codeGalaxy.getText(endPar).length());
+
+        boolean hadTab = selectedText.startsWith("\t");
+        String newText = selectedText.replaceAll("\n\t", "\n");
+        if (hadTab)
+            newText = newText.substring(1);
+
+        int newCharNum = newText.length() - selectedText.length();
+        int selectedTextStart = codeGalaxy.getCaretSelectionBind().getStartPosition();
+        int selectedTextEnd = codeGalaxy.getCaretSelectionBind().getEndPosition() + newCharNum;
+
+        if (hadTab && selectedTextStart > 0)
+            selectedTextStart -= 1;
+
+        codeGalaxy.deleteText(startPar, 0, endPar, codeGalaxy.getText(endPar).length());
+
+        codeGalaxy.insertText(startPar, 0, newText);
+
+        codeGalaxy.selectRange(selectedTextStart, selectedTextEnd);
+    }
 
     public static void deleteLine(CodeGalaxy codeGalaxy) {
-        if(codeGalaxy.hasSelection()) {
+        if (codeGalaxy.hasSelection()) {
             int startPar = codeGalaxy.getCaretSelectionBind().getStartParagraphIndex();
             int endPar = codeGalaxy.getCaretSelectionBind().getEndParagraphIndex();
 
-            codeGalaxy.deleteText(startPar,0,endPar,codeGalaxy.getText(endPar).length());
+            codeGalaxy.deleteText(startPar, 0, endPar, codeGalaxy.getText(endPar).length());
             codeGalaxy.deleteNextChar();
         } else {
             int curr = codeGalaxy.getCaretPosition();
@@ -30,7 +85,7 @@ public class ShortcutActions {
         int startPar = codeGalaxy.getCaretSelectionBind().getStartParagraphIndex();
         int endPar = codeGalaxy.getCaretSelectionBind().getEndParagraphIndex();
 
-        if(startPar == 0)
+        if (startPar == 0)
             return;
 
         int endColumn = codeGalaxy.getText(endPar).length();
@@ -43,17 +98,18 @@ public class ShortcutActions {
         codeGalaxy.deleteText(startPar, 0, endPar, endColumn);
         codeGalaxy.deletePreviousChar();
         // insert deleted text one line above
-        codeGalaxy.insertText(startPar-1, 0, text + "\n");
+        codeGalaxy.insertText(startPar - 1, 0, text + "\n");
 
         int newStartPosition = codeGalaxy.getAbsolutePosition(startPar - 1, selectedStartColumn);
         int newEndPosition = codeGalaxy.getAbsolutePosition(endPar - 1, selectedEndColumn);
         codeGalaxy.selectRange(newStartPosition, newEndPosition);
     }
+
     public static void moveLineDown(CodeGalaxy codeGalaxy) {
         int startPar = codeGalaxy.getCaretSelectionBind().getStartParagraphIndex();
         int endPar = codeGalaxy.getCaretSelectionBind().getEndParagraphIndex();
 
-        if(endPar == codeGalaxy.getParagraphsCount() - 1)
+        if (endPar == codeGalaxy.getParagraphsCount() - 1)
             return;
 
         int endColumn = codeGalaxy.getText(endPar).length();
@@ -66,7 +122,7 @@ public class ShortcutActions {
         codeGalaxy.deletePreviousChar();
 
         try {
-            codeGalaxy.insertText(startPar+1, 0, text + "\n");
+            codeGalaxy.insertText(startPar + 1, 0, text + "\n");
         } catch (Exception e) {
             codeGalaxy.appendText("\n" + text);
         }
@@ -77,14 +133,14 @@ public class ShortcutActions {
     }
 
     public static void duplicateLineAbove(CodeGalaxy codeGalaxy) {
-        if(!codeGalaxy.hasSelection()) {
+        if (!codeGalaxy.hasSelection()) {
             int curr = codeGalaxy.getCurrentParagraph();
             String text = codeGalaxy.getText(curr);
 
             int index = codeGalaxy.getAbsolutePosition(curr, 0);
             codeGalaxy.insertText(index, text + "\n");
 
-            if(curr == 0)
+            if (curr == 0)
                 curr = 1;
 
             codeGalaxy.moveTo(curr, codeGalaxy.getCaretColumn());
@@ -92,7 +148,7 @@ public class ShortcutActions {
     }
 
     public static void duplicateLineBelow(CodeGalaxy codeGalaxy) {
-        if(!codeGalaxy.hasSelection()) {
+        if (!codeGalaxy.hasSelection()) {
             int curr = codeGalaxy.getCurrentParagraph();
             String text = codeGalaxy.getText(curr);
 
