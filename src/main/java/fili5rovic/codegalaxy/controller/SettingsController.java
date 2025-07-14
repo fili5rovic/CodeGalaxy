@@ -1,8 +1,8 @@
 package fili5rovic.codegalaxy.controller;
 
-import fili5rovic.codegalaxy.code.manager.editing.shortcuts.keystate.KeyState;
 import fili5rovic.codegalaxy.settings.IDESettings;
-import fili5rovic.codegalaxy.settings.ShortcutsTableHelper;
+import fili5rovic.codegalaxy.settings.shortcut.ShortcutEntry;
+import fili5rovic.codegalaxy.settings.shortcut.ShortcutsTableHelper;
 import fili5rovic.codegalaxy.util.CSSUtil;
 import fili5rovic.codegalaxy.util.SVGUtil;
 import fili5rovic.codegalaxy.window.Window;
@@ -115,7 +115,7 @@ public class SettingsController extends ControllerBase {
 
         shortcutsSettingsMenu.getChildren().add(new Label("Code actions"));
 
-        TableView<KeyState> shortcutsTable = ShortcutsTableHelper.getShortcutsTable();
+        TableView<ShortcutEntry> shortcutsTable = ShortcutsTableHelper.getShortcutsTable();
 
         shortcutsSettingsMenu.getChildren().add(shortcutsTable);
 

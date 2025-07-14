@@ -92,6 +92,14 @@ public class IDESettings {
         return props.getProperty(key);
     }
 
+    public String[] getShortcutKeys() {
+        return props.keySet().stream()
+                .map(Object::toString)
+                .filter(key -> key.startsWith("shortcut_"))
+                .toArray(String[]::new);
+    }
+
+
     public void save() {
         try (FileWriter writer = new FileWriter(filePath)) {
             props.store(writer, null);
