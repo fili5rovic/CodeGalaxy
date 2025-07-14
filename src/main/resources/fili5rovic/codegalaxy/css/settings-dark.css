@@ -5,6 +5,11 @@
     -fx-font-size: 13px;
 }
 
+.recorded-shortcut-label {
+    -fx-text-fill: #ab74e8;
+    -fx-font-weight: bold;
+}
+
 .split-pane {
     -fx-background-color: #2b2b2b;
 }

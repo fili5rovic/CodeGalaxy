@@ -82,6 +82,8 @@ public class ShortcutsTableHelper {
 
         Label instruction = new Label("Recording shortcut: " + prettyShortcutName(entry.getName()));
         Label recordedShortcutLabel = new Label("Press keys...");
+        recordedShortcutLabel.getStyleClass().clear();
+        recordedShortcutLabel.getStyleClass().add("recorded-shortcut-label");
         recordedShortcutLabel.setAlignment(Pos.CENTER);
 
         Label validationLabel = new Label();
