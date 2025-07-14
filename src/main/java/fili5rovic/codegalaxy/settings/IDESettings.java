@@ -25,11 +25,11 @@ public class IDESettings {
 
     public static IDESettings getInstance() {
         if (instance == null) {
-
             instance = new IDESettings(SETTINGS);
         }
         return instance;
     }
+
     public static IDESettings getTempInstance() {
         if (tempInstance == null) {
             tempInstance = new IDESettings(TEMP_SETTINGS);

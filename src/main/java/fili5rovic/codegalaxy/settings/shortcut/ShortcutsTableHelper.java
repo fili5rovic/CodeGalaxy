@@ -34,7 +34,7 @@ public class ShortcutsTableHelper {
         valueCol.setCellValueFactory(cellData -> cellData.getValue().valueProperty());
         valueCol.setEditable(true);
 
-        valueCol.setCellFactory(col -> new TableCell<>() {
+        valueCol.setCellFactory(_ -> new TableCell<>() {
             @Override
             public void startEdit() {
                 super.startEdit();
@@ -53,7 +53,8 @@ public class ShortcutsTableHelper {
             }
         });
 
-        table.getColumns().addAll(nameCol, valueCol);
+        table.getColumns().add(nameCol);
+        table.getColumns().add(valueCol);
         table.setEditable(true);
 
         ObservableList<ShortcutEntry> items = FXCollections.observableArrayList();
@@ -133,7 +134,7 @@ public class ShortcutsTableHelper {
             event.consume();
         });
 
-        dialog.focusedProperty().addListener((obs, oldVal, newVal) -> {
+        dialog.focusedProperty().addListener((_, _, newVal) -> {
             if (!newVal) { // If window loses focus, reset everything
                 currentlyPressed.clear();
                 finalCombination.clear();
@@ -142,14 +143,14 @@ public class ShortcutsTableHelper {
             }
         });
 
-        okButton.setOnAction(e -> {
+        okButton.setOnAction(_ -> {
             String shortcutText = formatShortcut(finalCombination);
             IDESettings.getInstance().set(entry.getName(), shortcutText);
             entry.setValue(shortcutText);
             dialog.close();
         });
 
-        cancelButton.setOnAction(e -> dialog.close());
+        cancelButton.setOnAction(_ -> dialog.close());
 
         root.requestFocus();
         return dialog;
