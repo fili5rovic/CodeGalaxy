@@ -19,7 +19,7 @@ public class SplitPaneManager {
     private static boolean windowResizing = false;
 
     public static void setupLockPositions() {
-        prevHierarchyDividerValue = Double.parseDouble(IDESettings.getInstance().get("prevHierarchyDividerValue"));
+        prevHierarchyDividerValue = Double.parseDouble(IDESettings.getRecentInstance().get("prevHierarchyDividerValue"));
 
         SplitPane mainSplitPane = Controllers.dashboardController().getMainSplitPane();
         mainSplitPane.getDividers().getFirst().setPosition(prevHierarchyDividerValue);
@@ -40,7 +40,7 @@ public class SplitPaneManager {
         mainSplitPane.getDividers().getFirst().positionProperty().addListener((_, _, newValue) -> {
             if (!windowResizing && newValue.doubleValue() > 0.01) {
                 prevHierarchyDividerValue = newValue.doubleValue();
-                IDESettings.getInstance().set("prevHierarchyDividerValue", String.valueOf(prevHierarchyDividerValue));
+                IDESettings.getRecentInstance().set("prevHierarchyDividerValue", String.valueOf(prevHierarchyDividerValue));
             }
         });
 

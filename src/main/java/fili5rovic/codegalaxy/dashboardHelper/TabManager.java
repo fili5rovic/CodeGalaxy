@@ -36,7 +36,7 @@ public class TabManager {
             System.out.println("Failed to open file: " + e.getMessage());
         }
 
-        IDESettings.getInstance().addTo("recentFiles", filePath.toString());
+        IDESettings.getRecentInstance().addTo("recentFiles", filePath.toString());
 
         Tab tab = new Tab();
         tab.setId(filePath.toString());
@@ -87,7 +87,7 @@ public class TabManager {
 
     private static void closedTab(Path filePath) {
         LSP.instance().closeFile(filePath.toString());
-        IDESettings.getInstance().removeFrom("recentFiles", filePath.toString());
+        IDESettings.getRecentInstance().removeFrom("recentFiles", filePath.toString());
     }
 
     private static void onMouseEnter(MouseEvent e) {

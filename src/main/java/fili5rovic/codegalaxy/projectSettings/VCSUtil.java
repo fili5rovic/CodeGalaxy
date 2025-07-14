@@ -10,7 +10,7 @@ import java.nio.file.Path;
 public class VCSUtil {
 
     private static Path getSettingsDir() {
-        String lastProjectPath = IDESettings.getInstance().get("lastProjectPath");
+        String lastProjectPath = IDESettings.getRecentInstance().get("lastProjectPath");
         if (lastProjectPath == null || lastProjectPath.isEmpty()) {
             throw new IllegalStateException("No last project path set");
         }

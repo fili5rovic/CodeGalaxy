@@ -45,7 +45,7 @@ public class ProjectHierarchy extends TreeView<Label> {
     }
 
     public void reloadHierarchy(ProjectItem item) {
-        this.expandedPaths = IDESettings.getInstance().getMultiple("expanded");
+        this.expandedPaths = IDESettings.getRecentInstance().getMultiple("expanded");
         this.javaFiles.clear();
 
         item.getChildren().clear();

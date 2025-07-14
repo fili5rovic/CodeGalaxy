@@ -21,7 +21,7 @@ public class IDESettings {
 
     private static final String SETTINGS = ".settings/general.properties";
     private static final String TEMP_SETTINGS = ".settings/general.properties.tmp";
-    private static final String RECENT_SETTINGS = ".settings/general.properties.recent";
+    private static final String RECENT_SETTINGS = ".settings/recent.properties";
 
     public static IDESettings getInstance() {
         if (instance == null) {

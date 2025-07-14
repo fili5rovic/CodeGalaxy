@@ -36,7 +36,7 @@ public class ProjectManager {
         projectHierarchy = new ProjectHierarchy(path);
 
         Controllers.dashboardController().getTreeViewPane().setCenter(projectHierarchy);
-        IDESettings.getInstance().set("lastProjectPath", path.toString());
+        IDESettings.getRecentInstance().set("lastProjectPath", path.toString());
     }
 
     public static void reloadHierarchy() {
@@ -131,7 +131,7 @@ public class ProjectManager {
     }
 
     public static void tryToOpenLastProject() {
-        String lastProjectPath = IDESettings.getInstance().get("lastProjectPath");
+        String lastProjectPath = IDESettings.getRecentInstance().get("lastProjectPath");
         if (lastProjectPath == null)
             return;
         File lastProjectFile = new File(lastProjectPath);
@@ -142,7 +142,7 @@ public class ProjectManager {
             System.out.println("Last project path is not valid.");
         }
 
-        List<String> recentFiles = IDESettings.getInstance().getMultiple("recentFiles");
+        List<String> recentFiles = IDESettings.getRecentInstance().getMultiple("recentFiles");
         for (String filePath : recentFiles) {
             Path path = Path.of(filePath);
             if (path.toFile().exists()) {

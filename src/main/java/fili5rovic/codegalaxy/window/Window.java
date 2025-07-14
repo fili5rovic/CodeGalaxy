@@ -69,7 +69,8 @@ public abstract class Window {
             listeners();
 
         } catch (Exception e) {
-            System.err.println("Error loading window: " + e.getMessage());
+            System.err.println("Error loading window " + title + ": " + e.getMessage());
+            e.printStackTrace();
         }
     }
 

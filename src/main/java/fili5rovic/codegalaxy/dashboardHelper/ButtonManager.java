@@ -74,7 +74,7 @@ public class ButtonManager {
     }
 
     private static void initRepoBtn() {
-        File projectDirectory = new File(IDESettings.getInstance().get("lastProjectPath"));
+        File projectDirectory = new File(IDESettings.getRecentInstance().get("lastProjectPath"));
         Stage stage = Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage();
         File repoFile = FileHelper.openFolderChooser(stage, projectDirectory);
 
