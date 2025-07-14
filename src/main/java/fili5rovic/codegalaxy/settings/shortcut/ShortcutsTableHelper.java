@@ -1,6 +1,7 @@
 package fili5rovic.codegalaxy.settings.shortcut;
 
 import fili5rovic.codegalaxy.settings.IDESettings;
+import fili5rovic.codegalaxy.util.CSSUtil;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,7 +13,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -57,18 +57,22 @@ public class ShortcutsTableHelper {
         table.getColumns().add(valueCol);
         table.setEditable(true);
 
-        ObservableList<ShortcutEntry> items = FXCollections.observableArrayList();
+        loadData(table);
 
-        IDESettings settings = IDESettings.getInstance();
-        String[] keys = settings.getShortcutKeys();
-        for (String key : keys) {
-            items.add(new ShortcutEntry(key, settings.get(key)));
-        }
-
-        table.setItems(items);
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         return table;
+    }
+
+    public static void loadData(TableView<ShortcutEntry> table) {
+        ObservableList<ShortcutEntry> items = FXCollections.observableArrayList();
+
+        String[] keys = IDESettings.getInstance().getShortcutKeys();
+        for (String key : keys) {
+            System.out.println(prettyShortcutName(key) + " = " + IDESettings.getInstance().get(key));
+            items.add(new ShortcutEntry(prettyShortcutName(key), IDESettings.getInstance().get(key)));
+        }
+        table.setItems(items);
     }
 
     private static Stage createShortcutRecordingDialog(ShortcutEntry entry) {
@@ -76,14 +80,12 @@ public class ShortcutsTableHelper {
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.setTitle("Record Shortcut");
 
-        // --- UI Elements ---
-        Label instruction = new Label("Press shortcut for: " + entry.getName());
+        Label instruction = new Label("Recording shortcut: " + prettyShortcutName(entry.getName()));
         Label recordedShortcutLabel = new Label("Press keys...");
-        recordedShortcutLabel.setStyle("-fx-font-weight: bold; -fx-background-color: #eee; -fx-padding: 8px; -fx-border-color: #ccc; -fx-border-width: 1px; -fx-min-width: 280;");
         recordedShortcutLabel.setAlignment(Pos.CENTER);
 
         Label validationLabel = new Label();
-        validationLabel.setTextFill(Color.RED);
+        validationLabel.setStyle("-fx-text-fill: red; -fx-font-weight: bold;");
 
         Button okButton = new Button("OK");
         okButton.setDisable(true);
@@ -99,13 +101,14 @@ public class ShortcutsTableHelper {
         Scene scene = new Scene(root, 380, 200);
         dialog.setScene(scene);
 
-        // --- Logic ---
+        scene.getStylesheets().clear();
+        CSSUtil.applyStylesheet(scene.getStylesheets(), "settings");
+
         final Set<KeyCode> currentlyPressed = new HashSet<>();
         final Set<KeyCode> finalCombination = new HashSet<>();
-        final boolean[] isRecording = {false}; // Use an array to be modifiable in lambda
+        final boolean[] isRecording = {false};
 
         scene.setOnKeyPressed((KeyEvent event) -> {
-            // If not currently recording a sequence, clear previous attempt
             if (!isRecording[0]) {
                 currentlyPressed.clear();
                 finalCombination.clear();
@@ -125,17 +128,15 @@ public class ShortcutsTableHelper {
 
             currentlyPressed.remove(event.getCode());
 
-            // When all keys are released, the recording sequence is over
             if (currentlyPressed.isEmpty()) {
                 isRecording[0] = false;
-                // Update display with the last valid recorded combination
                 updateDisplay(finalCombination, recordedShortcutLabel, validationLabel, okButton);
             }
             event.consume();
         });
 
         dialog.focusedProperty().addListener((_, _, newVal) -> {
-            if (!newVal) { // If window loses focus, reset everything
+            if (!newVal) {
                 currentlyPressed.clear();
                 finalCombination.clear();
                 isRecording[0] = false;
@@ -145,7 +146,7 @@ public class ShortcutsTableHelper {
 
         okButton.setOnAction(_ -> {
             String shortcutText = formatShortcut(finalCombination);
-            IDESettings.getInstance().set(entry.getName(), shortcutText);
+            IDESettings.getInstance().set(reversePrettyShortcutName(entry.getName()), shortcutText);
             entry.setValue(shortcutText);
             dialog.close();
         });
@@ -196,5 +197,13 @@ public class ShortcutsTableHelper {
                 .map(String::toUpperCase)
                 .sorted()
                 .collect(Collectors.joining("+"));
+    }
+
+    private static String prettyShortcutName(String name) {
+        return name.replace("shortcut_", "").replace("_", " ").toUpperCase();
+    }
+
+    private static String reversePrettyShortcutName(String name) {
+        return "shortcut_" + name.toLowerCase().replace(" ", "_");
     }
 }

@@ -28,6 +28,8 @@ public class CodeGalaxy extends CodeArea {
 
     private FormatManager formatManager;
 
+    private ShortcutManager shortcutManager;
+
     private VirtualizedScrollPane<CodeArea> scrollPane;
 
     private ErrorLineNumberFactory errorLineNumberFactory;
@@ -73,8 +75,8 @@ public class CodeGalaxy extends CodeArea {
 
     private void addManagers() {
         managers.add(new FontManager(this));
-        managers.add(new ShortcutManager(this));
-//        managers.add(new LineEditing(this));
+        shortcutManager = new ShortcutManager(this);
+        managers.add(shortcutManager);
         managers.add(new SuggestionManager(this));
         formatManager = new FormatManager(this);
         managers.add(formatManager);
@@ -123,6 +125,12 @@ public class CodeGalaxy extends CodeArea {
             // Force refresh of line numbers
             setParagraphGraphicFactory(null);
             setParagraphGraphicFactory(errorLineNumberFactory);
+        }
+    }
+
+    public void reloadShortcuts() {
+        if (shortcutManager != null) {
+            shortcutManager.reloadShortcuts();
         }
     }
 

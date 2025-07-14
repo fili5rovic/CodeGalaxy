@@ -126,8 +126,23 @@ public class IDESettings {
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(SETTINGS))) {
                 writer.write(settingsStr);
             }
+            // so that props get created again
+            instance = null;
+
+            deleteTempSettings();
         } catch (IOException e) {
             System.out.println("Couldn't copy temp to properties: " + e.getMessage());
+        }
+    }
+
+    public static void deleteTempSettings() {
+        File tempFile = new File(TEMP_SETTINGS);
+        if (tempFile.exists()) {
+            if (!tempFile.delete()) {
+                System.out.println("Failed to delete temporary settings file: " + TEMP_SETTINGS);
+            }
+        } else {
+            System.out.println("Temporary settings file does not exist: " + TEMP_SETTINGS);
         }
     }
 }

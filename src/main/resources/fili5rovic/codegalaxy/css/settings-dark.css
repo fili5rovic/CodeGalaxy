@@ -216,6 +216,32 @@
     -fx-background-color: transparent;
 }
 
+/* --- Styles for Shortcut Recording Dialog --- */
 
+/* The main label that displays the recorded shortcut (e.g., "CTRL + S") */
+.shortcut-display-label {
+    -fx-background-color: #3c3f41; /* A dark color similar to text fields */
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px; /* Make it larger to stand out */
+    -fx-padding: 10px 15px;
+    -fx-border-color: #4e4e4e;
+    -fx-border-width: 1px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-alignment: center;
+    -fx-min-width: 280; /* Ensure it has a good minimum width */
+}
 
+/* The label for validation errors (e.g., "Invalid combination") */
+.validation-label {
+    -fx-text-fill: #e57373; /* A softer red that fits dark themes */
+    -fx-font-weight: bold;
+}
 
+/* Style for disabled buttons to provide clear visual feedback */
+.button:disabled {
+    -fx-background-color: #333333;
+    -fx-text-fill: #777777;
+    -fx-opacity: 0.7;
+}

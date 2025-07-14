@@ -1,5 +1,6 @@
 package fili5rovic.codegalaxy.controller;
 
+import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.settings.shortcut.ShortcutEntry;
 import fili5rovic.codegalaxy.settings.shortcut.ShortcutsTableHelper;
@@ -25,35 +26,51 @@ public class SettingsController extends ControllerBase {
     private BorderPane settingsPane;
 
     @FXML
+    private Button ok;
+
+    @FXML
     private Button apply;
 
     @FXML
     private Button cancel;
 
+    private TableView<ShortcutEntry> shortcutsTable;
+
     @Override
     public void lateInitialize(Stage stage) {
-
+        stage.setOnShown(_ -> {
+            IDESettings.copySettingsToTemp();
+            if (shortcutsTable != null) {
+                ShortcutsTableHelper.loadData(shortcutsTable);
+            }
+        });
     }
 
     @FXML
     public void initialize() {
         Controllers.setSettingsController(this);
-        Window.getWindowAt(Window.SETTINGS).setController(this);
         initTreeView();
         buttonActions();
-
     }
 
     private void buttonActions() {
         apply.setOnAction(_ -> {
+            for (CodeGalaxy codeGalaxy : Controllers.dashboardController().getOpenCodeGalaxies()) {
+                codeGalaxy.reloadShortcuts();
+            }
+            WindowHelper.hideWindow(Window.SETTINGS);
+        });
+
+        cancel.setOnAction(_ -> {
             IDESettings.applyTempSettings();
             WindowHelper.hideWindow(Window.SETTINGS);
         });
 
-        cancel.setOnAction(_ -> WindowHelper.hideWindow(Window.SETTINGS));
-
         apply.setOnMouseEntered(_ -> apply.setGraphic(SVGUtil.getEmoji("perfect", 16, 16)));
         apply.setOnMouseExited(_ -> apply.setGraphic(null));
+
+        ok.setOnMouseEntered(_ -> ok.setGraphic(SVGUtil.getEmoji("perfect", 16, 16)));
+        ok.setOnMouseExited(_ -> ok.setGraphic(null));
 
         cancel.setOnMouseEntered(_ -> cancel.setGraphic(SVGUtil.getEmoji("nope", 16, 16)));
         cancel.setOnMouseExited(_ -> cancel.setGraphic(null));
@@ -115,8 +132,7 @@ public class SettingsController extends ControllerBase {
 
         shortcutsSettingsMenu.getChildren().add(new Label("Code actions"));
 
-        TableView<ShortcutEntry> shortcutsTable = ShortcutsTableHelper.getShortcutsTable();
-
+        shortcutsTable = ShortcutsTableHelper.getShortcutsTable();
         shortcutsSettingsMenu.getChildren().add(shortcutsTable);
 
 
@@ -137,9 +153,9 @@ public class SettingsController extends ControllerBase {
         themeComboBox.getItems().addAll(dark, light);
 
         String ideTheme = IDESettings.getInstance().get("theme");
-        if(ideTheme.equals("light"))
+        if (ideTheme.equals("light"))
             themeComboBox.setValue(light);
-        else if(ideTheme.equals("dark"))
+        else if (ideTheme.equals("dark"))
             themeComboBox.setValue(dark);
 
         themeComboBox.setCellFactory(_ -> new ListCell<>() {
