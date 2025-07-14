@@ -30,13 +30,6 @@ public class IDESettings {
         return instance;
     }
 
-    public static IDESettings getTempInstance() {
-        if (tempInstance == null) {
-            tempInstance = new IDESettings(TEMP_SETTINGS);
-        }
-        return tempInstance;
-    }
-
     public static IDESettings getRecentInstance() {
         if (recentInstance == null) {
             recentInstance = new IDESettings(RECENT_SETTINGS);
