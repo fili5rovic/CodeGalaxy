@@ -39,8 +39,8 @@ public class SplitPaneManager {
 
         mainSplitPane.getDividers().getFirst().positionProperty().addListener((_, _, newValue) -> {
             if (!windowResizing && newValue.doubleValue() > 0.01) {
-                prevHierarchyDividerValue = newValue.doubleValue();
-                IDESettings.getRecentInstance().set("prevHierarchyDividerValue", String.valueOf(prevHierarchyDividerValue));
+                prevHierarchyDividerValue = Math.round(newValue.doubleValue() * 100.0) / 100.0;
+                IDESettings.getRecentInstance().set("prevHierarchyDividerValue", String.format("%.2f", prevHierarchyDividerValue).replace(",", "."));
             }
         });
 

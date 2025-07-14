@@ -2,6 +2,7 @@ package fili5rovic.codegalaxy.code;
 
 import fili5rovic.codegalaxy.code.factory.ErrorLineNumberFactory;
 import fili5rovic.codegalaxy.code.manager.codeActions.rightClick.CodeRightClickManager;
+import fili5rovic.codegalaxy.code.manager.editing.shortcuts_new.ShortcutManager;
 import fili5rovic.codegalaxy.code.manager.file.FileManager;
 import fili5rovic.codegalaxy.code.manager.font.FontManager;
 import fili5rovic.codegalaxy.code.manager.Manager;
@@ -73,7 +74,8 @@ public class CodeGalaxy extends CodeArea {
 
     private void addManagers() {
         managers.add(new FontManager(this));
-        managers.add(new LineEditing(this));
+        managers.add(new ShortcutManager(this));
+//        managers.add(new LineEditing(this));
         managers.add(new SuggestionManager(this));
         formatManager = new FormatManager(this);
         managers.add(formatManager);
