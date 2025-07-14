@@ -1,4 +1,4 @@
-package fili5rovic.codegalaxy.code.manager.editing.shortcuts_new;
+package fili5rovic.codegalaxy.code.manager.shortcuts;
 
 import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.code.manager.Manager;

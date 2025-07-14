@@ -2,7 +2,7 @@ package fili5rovic.codegalaxy.code;
 
 import fili5rovic.codegalaxy.code.factory.ErrorLineNumberFactory;
 import fili5rovic.codegalaxy.code.manager.codeActions.rightClick.CodeRightClickManager;
-import fili5rovic.codegalaxy.code.manager.editing.shortcuts_new.ShortcutManager;
+import fili5rovic.codegalaxy.code.manager.shortcuts.ShortcutManager;
 import fili5rovic.codegalaxy.code.manager.file.FileManager;
 import fili5rovic.codegalaxy.code.manager.font.FontManager;
 import fili5rovic.codegalaxy.code.manager.Manager;

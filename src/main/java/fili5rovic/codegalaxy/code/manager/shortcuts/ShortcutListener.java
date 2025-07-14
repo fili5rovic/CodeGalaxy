@@ -1,4 +1,4 @@
-package fili5rovic.codegalaxy.code.manager.editing.shortcuts_new;
+package fili5rovic.codegalaxy.code.manager.shortcuts;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
