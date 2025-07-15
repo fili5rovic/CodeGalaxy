@@ -71,9 +71,7 @@ public class SettingsController extends ControllerBase {
             shouldApplyTempSettingsLater = false;
         });
 
-        cancel.setOnAction(_ -> {
-            cancel();
-        });
+        cancel.setOnAction(_ -> cancel());
 
         ok.setOnAction(_ -> {
             for (CodeGalaxy codeGalaxy : Controllers.dashboardController().getOpenCodeGalaxies()) {

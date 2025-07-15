@@ -1,6 +1,5 @@
 package fili5rovic.codegalaxy.window;
 
-import fili5rovic.codegalaxy.settings.IDESettings;
 import javafx.scene.input.KeyEvent;
 
 public class SettingsWindow extends Window {

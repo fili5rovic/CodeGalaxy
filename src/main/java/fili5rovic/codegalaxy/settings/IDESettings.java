@@ -13,7 +13,6 @@ public class IDESettings {
     private final Properties props = new Properties();
 
     private static IDESettings instance;
-    private static IDESettings tempInstance;
     private static IDESettings recentInstance;
 
     /**
