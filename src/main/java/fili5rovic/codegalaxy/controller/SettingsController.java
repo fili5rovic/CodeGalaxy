@@ -66,14 +66,19 @@ public class SettingsController extends ControllerBase {
             WindowHelper.hideWindow(Window.SETTINGS);
         });
 
-        apply.setOnMouseEntered(_ -> apply.setGraphic(SVGUtil.getEmoji("perfect", 16, 16)));
-        apply.setOnMouseExited(_ -> apply.setGraphic(null));
+        apply.setOnMouseEntered(_ -> changeBtn(apply, "perfect", ""));
+        apply.setOnMouseExited(_ -> changeBtn(apply, "", "Apply"));
 
-        ok.setOnMouseEntered(_ -> ok.setGraphic(SVGUtil.getEmoji("perfect", 16, 16)));
-        ok.setOnMouseExited(_ -> ok.setGraphic(null));
+        ok.setOnMouseEntered(_ -> changeBtn(ok, "thumbs_up", ""));
+        ok.setOnMouseExited(_ -> changeBtn(ok, "", "OK"));
 
-        cancel.setOnMouseEntered(_ -> cancel.setGraphic(SVGUtil.getEmoji("nope", 16, 16)));
-        cancel.setOnMouseExited(_ -> cancel.setGraphic(null));
+        cancel.setOnMouseEntered(_ -> changeBtn(cancel, "nope", ""));
+        cancel.setOnMouseExited(_ -> changeBtn(cancel, "", "Cancel"));
+    }
+
+    private void changeBtn(Button btn, String icons, String text) {
+        btn.setGraphic(icons.isEmpty() ? null : SVGUtil.getEmoji(icons, 16, 16));
+        btn.setText(text);
     }
 
 

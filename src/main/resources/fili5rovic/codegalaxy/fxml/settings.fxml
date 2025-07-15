@@ -13,18 +13,18 @@
    <bottom>
       <HBox alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="600.0" styleClass="hbox" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="ok" layoutX="450.0" layoutY="13.0" mnemonicParsing="false" text="OK">
+            <Button fx:id="ok" layoutX="450.0" layoutY="13.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="40.0" text="OK">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
             <Region layoutX="504.0" layoutY="10.0" prefHeight="36.0" prefWidth="29.0" />
-            <Button fx:id="apply" mnemonicParsing="false" text="Apply">
+            <Button fx:id="apply" mnemonicParsing="false" prefHeight="30.0" prefWidth="65.0" text="Apply">
                <font>
                   <Font size="14.0" />
                </font></Button>
             <Region prefHeight="36.0" prefWidth="29.0" />
-            <Button fx:id="cancel" mnemonicParsing="false" text="Cancel">
+            <Button fx:id="cancel" mnemonicParsing="false" prefHeight="30.0" prefWidth="65.0" text="Cancel">
                <font>
                   <Font size="14.0" />
                </font></Button>
