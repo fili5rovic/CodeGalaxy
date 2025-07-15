@@ -6,7 +6,9 @@ import fili5rovic.codegalaxy.vcs.GitUtil;
 import fili5rovic.codegalaxy.projectSettings.ProjectSettingsUtil;
 import fili5rovic.codegalaxy.projectSettings.VCSUtil;
 import fili5rovic.codegalaxy.util.SVGUtil;
+import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
+import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
@@ -36,16 +38,22 @@ public class ToggleManager {
         controller.getShowHierarchyToggle().setOnAction(_ -> {
             controller.getGitPane().setVisible(false);
             controller.getTreeViewPane().setVisible(true);
+            Pane first = (Pane) controller.getMainSplitPane().getItems().getFirst();
+            if (!controller.getShowHierarchyToggle().isSelected()) {
+                first.maxWidthProperty().set(0);
+            } else {
+                first.maxWidthProperty().set(Double.MAX_VALUE);
+            }
         });
 
         controller.getShowGitToggle().setOnAction(_ -> {
-            if(!controller.getShowGitToggle().isSelected())
+            if (!controller.getShowGitToggle().isSelected())
                 return;
             controller.getGitPane().setVisible(true);
             controller.getTreeViewPane().setVisible(false);
 
             // todo search for .git when folder is opened and VCS is not set
-            if(ProjectSettingsUtil.isVCSInit()) {
+            if (ProjectSettingsUtil.isVCSInit()) {
                 try {
                     GitUtil.instance().open(VCSUtil.readVcsSettings().getRepositoryPath());
                 } catch (IOException e) {
