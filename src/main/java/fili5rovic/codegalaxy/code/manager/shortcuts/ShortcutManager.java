@@ -3,7 +3,6 @@ package fili5rovic.codegalaxy.code.manager.shortcuts;
 import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.code.manager.Manager;
 import fili5rovic.codegalaxy.settings.IDESettings;
-import javafx.event.EventHandler;
 import javafx.scene.input.*;
 
 import java.util.*;
@@ -44,9 +43,9 @@ public class ShortcutManager extends Manager {
                 if(codeGalaxy.hasSelection())
                     e.consume();
                 if(e.isShiftDown()) {
-                    ShortcutActions.indentBackward(codeGalaxy);
+                    CodeActions.indentBackward(codeGalaxy);
                 } else {
-                    ShortcutActions.indentForward(codeGalaxy);
+                    CodeActions.indentForward(codeGalaxy);
                 }
             }
         });
@@ -68,12 +67,12 @@ public class ShortcutManager extends Manager {
      */
     private void registerAllActions() {
         callbacks.put("shortcut_word_select", () -> codeGalaxy.selectWord());
-        callbacks.put("shortcut_delete_line", () -> ShortcutActions.deleteLine(codeGalaxy));
-        callbacks.put("shortcut_move_line_up", () -> ShortcutActions.moveLineUp(codeGalaxy));
-        callbacks.put("shortcut_move_line_down", () -> ShortcutActions.moveLineDown(codeGalaxy));
-        callbacks.put("shortcut_comment_line", () -> ShortcutActions.commentLine(codeGalaxy));
-        callbacks.put("shortcut_duplicate_line_above", () -> ShortcutActions.duplicateLineAbove(codeGalaxy));
-        callbacks.put("shortcut_duplicate_line_below", () -> ShortcutActions.duplicateLineBelow(codeGalaxy));
+        callbacks.put("shortcut_delete_line", () -> CodeActions.deleteLine(codeGalaxy));
+        callbacks.put("shortcut_move_line_up", () -> CodeActions.moveLineUp(codeGalaxy));
+        callbacks.put("shortcut_move_line_down", () -> CodeActions.moveLineDown(codeGalaxy));
+        callbacks.put("shortcut_comment_line", () -> CodeActions.commentLine(codeGalaxy));
+        callbacks.put("shortcut_duplicate_line_above", () -> CodeActions.duplicateLineAbove(codeGalaxy));
+        callbacks.put("shortcut_duplicate_line_below", () -> CodeActions.duplicateLineBelow(codeGalaxy));
     }
 
     /**

@@ -2,7 +2,7 @@ package fili5rovic.codegalaxy.code.manager.shortcuts;
 
 import fili5rovic.codegalaxy.code.CodeGalaxy;
 
-public class ShortcutActions {
+public class CodeActions {
 
     public static void indentForward(CodeGalaxy codeGalaxy) {
         if (!codeGalaxy.hasSelection())

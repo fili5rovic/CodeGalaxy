@@ -1,6 +1,7 @@
 package fili5rovic.codegalaxy.code;
 
 import fili5rovic.codegalaxy.code.factory.ErrorLineNumberFactory;
+import fili5rovic.codegalaxy.code.manager.brackets.BracketManager;
 import fili5rovic.codegalaxy.code.manager.codeActions.rightClick.CodeRightClickManager;
 import fili5rovic.codegalaxy.code.manager.shortcuts.ShortcutManager;
 import fili5rovic.codegalaxy.code.manager.file.FileManager;
@@ -81,6 +82,7 @@ public class CodeGalaxy extends CodeArea {
         formatManager = new FormatManager(this);
         managers.add(formatManager);
         managers.add(new LSPManager(this));
+        managers.add(new BracketManager(this));
         managers.add(new CodeRightClickManager(this));
         managers.add(new HoverManager(this));
     }
