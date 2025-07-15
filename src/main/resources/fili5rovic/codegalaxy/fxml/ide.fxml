@@ -100,7 +100,7 @@
                                                                 <Insets />
                                                             </BorderPane.margin>
                                                             <center>
-                                                                <Button fx:id="commitBtn" minHeight="35.0" minWidth="0.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" text="Commit">
+                                                                <Button fx:id="commitBtn" disable="true" minHeight="35.0" minWidth="0.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" text="Commit">
                                                                     <font>
                                                                         <Font size="16.0" />
                                                                     </font>

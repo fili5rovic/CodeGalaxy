@@ -18,8 +18,6 @@ public class GitListenerUtil {
         });
     }
 
-
-
     public static void toggleListener(boolean selected, TreeItem<GitTreeItem> root) {
         DashboardController controller = Controllers.dashboardController();
         boolean commitMsgEmpty = controller.getCommitMsg().getText().isEmpty();
@@ -38,6 +36,7 @@ public class GitListenerUtil {
 
     private static boolean findSelected(TreeItem<GitTreeItem> item) {
         if (item.getValue().getToggle().isSelected()) {
+            System.out.println("Selected item found: " + item.getValue().getPathGit());
             return true;
         }
 

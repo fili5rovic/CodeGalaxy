@@ -69,6 +69,7 @@ public class ButtonManager {
                 System.err.println("Couldn't get file count: " + e.getMessage());
             }
 
+            controller.getCommitBtn().setDisable(true);
             NotificationManager.show("Commit successful",fileCount + " files commited successful");
         });
     }
