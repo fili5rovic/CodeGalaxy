@@ -4,7 +4,7 @@ import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.settings.shortcut.ShortcutEntry;
 import fili5rovic.codegalaxy.settings.shortcut.ShortcutsTableHelper;
-import fili5rovic.codegalaxy.util.CSSUtil;
+import fili5rovic.codegalaxy.settingsHelper.ThemeManager;
 import fili5rovic.codegalaxy.util.SVGUtil;
 import fili5rovic.codegalaxy.window.Window;
 import fili5rovic.codegalaxy.window.WindowHelper;
@@ -21,7 +21,6 @@ public class SettingsController extends ControllerBase {
     @FXML
     private TreeView<String> settingsTreeView;
 
-
     @FXML
     private BorderPane settingsPane;
 
@@ -34,16 +33,26 @@ public class SettingsController extends ControllerBase {
     @FXML
     private Button cancel;
 
+    private boolean shouldApplyTempSettingsLater = false;
+
     private TableView<ShortcutEntry> shortcutsTable;
+
 
     @Override
     public void lateInitialize(Stage stage) {
         stage.setOnShown(_ -> {
-            IDESettings.copySettingsToTemp();
+            IDESettings.copySettingsToTemp(true);
             if (shortcutsTable != null) {
                 ShortcutsTableHelper.loadData(shortcutsTable);
             }
         });
+
+        stage.setOnHidden(_ -> {
+            settingsPane.setCenter(null);
+            settingsTreeView.getSelectionModel().clearSelection();
+        });
+
+        stage.setOnCloseRequest(_ -> cancel());
     }
 
     @FXML
@@ -59,11 +68,19 @@ public class SettingsController extends ControllerBase {
                 codeGalaxy.reloadShortcuts();
             }
             WindowHelper.hideWindow(Window.SETTINGS);
+            shouldApplyTempSettingsLater = false;
         });
 
         cancel.setOnAction(_ -> {
-            IDESettings.applyTempSettings();
+            cancel();
+        });
+
+        ok.setOnAction(_ -> {
+            for (CodeGalaxy codeGalaxy : Controllers.dashboardController().getOpenCodeGalaxies()) {
+                codeGalaxy.reloadShortcuts();
+            }
             WindowHelper.hideWindow(Window.SETTINGS);
+            shouldApplyTempSettingsLater = true;
         });
 
         apply.setOnMouseEntered(_ -> changeBtn(apply, "perfect", ""));
@@ -74,6 +91,13 @@ public class SettingsController extends ControllerBase {
 
         cancel.setOnMouseEntered(_ -> changeBtn(cancel, "nope", ""));
         cancel.setOnMouseExited(_ -> changeBtn(cancel, "", "Cancel"));
+    }
+
+    private void cancel() {
+        IDESettings.applyTempSettings();
+        ThemeManager.applyThemeFromSettings();
+        WindowHelper.hideWindow(Window.SETTINGS);
+        shouldApplyTempSettingsLater = false;
     }
 
     private void changeBtn(Button btn, String icons, String text) {
@@ -124,7 +148,7 @@ public class SettingsController extends ControllerBase {
 
     private Node getSettingsMenuItem(String name) {
         return switch (name) {
-            case "Theme" -> getThemeSettingsMenuItem();
+            case "Theme" -> ThemeManager.getThemeSettingsMenuItem();
             case "Shortcuts" -> getShortcutsSettingsMenuItem();
             default -> new Label(name);
         };
@@ -134,85 +158,15 @@ public class SettingsController extends ControllerBase {
         VBox shortcutsSettingsMenu = new VBox();
         shortcutsSettingsMenu.setAlignment(Pos.TOP_CENTER);
         shortcutsSettingsMenu.setSpacing(10);
-
         shortcutsSettingsMenu.getChildren().add(new Label("Code actions"));
 
         shortcutsTable = ShortcutsTableHelper.getShortcutsTable();
+
         shortcutsSettingsMenu.getChildren().add(shortcutsTable);
-
-
         return shortcutsSettingsMenu;
     }
 
-    private static Node getThemeSettingsMenuItem() {
-        VBox themeSettingsMenu = new VBox();
-        themeSettingsMenu.setAlignment(Pos.TOP_CENTER);
-        themeSettingsMenu.setSpacing(10);
-
-        themeSettingsMenu.getChildren().add(new Label("Editor theme"));
-
-        ComboBox<Label> themeComboBox = new ComboBox<>();
-        Label light = createThemeLabel("Light");
-        Label dark = createThemeLabel("Dark");
-
-        themeComboBox.getItems().addAll(dark, light);
-
-        String ideTheme = IDESettings.getInstance().get("theme");
-        if (ideTheme.equals("light"))
-            themeComboBox.setValue(light);
-        else if (ideTheme.equals("dark"))
-            themeComboBox.setValue(dark);
-
-        themeComboBox.setCellFactory(_ -> new ListCell<>() {
-            @Override
-            protected void updateItem(Label item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setGraphic(null);
-                } else {
-                    setGraphic(createThemeLabel(item.getText()));
-                }
-            }
-        });
-
-        themeComboBox.setButtonCell(new ListCell<>() {
-            @Override
-            protected void updateItem(Label item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setGraphic(null);
-                } else {
-                    setGraphic(createThemeLabel(item.getText()));
-                }
-            }
-        });
-
-        themeComboBox.setOnAction(_ -> {
-            Label selectedTheme = themeComboBox.getValue();
-            if (selectedTheme != null) {
-                String theme = selectedTheme.getText().toLowerCase();
-                IDESettings.getInstance().set("theme", theme);
-                CSSUtil.selectTheme(theme);
-            }
-        });
-
-        themeSettingsMenu.getChildren().add(themeComboBox);
-
-        return themeSettingsMenu;
+    public boolean shouldApplyTempSettingsLater() {
+        return shouldApplyTempSettingsLater;
     }
-
-    private static Label createThemeLabel(String themeName) {
-        Label label = new Label(themeName);
-        label.setContentDisplay(ContentDisplay.LEFT);
-        label.setGraphicTextGap(5);
-
-        switch (themeName) {
-            case "Light" -> label.setGraphic(SVGUtil.getUI("sun", 16, 16));
-            case "Dark" -> label.setGraphic(SVGUtil.getUI("moon", 16, 16));
-        }
-
-        return label;
-    }
-
-
 }

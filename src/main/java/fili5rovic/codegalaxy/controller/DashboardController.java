@@ -221,7 +221,10 @@ public class DashboardController extends ControllerBase {
 
     public void onAppClose(WindowEvent ignored) {
         System.out.println("App closed");
-        IDESettings.deleteTempSettings();
+        if (Controllers.settingsController().shouldApplyTempSettingsLater())
+            IDESettings.applyTempSettings();
+        else
+            IDESettings.deleteTempSettings();
         LSP.instance().stop();
         Platform.exit();
         System.exit(0);

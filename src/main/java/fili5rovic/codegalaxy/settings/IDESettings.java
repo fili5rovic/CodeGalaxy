@@ -2,6 +2,8 @@ package fili5rovic.codegalaxy.settings;
 
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -101,12 +103,21 @@ public class IDESettings {
         }
     }
 
-    public static void copySettingsToTemp() {
+    /**
+     * Copies the settings from the main properties file to a temporary file.
+     * This is useful for applying changes later without modifying the original settings immediately.
+     */
+    public static void copySettingsToTemp(boolean skipIfExists) {
+        Path settingsPath = Path.of(SETTINGS);
+        Path tempSettingsPath = Path.of(TEMP_SETTINGS);
+
+        if (skipIfExists && Files.exists(tempSettingsPath)) {
+            System.out.println("Temporary settings file already exists, skipping copy.");
+            return;
+        }
+
         try {
-            String settingsStr = Files.readString(new File(SETTINGS).toPath());
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(TEMP_SETTINGS))) {
-                writer.write(settingsStr);
-            }
+            Files.copy(settingsPath, tempSettingsPath, StandardCopyOption.COPY_ATTRIBUTES);
         } catch (IOException e) {
             System.out.println("Couldn't copy properties to temp: " + e.getMessage());
             e.printStackTrace();

@@ -18,13 +18,10 @@ public class ShortcutManager extends Manager {
 
     @Override
     public void init() {
-        // 1. Register all possible actions and their default callbacks
         registerAllActions();
 
-        // 2. Load the key combinations from user settings
         loadKeyCombinations();
 
-        // 3. Add a single event filter to listen for all shortcuts
         codeGalaxy.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
             for (Map.Entry<String, KeyCodeCombination> entry : shortcuts.entrySet()) {
                 String id = entry.getKey();
@@ -38,16 +35,6 @@ public class ShortcutManager extends Manager {
                     }
                 }
             }
-
-            if (e.getCode() == KeyCode.TAB) {
-                if(codeGalaxy.hasSelection())
-                    e.consume();
-                if(e.isShiftDown()) {
-                    CodeActions.indentBackward(codeGalaxy);
-                } else {
-                    CodeActions.indentForward(codeGalaxy);
-                }
-            }
         });
     }
 
@@ -58,7 +45,6 @@ public class ShortcutManager extends Manager {
     public void reloadShortcuts() {
         shortcuts.clear();
         loadKeyCombinations();
-        System.out.println("Shortcuts have been reloaded."); // For verification
     }
 
     /**
@@ -112,7 +98,7 @@ public class ShortcutManager extends Manager {
                 case "ALT":
                     modifiers.add(KeyCombination.ALT_DOWN);
                     break;
-                case "META": // For MacOS (Command key) or Windows key
+                case "META":
                     modifiers.add(KeyCombination.META_DOWN);
                     break;
                 default:

@@ -69,7 +69,6 @@ public class ShortcutsTableHelper {
 
         String[] keys = IDESettings.getInstance().getShortcutKeys();
         for (String key : keys) {
-            System.out.println(prettyShortcutName(key) + " = " + IDESettings.getInstance().get(key));
             items.add(new ShortcutEntry(prettyShortcutName(key), IDESettings.getInstance().get(key)));
         }
         table.setItems(items);

@@ -23,7 +23,5 @@ public class SettingsWindow extends Window {
                 stage.hide();
             }
         });
-
-        this.stage.setOnShowing(_ -> IDESettings.copySettingsToTemp());
     }
 }
