@@ -7,10 +7,6 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
-import javafx.scene.layout.Region;
-
-import java.util.Comparator;
-import java.util.List;
 
 public class SplitPaneManager {
 
@@ -65,7 +61,6 @@ public class SplitPaneManager {
             }
         });
 
-
         Platform.runLater(() -> Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage().getScene().addPreLayoutPulseListener(() -> {
             windowResizing = true;
             Platform.runLater(() -> windowResizing = false);
@@ -82,11 +77,9 @@ public class SplitPaneManager {
             }
             divider.setPosition(0);
             left.setVisible(false);
-            SplitPaneDividerManager.setDividerLocked(mainSplitPane, 0, true);
         } else {
             divider.setPosition(lastKnownDividerPosition);
             left.setVisible(true);
-            SplitPaneDividerManager.setDividerLocked(mainSplitPane, 0, false);
         }
     }
 

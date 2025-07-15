@@ -6,7 +6,6 @@ import fili5rovic.codegalaxy.vcs.GitUtil;
 import fili5rovic.codegalaxy.projectSettings.ProjectSettingsUtil;
 import fili5rovic.codegalaxy.projectSettings.VCSUtil;
 import fili5rovic.codegalaxy.util.SVGUtil;
-import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.Pane;
 
@@ -26,6 +25,8 @@ public class ToggleManager {
         controller.getGitPane().setVisible(false);
         controller.getGitBorderPane().setVisible(false);
         controller.getGitInitPane().setVisible(false);
+
+        // to setup initial state of the hierarchy
     }
 
     public static void refreshIcons() {
@@ -38,12 +39,10 @@ public class ToggleManager {
         controller.getShowHierarchyToggle().setOnAction(_ -> {
             controller.getGitPane().setVisible(false);
             controller.getTreeViewPane().setVisible(true);
-            Pane first = (Pane) controller.getMainSplitPane().getItems().getFirst();
-            if (!controller.getShowHierarchyToggle().isSelected()) {
-                first.maxWidthProperty().set(0);
-            } else {
-                first.maxWidthProperty().set(Double.MAX_VALUE);
-            }
+        });
+
+        controller.getLeftToggleGroup().selectedToggleProperty().addListener((_, _, selected) -> {
+            setupLockedDivider();
         });
 
         controller.getShowGitToggle().setOnAction(_ -> {
@@ -98,6 +97,15 @@ public class ToggleManager {
         });
 
 
+    }
+
+    public static void setupLockedDivider() {
+        Pane first = (Pane) controller.getMainSplitPane().getItems().getFirst();
+        if (controller.getLeftToggleGroup().getSelectedToggle() == null) {
+            first.maxWidthProperty().set(0);
+        } else {
+            first.maxWidthProperty().set(Double.MAX_VALUE);
+        }
     }
 
     private static void toggleIcons() {

@@ -152,6 +152,7 @@ public class ProjectManager {
         }
 
         Controllers.dashboardController().getShowHierarchyToggle().setSelected(true);
+        ToggleManager.setupLockedDivider();
     }
 
     public static CompletableFuture<Boolean> checkForValidWorkspace() {
