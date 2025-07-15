@@ -39,10 +39,14 @@ public class SplitPaneManager {
             if (!windowResizing && mainSplitPane.getItems().getFirst().isVisible()) {
                 double currentWidth = mainSplitPane.getWidth();
                 if (currentWidth > 0) {
-                    lastKnownLeftPaneWidth = newPos.doubleValue() * currentWidth;
-                    lastKnownDividerPosition = newPos.doubleValue();
-                    IDESettings.getRecentInstance().set("lastKnownLeftPaneWidth", String.valueOf(lastKnownLeftPaneWidth));
-                    IDESettings.getRecentInstance().set("lastKnownDividerPosition", String.valueOf(lastKnownDividerPosition));
+                    double width = newPos.doubleValue() * currentWidth;
+                    double pos = newPos.doubleValue();
+                    if (width > 0 && pos > 0) {
+                        lastKnownLeftPaneWidth = width;
+                        lastKnownDividerPosition = pos;
+                        IDESettings.getRecentInstance().set("lastKnownLeftPaneWidth", String.valueOf(lastKnownLeftPaneWidth));
+                        IDESettings.getRecentInstance().set("lastKnownDividerPosition", String.valueOf(lastKnownDividerPosition));
+                    }
                 }
             }
         };
@@ -78,23 +82,13 @@ public class SplitPaneManager {
             }
             divider.setPosition(0);
             left.setVisible(false);
-            enableFirstDivider(mainSplitPane, false);
+            SplitPaneDividerManager.setDividerLocked(mainSplitPane, 0, true);
         } else {
             divider.setPosition(lastKnownDividerPosition);
             left.setVisible(true);
-            enableFirstDivider(mainSplitPane, true);
+            SplitPaneDividerManager.setDividerLocked(mainSplitPane, 0, false);
         }
     }
 
-    private static void enableFirstDivider(SplitPane splitPane, boolean enable) {
-        Platform.runLater(() -> {
-            List<Node> dividers = splitPane.lookupAll(".split-pane-divider")
-                    .stream()
-                    .sorted(Comparator.comparingDouble(d -> ((Region) d).getLayoutX()))
-                    .toList();
-            if (!dividers.isEmpty()) {
-                dividers.getFirst().setMouseTransparent(!enable);
-            }
-        });
-    }
+
 }
