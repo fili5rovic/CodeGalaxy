@@ -41,9 +41,7 @@ public class ToggleManager {
             controller.getTreeViewPane().setVisible(true);
         });
 
-        controller.getLeftToggleGroup().selectedToggleProperty().addListener((_, _, selected) -> {
-            setupLockedDivider();
-        });
+        controller.getLeftToggleGroup().selectedToggleProperty().addListener((_, _, _) -> setupLockedDivider());
 
         controller.getShowGitToggle().setOnAction(_ -> {
             if (!controller.getShowGitToggle().isSelected())
