@@ -136,11 +136,12 @@ public class ProjectManager {
             return;
         File lastProjectFile = new File(lastProjectPath);
         Path lastProjectPathFile = lastProjectFile.toPath();
-        if (lastProjectFile.exists() && lastProjectFile.isDirectory()) {
-            openProject(lastProjectPathFile);
-        } else {
+        if (!lastProjectFile.exists() || !lastProjectFile.isDirectory()) {
             System.out.println("Last project path is not valid.");
+            return;
         }
+
+        openProject(lastProjectPathFile);
 
         List<String> recentFiles = IDESettings.getRecentInstance().getMultiple("recentFiles");
         for (String filePath : recentFiles) {
@@ -149,6 +150,8 @@ public class ProjectManager {
                 Controllers.dashboardController().createTab(path);
             }
         }
+
+        Controllers.dashboardController().getShowHierarchyToggle().setSelected(true);
     }
 
     public static CompletableFuture<Boolean> checkForValidWorkspace() {
