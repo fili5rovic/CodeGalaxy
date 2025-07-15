@@ -132,7 +132,6 @@ public class LSP {   //TODO Ability to change workspace without restarting
         String projectPath = System.getProperty("user.dir");
         File managerFolder = new File(projectPath + "\\lsp\\config_win\\org.eclipse.equinox.app\\.manager");
         if (!managerFolder.exists() || !managerFolder.isDirectory()) {
-            System.out.println("Manager folder does not exist or is not a directory.");
             return;
         }
 

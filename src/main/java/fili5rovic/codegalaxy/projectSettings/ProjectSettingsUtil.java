@@ -1,5 +1,6 @@
 package fili5rovic.codegalaxy.projectSettings;
 
+import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.util.JsonUtil;
 import fili5rovic.codegalaxy.projectSettings.dataclass.VcsSettings;
 
@@ -33,6 +34,9 @@ public class ProjectSettingsUtil {
     }
 
     public static boolean isVCSInit() {
+        if(IDESettings.getInstance().get("lastProjectPath") == null) {
+            return false;
+        }
         return VCSUtil.isVCSInit();
     }
 

@@ -48,6 +48,9 @@ public class VCSUtil {
         } catch (IOException e) {
             System.err.println("Failed to read VCS settings: " + e.getMessage());
             return false;
+        } catch(IllegalStateException e) {
+            System.err.println("VCS settings file is not properly initialized: " + e.getMessage());
+            return false;
         }
     }
 
