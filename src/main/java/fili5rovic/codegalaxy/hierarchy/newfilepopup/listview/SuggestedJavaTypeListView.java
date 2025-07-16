@@ -13,6 +13,7 @@ public class SuggestedJavaTypeListView extends ListView<ItemEntry> {
     public SuggestedJavaTypeListView() {
         super();
         this.getStyleClass().add("suggested-java-type-list-view");
+        setMaxHeight(162);
         data();
         listeners();
     }

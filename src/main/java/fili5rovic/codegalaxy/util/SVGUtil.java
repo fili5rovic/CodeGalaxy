@@ -56,8 +56,6 @@ public class SVGUtil {
     }
 
     public static ImageView getCompletionIcon(String name, double width, double height) {
-        if(name.equals("keyword"))
-            name = "tip";
         return getSVG("completion/" + name + ".svg", width, height, 2);
     }
 
