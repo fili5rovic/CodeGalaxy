@@ -30,15 +30,18 @@ public class ProjectManager {
     private static ProjectHierarchy projectHierarchy;
 
     public static void openProject(Path path) {
+        IDESettings.getRecentInstance().set("lastProjectPath", path.toString());
         ProjectSettingsUtil.ensureProjectSettingsInitialized(path);
 
         projectHierarchy = new ProjectHierarchy(path);
 
         Controllers.dashboardController().getTreeViewPane().setCenter(projectHierarchy);
-        IDESettings.getRecentInstance().set("lastProjectPath", path.toString());
     }
 
     public static void reloadHierarchy() {
+        if (projectHierarchy == null) {
+            return;
+        }
         projectHierarchy.reloadHierarchy();
     }
 
@@ -161,7 +164,7 @@ public class ProjectManager {
         }
 
         File folder = null;
-        while(folder == null || !folder.isDirectory()) {
+        while (folder == null || !folder.isDirectory()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initOwner(Window.getWindowAt(Window.WINDOW_DASHBOARD).getStage());
             alert.getDialogPane().getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/fili5rovic/codegalaxy/css/main-dark.css")).toExternalForm());
