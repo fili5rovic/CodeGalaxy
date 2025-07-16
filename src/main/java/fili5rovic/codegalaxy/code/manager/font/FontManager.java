@@ -1,10 +1,12 @@
 package fili5rovic.codegalaxy.code.manager.font;
 
+import fili5rovic.codegalaxy.Main;
 import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.code.manager.Manager;
 import fili5rovic.codegalaxy.util.Debouncer;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.text.Font;
 
 public class FontManager extends Manager {
     private static final int MIN_FONT_SIZE;
@@ -38,8 +40,14 @@ public class FontManager extends Manager {
             currentFontSize = Integer.parseInt(fontSizeStr);
         }
 
+        loadFontFile();
+
         updateUI();
         setupListener();
+    }
+
+    private void loadFontFile() {
+
     }
 
     private void setupListener() {
@@ -68,11 +76,7 @@ public class FontManager extends Manager {
     }
 
     private void updateUI() {
-        // Update the main code area font size
         codeGalaxy.setStyle("-fx-font-size: " + currentFontSize);
-
-        // Update the custom line number factory font size
-        // The factory will handle applying the CSS class and font size styling
         codeGalaxy.updateLineNumberFontSize(currentFontSize);
     }
 

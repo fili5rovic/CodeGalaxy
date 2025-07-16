@@ -1,5 +1,6 @@
 package fili5rovic.codegalaxy;
 
+import fili5rovic.codegalaxy.util.FontUtil;
 import fili5rovic.codegalaxy.window.DashboardWindow;
 import fili5rovic.codegalaxy.window.SettingsWindow;
 import fili5rovic.codegalaxy.window.Window;
@@ -10,6 +11,8 @@ import javafx.stage.Stage;
 public class Main extends Application {
     @Override
     public void start(Stage stage) {
+        FontUtil.loadFonts();
+
         Window.setWindowAt(Window.WINDOW_DASHBOARD, new DashboardWindow());
         Window.setWindowAt(Window.SETTINGS, new SettingsWindow());
 

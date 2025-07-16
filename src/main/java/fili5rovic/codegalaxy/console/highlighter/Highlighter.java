@@ -8,6 +8,7 @@ import org.fxmisc.richtext.model.StyleSpansBuilder;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 public class Highlighter {
@@ -29,7 +30,7 @@ public class Highlighter {
 
     public static StyleSpans<Collection<String>> computeHighlighting(int length, String style) {
         StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
-        spansBuilder.add(Collections.singleton(style), length);
+        spansBuilder.add(List.of(style, "code-font"), length);
         return spansBuilder.create();
     }
 
