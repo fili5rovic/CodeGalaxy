@@ -8,7 +8,7 @@ import org.fxmisc.richtext.model.StyleSpansBuilder;
 import java.util.Collection;
 import java.util.List;
 
-public class Highlighter {
+public class ConsoleHighlighter {
 
     public static void apply(ConsoleArea consoleArea) {
         CSSUtil.applyStylesheet(consoleArea.getStylesheets(), "highlighter");
@@ -20,6 +20,7 @@ public class Highlighter {
             int size = newValue.length() - oldValue.length();
             if (size <= 0) return;
             String style = consoleArea.getStyleClassForTextType();
+            System.out.println("S: " + style);
             consoleArea.setStyleSpans(oldValue.length(), computeHighlighting(size, style));
         });
     }
@@ -27,7 +28,7 @@ public class Highlighter {
 
     public static StyleSpans<Collection<String>> computeHighlighting(int length, String style) {
         StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
-        spansBuilder.add(List.of(style, "code-font"), length);
+        spansBuilder.add(List.of("code-font", style), length);
         return spansBuilder.create();
     }
 

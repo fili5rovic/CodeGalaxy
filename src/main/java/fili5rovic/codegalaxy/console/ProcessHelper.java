@@ -4,7 +4,6 @@ import javafx.application.Platform;
 
 public class ProcessHelper {
 
-
     public static void waitForProcessExit(ConsoleArea console, Process process) {
         new Thread(() -> {
             try {

@@ -1,8 +1,10 @@
 package fili5rovic.codegalaxy.console;
 
 import fili5rovic.codegalaxy.console.behaviour.BehaviourListener;
-import fili5rovic.codegalaxy.console.highlighter.Highlighter;
+import fili5rovic.codegalaxy.console.highlighter.ConsoleHighlighter;
 import org.fxmisc.richtext.CodeArea;
+
+import java.util.List;
 
 public class ConsoleArea extends CodeArea {
 
@@ -15,7 +17,7 @@ public class ConsoleArea extends CodeArea {
     private int textType = 3;
 
     public ConsoleArea(Process process) {
-        Highlighter.apply(this);
+        ConsoleHighlighter.apply(this);
         BehaviourListener.apply(this);
 
 
@@ -36,6 +38,7 @@ public class ConsoleArea extends CodeArea {
             default -> "console_error";
         };
         setStyleClass(start, getLength(), styleClass);
+        setStyle(start, getLength(), List.of("code-font", styleClass));
 
         moveTo(getLength());
         requestFollowCaret();
