@@ -71,6 +71,6 @@ public class ProjectItem extends TreeItem<Label> {
 
     public Path getRelativeProjectPath() {
         Path projectPath = Path.of(IDESettings.getRecentInstance().get("lastProjectPath"));
-        return projectPath.relativize(path);
+        return path.relativize(projectPath);
     }
 }
