@@ -36,6 +36,8 @@ public class SVGUtil {
             iconName = "class";
         } else if (path.toString().endsWith(".gitignore")) {
             iconName = "gitignore";
+        } else if (path.toString().endsWith(".json")) {
+            iconName = "json";
         } else {
             iconName = "file";
         }
@@ -72,7 +74,7 @@ public class SVGUtil {
             }
 
             String content = new String(svgUrl.openStream().readAllBytes());
-            if(!CSSUtil.isDarkTheme()) {
+            if (!CSSUtil.isDarkTheme()) {
                 content = content.replace("fill=\"#fff\"", "fill=\"#000\"");
                 content = content.replace("stroke=\"#fff\"", "stroke=\"#000\"");
             }
