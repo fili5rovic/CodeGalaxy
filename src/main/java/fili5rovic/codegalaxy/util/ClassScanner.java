@@ -15,10 +15,10 @@ public class ClassScanner {
     /**
      * Scans the specified classpath output directory for all class names.
      *
-     * @return List of fully-qualified class names.
+     * @return Array of fully-qualified class names.
      */
     public static String[] getAllProjectClasses() {
-        String outputDir = MetaDataHelper.getClasspathPath("output");
+        String outputDir = MetaDataHelper.getOutputPath();
         List<String> classNames = new ArrayList<>();
         try (ScanResult scanResult = new ClassGraph()
                 .overrideClasspath(outputDir)

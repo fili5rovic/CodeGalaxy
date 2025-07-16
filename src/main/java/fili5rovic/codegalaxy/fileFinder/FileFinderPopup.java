@@ -63,7 +63,7 @@ public class FileFinderPopup extends Popup {
 
     public void updateFromDisk() {
         try {
-            Path srcDir = Path.of(Objects.requireNonNull(MetaDataHelper.getClasspathPath("src")));
+            Path srcDir = Path.of(Objects.requireNonNull(MetaDataHelper.getSrcPath()));
             this.paths = FileHelper.getAllFilesInDirectory(srcDir);
         } catch (IOException e) {
             System.err.println("Error reading srcDir: " + e.getMessage());

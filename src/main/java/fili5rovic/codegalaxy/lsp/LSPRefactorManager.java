@@ -193,10 +193,10 @@ class LSPRefactorManager {
     }
 
     private static void deleteBinFile(String oldPath) throws IOException {
-        String outputDir = MetaDataHelper.getClasspathPath("output");
-        String sourceDir = MetaDataHelper.getClasspathPath("src");
+        String outputDir = MetaDataHelper.getOutputPath();
+        String sourceDir = MetaDataHelper.getSrcPath();
 
-        String outputPathToDelete = oldPath.toString().replace(sourceDir, outputDir);
+        String outputPathToDelete = oldPath.replace(sourceDir, outputDir);
 
         Files.deleteIfExists(Path.of(outputPathToDelete));
         System.out.println("Deleted bin file: " + outputPathToDelete);

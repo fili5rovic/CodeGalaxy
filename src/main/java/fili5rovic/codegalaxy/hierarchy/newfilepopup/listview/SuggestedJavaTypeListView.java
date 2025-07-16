@@ -52,9 +52,6 @@ public class SuggestedJavaTypeListView extends ListView<ItemEntry> {
         });
 
         // double click should create a new file with the selected type
-
-
-
     }
 
     private void data() {

@@ -107,6 +107,7 @@ public class TabManager {
     private static void onMouseClicked(MouseEvent e, Tab tab) {
         if (e.getButton() == MouseButton.MIDDLE) {
             tab.getTabPane().getTabs().remove(tab);
+            closedTab(((CodeGalaxy) tab.getContent()).getFilePath());
         }
     }
 

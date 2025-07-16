@@ -26,8 +26,8 @@ public class CodeRunner {
     }
 
     private static Path filePathToClassPath(Path filePath) {
-        String classPath = MetaDataHelper.getClasspathPath("output");
-        String sourcePath = MetaDataHelper.getClasspathPath("src");
+        String classPath = MetaDataHelper.getOutputPath();
+        String sourcePath = MetaDataHelper.getSrcPath();
         if (classPath == null) {
             System.err.println("Class path not set in project.");
             return null;

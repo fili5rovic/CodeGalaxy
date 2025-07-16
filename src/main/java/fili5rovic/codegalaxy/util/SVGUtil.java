@@ -14,6 +14,7 @@ import java.net.URI;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Objects;
 
 public class SVGUtil {
 
@@ -27,6 +28,10 @@ public class SVGUtil {
             File[] files = path.toFile().listFiles();
             if (files == null || files.length == 0) {
                 iconName = "folderEmpty";
+            } else if(Objects.equals(MetaDataHelper.getOutputPath(), path.toString())) {
+                iconName = "folder-output";
+            } else if (Objects.equals(MetaDataHelper.getSrcPath(), path.toString())) {
+                iconName = "folder-src";
             } else {
                 iconName = "folder";
             }
