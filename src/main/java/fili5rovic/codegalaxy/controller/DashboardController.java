@@ -5,7 +5,6 @@ import fili5rovic.codegalaxy.dashboardHelper.*;
 import fili5rovic.codegalaxy.errors.DisplayErrorsHandler;
 import fili5rovic.codegalaxy.lsp.LSP;
 import fili5rovic.codegalaxy.settings.IDESettings;
-import fili5rovic.codegalaxy.util.FontUtil;
 import fili5rovic.codegalaxy.vcs.treeView.GitHierarchy;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.application.Platform;

@@ -1,15 +1,12 @@
 package fili5rovic.codegalaxy.console.highlighter;
 
-import fili5rovic.codegalaxy.Main;
 import fili5rovic.codegalaxy.console.ConsoleArea;
 import fili5rovic.codegalaxy.util.CSSUtil;
 import org.fxmisc.richtext.model.StyleSpans;
 import org.fxmisc.richtext.model.StyleSpansBuilder;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 public class Highlighter {
 

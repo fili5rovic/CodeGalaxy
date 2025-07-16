@@ -1,12 +1,10 @@
 package fili5rovic.codegalaxy.code.manager.font;
 
-import fili5rovic.codegalaxy.Main;
 import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.code.manager.Manager;
 import fili5rovic.codegalaxy.util.Debouncer;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.text.Font;
 
 public class FontManager extends Manager {
     private static final int MIN_FONT_SIZE;
