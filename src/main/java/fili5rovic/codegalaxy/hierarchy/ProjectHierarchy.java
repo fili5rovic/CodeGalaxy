@@ -112,7 +112,8 @@ public class ProjectHierarchy extends TreeView<Label> {
 
                     if (Files.isDirectory(p)) {
                         populateTreeItem(item, p);
-                        restoreExpandedState(item, expandedPaths);
+                        if(!expandedPaths.isEmpty())
+                            restoreExpandedState(item, expandedPaths);
                     } else if (p.toString().endsWith(".java")) {
                         javaFiles.add(item);
                     }
