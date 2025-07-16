@@ -51,6 +51,12 @@ public class ProjectHierarchy extends TreeView<Label> {
         item.getChildren().clear();
         item.setExpanded(true);
         populateTreeItem(item, item.getPath());
+
+        for (var path: expandedPaths) {
+            System.out.println("Closing expanded state for: " + path);
+            IDESettings.getRecentInstance().removeFrom("expanded", path);
+        }
+
     }
 
     public void errorOnPath(Path path, boolean error) {
@@ -63,8 +69,10 @@ public class ProjectHierarchy extends TreeView<Label> {
     }
 
     private void restoreExpandedState(ProjectItem item, List<String> expandedPaths) {
-        if (expandedPaths.contains(item.getPath().toString())) {
+        String val = item.getRelativeProjectPath().toString();
+        if (expandedPaths.contains(val)) {
             item.setExpanded(true);
+            expandedPaths.remove(val);
         }
     }
 

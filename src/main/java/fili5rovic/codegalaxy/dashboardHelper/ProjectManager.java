@@ -27,7 +27,6 @@ import java.util.concurrent.CompletableFuture;
 
 public class ProjectManager {
 
-
     private static ProjectHierarchy projectHierarchy;
 
     public static void openProject(Path path) {
@@ -145,7 +144,7 @@ public class ProjectManager {
 
         List<String> recentFiles = IDESettings.getRecentInstance().getMultiple("recentFiles");
         for (String filePath : recentFiles) {
-            Path path = Path.of(filePath);
+            Path path = lastProjectPathFile.resolve(Path.of(filePath));
             if (path.toFile().exists()) {
                 Controllers.dashboardController().createTab(path);
             }

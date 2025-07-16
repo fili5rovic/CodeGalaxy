@@ -19,10 +19,12 @@ public class ProjectItem extends TreeItem<Label> {
         refreshIcon();
 
         expandedProperty().addListener((_, _, isExpanded) -> {
+            Path relativePath = getRelativeProjectPath();
+
             if (isExpanded)
-                IDESettings.getRecentInstance().addTo("expanded", path.toString());
+                IDESettings.getRecentInstance().addTo("expanded", relativePath.toString());
             else
-                IDESettings.getRecentInstance().removeFrom("expanded", path.toString());
+                IDESettings.getRecentInstance().removeFrom("expanded", relativePath.toString());
         });
     }
 
@@ -64,4 +66,8 @@ public class ProjectItem extends TreeItem<Label> {
         return path;
     }
 
+    public Path getRelativeProjectPath() {
+        Path projectPath = Path.of(IDESettings.getRecentInstance().get("lastProjectPath"));
+        return projectPath.relativize(path);
+    }
 }
