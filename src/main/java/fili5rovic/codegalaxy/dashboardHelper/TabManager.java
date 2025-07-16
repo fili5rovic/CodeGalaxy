@@ -61,7 +61,7 @@ public class TabManager {
     }
 
     private static void makeTabGraphic(Path filePath, Tab tab) {
-        ImageView icon = SVGUtil.getIconByPath(filePath, 12, 12, -2);
+        ImageView icon = SVGUtil.getIconByPath(filePath, 16, 16, 0);
 
         Label label = new Label(filePath.getFileName().toString());
         label.getStyleClass().clear();
