@@ -2,8 +2,14 @@
 
 A **custom Java IDE** built with JavaFX, designed to provide a lightweight yet powerful development environment with **Language Server Protocol (LSP)** integration for advanced Java editing features.
 
-## Features
+![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)
+![Java](https://img.shields.io/badge/Java-22+-ED8B00?logo=openjdk&logoColor=white)
+![JavaFX](https://img.shields.io/badge/JavaFX-Powered-FF6C37?logo=java&logoColor=white)
+![Eclipse JDT](https://img.shields.io/badge/Eclipse_JDT-LSP-2C2255?logo=eclipse&logoColor=white)
+![Git](https://img.shields.io/badge/Git-Integration-F05032?logo=git&logoColor=white)
+![Status](https://img.shields.io/badge/Status-Active%20Development-brightgreen)
 
+## Features
 <table>
   <tr>
     <td align="center">
@@ -75,19 +81,18 @@ A **custom Java IDE** built with JavaFX, designed to provide a lightweight yet p
 git clone https://github.com/fili5rovic/CodeGalaxy.git
 ```
 
-### 2. Download Eclipse JDT Language Server
-
-CodeGalaxy will prompt you to install a language server upon first launch.
-
-### 3. Build the Project
+### 2. Build the Project
 ```sh
 mvn clean install
 ```
 
-### 4. Run the IDE
+### 3. Run the IDE
 ```sh
 mvn javafx:run
 ```
+
+> [!NOTE]
+> CodeGalaxy will prompt you to install a language server upon first launch.
 
 ## Usage 📖
 
