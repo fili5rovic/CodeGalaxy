@@ -14,7 +14,7 @@ import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 
-public class LSP {   //TODO Ability to change workspace without restarting
+public class LSP {
     private LSPServerManager serverManager;
     private LanguageServer server;
     private Future<Void> listenFuture;
@@ -27,6 +27,7 @@ public class LSP {   //TODO Ability to change workspace without restarting
     private LSPRequestManager requestManager;
     private LSPRefactorManager refactorManager;
 
+    private boolean started = false;
 
     public static LSP instance() {
         return instance;
@@ -37,6 +38,10 @@ public class LSP {   //TODO Ability to change workspace without restarting
     }
 
     public void start() throws Exception {
+        if (started) {
+            System.out.println("LSP server already started.");
+            return;
+        }
         cleanTemporaryFiles();
 
         String workspace = IDESettings.getInstance().get("workspace");
@@ -102,6 +107,7 @@ public class LSP {   //TODO Ability to change workspace without restarting
     }
 
     private void afterServerStart() {
+        started = true;
         this.documentManager = new LSPDocumentManager(server);
         this.requestManager = new LSPRequestManager(server, documentManager);
         this.refactorManager = new LSPRefactorManager(server);
@@ -205,4 +211,7 @@ public class LSP {   //TODO Ability to change workspace without restarting
         return debouncer;
     }
 
+    public boolean isStarted() {
+        return started;
+    }
 }

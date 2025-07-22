@@ -6,22 +6,47 @@ import fili5rovic.codegalaxy.util.downloader.JDTLSDownloadTask;
 import fili5rovic.codegalaxy.util.downloader.JDTLSRelease;
 import javafx.application.Platform;
 
-import java.util.concurrent.ExecutionException;
+import java.util.concurrent.CompletableFuture;
 
 public class LSPDownloadManager {
 
-    private static JDTLSDownloadTask lspDownloadTask;
+    private final JDTLSDownloadTask lspDownloadTask;
 
-    public static void verifyAndRunLSP() {
-        System.out.println("Verifying LSP installation...");
-        if (lspExists()) {
+    public LSPDownloadManager() {
+        lspDownloadTask = new JDTLSDownloadTask(JDTLSRelease.V1_48_0);
+    }
+
+    public void verifyAndRunLSP() {
+        if(LSP.instance().isStarted())
+            return;
+
+        if (lspDownloadTask.isValidExistingExtraction()) {
             run();
-        } else {
-            System.err.println("Failed to download or verify LSP.");
+            return;
         }
+
+        System.out.println("LSP not found, downloading...");
+        NotificationManager.showProgress("Downloading LSP", "Downloading the LSP server, please wait...", lspDownloadTask);
+
+        CompletableFuture.runAsync(lspDownloadTask)
+                .thenRun(() -> {
+                    Platform.runLater(() -> {
+                        System.out.println("LSP download completed successfully.");
+                        if (lspDownloadTask.isValidExistingExtraction()) {
+                            run();
+                        }
+                    });
+                })
+                .exceptionally(throwable -> {
+                    Platform.runLater(() -> {
+                        System.err.println("LSP download failed: " + throwable.getMessage());
+                    });
+                    return null;
+                });
     }
 
     private static void run() {
+        System.out.println("Running LSP server...");
         ProjectManager.checkForValidWorkspace().thenAcceptAsync(success -> {
             if (!success) {
                 System.err.println("Fatal error: No valid workspace found. Please set a valid workspace path in properties.");
@@ -37,36 +62,5 @@ public class LSPDownloadManager {
                 System.err.println("Fatal error: LSP server is not running. Please check your configuration.");
             }
         });
-    }
-
-    private static boolean lspExists() {
-        if (lspDownloadTask != null && lspDownloadTask.isValidExistingExtraction()) {
-            return true;
-        }
-
-        lspDownloadTask = new JDTLSDownloadTask(JDTLSRelease.V1_48_0);
-        if (lspDownloadTask.isValidExistingExtraction()) {
-            return true;
-        }
-
-        System.out.println("LSP not found, downloading...");
-        NotificationManager.showProgress("Downloading LSP", "Downloading the LSP server, please wait...", lspDownloadTask);
-
-        Thread downloadThread = new Thread(lspDownloadTask);
-        downloadThread.setDaemon(false);
-        downloadThread.start();
-
-        try {
-            Object result = lspDownloadTask.get();
-            System.out.println("LSP download completed with result: " + result);
-            return lspDownloadTask.isValidExistingExtraction();
-        } catch (InterruptedException e) {
-            System.err.println("LSP download was interrupted: " + e.getMessage());
-            Thread.currentThread().interrupt();
-            return false;
-        } catch (ExecutionException e) {
-            System.err.println("LSP download failed: " + e.getCause());
-            return false;
-        }
     }
 }

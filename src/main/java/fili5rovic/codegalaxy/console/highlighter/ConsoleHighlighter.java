@@ -20,7 +20,6 @@ public class ConsoleHighlighter {
             int size = newValue.length() - oldValue.length();
             if (size <= 0) return;
             String style = consoleArea.getStyleClassForTextType();
-            System.out.println("S: " + style);
             consoleArea.setStyleSpans(oldValue.length(), computeHighlighting(size, style));
         });
     }

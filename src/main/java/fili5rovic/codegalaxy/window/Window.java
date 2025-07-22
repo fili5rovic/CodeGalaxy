@@ -62,6 +62,10 @@ public abstract class Window {
                 this.controller = baseController;
                 this.controller.lateInitialize(stage);
 
+                stage.setOnShown(_ -> {
+                    this.controller.onWindowShown(stage);
+                });
+
             } else {
                 throw new IllegalStateException("Controller must be an instance of ControllerBase");
             }

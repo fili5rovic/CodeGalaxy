@@ -117,11 +117,22 @@ public class DashboardController extends ControllerBase {
     private VBox notificationVBox;
 
     private DisplayErrorsHandler displayErrorsHandler;
+    private LSPDownloadManager lspDownloadManager;
+
+    @FXML
+    public void initialize() {
+        Controllers.setDashboardController(this);
+
+        tabPane.getTabs().addListener((ListChangeListener<Tab>) _ -> updateInfoPaneVisibility());
+
+        this.displayErrorsHandler = new DisplayErrorsHandler();
+        this.displayErrorsHandler.init();
+        
+        this.lspDownloadManager = new LSPDownloadManager();
+    }
 
     @Override
     public void lateInitialize(Stage stage) {
-        LSPDownloadManager.verifyAndRunLSP();
-
         SplitPaneManager.setupLockPositions();
 
         MenuManager.initialize();
@@ -135,17 +146,10 @@ public class DashboardController extends ControllerBase {
         GitHierarchy.addHierarchy();
     }
 
-    @FXML
-    public void initialize() {
-        Controllers.setDashboardController(this);
-
-        tabPane.getTabs().addListener((ListChangeListener<Tab>) _ -> updateInfoPaneVisibility());
-
-        this.displayErrorsHandler = new DisplayErrorsHandler();
-        this.displayErrorsHandler.init();
+    @Override
+    public void onWindowShown(Stage stage) {
+        lspDownloadManager.verifyAndRunLSP();
     }
-
-
 
     private static void fileSearchPopupListener() {
         Platform.runLater(() -> {
