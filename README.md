@@ -67,7 +67,7 @@ A **custom Java IDE** built with JavaFX, designed to provide a lightweight yet p
 
 ### Prerequisites
 
-- **Java 17** or higher
+- **Java 22** or higher
 - **Maven 3.6+**
 
 ### 1. Clone the Repository
