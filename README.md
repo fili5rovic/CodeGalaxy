@@ -73,67 +73,18 @@ A **custom Java IDE** built with JavaFX, designed to provide a lightweight yet p
 ### 1. Clone the Repository
 ```sh
 git clone https://github.com/fili5rovic/CodeGalaxy.git
-cd CodeGalaxy
 ```
 
 ### 2. Download Eclipse JDT Language Server
 
-CodeGalaxy requires the Eclipse JDT Language Server to provide advanced Java editing features. You need to download it manually:
+CodeGalaxy will prompt you to install a language server upon first launch.
 
-   **Visit the Eclipse JDT LS Downloads page**:
-   - Go to: https://download.eclipse.org/jdtls/milestones/
-   - Select the latest milestone
-   - Download compressed file ending with `.tar.gz` (e.g., `jdt-language-server-1.40.0-202501161421.tar.gz`)  
-   
-> [!NOTE]  
-> **CodeGalaxy** has been tested and verified to work with 2025 versions of the Eclipse JDT Language Server. Older versions may still work, but are not guaranteed.
-
-### 3. Extract the Language Server
-
-**For Linux/macOS:**
-```sh
-# Create lsp directory in the project root
-mkdir lsp
-
-# Extract the downloaded tar.gz file into the lsp directory
-tar -xzf jdt-language-server-*.tar.gz -C lsp/
-```
-
-**For Windows:**
-```cmd
-# Create lsp directory in the project root
-mkdir lsp
-
-# Extract using your preferred tool (7-Zip, WinRAR, etc.)
-# Or use Windows Subsystem for Linux (WSL) with the tar command above
-# Extract the contents to: C:\path\to\CodeGalaxy\lsp\
-```
-
-> [!IMPORTANT]  
-> Your folder structure should now be `/path/to/CodeGalaxy/lsp/`. CodeGalaxy expects this exact folder structure.
-
-### 4. Verify the LSP Structure
-
-After extraction, your `lsp/` directory should contain:
-```
-lsp/
-├── bin/
-├── config_win/      (Windows configuration)
-├── config_linux/    (Linux configuration)
-├── config_mac/      (macOS configuration)
-├── features/
-└── plugins/
-```
-
-> [!TIP]  
-> If you are using an IDE, you can skip the next steps and run the project.
-
-### 5. Build the Project
+### 3. Build the Project
 ```sh
 mvn clean install
 ```
 
-### 6. Run the IDE
+### 4. Run the IDE
 ```sh
 mvn javafx:run
 ```
