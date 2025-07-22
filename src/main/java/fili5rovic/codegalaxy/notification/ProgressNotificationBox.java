@@ -43,7 +43,7 @@ public class ProgressNotificationBox extends VBox {
         closeButton.setText("X");
         closeButton.getStyleClass().clear();
         closeButton.getStyleClass().add("notification-close-btn");
-        closeButton.setOnAction(e -> closeNotification());
+        closeButton.setOnAction(_ -> closeNotification());
 
         // Give the title label all available space, pushing close button to the right
         HBox.setHgrow(titleLabel, Priority.ALWAYS);
@@ -64,7 +64,7 @@ public class ProgressNotificationBox extends VBox {
         // Cancel button
         cancelButton = new Button("Cancel");
         cancelButton.getStyleClass().add("notification-cancel-btn");
-        cancelButton.setOnAction(e -> cancelTask());
+        cancelButton.setOnAction(_ -> cancelTask());
 
         HBox buttonRow = new HBox();
         buttonRow.setAlignment(Pos.CENTER_RIGHT);
@@ -123,7 +123,7 @@ public class ProgressNotificationBox extends VBox {
 
     private void scheduleAutoClose() {
         autoCloseTimer = new PauseTransition(Duration.seconds(4));
-        autoCloseTimer.setOnFinished(e -> closeNotification());
+        autoCloseTimer.setOnFinished(_ -> closeNotification());
         autoCloseTimer.play();
     }
 
@@ -135,7 +135,7 @@ public class ProgressNotificationBox extends VBox {
         FadeTransition fadeOut = new FadeTransition(Duration.millis(200), this);
         fadeOut.setFromValue(1);
         fadeOut.setToValue(0);
-        fadeOut.setOnFinished(e -> {
+        fadeOut.setOnFinished(_ -> {
             if (getParent() instanceof VBox parent) {
                 parent.getChildren().remove(this);
             }

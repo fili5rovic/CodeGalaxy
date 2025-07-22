@@ -12,6 +12,7 @@ public class Test {
             );
             downloader.download();
         } catch (Exception e) {
+            System.err.println("An error occurred during the download process: " + e.getMessage());
             e.printStackTrace();
         }
     }
