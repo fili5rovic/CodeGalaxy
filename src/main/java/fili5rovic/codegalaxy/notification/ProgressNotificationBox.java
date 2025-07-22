@@ -83,9 +83,9 @@ public class ProgressNotificationBox extends VBox {
             messageLabel.textProperty().bind(task.messageProperty());
 
             // Handle task completion
-            task.setOnSucceeded(e -> onTaskCompleted("Completed successfully!", true));
-            task.setOnFailed(e -> onTaskCompleted("Failed: " + getErrorMessage(), false));
-            task.setOnCancelled(e -> onTaskCompleted("Cancelled", false));
+            task.setOnSucceeded(_ -> onTaskCompleted("Completed successfully!", true));
+            task.setOnFailed(_ -> onTaskCompleted("Failed: " + getErrorMessage(), false));
+            task.setOnCancelled(_ -> onTaskCompleted("Cancelled", false));
         }
     }
 

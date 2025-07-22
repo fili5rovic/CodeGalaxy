@@ -12,5 +12,9 @@ public enum JDTLSRelease {
     public String getUrl() {
         return url;
     }
+
+    public String getArchiveName() {
+        return "jdtls.tar.gz";
+    }
 }
 

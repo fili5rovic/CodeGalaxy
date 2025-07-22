@@ -120,6 +120,8 @@ public class DashboardController extends ControllerBase {
 
     @Override
     public void lateInitialize(Stage stage) {
+        LSPDownloadManager.verifyAndRunLSP();
+
         SplitPaneManager.setupLockPositions();
 
         MenuManager.initialize();
@@ -133,32 +135,17 @@ public class DashboardController extends ControllerBase {
         GitHierarchy.addHierarchy();
     }
 
-
-
     @FXML
     public void initialize() {
         Controllers.setDashboardController(this);
-        ProjectManager.checkForValidWorkspace().thenAcceptAsync(success -> {
-            if (!success) {
-                System.err.println("Fatal error: No valid workspace found. Please set a valid workspace path in properties.");
-                Platform.exit();
-                return;
-            }
-
-            try {
-                LSP.instance().start();
-                Platform.runLater(ProjectManager::tryToOpenLastProject);
-            } catch (Exception e) {
-                System.err.println("Failed to start LSP server: " + e.getMessage());
-                System.err.println("Fatal error: LSP server is not running. Please check your configuration.");
-            }
-        });
 
         tabPane.getTabs().addListener((ListChangeListener<Tab>) _ -> updateInfoPaneVisibility());
 
         this.displayErrorsHandler = new DisplayErrorsHandler();
         this.displayErrorsHandler.init();
     }
+
+
 
     private static void fileSearchPopupListener() {
         Platform.runLater(() -> {

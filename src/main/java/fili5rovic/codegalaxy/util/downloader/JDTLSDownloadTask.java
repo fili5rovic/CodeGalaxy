@@ -19,7 +19,6 @@ public class JDTLSDownloadTask extends Task<Void> {
 
     private final JDTLSRelease release;
     private final Path targetDirectory;
-    private final String fileName;
     private final Path extractDirectory;
 
     // Progress tracking
@@ -28,10 +27,9 @@ public class JDTLSDownloadTask extends Task<Void> {
     private int totalEntries = 0;
     private int processedEntries = 0;
 
-    public JDTLSDownloadTask(JDTLSRelease release, Path targetDirectory, String fileName) {
+    public JDTLSDownloadTask(JDTLSRelease release) {
         this.release = release;
-        this.targetDirectory = targetDirectory;
-        this.fileName = fileName;
+        this.targetDirectory = Path.of(System.getProperty("user.dir"));
         this.extractDirectory = targetDirectory.resolve("lsp");
 
         // Set initial task properties
@@ -106,7 +104,7 @@ public class JDTLSDownloadTask extends Task<Void> {
         }
     }
 
-    private boolean isValidExistingExtraction() {
+    public boolean isValidExistingExtraction() {
         if (isCancelled()) return false;
 
         if (!Files.exists(extractDirectory) || !Files.isDirectory(extractDirectory)) {
@@ -155,7 +153,7 @@ public class JDTLSDownloadTask extends Task<Void> {
     private Path downloadArchiveIfNeeded() throws IOException {
         if (isCancelled()) throw new IOException("Task was cancelled");
 
-        Path archivePath = targetDirectory.resolve(fileName);
+        Path archivePath = targetDirectory.resolve(release.getArchiveName());
 
         if (Files.exists(archivePath)) {
             updateMessage("Archive already exists: " + archivePath.getFileName());
