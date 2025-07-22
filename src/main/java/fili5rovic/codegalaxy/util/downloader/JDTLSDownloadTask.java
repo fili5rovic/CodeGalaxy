@@ -1,5 +1,6 @@
 package fili5rovic.codegalaxy.util.downloader;
 
+import javafx.concurrent.Task;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
@@ -9,7 +10,7 @@ import java.util.zip.GZIPInputStream;
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 
-public class JDTLSDownloader {
+public class JDTLSDownloadTask extends Task<Void> {
 
     private static final int CONNECTION_TIMEOUT = 30_000;
     private static final int READ_TIMEOUT = 60_000;
@@ -21,33 +22,67 @@ public class JDTLSDownloader {
     private final String fileName;
     private final Path extractDirectory;
 
-    public JDTLSDownloader(JDTLSRelease release, Path targetDirectory, String fileName) {
+    // Progress tracking
+    private long totalBytes = 0;
+    private long processedBytes = 0;
+    private int totalEntries = 0;
+    private int processedEntries = 0;
+
+    public JDTLSDownloadTask(JDTLSRelease release, Path targetDirectory, String fileName) {
         this.release = release;
         this.targetDirectory = targetDirectory;
         this.fileName = fileName;
         this.extractDirectory = targetDirectory.resolve("lsp");
+
+        // Set initial task properties
+        updateTitle("JDTLS Download");
+        updateMessage("Initializing...");
+        updateProgress(0, 100);
     }
 
-    public void download() throws IOException {
+    @Override
+    protected Void call() throws Exception {
+        try {
+            download();
+            updateMessage("Download and extraction completed successfully!");
+            updateProgress(100, 100);
+            return null;
+        } catch (Exception e) {
+            updateMessage("Error: " + e.getMessage());
+            throw e;
+        }
+    }
+
+    private void download() throws IOException {
+        updateMessage("Validating target directory...");
         validateTargetDirectory();
 
         if (isValidExistingExtraction()) {
-            System.out.println("JDTLS already extracted at: " + extractDirectory);
+            updateMessage("JDTLS already extracted at: " + extractDirectory);
+            updateProgress(100, 100);
             return;
         }
 
+        updateMessage("Cleaning up incomplete extraction...");
         cleanupIncompleteExtraction();
 
+        updateMessage("Preparing download...");
         Path archivePath = downloadArchiveIfNeeded();
         try {
+            updateMessage("Validating archive...");
             validateArchive(archivePath);
+
+            updateMessage("Extracting archive...");
             extract(archivePath);
         } finally {
+            updateMessage("Cleaning up archive...");
             cleanupArchive(archivePath);
         }
     }
 
     private void validateTargetDirectory() throws IOException {
+        if (isCancelled()) throw new IOException("Task was cancelled");
+
         if (!Files.exists(targetDirectory)) {
             try {
                 Files.createDirectories(targetDirectory);
@@ -72,6 +107,8 @@ public class JDTLSDownloader {
     }
 
     private boolean isValidExistingExtraction() {
+        if (isCancelled()) return false;
+
         if (!Files.exists(extractDirectory) || !Files.isDirectory(extractDirectory)) {
             return false;
         }
@@ -96,11 +133,13 @@ public class JDTLSDownloader {
     }
 
     private void cleanupIncompleteExtraction() throws IOException {
+        if (isCancelled()) throw new IOException("Task was cancelled");
+
         if (Files.exists(extractDirectory)) {
-            System.out.println("Cleaning up incomplete extraction...");
             try (var pathStream = Files.walk(extractDirectory)) {
                 pathStream.sorted((a, b) -> b.compareTo(a))
                         .forEach(path -> {
+                            if (isCancelled()) return;
                             try {
                                 Files.deleteIfExists(path);
                             } catch (IOException e) {
@@ -114,10 +153,12 @@ public class JDTLSDownloader {
     }
 
     private Path downloadArchiveIfNeeded() throws IOException {
+        if (isCancelled()) throw new IOException("Task was cancelled");
+
         Path archivePath = targetDirectory.resolve(fileName);
 
         if (Files.exists(archivePath)) {
-            System.out.println("Archive already exists: " + archivePath);
+            updateMessage("Archive already exists: " + archivePath.getFileName());
             return archivePath;
         }
 
@@ -125,20 +166,29 @@ public class JDTLSDownloader {
     }
 
     private Path downloadArchive(Path outputPath) throws IOException {
-        System.out.println("Starting download to: " + outputPath);
+        if (isCancelled()) throw new IOException("Task was cancelled");
+
+        updateMessage("Starting download: " + outputPath.getFileName());
 
         HttpURLConnection conn = null;
         try {
             conn = createConnection();
-            DownloadProgress progress = new DownloadProgress(conn.getContentLength());
+            totalBytes = conn.getContentLengthLong();
+            processedBytes = 0;
+
+            if (totalBytes > 0) {
+                updateMessage(String.format("Downloading: %.2f MB", totalBytes / (1024.0 * 1024)));
+            } else {
+                updateMessage("Downloading (size unknown)");
+            }
 
             try (InputStream in = new BufferedInputStream(conn.getInputStream());
                  FileOutputStream out = new FileOutputStream(outputPath.toFile())) {
 
-                transferData(in, out, progress);
+                transferData(in, out);
             }
 
-            System.out.println("Download complete: " + outputPath.toAbsolutePath());
+            updateMessage("Download complete: " + outputPath.getFileName());
             return outputPath;
 
         } catch (SocketTimeoutException e) {
@@ -168,6 +218,8 @@ public class JDTLSDownloader {
             // Handle redirects manually to avoid issues with different redirect types
             int redirectCount = 0;
             while (redirectCount < 5) { // Prevent infinite redirects
+                if (isCancelled()) throw new IOException("Task was cancelled");
+
                 int status = conn.getResponseCode();
                 if (status == HttpURLConnection.HTTP_MOVED_TEMP ||
                         status == HttpURLConnection.HTTP_MOVED_PERM ||
@@ -200,17 +252,29 @@ public class JDTLSDownloader {
         }
     }
 
-    private void transferData(InputStream in, OutputStream out, DownloadProgress progress) throws IOException {
+    private void transferData(InputStream in, OutputStream out) throws IOException {
         byte[] buffer = new byte[8192];
         int bytesRead;
 
         while ((bytesRead = in.read(buffer)) != -1) {
+            if (isCancelled()) {
+                throw new IOException("Task was cancelled");
+            }
+
             out.write(buffer, 0, bytesRead);
-            progress.update(bytesRead);
+            processedBytes += bytesRead;
+
+            // Update progress for download
+            if (totalBytes > 0) {
+                double progress = (double) processedBytes / totalBytes * 50; // Download is 50% of total progress
+                updateProgress(progress, 100);
+            }
         }
     }
 
     private void validateArchive(Path archivePath) throws IOException {
+        if (isCancelled()) throw new IOException("Task was cancelled");
+
         if (!Files.exists(archivePath)) {
             throw new IOException("Archive not found: " + archivePath);
         }
@@ -234,7 +298,9 @@ public class JDTLSDownloader {
     }
 
     private void extract(Path archivePath) throws IOException {
-        System.out.println("Extracting to: " + extractDirectory);
+        if (isCancelled()) throw new IOException("Task was cancelled");
+
+        updateMessage("Extracting to: " + extractDirectory.getFileName());
 
         try {
             Files.createDirectories(extractDirectory);
@@ -242,6 +308,19 @@ public class JDTLSDownloader {
             throw new IOException("Cannot create extraction directory: " + extractDirectory, e);
         }
 
+        // First pass: count entries for progress tracking
+        try (FileInputStream fis = new FileInputStream(archivePath.toFile());
+             GZIPInputStream gis = new GZIPInputStream(fis);
+             TarArchiveInputStream tis = new TarArchiveInputStream(gis)) {
+
+            TarArchiveEntry entry;
+            totalEntries = 0;
+            while ((entry = tis.getNextEntry()) != null) {
+                totalEntries++;
+            }
+        }
+
+        // Second pass: actual extraction
         try (FileInputStream fis = new FileInputStream(archivePath.toFile());
              GZIPInputStream gis = new GZIPInputStream(fis);
              TarArchiveInputStream tis = new TarArchiveInputStream(gis)) {
@@ -253,12 +332,18 @@ public class JDTLSDownloader {
             throw new IOException("Extraction failed: " + e.getMessage(), e);
         }
 
-        System.out.println("Extraction complete to: " + extractDirectory.toAbsolutePath());
+        updateMessage("Extraction complete: " + extractDirectory.getFileName());
     }
 
     private void extractEntries(TarArchiveInputStream tis, Path outputDir) throws IOException {
         TarArchiveEntry entry;
+        processedEntries = 0;
+
         while ((entry = tis.getNextEntry()) != null) {
+            if (isCancelled()) {
+                throw new IOException("Task was cancelled");
+            }
+
             // Security: Prevent path traversal attacks
             String name = entry.getName();
             if (name.contains("..") || name.startsWith("/") || name.contains("\\..")) {
@@ -289,10 +374,21 @@ public class JDTLSDownloader {
             } else {
                 extractFile(tis, outPath);
             }
+
+            processedEntries++;
+            // Extraction is the remaining 50% of progress
+            double extractionProgress = 50 + ((double) processedEntries / totalEntries * 50);
+            updateProgress(extractionProgress, 100);
+
+            if (processedEntries % 10 == 0) { // Update message every 10 files
+                updateMessage(String.format("Extracting... (%d/%d files)", processedEntries, totalEntries));
+            }
         }
     }
 
     private void extractFile(TarArchiveInputStream tis, Path outPath) throws IOException {
+        if (isCancelled()) throw new IOException("Task was cancelled");
+
         try {
             Files.createDirectories(outPath.getParent());
         } catch (IOException e) {
@@ -303,6 +399,9 @@ public class JDTLSDownloader {
             byte[] buffer = new byte[8192];
             int len;
             while ((len = tis.read(buffer)) != -1) {
+                if (isCancelled()) {
+                    throw new IOException("Task was cancelled");
+                }
                 out.write(buffer, 0, len);
             }
         } catch (IOException e) {
@@ -319,39 +418,10 @@ public class JDTLSDownloader {
         try {
             if (Files.exists(archivePath)) {
                 Files.delete(archivePath);
-                System.out.println("Deleted archive: " + archivePath.getFileName());
+                updateMessage("Deleted archive: " + archivePath.getFileName());
             }
         } catch (IOException e) {
             System.out.println("Warning: Could not delete archive " + archivePath + ": " + e.getMessage());
-        }
-    }
-
-    // Helper class to handle download progress tracking
-    private static class DownloadProgress {
-        private final int contentLength;
-        private final boolean hasContentLength;
-        private long totalRead = 0;
-        private int lastPercent = 0;
-
-        public DownloadProgress(int contentLength) {
-            this.contentLength = contentLength;
-            this.hasContentLength = contentLength > 0;
-
-            if (hasContentLength) {
-                System.out.printf("Total size: %.2f MB%n", contentLength / (1024.0 * 1024));
-            }
-        }
-
-        public void update(int bytesRead) {
-            totalRead += bytesRead;
-
-            if (hasContentLength) {
-                int percent = (int) ((totalRead * 100) / contentLength);
-                if (percent >= lastPercent + 5) {
-                    System.out.println("Progress: " + percent + "%");
-                    lastPercent = percent;
-                }
-            }
         }
     }
 }

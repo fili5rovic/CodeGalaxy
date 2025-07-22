@@ -155,9 +155,9 @@
                                                 </VBox>
                                             </center>
                                         </BorderPane>
-                                        <BorderPane mouseTransparent="true">
+                                        <BorderPane pickOnBounds="false">
                                             <right>
-                                                <VBox fx:id="notificationVBox" mouseTransparent="true" prefHeight="655.0" prefWidth="264.0" BorderPane.alignment="CENTER" />
+                                                <VBox fx:id="notificationVBox" pickOnBounds="false" prefHeight="655.0" prefWidth="264.0" BorderPane.alignment="CENTER" />
                                             </right>
                                         </BorderPane>
                                     </children>

@@ -3,6 +3,7 @@ package fili5rovic.codegalaxy.notification;
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.scene.layout.VBox;
 
 public class NotificationManager {
@@ -19,16 +20,20 @@ public class NotificationManager {
         }
     }
 
+    // Original method for simple notifications
     public static void show(String title, String message) {
         ensureInitialized();
-
         Platform.runLater(() -> {
-            NotificationBox[] boxHolder = new NotificationBox[1];
-
-            boxHolder[0] = new NotificationBox(title, message);
-
-            container.getChildren().addLast(boxHolder[0]);
+            NotificationBox notification = new NotificationBox(title, message);
+            container.getChildren().addLast(notification);
         });
     }
 
+    public static void showProgress(String title, String message, Task<?> task) {
+        ensureInitialized();
+        Platform.runLater(() -> {
+            ProgressNotificationBox notification = new ProgressNotificationBox(title, message, task);
+            container.getChildren().addLast(notification);
+        });
+    }
 }
