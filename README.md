@@ -2,8 +2,14 @@
 
 A **custom Java IDE** built with JavaFX, designed to provide a lightweight yet powerful development environment with **Language Server Protocol (LSP)** integration for advanced Java editing features.
 
-## Features
+![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)
+![Java](https://img.shields.io/badge/Java-22+-ED8B00?logo=openjdk&logoColor=white)
+![JavaFX](https://img.shields.io/badge/JavaFX-Powered-FF6C37?logo=java&logoColor=white)
+![Eclipse JDT](https://img.shields.io/badge/Eclipse_JDT-LSP-2C2255?logo=eclipse&logoColor=white)
+![Git](https://img.shields.io/badge/Git-Integration-F05032?logo=git&logoColor=white)
+![Status](https://img.shields.io/badge/Status-Active%20Development-brightgreen)
 
+## Features
 <table>
   <tr>
     <td align="center">
@@ -73,70 +79,20 @@ A **custom Java IDE** built with JavaFX, designed to provide a lightweight yet p
 ### 1. Clone the Repository
 ```sh
 git clone https://github.com/fili5rovic/CodeGalaxy.git
-cd CodeGalaxy
 ```
 
-### 2. Download Eclipse JDT Language Server
-
-CodeGalaxy requires the Eclipse JDT Language Server to provide advanced Java editing features. You need to download it manually:
-
-   **Visit the Eclipse JDT LS Downloads page**:
-   - Go to: https://download.eclipse.org/jdtls/milestones/
-   - Select the latest milestone
-   - Download compressed file ending with `.tar.gz` (e.g., `jdt-language-server-1.40.0-202501161421.tar.gz`)  
-   
-> [!NOTE]  
-> **CodeGalaxy** has been tested and verified to work with 2025 versions of the Eclipse JDT Language Server. Older versions may still work, but are not guaranteed.
-
-### 3. Extract the Language Server
-
-**For Linux/macOS:**
-```sh
-# Create lsp directory in the project root
-mkdir lsp
-
-# Extract the downloaded tar.gz file into the lsp directory
-tar -xzf jdt-language-server-*.tar.gz -C lsp/
-```
-
-**For Windows:**
-```cmd
-# Create lsp directory in the project root
-mkdir lsp
-
-# Extract using your preferred tool (7-Zip, WinRAR, etc.)
-# Or use Windows Subsystem for Linux (WSL) with the tar command above
-# Extract the contents to: C:\path\to\CodeGalaxy\lsp\
-```
-
-> [!IMPORTANT]  
-> Your folder structure should now be `/path/to/CodeGalaxy/lsp/`. CodeGalaxy expects this exact folder structure.
-
-### 4. Verify the LSP Structure
-
-After extraction, your `lsp/` directory should contain:
-```
-lsp/
-├── bin/
-├── config_win/      (Windows configuration)
-├── config_linux/    (Linux configuration)
-├── config_mac/      (macOS configuration)
-├── features/
-└── plugins/
-```
-
-> [!TIP]  
-> If you are using an IDE, you can skip the next steps and run the project.
-
-### 5. Build the Project
+### 2. Build the Project
 ```sh
 mvn clean install
 ```
 
-### 6. Run the IDE
+### 3. Run the IDE
 ```sh
 mvn javafx:run
 ```
+
+> [!NOTE]
+> CodeGalaxy will prompt you to install a language server upon first launch.
 
 ## Usage 📖
 
