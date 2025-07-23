@@ -64,7 +64,14 @@
                             <items>
                                 <StackPane>
                                     <children>
-                                        <BorderPane fx:id="treeViewPane" />
+                                        <BorderPane fx:id="treeViewPane">
+                                 <center>
+                                    <Label maxHeight="100.0" minWidth="0.0" styleClass="info-label" text="Nothing to show here. Open a project to see hierarchy." textAlignment="CENTER" textFill="#404040" wrapText="true" BorderPane.alignment="CENTER">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                 </center></BorderPane>
                                         <StackPane fx:id="gitPane" visible="false">
                                             <children>
                                                 <BorderPane fx:id="gitInitPane" prefHeight="200.0" prefWidth="200.0" visible="false">

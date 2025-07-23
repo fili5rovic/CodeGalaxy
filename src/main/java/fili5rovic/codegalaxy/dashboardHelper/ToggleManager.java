@@ -79,13 +79,12 @@ public class ToggleManager {
         });
 
         controller.getShowProblemsToggle().setOnAction(_ -> {
-            TestProgressTask task = new TestProgressTask();
-            NotificationManager.showProgress("Loading Problems", "Loading problems from the project...", task);
-
-            Thread thread = new Thread(task);
-            thread.setDaemon(true);
-            thread.start();
-
+//            TestProgressTask task = new TestProgressTask();
+//            NotificationManager.showProgress("Loading Problems", "Loading problems from the project...", task);
+//
+//            Thread thread = new Thread(task);
+//            thread.setDaemon(true);
+//            thread.start();
             if (controller.getShowProblemsToggle().isSelected()) {
                 controller.getConsoleTabPane().setVisible(false);
                 controller.getErrorTabPane().setVisible(true);
