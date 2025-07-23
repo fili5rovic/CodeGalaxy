@@ -2,8 +2,6 @@ package fili5rovic.codegalaxy.dashboardHelper;
 
 import fili5rovic.codegalaxy.controller.Controllers;
 import fili5rovic.codegalaxy.controller.DashboardController;
-import fili5rovic.codegalaxy.notification.NotificationManager;
-import fili5rovic.codegalaxy.util.downloader.TestProgressTask;
 import fili5rovic.codegalaxy.vcs.GitUtil;
 import fili5rovic.codegalaxy.projectSettings.ProjectSettingsUtil;
 import fili5rovic.codegalaxy.projectSettings.VCSUtil;
