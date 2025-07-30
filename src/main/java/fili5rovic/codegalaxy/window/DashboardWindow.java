@@ -7,6 +7,7 @@ public class DashboardWindow extends Window {
     public DashboardWindow() {
         this.title = "CodeGalaxy";
         this.fxmlName = "ide";
+//        this.extended = true;
     }
 
     @Override

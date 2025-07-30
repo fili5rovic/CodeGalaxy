@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.util.Objects;
 
@@ -23,6 +24,7 @@ public abstract class Window {
 
     protected String title = "TITLE";
     protected String fxmlName = "FXML_NAME";
+    protected boolean extended = false;
 
     public static void setWindowAt(int position, Window w) {
         windows[position] = w;
@@ -53,9 +55,10 @@ public abstract class Window {
             }
             stage.setScene(scene);
             stage.setTitle(this.title);
-
+            if(extended) {
+                stage.initStyle(StageStyle.EXTENDED);
+            }
             stage.getIcons().add(new Image(Objects.requireNonNull(Main.class.getResourceAsStream("/fili5rovic/codegalaxy/png/app/codeGalaxy.png"))));
-
             this.stage = stage;
 
             if(fxmlLoader.getController() instanceof ControllerBase baseController) {
