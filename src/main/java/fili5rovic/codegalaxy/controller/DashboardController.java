@@ -4,6 +4,7 @@ import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.dashboardHelper.*;
 import fili5rovic.codegalaxy.errors.DisplayErrorsHandler;
 import fili5rovic.codegalaxy.lsp.LSP;
+import fili5rovic.codegalaxy.projectSettings.dataclass.RunConfiguration;
 import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.vcs.treeView.GitHierarchy;
 import fili5rovic.codegalaxy.window.Window;
@@ -115,6 +116,9 @@ public class DashboardController extends ControllerBase {
     private Button editConfigurationsBtn;
 
     @FXML
+    private ChoiceBox<RunConfiguration> editConfigurationsChoiceBox;
+
+    @FXML
     private VBox notificationVBox;
 
     @FXML
@@ -128,6 +132,8 @@ public class DashboardController extends ControllerBase {
         Controllers.setDashboardController(this);
 
         tabPane.getTabs().addListener((ListChangeListener<Tab>) _ -> updateInfoPaneVisibility());
+
+        ChoiceBoxManager.initialize();
 
         this.displayErrorsHandler = new DisplayErrorsHandler();
         this.displayErrorsHandler.init();
@@ -360,6 +366,10 @@ public class DashboardController extends ControllerBase {
 
     public Button getRunBtn() {
         return runBtn;
+    }
+
+    public ChoiceBox<RunConfiguration> getEditConfigurationsChoiceBox() {
+        return editConfigurationsChoiceBox;
     }
 
 
