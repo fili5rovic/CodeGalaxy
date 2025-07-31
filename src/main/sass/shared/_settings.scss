@@ -1,0 +1,293 @@
+@mixin set-main-theme($theme) {
+  $bg-dark: #1a1a1a;
+  $bg-main: #252525;
+  $bg-light: #323232;
+  $bg-lightest: #444;
+
+  $text-primary: #dddddd;
+  $text-secondary: #b0b0b0;
+
+  $accent: #5b2a98;
+  $error: #b13829;
+
+
+  @if $theme == 'light' {
+    $bg-dark: #f5f5f5;
+    $bg-main: #ffffff;
+    $bg-light: #e0e0e0;
+    $bg-lightest: #bdbdbd;
+
+    $text-primary: #212121;
+    $text-secondary: #616161;
+  }
+
+  .root {
+    -fx-background-color: $bg-main;
+    -fx-text-fill: $text-secondary;
+    -fx-font-family: "Segoe UI", "Roboto", sans-serif;
+    -fx-font-size: 13px;
+  }
+
+  .recorded-shortcut-label {
+    -fx-text-fill: $accent;
+    -fx-font-weight: bold;
+  }
+
+  .split-pane {
+    -fx-background-color: $bg-main;
+  }
+
+  .tree-view {
+    -fx-background-color: $bg-main;
+    -fx-control-inner-background: $bg-light;
+    -fx-cell-hover-color: $bg-lightest;
+    -fx-text-fill: $text-secondary;
+  }
+
+
+  .tree-cell {
+    -fx-background-color: $bg-main;
+    -fx-text-fill: $text-secondary;
+
+    &:selected {
+      &:hover {
+        -fx-text-fill: $accent;
+        -fx-font-weight: bold;
+      }
+
+      -fx-text-fill: $accent;
+      -fx-font-weight: bold;
+    }
+
+    &:hover {
+      -fx-text-fill: $text-primary;
+    }
+  }
+
+
+  .text-field {
+    -fx-background-color: $bg-main;
+    -fx-text-fill: $text-secondary;
+    -fx-prompt-text-fill: $text-secondary;
+    -fx-background-insets: 0;
+    -fx-background-radius: 4;
+    -fx-border-color: $bg-light;
+    -fx-border-width: 2px;
+    -fx-border-radius: 4;
+  }
+
+  .pane {
+    -fx-background-color: $bg-main;
+  }
+
+  .border-pane {
+    -fx-background-color: $bg-main;
+  }
+
+  .anchor-pane {
+    -fx-background-color: $bg-main;
+  }
+
+  .split-pane {
+    -fx-background-color: $bg-main;
+  }
+
+  .split-pane-divider {
+    -fx-background-color: transparent;
+  }
+
+
+  .button {
+    -fx-background-color: $bg-light;
+    -fx-text-fill: $text-secondary;
+    -fx-border-color: $bg-main;
+
+    &:hover {
+      -fx-background-color: $accent;
+      -fx-text-fill: $text-primary;
+    }
+  }
+
+
+  .label {
+    -fx-text-fill: $text-secondary;
+  }
+
+  .combo-box {
+    -fx-background-color: $bg-main;
+    -fx-border-color: $bg-lightest;
+    -fx-border-width: 2px;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-text-fill: $text-primary;
+  }
+
+  .combo-box-base {
+    -fx-background-color: $bg-main, $bg-main, $bg-light, $bg-light;
+    -fx-background-radius: 5, 5, 4, 3;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-padding: 0;
+  }
+
+  .combo-box .list-cell {
+    -fx-text-fill: $text-secondary;
+  }
+
+  .combo-box .prompt-text {
+    -fx-fill: $text-secondary;
+  }
+
+  .combo-box-popup .list-view {
+    -fx-background-color: $bg-main;
+    -fx-border-color: $bg-light;
+  }
+
+  .combo-box-popup .list-cell {
+    -fx-background-color: $bg-main;
+    -fx-text-fill: $text-secondary;
+  }
+
+  .combo-box-popup .list-cell:hover {
+    -fx-background-color: $bg-light;
+    -fx-text-fill: $text-primary;
+  }
+
+  .combo-box-popup .list-cell:selected {
+    -fx-background-color: $bg-lightest;
+    -fx-text-fill: $accent;
+  }
+
+
+  .table-view {
+    -fx-border-width: 1;
+    -fx-border-radius: 0;
+    -fx-border-color: $bg-dark;
+    -fx-background-radius: 0;
+    -fx-background-color: $bg-dark;
+    -fx-table-cell-border-color: $bg-main;
+
+    &:focused {
+      -fx-border-width: 1;
+      -fx-border-radius: 0;
+      -fx-border-color: $bg-lightest;
+      -fx-background-insets: 1;
+      -fx-background-radius: 0;
+      -fx-background-color: $bg-dark;
+    }
+
+    .column-header-background {
+      -fx-border-width: 0 0 1 0;
+      -fx-border-color: $bg-dark;
+      -fx-background-radius: 0;
+      -fx-background-color: $bg-dark;
+      -fx-text-fill: $text-primary;
+    }
+
+    .column-header {
+      -fx-background-color: transparent;
+      -fx-border-color: $bg-dark;
+
+      .label {
+        -fx-alignment: center;
+        -fx-cursor: HAND;
+      }
+    }
+
+    .column-resize-line {
+      -fx-background-color: $bg-lightest;
+      -fx-pref-width: 1;
+    }
+
+    .filler {
+      -fx-background-color: transparent;
+    }
+
+    .column-drag-header {
+      -fx-background-color: $bg-lightest;
+    }
+
+    .table-cell {
+      -fx-text-fill: $text-primary;
+      -fx-alignment: CENTER;
+      -fx-hbar-policy: never;
+      -fx-vbar-policy: never;
+    }
+
+    .scroll-bar {
+      * {
+        -fx-min-width: 0;
+        -fx-pref-width: 0;
+        -fx-max-width: 0;
+        -fx-min-height: 0;
+        -fx-pref-height: 0;
+        -fx-max-height: 0;
+      }
+    }
+  }
+  .table-row-cell {
+    -fx-background-color: $bg-dark;
+    -fx-text-background-color: $bg-light;
+    -fx-margin: 1;
+
+    &:hover {
+      -fx-background-color: $bg-light;
+      -fx-background-insets: 0;
+      -fx-background-radius: 0;
+    }
+
+    &:selected {
+      -fx-table-cell-border-color: $bg-dark;
+      -fx-background-color: $bg-light;
+      -fx-background-insets: 0;
+      -fx-background-radius: 0;
+    }
+
+    &:pressed {
+      -fx-background-color: $bg-lightest;
+      -fx-background-insets: 0;
+      -fx-background-radius: 0;
+    }
+  }
+
+
+  .check-box:selected > .box {
+    -fx-background-color: $accent;
+  }
+
+  .check-box > .box {
+    -fx-background-color: $bg-lightest;
+  }
+
+  .check-box:selected > .box > .mark,
+  .check-box:indeterminate > .box > .mark {
+    -fx-background-color: transparent;
+  }
+
+
+  .shortcut-display-label {
+    -fx-background-color: $bg-lightest;
+    -fx-text-fill: $text-primary;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-padding: 10px 15px;
+    -fx-border-color: $bg-light;
+    -fx-border-width: 1px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-alignment: center;
+    -fx-min-width: 280;
+  }
+
+  .validation-label {
+    -fx-text-fill: $error;
+    -fx-font-weight: bold;
+  }
+
+  .button:disabled {
+    -fx-background-color: $bg-lightest;
+    -fx-text-fill: $text-secondary;
+    -fx-opacity: 0.7;
+  }
+
+
+}

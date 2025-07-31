@@ -21,12 +21,6 @@
 
     $text-primary: #212121;
     $text-secondary: #616161;
-
-    $accent: #7b1fa2;
-    $accent-dark: #4a148c;
-
-    $error: #d32f2f;
-    $success: #388e3c;
   }
 
   .root {
@@ -135,7 +129,7 @@
 
       &:hover {
         -fx-background-color: $bg-lightest;
-        -fx-text-fill: white;
+        -fx-text-fill: $text-primary;
       }
 
       &:pressed {
@@ -152,30 +146,30 @@
     .radio {
       -fx-border-width: 1px;
       -fx-border-color: $bg-light;
-      -fx-background-color: white;
+      -fx-background-color: $text-primary;
       -fx-background-image: null;
       -fx-border-radius: 15px;
       -fx-padding: 3px;
 
       &:selected {
-        -fx-background-color: white;
+        -fx-background-color: $text-primary;
         -fx-background-image: null;
       }
     }
 
     -radio {
       &:armed {
-        -fx-background-color: white;
+        -fx-background-color: $text-primary;
         -fx-background-image: null;
       }
 
       &:determinate {
-        -fx-background-color: white;
+        -fx-background-color: $text-primary;
         -fx-background-image: null;
       }
 
       &:indeterminate {
-        -fx-background-color: white;
+        -fx-background-color: $text-primary;
         -fx-background-image: null;
       }
     }
@@ -209,7 +203,7 @@
 
 
   .label {
-    -fx-text-fill: white;
+    -fx-text-fill: $text-primary;
   }
 
   .label-secondary {
@@ -441,79 +435,7 @@
 
   .tab-close-button:hover {
     -fx-background-color: $bg-lightest;
-    -fx-text-fill: white;
-  }
-
-  .table-view {
-    -fx-border-width: 0;
-    -fx-background-color: $bg-dark;
-    -fx-table-cell-border-color: $bg-main;
-  }
-  .table-view:focused {
-    -fx-background-insets: 1;
-    -fx-background-radius: 0;
-    -fx-background-color: $bg-dark;
-  }
-  .table-view .column-header-background {
-    -fx-background-radius: 0;
-    -fx-background-color: $bg-dark;
-    -fx-text-fill: $text-secondary;
-  }
-  .table-view .column-header {
-    -fx-background-color: transparent;
-    -fx-border-color: $bg-main;
-  }
-
-  .table-view .column-resize-line {
-    -fx-background-color: $bg-light;
-    -fx-pref-width: 1;
-  }
-  .table-row-cell {
-    -fx-background-color: $bg-dark;
-    -fx-text-background-color: $text-secondary;
-    -fx-margin: 1;
-  }
-  .table-row-cell:hover {
-    -fx-background-color: $bg-lightest;
-    -fx-background-insets: 0;
-    -fx-background-radius: 0;
-  }
-  .table-row-cell:selected {
-    -fx-table-cell-border-color: $bg-dark;
-    -fx-background-color: $bg-lightest;
-    -fx-background-insets: 0;
-    -fx-background-radius: 0;
-  }
-  .table-row-cell:pressed {
-    -fx-background-color: $bg-lightest;
-    -fx-background-insets: 0;
-    -fx-background-radius: 0;
-  }
-  .table-view .column-header .label {
-    -fx-alignment: center;
-    -fx-cursor: HAND;
-  }
-  .table-view .filler {
-    -fx-background-color: transparent;
-  }
-  .table-view .column-drag-header {
-    -fx-background-color: $bg-lightest;
-  }
-
-  .table-view .table-cell {
-    -fx-alignment: CENTER;
-    -fx-hbar-policy: never;
-    -fx-vbar-policy: never;
-  }
-
-  .table-view .scroll-bar * {
-    -fx-min-width: 0;
-    -fx-pref-width: 0;
-    -fx-max-width: 0;
-
-    -fx-min-height: 0;
-    -fx-pref-height: 0;
-    -fx-max-height: 0;
+    -fx-text-fill: $text-primary;
   }
 
   .list-cell {
@@ -524,7 +446,7 @@
 
   .list-cell:hover {
     -fx-background-color: $bg-lightest;
-    -fx-text-fill: white;
+    -fx-text-fill: $text-primary;
   }
 
   .list-cell:empty:hover {
