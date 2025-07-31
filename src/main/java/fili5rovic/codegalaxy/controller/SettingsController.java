@@ -33,10 +33,14 @@ public class SettingsController extends ControllerBase {
     @FXML
     private Button cancel;
 
+    @FXML
+    private TextField searchOption;
+
     private boolean shouldApplyTempSettingsLater = false;
 
     private TableView<ShortcutEntry> shortcutsTable;
 
+    private TreeItem<String> originalRoot;
 
     @Override
     public void lateInitialize(Stage stage) {
@@ -60,6 +64,60 @@ public class SettingsController extends ControllerBase {
         Controllers.setSettingsController(this);
         initTreeView();
         buttonActions();
+        listeners();
+    }
+
+    private void listeners() {
+        // Keep the original root for restoring
+        originalRoot = cloneTree(settingsTreeView.getRoot());
+
+        searchOption.textProperty().addListener((_, _, newValue) -> {
+            if (newValue.isEmpty()) {
+                // Restore original tree
+                settingsTreeView.setRoot(cloneTree(originalRoot));
+                settingsTreeView.setShowRoot(false);
+                expandAll(settingsTreeView.getRoot());
+            } else {
+                TreeItem<String> filtered = filterTree(originalRoot, newValue.toLowerCase());
+                settingsTreeView.setRoot(filtered);
+                settingsTreeView.setShowRoot(false);
+                expandAll(filtered);
+            }
+        });
+    }
+
+    // Helper: Clone tree
+    private TreeItem<String> cloneTree(TreeItem<String> item) {
+        TreeItem<String> newItem = new TreeItem<>(item.getValue());
+        for (TreeItem<String> child : item.getChildren()) {
+            newItem.getChildren().add(cloneTree(child));
+        }
+        return newItem;
+    }
+
+    // Helper: Filter tree to only keep matches and their parent paths
+    private TreeItem<String> filterTree(TreeItem<String> root, String query) {
+        TreeItem<String> result = new TreeItem<>(root.getValue());
+        for (TreeItem<String> child : root.getChildren()) {
+            TreeItem<String> filteredChild = filterTree(child, query);
+            if (filteredChild != null) {
+                result.getChildren().add(filteredChild);
+            }
+        }
+        // If this node matches, or any child matched, keep it
+        if (!result.getChildren().isEmpty() || (root.getValue() != null && root.getValue().toLowerCase().contains(query))) {
+            return result;
+        }
+        return null;
+    }
+
+    // Helper: Expand all nodes in the tree
+    private void expandAll(TreeItem<String> root) {
+        if (root == null) return;
+        root.setExpanded(true);
+        for (TreeItem<String> child : root.getChildren()) {
+            expandAll(child);
+        }
     }
 
     private void buttonActions() {

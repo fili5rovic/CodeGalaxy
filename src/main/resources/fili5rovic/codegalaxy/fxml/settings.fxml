@@ -37,7 +37,7 @@
         <items>
             <BorderPane prefWidth="1121.0">
                <top>
-                  <TextField prefHeight="25.0" prefWidth="174.0" BorderPane.alignment="CENTER" />
+                  <TextField fx:id="searchOption" prefHeight="25.0" prefWidth="174.0" BorderPane.alignment="CENTER" />
                </top>
                <center>
                   <TreeView fx:id="settingsTreeView" prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 0;" styleClass="invisible-split-pane" BorderPane.alignment="CENTER" />

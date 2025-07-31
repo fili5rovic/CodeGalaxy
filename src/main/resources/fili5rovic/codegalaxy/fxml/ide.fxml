@@ -56,7 +56,7 @@
          <right>
             <HBox prefHeight="16.0" prefWidth="423.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="editConfigurationsBtn" mnemonicParsing="false" prefHeight="48.0" prefWidth="68.0" text="Conf" />
+                  <Button fx:id="editConfigurationsBtn" mnemonicParsing="false" prefHeight="35.0" prefWidth="31.0" />
                </children>
             </HBox>
          </right>
