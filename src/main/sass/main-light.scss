@@ -1,2 +1,2 @@
-$theme: 'light';
 @import 'shared/main';
+@include set-main-theme('light');

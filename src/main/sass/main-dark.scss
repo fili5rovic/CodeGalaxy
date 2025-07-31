@@ -1,2 +1,2 @@
-$theme: 'dark';
 @import 'shared/main';
+@include set-main-theme('dark');
