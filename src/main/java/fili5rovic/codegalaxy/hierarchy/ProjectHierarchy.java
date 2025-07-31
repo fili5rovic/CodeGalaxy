@@ -1,6 +1,6 @@
 package fili5rovic.codegalaxy.hierarchy;
 
-import fili5rovic.codegalaxy.controller.Controllers;
+import fili5rovic.codegalaxy.dashboardHelper.TabManager;
 import fili5rovic.codegalaxy.settings.IDESettings;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
@@ -86,7 +86,7 @@ public class ProjectHierarchy extends TreeView<Label> {
         if (e.getButton() == MouseButton.PRIMARY && e.getClickCount() == 2) {
             ProjectItem item = (ProjectItem) this.getSelectionModel().getSelectedItem();
             if (item == null || Files.isDirectory(item.getPath())) return;
-            Controllers.dashboardController().createTab(item.getPath());
+            TabManager.createTab(item.getPath());
         }
     }
 

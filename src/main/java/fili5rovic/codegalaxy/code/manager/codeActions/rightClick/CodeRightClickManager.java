@@ -3,7 +3,8 @@ package fili5rovic.codegalaxy.code.manager.codeActions.rightClick;
 import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.code.manager.Manager;
 import fili5rovic.codegalaxy.codeRunner.CodeRunnerService;
-import fili5rovic.codegalaxy.controller.DashboardController;
+import fili5rovic.codegalaxy.controller.Controllers;
+import fili5rovic.codegalaxy.dashboardHelper.TabManager;
 import fili5rovic.codegalaxy.lsp.LSP;
 import fili5rovic.codegalaxy.util.JavaParserUtil;
 import fili5rovic.codegalaxy.util.SVGUtil;
@@ -63,7 +64,7 @@ public class CodeRightClickManager extends Manager {
                 run.setGraphic(SVGUtil.getEmoji("run", 16));
                 run.setOnAction(_ -> {
                     CodeRunnerService.runJava(codeGalaxy.getFilePath());
-                    ((DashboardController) Window.getController(Window.WINDOW_DASHBOARD)).getErrorTabPane().setVisible(false);
+                    Controllers.dashboardController().getErrorTabPane().setVisible(false);
                 });
                 contextMenu.getItems().add(run);
             }
@@ -162,8 +163,6 @@ public class CodeRightClickManager extends Manager {
     }
 
     private void findInCodeGalaxy(Location location) {
-        DashboardController controller = (DashboardController) Window.getController(Window.WINDOW_DASHBOARD);
-
         String uri = location.getUri();
         int defLine = location.getRange().getStart().getLine();
         int defCharacter = location.getRange().getStart().getCharacter();
@@ -174,8 +173,7 @@ public class CodeRightClickManager extends Manager {
                 try {
                     // Convert URI to Path properly
                     Path filePath = Paths.get(URI.create(uri));
-                    controller.createTab(filePath);
-                    Tab tab = controller.getTabPane().getSelectionModel().getSelectedItem();
+                    Tab tab = TabManager.createTab(filePath);
                     CodeGalaxy content = (CodeGalaxy) tab.getContent();
                     content.requestFocus();
                     content.moveTo(defLine, defCharacter);

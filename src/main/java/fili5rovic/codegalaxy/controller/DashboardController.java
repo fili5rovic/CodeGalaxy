@@ -19,8 +19,6 @@ import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-import java.nio.file.Path;
-
 public class DashboardController extends ControllerBase {
 
     @FXML
@@ -186,10 +184,6 @@ public class DashboardController extends ControllerBase {
     private void updateInfoPaneVisibility() {
         boolean hasTabs = !tabPane.getTabs().isEmpty();
         infoPaneNoTabs.setVisible(!hasTabs);
-    }
-
-    public void createTab(Path filePath) {
-        TabManager.createTab(filePath);
     }
 
     public CodeGalaxy getCurrentOpenCodeGalaxy() {

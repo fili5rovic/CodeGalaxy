@@ -1,9 +1,9 @@
 package fili5rovic.codegalaxy.hierarchy;
 
 import fili5rovic.codegalaxy.codeRunner.CodeRunnerService;
-import fili5rovic.codegalaxy.controller.Controllers;
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.dashboardHelper.ProjectManager;
+import fili5rovic.codegalaxy.dashboardHelper.TabManager;
 import fili5rovic.codegalaxy.hierarchy.newfilepopup.listview.ItemEntry;
 import fili5rovic.codegalaxy.hierarchy.newfilepopup.listview.SuggestedJavaTypeListView;
 import fili5rovic.codegalaxy.util.FileHelper;
@@ -29,10 +29,7 @@ public class ContextMenuHelper {
 
     private final SuggestedJavaTypeListView listView;
 
-    private final DashboardController controller;
-
     public ContextMenuHelper() {
-        controller = Controllers.dashboardController();
         fileNameTextField = new TextField();
         VBox vbox = new VBox(fileNameTextField);
 
@@ -143,7 +140,7 @@ public class ContextMenuHelper {
                 Files.writeString(path, content);
             }
 
-            controller.createTab(path);
+            TabManager.createTab(path);
         }
         ProjectManager.reloadHierarchy(item);
         filePanePopup.hide();

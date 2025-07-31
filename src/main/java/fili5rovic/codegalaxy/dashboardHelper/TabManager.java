@@ -15,18 +15,19 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 
 import java.nio.file.Path;
 
 public class TabManager {
 
-    public static void createTab(Path filePath) {
+    public static Tab createTab(Path filePath) {
         TabPane tabPane = Controllers.dashboardController().getTabPane();
         for (Tab tab : tabPane.getTabs()) {
             if (tab.getId().equals(filePath.toString())) {
                 tabPane.getSelectionModel().select(tab);
-                return;
+                return tab;
             }
         }
         CodeGalaxy codeGalaxy = new CodeGalaxy(filePath);
@@ -53,12 +54,12 @@ public class TabManager {
                 Controllers.dashboardController().getDisplayErrorsHandler().displayErrors();
             }
         });
-
         tabPane.getTabs().add(tab);
         tabPane.getSelectionModel().selectLast();
-
         AnimUtil.animateTabBorder(tab);
+        return tab;
     }
+
 
     private static void makeTabGraphic(Path filePath, Tab tab) {
         ImageView icon = SVGUtil.getIconByPath(filePath, 16, 0);
@@ -75,6 +76,47 @@ public class TabManager {
             if (tabPane != null) {
                 tabPane.getTabs().remove(tab);
                 closedTab(filePath);
+            }
+        });
+        button.setVisible(false);
+
+        HBox hbox = new HBox(icon, label, button);
+        hbox.setOnMouseEntered(TabManager::onMouseEnter);
+        hbox.setOnMouseExited(TabManager::onMouseExit);
+        hbox.setOnMouseClicked(e -> onMouseClicked(e, tab));
+        hbox.setSpacing(5);
+        hbox.setAlignment(Pos.CENTER_LEFT);
+        tab.setGraphic(hbox);
+
+
+    }
+
+    public static void createTab(Pane pane, String title) {
+        TabPane tabPane = Controllers.dashboardController().getTabPane();
+        Tab tab = new Tab();
+        tab.setContent(pane);
+        tab.setClosable(false);
+        tabPane.getTabs().add(tab);
+        tabPane.getSelectionModel().selectLast();
+        makeTabGraphic(tab, SVGUtil.getIcon("file", 16), title);
+        tabPane.getTabs().add(tab);
+        tabPane.getSelectionModel().selectLast();
+
+        AnimUtil.animateTabBorder(tab);
+    }
+
+    private static void makeTabGraphic(Tab tab, ImageView icon, String title) {
+        Label label = new Label(title);
+        label.getStyleClass().clear();
+        label.getStyleClass().add("tab-label");
+        Button button = new Button("✕");
+        button.setFont(new Font(10));
+        button.getStyleClass().clear();
+        button.getStyleClass().add("tab-close-button");
+        button.setOnAction(_ -> {
+            TabPane tabPane = tab.getTabPane();
+            if (tabPane != null) {
+                tabPane.getTabs().remove(tab);
             }
         });
         button.setVisible(false);
@@ -104,6 +146,7 @@ public class TabManager {
             }
         }
     }
+
     private static void onMouseClicked(MouseEvent e, Tab tab) {
         if (e.getButton() == MouseButton.MIDDLE) {
             tab.getTabPane().getTabs().remove(tab);

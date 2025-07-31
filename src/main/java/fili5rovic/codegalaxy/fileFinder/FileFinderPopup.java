@@ -1,10 +1,9 @@
 package fili5rovic.codegalaxy.fileFinder;
 
-import fili5rovic.codegalaxy.controller.DashboardController;
+import fili5rovic.codegalaxy.dashboardHelper.TabManager;
 import fili5rovic.codegalaxy.util.CSSUtil;
 import fili5rovic.codegalaxy.util.FileHelper;
 import fili5rovic.codegalaxy.util.MetaDataHelper;
-import fili5rovic.codegalaxy.window.Window;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -83,12 +82,10 @@ public class FileFinderPopup extends Popup {
     }
 
     private void listener() {
-        DashboardController dashboardController = ((DashboardController) Window.getController(Window.WINDOW_DASHBOARD));
-
         listView.setOnMouseClicked(_ -> {
             FileItem selectedItem = listView.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
-                dashboardController.createTab(selectedItem.getFilePath());
+                TabManager.createTab(selectedItem.getFilePath());
                 listView.getSelectionModel().clearSelection();
                 hide();
             }
@@ -101,7 +98,7 @@ public class FileFinderPopup extends Popup {
                 return;
 
             FileItem selectedItem = listView.getItems().getFirst();
-            dashboardController.createTab(selectedItem.getFilePath());
+            TabManager.createTab(selectedItem.getFilePath());
             hide();
 
             event.consume();

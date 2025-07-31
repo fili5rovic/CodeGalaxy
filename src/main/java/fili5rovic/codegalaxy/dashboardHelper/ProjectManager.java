@@ -149,7 +149,7 @@ public class ProjectManager {
         for (String filePath : recentFiles) {
             Path path = lastProjectPathFile.resolve(Path.of(filePath));
             if (path.toFile().exists()) {
-                Controllers.dashboardController().createTab(path);
+                TabManager.createTab(path);
             }
         }
 
