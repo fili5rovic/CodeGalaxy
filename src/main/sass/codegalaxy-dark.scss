@@ -1,2 +1,2 @@
-$theme: 'dark';
 @import 'shared/codegalaxy';
+@include codegalaxy-theme('dark');

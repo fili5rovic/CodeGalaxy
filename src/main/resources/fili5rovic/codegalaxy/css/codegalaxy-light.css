@@ -1,3 +1,81 @@
+.codegalaxy-dark .styled-text-area {
+  -fx-font-size: 24px;
+  -fx-background-color: #1e1e1e; }
+  .codegalaxy-dark .styled-text-area .caret {
+    -fx-stroke: white; }
+
+.codegalaxy-dark .main-selection {
+  -fx-fill: #696969; }
+
+.codegalaxy-dark .line-highlighter {
+  -fx-fill: #363636; }
+
+.codegalaxy-dark .line-number-text {
+  -fx-fill: #e0e0e0; }
+
+.codegalaxy-dark .line-number-box {
+  -fx-background-color: #1e1e1e;
+  -fx-border-color: #363636;
+  -fx-border-width: 0 1 0 0; }
+
+.codegalaxy-dark .text-flow .text {
+  -fx-fill: #e0e0e0; }
+
+.codegalaxy-dark .error-line-number {
+  -fx-background-color: #2d2d2d; }
+
+.codegalaxy-dark .error-indicator {
+  -fx-background-radius: 8;
+  -fx-border-radius: 8; }
+  .codegalaxy-dark .error-indicator.error {
+    -fx-background-color: #ff4444; }
+  .codegalaxy-dark .error-indicator.warning {
+    -fx-background-color: #ffaa00; }
+  .codegalaxy-dark .error-indicator.info {
+    -fx-background-color: #4444ff; }
+
+.codegalaxy-dark .paragraph-text {
+  -fx-tab-size: 4; }
+
+.codegalaxy-light .styled-text-area {
+  -fx-font-size: 24px;
+  -fx-background-color: #ffffff; }
+  .codegalaxy-light .styled-text-area .caret {
+    -fx-stroke: black; }
+
+.codegalaxy-light .main-selection {
+  -fx-fill: #b0b0b0; }
+
+.codegalaxy-light .line-highlighter {
+  -fx-fill: #e0e0e0; }
+
+.codegalaxy-light .line-number-text {
+  -fx-fill: #333333; }
+
+.codegalaxy-light .line-number-box {
+  -fx-background-color: #ffffff;
+  -fx-border-color: #979797;
+  -fx-border-width: 0 1 0 0; }
+
+.codegalaxy-light .text-flow .text {
+  -fx-fill: #333333; }
+
+.codegalaxy-light .error-line-number {
+  -fx-background-color: #f0f0f0; }
+
+.codegalaxy-light .error-indicator {
+  -fx-background-radius: 8;
+  -fx-border-radius: 8; }
+  .codegalaxy-light .error-indicator.error {
+    -fx-background-color: #ff4444; }
+  .codegalaxy-light .error-indicator.warning {
+    -fx-background-color: #ffaa00; }
+  .codegalaxy-light .error-indicator.info {
+    -fx-background-color: #4444ff; }
+
+.codegalaxy-light .paragraph-text {
+  -fx-tab-size: 4; }
+
 .styled-text-area {
   -fx-font-size: 24px;
   -fx-background-color: #ffffff; }
@@ -8,10 +86,10 @@
   -fx-fill: #b0b0b0; }
 
 .line-highlighter {
-  -fx-fill: #d0d0d0; }
+  -fx-fill: #e0e0e0; }
 
 .line-number-text {
-  -fx-fill: #373737; }
+  -fx-fill: #333333; }
 
 .line-number-box {
   -fx-background-color: #ffffff;
@@ -20,6 +98,19 @@
 
 .text-flow .text {
   -fx-fill: #333333; }
+
+.error-line-number {
+  -fx-background-color: #f0f0f0; }
+
+.error-indicator {
+  -fx-background-radius: 8;
+  -fx-border-radius: 8; }
+  .error-indicator.error {
+    -fx-background-color: #ff4444; }
+  .error-indicator.warning {
+    -fx-background-color: #ffaa00; }
+  .error-indicator.info {
+    -fx-background-color: #4444ff; }
 
 .paragraph-text {
   -fx-tab-size: 4; }
