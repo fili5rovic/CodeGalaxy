@@ -1,26 +1,20 @@
-// _codegalaxy.scss - Unified theme system
 @mixin codegalaxy-theme($theme) {
-  // First define ALL variables with default values
-  $background-dark: #ffffff !default; // Light theme default
-  $background-medium: #f0f0f0 !default;
-  $background-light: #e0e0e0 !default;
-  $text-primary: #333333 !default;
-  $text-secondary: #b0b0b0 !default;
-  $text-white: black !default;
-  $border-color: #979797 !default;
+  $bg-dark: #1e1e1e;
+  $bg-main: #2d2d2d;
+  $bg-light: #363636;
+  $text-primary: #e0e0e0;
+  $text-secondary: #696969;
+  $border-color: #363636;
 
-  // Then override for dark theme
-  @if $theme == 'dark' {
-    $background-dark: #1e1e1e;
-    $background-medium: #2d2d2d;
-    $background-light: #363636;
-    $text-primary: #e0e0e0;
-    $text-secondary: #696969;
-    $text-white: white;
-    $border-color: #363636;
+  @if $theme == 'light' {
+    $bg-dark: #ffffff;
+    $bg-main: #f0f0f0;
+    $bg-light: #e0e0e0;
+    $text-primary: #333333;
+    $text-secondary: #b0b0b0;
+    $border-color: #979797;
   }
 
-  // Common variables (not theme-specific)
   $font-size-large: 24px;
   $border-radius: 8;
   $tab-size: 4;
@@ -28,13 +22,12 @@
   $warning-color: #ffaa00;
   $info-color: #4444ff;
 
-  // All style rules
   .styled-text-area {
     -fx-font-size: $font-size-large;
-    -fx-background-color: $background-dark;
+    -fx-background-color: $bg-dark;
 
     .caret {
-      -fx-stroke: $text-white;
+      -fx-stroke: $text-primary;
     }
   }
 
@@ -43,7 +36,7 @@
   }
 
   .line-highlighter {
-    -fx-fill: $background-light;
+    -fx-fill: $bg-light;
   }
 
   .line-number-text {
@@ -51,7 +44,7 @@
   }
 
   .line-number-box {
-    -fx-background-color: $background-dark;
+    -fx-background-color: $bg-dark;
     -fx-border-color: $border-color;
     -fx-border-width: 0 1 0 0;
   }
@@ -63,7 +56,7 @@
   }
 
   .error-line-number {
-    -fx-background-color: $background-medium;
+    -fx-background-color: $bg-main;
   }
 
   .error-indicator {
@@ -86,14 +79,4 @@
   .paragraph-text {
     -fx-tab-size: $tab-size;
   }
-}
-
-// Generate dark theme
-.codegalaxy-dark {
-  @include codegalaxy-theme('dark');
-}
-
-// Generate light theme
-.codegalaxy-light {
-  @include codegalaxy-theme('light');
 }
