@@ -1,0 +1,125 @@
+$theme: 'dark' !default;
+
+$font-size-large: 24px;
+$border-radius: 8;
+$tab-size: 4;
+
+$error-color: #ff4444;
+$warning-color: #ffaa00;
+$info-color: #4444ff;
+
+@if $theme == 'dark' {
+  $background-dark: #1e1e1e;
+  $background-medium: #2d2d2d;
+  $background-light: #363636;
+  $text-primary: #e0e0e0;
+  $text-secondary: #696969;
+  $text-white: white;
+  $border-color: #363636;
+
+  .styled-text-area {
+    -fx-font-size: $font-size-large;
+    -fx-background-color: $background-dark;
+
+    .caret {
+      -fx-stroke: $text-white;
+    }
+  }
+
+  .main-selection {
+    -fx-fill: $text-secondary;
+  }
+
+  .line-highlighter {
+    -fx-fill: $background-light;
+  }
+
+  .line-number-text {
+    -fx-fill: $text-primary;
+  }
+
+  .line-number-box {
+    -fx-background-color: $background-dark;
+    -fx-border-color: $border-color;
+    -fx-border-width: 0 1 0 0;
+  }
+
+  .text-flow {
+    .text {
+      -fx-fill: $text-primary;
+    }
+  }
+
+  .error-line-number {
+    -fx-background-color: $background-medium;
+  }
+
+  .error-indicator {
+    -fx-background-radius: $border-radius;
+    -fx-border-radius: $border-radius;
+
+    &.error {
+      -fx-background-color: $error-color;
+    }
+
+    &.warning {
+      -fx-background-color: $warning-color;
+    }
+
+    &.info {
+      -fx-background-color: $info-color;
+    }
+  }
+
+  // Changes TAB in CodeArea, should be in separate css for changing
+  .paragraph-text {
+    -fx-tab-size: $tab-size;
+  }
+}
+
+@if $theme == 'light' {
+  $background-dark: #ffffff;
+  $text-primary: #333333;
+  $text-secondary: #b0b0b0;
+  $text-white: black;
+  $line-number-text: #373737;
+  $line-highlighter: #d0d0d0;
+  $border-color: #979797;
+
+  .styled-text-area {
+    -fx-font-size: $font-size-large;
+    -fx-background-color: $background-dark;
+
+    .caret {
+      -fx-stroke: $text-white;
+    }
+  }
+
+  .main-selection {
+    -fx-fill: $text-secondary;
+  }
+
+  .line-highlighter {
+    -fx-fill: $line-highlighter;
+  }
+
+  .line-number-text {
+    -fx-fill: $line-number-text;
+  }
+
+  .line-number-box {
+    -fx-background-color: $background-dark;
+    -fx-border-color: $border-color;
+    -fx-border-width: 0 1 0 0;
+  }
+
+  .text-flow {
+    .text {
+      -fx-fill: $text-primary;
+    }
+  }
+
+  .paragraph-text {
+    -fx-tab-size: $tab-size;
+  }
+}

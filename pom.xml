@@ -139,6 +139,25 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>com.gitlab.haynes</groupId>
+                <artifactId>libsass-maven-plugin</artifactId>
+                <version>0.3.4</version>
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <inputPath>${basedir}/src/main/sass/</inputPath>
+                    <outputPath>${basedir}/src/main/resources/fili5rovic/codegalaxy/css/</outputPath>
+                    <includePath>${basedir}/src/main/sass/plugins/</includePath>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 </project>

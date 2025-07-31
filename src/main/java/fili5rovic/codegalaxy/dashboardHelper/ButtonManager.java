@@ -9,6 +9,8 @@ import fili5rovic.codegalaxy.util.FileHelper;
 import fili5rovic.codegalaxy.vcs.GitUtil;
 import fili5rovic.codegalaxy.vcs.treeView.GitHierarchy;
 import fili5rovic.codegalaxy.window.Window;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -26,6 +28,14 @@ public class ButtonManager {
 
     private static void buttonActions() {
         controller.getInitRepoBtn().setOnAction(_ -> initRepoBtn());
+
+        controller.getEditConfigurationsBtn().setOnAction(_ -> {
+            BorderPane configurationsPane = new BorderPane();
+            configurationsPane.setCenter(new Label("Test"));
+
+            TabManager.createTab(configurationsPane, "Configurations");
+
+        });
 
         controller.getCommitBtn().setOnAction(_ -> {
             String commitMsg = controller.getCommitMsg().getText();

@@ -1,48 +1,27 @@
-.root {
-    -fx-background-color: #f0f0f0;
-}
-
 .styled-text-area {
-    -fx-font-size: 24px;
-    -fx-background-color: #ffffff;
-}
-
-.styled-text-area .text {
-    /*-fx-font-family: "JetBrains Mono Medium";*/
-}
-
-.styled-text-area .caret {
-    -fx-stroke: black;
-}
+  -fx-font-size: 24px;
+  -fx-background-color: #ffffff; }
+  .styled-text-area .caret {
+    -fx-stroke: black; }
 
 .main-selection {
-    -fx-fill: #b0b0b0;
-}
+  -fx-fill: #b0b0b0; }
 
 .line-highlighter {
-    -fx-fill: #d0d0d0;
-}
-
-/*.lineno {*/
-/*    -fx-text-fill: #505050;*/
-/*    -fx-font-size: 24px;*/
-/*    -fx-background-color: #ffffff;*/
-/*}*/
+  -fx-fill: #d0d0d0; }
 
 .line-number-text {
-    -fx-fill: #373737;
-}
+  -fx-fill: #373737; }
 
 .line-number-box {
-    -fx-background-color: #ffffff;
-    -fx-border-color: #979797;
-    -fx-border-width: 0 1 0 0;
-}
+  -fx-background-color: #ffffff;
+  -fx-border-color: #979797;
+  -fx-border-width: 0 1 0 0; }
 
 .text-flow .text {
-    -fx-fill: #333333;
-}
+  -fx-fill: #333333; }
 
 .paragraph-text {
-    -fx-tab-size: 4;
-}
+  -fx-tab-size: 4; }
+
+/*# sourceMappingURL=../../../../../../target/codegalaxy-light.css.map */

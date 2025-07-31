@@ -1,79 +1,40 @@
-.root {
-    -fx-background-color: #2e2e2e;
-}
-
 .styled-text-area {
-    -fx-font-size: 24px;
-    -fx-background-color: #1e1e1e;
-}
-
-.styled-text-area .text {
-    /*-fx-font-family: "JetBrains Mono Medium"; !*OS font*!*/
-    /*-fx-font-family: "Consolas";*/
-}
-
-.styled-text-area .caret {
-    -fx-stroke: white;
-}
+  -fx-font-size: 24px;
+  -fx-background-color: #1e1e1e; }
+  .styled-text-area .caret {
+    -fx-stroke: white; }
 
 .main-selection {
-    -fx-fill: #696969
-}
+  -fx-fill: #696969; }
 
 .line-highlighter {
-    -fx-fill: #363636
-}
-
-/*.lineno {*/
-/*    -fx-text-fill: #707070;*/
-/*    -fx-font-size: 24px;*/
-/*    -fx-background-color: #1e1e1e;*/
-/*}*/
+  -fx-fill: #363636; }
 
 .line-number-text {
-    -fx-fill: #e0e0e0;
-}
+  -fx-fill: #e0e0e0; }
 
 .line-number-box {
-    -fx-background-color: #1e1e1e;
-    -fx-border-color: #363636;
-    -fx-border-width: 0 1 0 0;
-}
+  -fx-background-color: #1e1e1e;
+  -fx-border-color: #363636;
+  -fx-border-width: 0 1 0 0; }
 
 .text-flow .text {
-    -fx-fill: #e0e0e0;
-}
-
+  -fx-fill: #e0e0e0; }
 
 .error-line-number {
-    -fx-background-color: #2d2d2d;
-}
+  -fx-background-color: #2d2d2d; }
 
 .error-indicator {
-    -fx-background-radius: 8;
-    -fx-border-radius: 8;
-}
+  -fx-background-radius: 8;
+  -fx-border-radius: 8; }
+  .error-indicator.error {
+    -fx-background-color: #ff4444; }
+  .error-indicator.warning {
+    -fx-background-color: #ffaa00; }
+  .error-indicator.info {
+    -fx-background-color: #4444ff; }
 
-.error-indicator.error {
-    -fx-background-color: #ff4444;
-}
-
-.error-indicator.warning {
-    -fx-background-color: #ffaa00;
-}
-
-.error-indicator.info {
-    -fx-background-color: #4444ff;
-}
-
-/*changes TAB in CodeArea, should be in separate css for changing*/
 .paragraph-text {
-    -fx-tab-size: 4;
-}
+  -fx-tab-size: 4; }
 
-
-
-
-
-
-
+/*# sourceMappingURL=../../../../../../target/codegalaxy-dark.css.map */

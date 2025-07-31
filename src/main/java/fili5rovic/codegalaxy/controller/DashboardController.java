@@ -112,6 +112,9 @@ public class DashboardController extends ControllerBase {
     private TextArea commitMsg;
 
     @FXML
+    private Button editConfigurationsBtn;
+
+    @FXML
     private VBox notificationVBox;
 
     private DisplayErrorsHandler displayErrorsHandler;
@@ -346,6 +349,10 @@ public class DashboardController extends ControllerBase {
 
     public BorderPane getGitTreeViewPane() {
         return gitTreeViewPane;
+    }
+
+    public Button getEditConfigurationsBtn() {
+        return editConfigurationsBtn;
     }
 
 

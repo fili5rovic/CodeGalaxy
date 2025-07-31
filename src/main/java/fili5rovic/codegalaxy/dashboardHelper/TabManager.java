@@ -60,6 +60,17 @@ public class TabManager {
         return tab;
     }
 
+    public static void createTab(Pane pane, String title) {
+        TabPane tabPane = Controllers.dashboardController().getTabPane();
+        Tab tab = new Tab();
+        makeTabGraphic(tab, SVGUtil.getUI("settings", 16), title);
+        tab.setContent(pane);
+        tab.setClosable(false);
+        tabPane.getTabs().add(tab);
+        tabPane.getSelectionModel().selectLast();
+        AnimUtil.animateTabBorder(tab);
+    }
+
 
     private static void makeTabGraphic(Path filePath, Tab tab) {
         ImageView icon = SVGUtil.getIconByPath(filePath, 16, 0);
@@ -87,23 +98,9 @@ public class TabManager {
         hbox.setSpacing(5);
         hbox.setAlignment(Pos.CENTER_LEFT);
         tab.setGraphic(hbox);
-
-
     }
 
-    public static void createTab(Pane pane, String title) {
-        TabPane tabPane = Controllers.dashboardController().getTabPane();
-        Tab tab = new Tab();
-        tab.setContent(pane);
-        tab.setClosable(false);
-        tabPane.getTabs().add(tab);
-        tabPane.getSelectionModel().selectLast();
-        makeTabGraphic(tab, SVGUtil.getIcon("file", 16), title);
-        tabPane.getTabs().add(tab);
-        tabPane.getSelectionModel().selectLast();
 
-        AnimUtil.animateTabBorder(tab);
-    }
 
     private static void makeTabGraphic(Tab tab, ImageView icon, String title) {
         Label label = new Label(title);
@@ -150,7 +147,8 @@ public class TabManager {
     private static void onMouseClicked(MouseEvent e, Tab tab) {
         if (e.getButton() == MouseButton.MIDDLE) {
             tab.getTabPane().getTabs().remove(tab);
-            closedTab(((CodeGalaxy) tab.getContent()).getFilePath());
+            if(tab.getContent() instanceof CodeGalaxy codeGalaxy)
+                closedTab(codeGalaxy.getFilePath());
         }
     }
 

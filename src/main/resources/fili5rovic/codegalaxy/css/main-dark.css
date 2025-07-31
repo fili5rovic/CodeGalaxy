@@ -1,8 +1,6 @@
-/*-fx-color1: #252525;*/
-/*-fx-color2: #444;*/
-/*-fx-color3: #ddd;*/
-/*-fx-color4: #5b2a98;*/
-/*-fx-color-darkest: #222222;*/
+.root {
+    -fx-background-color: #252525;
+}
 
 .dark-background {
     -fx-background-color: #1e1e1e;
