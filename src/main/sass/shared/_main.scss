@@ -139,6 +139,7 @@
   }
 
 
+
   .radio-button {
     -fx-text-fill: $text-primary;
 
@@ -380,7 +381,6 @@
   }
 
 
-
   .tab-pane .tab {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
@@ -615,6 +615,60 @@
 
   .project-item-error {
     -fx-text-fill: $error;
+  }
+
+  .choice-box {
+    -fx-background-color: $bg-main;
+    -fx-text-fill: $text-secondary;
+    -fx-border-color: $bg-lightest;
+    -fx-border-width: 1px;
+    -fx-padding: 1px 5px;
+    -fx-background-radius: 4px;
+
+    .arrow {
+      -fx-shape: "M 8,0 A 8,8 0 1,0 7.99,0 Z";
+      -fx-background-color: $text-secondary;
+      -fx-padding: 2px;
+    }
+
+    .arrow-button {
+      -fx-background-color: transparent;
+      -fx-text-fill: $text-secondary;
+      -fx-padding: 0 5px;
+      -fx-max-width: 0px;
+      -fx-max-height: 0px;
+    }
+
+    .radio-menu-item > .left-container > .radio {
+      -fx-shape: null;
+    }
+
+    .list-view {
+      -fx-background-color: $bg-main;
+      -fx-control-inner-background: $bg-main;
+      -fx-border-color: $bg-lightest;
+      -fx-border-width: 1px;
+      -fx-padding: 0;
+    }
+
+    .list-cell {
+      -fx-text-fill: $text-primary;
+      -fx-padding: 6 10;
+      -fx-background-color: transparent;
+
+      &:hover {
+        -fx-background-color: $bg-lightest;
+      }
+
+      &:selected {
+        -fx-background-color: $bg-lightest;
+        -fx-text-fill: $text-primary;
+      }
+    }
+
+    .list-cell:empty:hover {
+      -fx-background-color: transparent;
+    }
   }
 
   .progress-notification-popup {

@@ -435,6 +435,47 @@
 .project-item-error {
   -fx-text-fill: #f44336; }
 
+.choice-box {
+  -fx-background-color: #ffffff;
+  -fx-text-fill: #616161;
+  -fx-border-color: #bdbdbd;
+  -fx-border-width: 1px;
+  -fx-padding: 1px 5px;
+  -fx-background-radius: 4px; }
+  .choice-box .arrow {
+    -fx-shape: "M 8,0 A 8,8 0 1,0 7.99,0 Z";
+    -fx-background-color: #616161;
+    -fx-padding: 2px; }
+  .choice-box .arrow-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #616161;
+    -fx-padding: 0 5px;
+    -fx-max-width: 0px;
+    -fx-max-height: 0px; }
+  .choice-box .radio-menu-item > .left-container > .radio {
+    -fx-shape: null; }
+  .choice-box .context-menu .check-mark {
+    -fx-shape: "M 8,0 A 8,8 0 1,0 7.99,0 Z";
+    -fx-background-color: gray;
+    -fx-padding: 3px; }
+  .choice-box .list-view {
+    -fx-background-color: #ffffff;
+    -fx-control-inner-background: #ffffff;
+    -fx-border-color: #bdbdbd;
+    -fx-border-width: 1px;
+    -fx-padding: 0; }
+  .choice-box .list-cell {
+    -fx-text-fill: #212121;
+    -fx-padding: 6 10;
+    -fx-background-color: transparent; }
+    .choice-box .list-cell:hover {
+      -fx-background-color: #bdbdbd; }
+    .choice-box .list-cell:selected {
+      -fx-background-color: #bdbdbd;
+      -fx-text-fill: #212121; }
+  .choice-box .list-cell:empty:hover {
+    -fx-background-color: transparent; }
+
 .progress-notification-popup {
   -fx-background-color: #e0e0e0;
   -fx-background-radius: 12px;

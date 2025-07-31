@@ -45,8 +45,6 @@ public class ContextMenuHelper {
                 e.consume();
             }
         });
-
-
     }
 
     public ArrayList<MenuItem> createMenuItems(ArrayList<ProjectItem> items) {
