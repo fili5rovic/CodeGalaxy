@@ -19,6 +19,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 
 import java.nio.file.Path;
+import java.util.Objects;
 
 public class TabManager {
 
@@ -62,7 +63,16 @@ public class TabManager {
 
     public static void createTab(Pane pane, String title) {
         TabPane tabPane = Controllers.dashboardController().getTabPane();
+
+        for (Tab tab : tabPane.getTabs()) {
+            if (title.equals(tab.getId())) {
+                tabPane.getSelectionModel().select(tab);
+                return;
+            }
+        }
+
         Tab tab = new Tab();
+        tab.setId(title);
         makeTabGraphic(tab, SVGUtil.getUI("settings", 16), title);
         tab.setContent(pane);
         tab.setClosable(false);
