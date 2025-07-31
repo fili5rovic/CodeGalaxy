@@ -238,11 +238,6 @@
 .no-background .tab-header-area .tab-header-background {
   -fx-background-color: transparent; }
 
-.tab-pane .tab:selected {
-  -fx-background-color: #ffffff;
-  -fx-border-color: #5b2a98;
-  -fx-border-width: 0 0 2 0; }
-
 .tab-pane .tab {
   -fx-background-color: transparent;
   -fx-border-color: transparent;
@@ -251,6 +246,11 @@
   -fx-min-height: -1;
   -fx-max-height: Infinity;
   -fx-pref-height: -1; }
+
+.tab-pane .tab:selected {
+  -fx-background-color: #bdbdbd;
+  -fx-border-color: #5b2a98;
+  -fx-border-width: 0 0 2 0; }
 
 .tab-pane .tab .tab-label {
   -fx-alignment: CENTER;

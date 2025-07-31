@@ -117,6 +117,9 @@ public class DashboardController extends ControllerBase {
     @FXML
     private VBox notificationVBox;
 
+    @FXML
+    private Button runBtn;
+
     private DisplayErrorsHandler displayErrorsHandler;
     private LSPDownloadManager lspDownloadManager;
 
@@ -353,6 +356,10 @@ public class DashboardController extends ControllerBase {
 
     public Button getEditConfigurationsBtn() {
         return editConfigurationsBtn;
+    }
+
+    public Button getRunBtn() {
+        return runBtn;
     }
 
 

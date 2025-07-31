@@ -24,9 +24,22 @@ public class ProjectSettingsUtil {
                 JsonUtil.writeJson(vcsFile, new VcsSettings());
             }
 
+            Path runConfigFile = settingsDir.resolve("runConfigurations.json");
+            if (Files.notExists(runConfigFile)) {
+                Files.createFile(runConfigFile);
+            }
+
         } catch (IOException e) {
             System.err.println("Failed to create .codegalaxy project settings: " + e.getMessage());
         }
+    }
+
+    public static Path getSettingsDir() {
+        String lastProjectPath = IDESettings.getRecentInstance().get("lastProjectPath");
+        if (lastProjectPath == null || lastProjectPath.isEmpty()) {
+            throw new IllegalStateException("No last project path set");
+        }
+        return Path.of(lastProjectPath).resolve(".codegalaxy");
     }
 
     public static void setVCSRepoPath(String repositoryPath) {

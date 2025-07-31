@@ -1,7 +1,6 @@
 package fili5rovic.codegalaxy.projectSettings;
 
 import fili5rovic.codegalaxy.projectSettings.dataclass.VcsSettings;
-import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.util.JsonUtil;
 
 import java.io.IOException;
@@ -9,16 +8,8 @@ import java.nio.file.Path;
 
 public class VCSUtil {
 
-    private static Path getSettingsDir() {
-        String lastProjectPath = IDESettings.getRecentInstance().get("lastProjectPath");
-        if (lastProjectPath == null || lastProjectPath.isEmpty()) {
-            throw new IllegalStateException("No last project path set");
-        }
-        return Path.of(lastProjectPath).resolve(".codegalaxy");
-    }
-
     private static Path getVcsFilePath() {
-        return getSettingsDir().resolve("vcs.json");
+        return ProjectSettingsUtil.getSettingsDir().resolve("vcs.json");
     }
 
     public static VcsSettings readVcsSettings() throws IOException {

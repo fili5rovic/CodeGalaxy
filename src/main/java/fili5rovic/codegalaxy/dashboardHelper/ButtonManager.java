@@ -10,8 +10,6 @@ import fili5rovic.codegalaxy.util.SVGUtil;
 import fili5rovic.codegalaxy.vcs.GitUtil;
 import fili5rovic.codegalaxy.vcs.treeView.GitHierarchy;
 import fili5rovic.codegalaxy.window.Window;
-import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -30,12 +28,7 @@ public class ButtonManager {
     private static void buttonActions() {
         controller.getInitRepoBtn().setOnAction(_ -> initRepoBtn());
 
-        controller.getEditConfigurationsBtn().setOnAction(_ -> {
-            BorderPane configurationsPane = new BorderPane();
-            configurationsPane.setCenter(new Label("Test"));
-
-            TabManager.createTab(configurationsPane, "Configurations");
-        });
+        controller.getEditConfigurationsBtn().setOnAction(_ -> EditConfigurationsManager.openEditConfigurations());
 
         controller.getCommitBtn().setOnAction(_ -> {
             String commitMsg = controller.getCommitMsg().getText();
@@ -95,11 +88,11 @@ public class ButtonManager {
         controller.getGitBorderPane().setVisible(true);
 
         GitUtil.instance().updateHierarchy();
-
     }
 
     private static void buttonIcons() {
         controller.getEditConfigurationsBtn().setGraphic(SVGUtil.getUI("settings", 20));
+        controller.getRunBtn().setGraphic(SVGUtil.getUI("runBtn1", 24));
 
     }
 }

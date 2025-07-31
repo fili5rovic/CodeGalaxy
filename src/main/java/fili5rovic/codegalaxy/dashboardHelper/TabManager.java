@@ -19,7 +19,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 
 import java.nio.file.Path;
-import java.util.Objects;
 
 public class TabManager {
 
