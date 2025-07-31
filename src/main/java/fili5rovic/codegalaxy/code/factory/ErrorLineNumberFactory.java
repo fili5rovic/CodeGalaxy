@@ -130,7 +130,7 @@ public class ErrorLineNumberFactory implements IntFunction<Node>, DiagnosticsLis
         }
 
         int iconSize = Math.max(MIN_ICON_SIZE, indicatorSize - ICON_SIZE_REDUCTION);
-        indicator.setGraphic(SVGUtil.getIcon(iconType, iconSize, iconSize));
+        indicator.setGraphic(SVGUtil.getIcon(iconType, iconSize));
 
         if (tooltipText != null && !tooltipText.isEmpty()) {
             Tooltip tooltip = new Tooltip(tooltipText);

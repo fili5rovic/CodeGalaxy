@@ -53,17 +53,17 @@ public class MenuManager {
     }
 
     private static void menuIcons() {
-        controller.getOpen().setGraphic(SVGUtil.getUI("openProject", 16, 16));
-        controller.getSaveAll().setGraphic(SVGUtil.getUI("saveAll", 16, 16));
-        controller.getNewProject().setGraphic(SVGUtil.getUI("newProject", 16, 16));
-        controller.getUndo().setGraphic(SVGUtil.getUI("undo", 16, 16));
-        controller.getRedo().setGraphic(SVGUtil.getUI("redo", 16, 16));
-        controller.getCut().setGraphic(SVGUtil.getUI("cut", 16, 16));
-        controller.getCopy().setGraphic(SVGUtil.getUI("copy", 16, 16));
-        controller.getPaste().setGraphic(SVGUtil.getUI("paste", 16, 16));
-        controller.getDelete().setGraphic(SVGUtil.getUI("delete", 16, 16));
-        controller.getSelectAll().setGraphic(SVGUtil.getUI("selectAll", 16, 16));
-        controller.getSettings().setGraphic(SVGUtil.getUI("settings", 16, 16));
+        controller.getOpen().setGraphic(SVGUtil.getUI("openProject", 16));
+        controller.getSaveAll().setGraphic(SVGUtil.getUI("saveAll", 16));
+        controller.getNewProject().setGraphic(SVGUtil.getUI("newProject", 16));
+        controller.getUndo().setGraphic(SVGUtil.getUI("undo", 16));
+        controller.getRedo().setGraphic(SVGUtil.getUI("redo", 16));
+        controller.getCut().setGraphic(SVGUtil.getUI("cut", 16));
+        controller.getCopy().setGraphic(SVGUtil.getUI("copy", 16));
+        controller.getPaste().setGraphic(SVGUtil.getUI("paste", 16));
+        controller.getDelete().setGraphic(SVGUtil.getUI("delete", 16));
+        controller.getSelectAll().setGraphic(SVGUtil.getUI("selectAll", 16));
+        controller.getSettings().setGraphic(SVGUtil.getUI("settings", 16));
     }
 
     //<editor-fold desc="MenuActions">

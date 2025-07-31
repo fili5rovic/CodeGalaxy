@@ -80,8 +80,10 @@ class LSPRefactorManager {
             handleResourceOperation(op, controller);
         }
 
-        CodeGalaxy openCodeGalaxy = controller.getOpenCodeGalaxy();
-        LSP.instance().sendChange(openCodeGalaxy.getFilePath().toString(), openCodeGalaxy.getText());
+        CodeGalaxy openCodeGalaxy = controller.getCurrentOpenCodeGalaxy();
+        if(openCodeGalaxy != null) {
+            LSP.instance().sendChange(openCodeGalaxy.getFilePath().toString(), openCodeGalaxy.getText());
+        }
 
     }
 

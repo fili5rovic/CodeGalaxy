@@ -127,7 +127,7 @@ public class DashboardController extends ControllerBase {
 
         this.displayErrorsHandler = new DisplayErrorsHandler();
         this.displayErrorsHandler.init();
-        
+
         this.lspDownloadManager = new LSPDownloadManager();
     }
 
@@ -192,16 +192,19 @@ public class DashboardController extends ControllerBase {
         TabManager.createTab(filePath);
     }
 
-    public CodeGalaxy getOpenCodeGalaxy() {
-        if (tabPane.getSelectionModel().getSelectedItem() != null) {
-            return (CodeGalaxy) tabPane.getSelectionModel().getSelectedItem().getContent();
+    public CodeGalaxy getCurrentOpenCodeGalaxy() {
+        Tab selectedTab = tabPane.getSelectionModel().getSelectedItem();
+        if (selectedTab != null && selectedTab.getContent() instanceof CodeGalaxy codeGalaxy) {
+            return codeGalaxy;
         }
         return null;
     }
 
     public CodeGalaxy[] getOpenCodeGalaxies() {
         return tabPane.getTabs().stream()
-                .map(tab -> (CodeGalaxy) tab.getContent())
+                .map(Tab::getContent)
+                .filter(content -> content instanceof CodeGalaxy)
+                .map(content -> (CodeGalaxy) content)
                 .toArray(CodeGalaxy[]::new);
     }
 

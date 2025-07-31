@@ -203,7 +203,7 @@
             <children>
                 <VBox prefHeight="63.0" prefWidth="21.0" AnchorPane.bottomAnchor="602.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <ToggleButton fx:id="showHierarchyToggle" maxHeight="25.0" minHeight="17.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="21.0">
+                        <ToggleButton fx:id="showHierarchyToggle" maxHeight="25.0" minHeight="17.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="21.0" selected="true">
                             <toggleGroup>
                                 <ToggleGroup fx:id="left" />
                             </toggleGroup>

@@ -32,13 +32,13 @@ public class ErrorItem extends HBox {
         int column = range.getStart().getCharacter();
 
         setOnMouseClicked(_ -> {
-            CodeGalaxy codeGalaxy = Controllers.dashboardController().getOpenCodeGalaxy();
-            if(codeGalaxy == null)
+            CodeGalaxy openCodeGalaxy = Controllers.dashboardController().getCurrentOpenCodeGalaxy();
+            if(openCodeGalaxy == null)
                 return;
 
-            codeGalaxy.requestFocus();
-            codeGalaxy.moveTo(line, column);
-            codeGalaxy.requestFollowCaret();
+            openCodeGalaxy.requestFocus();
+            openCodeGalaxy.moveTo(line, column);
+            openCodeGalaxy.requestFollowCaret();
         });
 
     }
@@ -48,7 +48,7 @@ public class ErrorItem extends HBox {
         label.setFont(new Font(16));
 
         String type = diagnostic.getSeverity().toString().toLowerCase();
-        label.setGraphic(SVGUtil.getIcon(type, 16, 16));
+        label.setGraphic(SVGUtil.getIcon(type, 16));
 
         int line = range.getStart().getLine() + 1;
         Label lineNumberLabel = new Label(" :" + line);

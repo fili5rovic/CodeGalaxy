@@ -60,7 +60,7 @@ public class CodeRightClickManager extends Manager {
         if (codeGalaxy.getFilePath() != null && codeGalaxy.getFilePath().toString().endsWith(".java")) {
             if (JavaParserUtil.hasMainMethod(codeGalaxy.getFilePath().toFile())) {
                 MenuItem run = new MenuItem("Run");
-                run.setGraphic(SVGUtil.getEmoji("run", 16, 16));
+                run.setGraphic(SVGUtil.getEmoji("run", 16));
                 run.setOnAction(_ -> {
                     CodeRunnerService.runJava(codeGalaxy.getFilePath());
                     ((DashboardController) Window.getController(Window.WINDOW_DASHBOARD)).getErrorTabPane().setVisible(false);
@@ -72,21 +72,21 @@ public class CodeRightClickManager extends Manager {
         contextMenu.getItems().add(createGotoMenuItems());
 
         MenuItem copy = new MenuItem("Copy");
-        copy.setGraphic(SVGUtil.getUI("copy", 16, 16));
+        copy.setGraphic(SVGUtil.getUI("copy", 16));
         copy.setOnAction(_ -> {
             codeGalaxy.copy();
         });
         contextMenu.getItems().add(copy);
 
         MenuItem paste = new MenuItem("Paste");
-        paste.setGraphic(SVGUtil.getUI("paste", 16, 16));
+        paste.setGraphic(SVGUtil.getUI("paste", 16));
         paste.setOnAction(_ -> {
             codeGalaxy.paste();
         });
         contextMenu.getItems().add(paste);
 
         MenuItem cut = new MenuItem("Cut");
-        cut.setGraphic(SVGUtil.getUI("cut", 16, 16));
+        cut.setGraphic(SVGUtil.getUI("cut", 16));
         cut.setOnAction(_ -> {
             codeGalaxy.cut();
         });
@@ -101,7 +101,7 @@ public class CodeRightClickManager extends Manager {
         contextMenu.getItems().add(new SeparatorMenuItem());
 
         MenuItem format = new MenuItem("Format Code");
-        format.setGraphic(SVGUtil.getUI("format", 16, 16));
+        format.setGraphic(SVGUtil.getUI("format", 16));
         format.setOnAction(_ -> {
             codeGalaxy.format();
         });

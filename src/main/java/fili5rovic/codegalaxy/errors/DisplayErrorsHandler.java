@@ -1,5 +1,6 @@
 package fili5rovic.codegalaxy.errors;
 
+import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.controller.Controllers;
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.lsp.diagnostics.DiagnosticsListener;
@@ -34,10 +35,11 @@ public class DisplayErrorsHandler implements DiagnosticsListener {
     @Override
     public void onDiagnosticsUpdated(String uri, PublishDiagnosticsParams params) {
         paramsMap.put(uri, params);
-        if(controller == null || controller.getOpenCodeGalaxy() == null) {
+        CodeGalaxy openCodeGalaxy = controller.getCurrentOpenCodeGalaxy();
+        if(controller == null || openCodeGalaxy == null) {
             return;
         }
-        if (uri.equals(controller.getOpenCodeGalaxy().getFilePath().toUri().toString())) {
+        if (uri.equals(openCodeGalaxy.getFilePath().toUri().toString())) {
             Platform.runLater(this::displayErrors);
         }
     }
@@ -47,7 +49,12 @@ public class DisplayErrorsHandler implements DiagnosticsListener {
         errorVBox.getChildren().clear();
 
 
-        Path openedPath = controller.getOpenCodeGalaxy().getFilePath();
+        CodeGalaxy openCodeGalaxy = controller.getCurrentOpenCodeGalaxy();
+        if (openCodeGalaxy == null) {
+            errorVBox.getChildren().add(new Label("No file opened"));
+            return;
+        }
+        Path openedPath = openCodeGalaxy.getFilePath();
         if (openedPath == null) {
             errorVBox.getChildren().add(new Label("No file opened"));
             return;
@@ -74,7 +81,7 @@ public class DisplayErrorsHandler implements DiagnosticsListener {
         titleBox.setSpacing(10);
 
         Label fileLabel = new Label(filePath.getFileName().toString());
-        fileLabel.setGraphic(SVGUtil.getIconByPath(filePath, 20, 20, 0));
+        fileLabel.setGraphic(SVGUtil.getIconByPath(filePath, 20, 0));
         fileLabel.setFont(new Font(20));
 
         titleBox.getChildren().add(fileLabel);

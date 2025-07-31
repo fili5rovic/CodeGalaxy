@@ -53,7 +53,7 @@ public class ProjectItem extends TreeItem<Label> {
         Label label = getValue();
         int size = (int) Math.round(label.getFont().getSize());
         size += 4;
-        label.setGraphic(SVGUtil.getIconByPath(path, size, size, 0));
+        label.setGraphic(SVGUtil.getIconByPath(path, size, 0));
 
         if (errorFlag) {
             label.getStyleClass().add("project-item-error");

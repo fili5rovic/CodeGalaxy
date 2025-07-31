@@ -56,12 +56,12 @@ public class SuggestedJavaTypeListView extends ListView<ItemEntry> {
 
     private void data() {
         this.getItems().addAll(
-                new ItemEntry("Class", SVGUtil.getCompletionIcon("class", 16, 16)),
-                new ItemEntry("Interface", SVGUtil.getCompletionIcon("interface", 16, 16)),
-                new ItemEntry("Record", SVGUtil.getCompletionIcon("record", 16, 16)),
-                new ItemEntry("Enum", SVGUtil.getCompletionIcon("enum", 16, 16)),
-                new ItemEntry("Annotation", SVGUtil.getCompletionIcon("annotation", 16, 16)),
-                new ItemEntry("Exception", SVGUtil.getCompletionIcon("exception", 16, 16))
+                new ItemEntry("Class", SVGUtil.getCompletionIcon("class", 16)),
+                new ItemEntry("Interface", SVGUtil.getCompletionIcon("interface", 16)),
+                new ItemEntry("Record", SVGUtil.getCompletionIcon("record", 16)),
+                new ItemEntry("Enum", SVGUtil.getCompletionIcon("enum", 16)),
+                new ItemEntry("Annotation", SVGUtil.getCompletionIcon("annotation", 16)),
+                new ItemEntry("Exception", SVGUtil.getCompletionIcon("exception", 16))
         );
 
         getSelectionModel().selectFirst();

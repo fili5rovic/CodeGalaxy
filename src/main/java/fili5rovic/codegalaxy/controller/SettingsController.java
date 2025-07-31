@@ -99,7 +99,7 @@ public class SettingsController extends ControllerBase {
     }
 
     private void changeBtn(Button btn, String icons, String text) {
-        btn.setGraphic(icons.isEmpty() ? null : SVGUtil.getEmoji(icons, 16, 16));
+        btn.setGraphic(icons.isEmpty() ? null : SVGUtil.getEmoji(icons, 16));
         btn.setText(text);
     }
 

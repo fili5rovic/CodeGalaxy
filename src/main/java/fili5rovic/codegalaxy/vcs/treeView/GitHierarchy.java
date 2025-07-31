@@ -101,7 +101,7 @@ public class GitHierarchy extends TreeView<GitTreeItem> {
                     if (treeItem != null && treeItem.getParent() == tv.getRoot()) {
                         setGraphic(item.getToggle());
                     } else if (treeItem != null) {
-                        ImageView icon = SVGUtil.getIconByPath(item.getPath(), 20, 20, 2);
+                        ImageView icon = SVGUtil.getIconByPath(item.getPath(), 20, 2);
                         HBox hbox = new HBox(item.getToggle(), icon);
                         hbox.setSpacing(5);
                         setGraphic(hbox);

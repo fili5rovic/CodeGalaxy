@@ -63,7 +63,7 @@ public class LocationsPopup extends Popup {
             filenameLabel.getStyleClass().add("location-filename");
             filenameLabel.setMaxWidth(Double.MAX_VALUE);
             HBox.setHgrow(filenameLabel, Priority.ALWAYS);
-            filenameLabel.setGraphic(SVGUtil.getIconByPath(Path.of(uri), 14, 14, 0));
+            filenameLabel.setGraphic(SVGUtil.getIconByPath(Path.of(uri), 14, 0));
 
             Label lineLabel = new Label(":" + (line + 1));
             lineLabel.getStyleClass().add("location-line");

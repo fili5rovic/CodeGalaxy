@@ -21,7 +21,7 @@ public class SVGUtil {
     private static final String BASE_FOLDER = "fili5rovic/codegalaxy/svg/";
     private static final String DEFAULT_ICON_PATH = "tip.svg";
 
-    public static ImageView getIconByPath(Path path, double width, double height, int translateY) {
+    public static ImageView getIconByPath(Path path, double size, int translateY) {
         String iconName;
 
         if (Files.isDirectory(path)) {
@@ -47,23 +47,23 @@ public class SVGUtil {
             iconName = "file";
         }
 
-        return getSVG("hierarchy/" + iconName + ".svg", width, height, translateY);
+        return getSVG("hierarchy/" + iconName + ".svg", size, size, translateY);
     }
 
-    public static ImageView getUI(String name, double width, double height) {
-        return getSVG("ui/" + name + ".svg", width, height, 0);
+    public static ImageView getUI(String name, double size) {
+        return getSVG("ui/" + name + ".svg", size, size, 0);
     }
 
-    public static ImageView getEmoji(String name, double width, double height) {
-        return getSVG("emoji/" + name + ".svg", width, height, 0);
+    public static ImageView getEmoji(String name, double size) {
+        return getSVG("emoji/" + name + ".svg", size, size, 0);
     }
 
-    public static ImageView getIcon(String name, double width, double height) {
-        return getSVG("icon/" + name + ".svg", width, height, 0);
+    public static ImageView getIcon(String name, double size) {
+        return getSVG("icon/" + name + ".svg", size, size, 0);
     }
 
-    public static ImageView getCompletionIcon(String name, double width, double height) {
-        return getSVG("completion/" + name + ".svg", width, height, 2);
+    public static ImageView getCompletionIcon(String name, double size) {
+        return getSVG("completion/" + name + ".svg", size, size, 2);
     }
 
     private static ImageView getSVG(String relativePath, double width, double height, int translateY) {

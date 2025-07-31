@@ -81,8 +81,8 @@ public class ThemeManager {
         label.setGraphicTextGap(5);
 
         switch (themeName) {
-            case "Light" -> label.setGraphic(SVGUtil.getUI("sun", 16, 16));
-            case "Dark" -> label.setGraphic(SVGUtil.getUI("moon", 16, 16));
+            case "Light" -> label.setGraphic(SVGUtil.getUI("sun", 16));
+            case "Dark" -> label.setGraphic(SVGUtil.getUI("moon", 16));
         }
 
         return label;

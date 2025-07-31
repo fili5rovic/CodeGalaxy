@@ -46,7 +46,7 @@ public class CompletionPopup extends Popup {
                     }
                     setText(item.getLabel());
                     String svgName = item.getKind().toString().toLowerCase();
-                    setGraphic(SVGUtil.getCompletionIcon(svgName, 16, 16));
+                    setGraphic(SVGUtil.getCompletionIcon(svgName, 16));
                 }
             };
             cell.getStyleClass().add("completion-list-cell");

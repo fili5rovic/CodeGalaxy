@@ -60,7 +60,7 @@ public class ContextMenuHelper {
 
         if (Files.isRegularFile(firstItem.getPath()) && firstItem.getPath().toString().endsWith(".java") && JavaParserUtil.hasMainMethod(firstItem.getPath().toFile())) {
             MenuItem runItem = new MenuItem("Run");
-            runItem.setGraphic(SVGUtil.getEmoji("run", 16, 16));
+            runItem.setGraphic(SVGUtil.getEmoji("run", 16));
             runItem.setOnAction(_ -> {
                 CodeRunnerService.runJava(firstItem.getPath());
                 ((DashboardController) Window.getController(Window.WINDOW_DASHBOARD)).getErrorTabPane().setVisible(false);
@@ -80,7 +80,7 @@ public class ContextMenuHelper {
 
     private MenuItem createNewFile(ProjectItem item) {
         Menu newItem = new Menu("New");
-        newItem.setGraphic(SVGUtil.getEmoji("baby", 16, 16));
+        newItem.setGraphic(SVGUtil.getEmoji("baby", 16));
 
         newItem.getItems().addAll(createMenuItem("Directory", item, ""), createMenuItem("Java Class", item, "java"), createMenuItem("Text File", item, "txt"));
         return newItem;
@@ -93,7 +93,7 @@ public class ContextMenuHelper {
     }
 
     private void onNewFile(ProjectItem item, String extension) {
-        filePanePopup.show(controller.getOpenCodeGalaxy().getScene().getWindow());
+        filePanePopup.show(item.getGraphic().getScene().getWindow());
         item.setExpanded(true);
 
         fileNameTextField.clear();
@@ -173,7 +173,7 @@ public class ContextMenuHelper {
 
     private MenuItem createDeleteMenu(ArrayList<ProjectItem> items) {
         MenuItem deleteItem = new MenuItem("Delete");
-        deleteItem.setGraphic(SVGUtil.getEmoji("trash", 16, 16));
+        deleteItem.setGraphic(SVGUtil.getEmoji("trash", 16));
         deleteItem.setOnAction(_ -> {
             items.forEach(item -> {
                 try {
@@ -190,7 +190,7 @@ public class ContextMenuHelper {
 
     private MenuItem createOpen(ArrayList<ProjectItem> items) {
         MenuItem openItem = new MenuItem("Open Folder");
-        openItem.setGraphic(SVGUtil.getEmoji("look", 16, 16));
+        openItem.setGraphic(SVGUtil.getEmoji("look", 16));
         openItem.setOnAction(_ -> {
             items.forEach(item -> {
                 try {
@@ -207,7 +207,7 @@ public class ContextMenuHelper {
 
     private MenuItem createCopyPath(ArrayList<ProjectItem> items) {
         MenuItem copyPathItem = new MenuItem("Copy Path");
-        copyPathItem.setGraphic(SVGUtil.getEmoji("copy", 16, 16));
+        copyPathItem.setGraphic(SVGUtil.getEmoji("copy", 16));
         copyPathItem.setOnAction(_ -> {
             items.forEach(item -> {
                 Clipboard clipboard = Clipboard.getSystemClipboard();
@@ -221,7 +221,7 @@ public class ContextMenuHelper {
 
     private MenuItem refreshItem() {
         MenuItem refreshItem = new MenuItem("Refresh");
-        refreshItem.setGraphic(SVGUtil.getEmoji("refresh", 16, 16));
+        refreshItem.setGraphic(SVGUtil.getEmoji("refresh", 16));
         refreshItem.setOnAction(_ -> ProjectManager.reloadHierarchy());
         return refreshItem;
     }

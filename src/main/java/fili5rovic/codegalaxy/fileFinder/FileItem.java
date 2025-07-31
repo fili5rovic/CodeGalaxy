@@ -31,7 +31,7 @@ public class FileItem {
                     setGraphic(null);
                     setText(null);
                 } else {
-                    ImageView icon = SVGUtil.getIconByPath(item.getFilePath(), 16, 16, 0);
+                    ImageView icon = SVGUtil.getIconByPath(item.getFilePath(), 16, 0);
                     icon.setMouseTransparent(true);
                     setGraphic(icon);
                     setText(item.getFilePath().getFileName().toString());
