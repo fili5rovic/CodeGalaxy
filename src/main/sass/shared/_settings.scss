@@ -7,10 +7,6 @@
   $text-primary: #dddddd;
   $text-secondary: #b0b0b0;
 
-  $accent: #5b2a98;
-  $error: #b13829;
-
-
   @if $theme == 'light' {
     $bg-dark: #f5f5f5;
     $bg-main: #ffffff;
@@ -21,11 +17,11 @@
     $text-secondary: #616161;
   }
 
+  $accent: #6f3cb1;
+  $error: #b13829;
+
   .root {
     -fx-background-color: $bg-main;
-    -fx-text-fill: $text-secondary;
-    -fx-font-family: "Segoe UI", "Roboto", sans-serif;
-    -fx-font-size: 13px;
   }
 
   .recorded-shortcut-label {

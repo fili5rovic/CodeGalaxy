@@ -1,28 +1,28 @@
 .styled-text-area {
   -fx-font-size: 24px;
-  -fx-background-color: #1e1e1e; }
+  -fx-background-color: #1a1a1a; }
   .styled-text-area .caret {
-    -fx-stroke: #e0e0e0; }
+    -fx-stroke: #dddddd; }
 
 .main-selection {
-  -fx-fill: #696969; }
+  -fx-fill: #b0b0b0; }
 
 .line-highlighter {
-  -fx-fill: #363636; }
+  -fx-fill: #323232; }
 
 .line-number-text {
-  -fx-fill: #e0e0e0; }
+  -fx-fill: #dddddd; }
 
 .line-number-box {
-  -fx-background-color: #1e1e1e;
+  -fx-background-color: #1a1a1a;
   -fx-border-color: #363636;
   -fx-border-width: 0 1 0 0; }
 
 .text-flow .text {
-  -fx-fill: #e0e0e0; }
+  -fx-fill: #dddddd; }
 
 .error-line-number {
-  -fx-background-color: #2d2d2d; }
+  -fx-background-color: #252525; }
 
 .error-indicator {
   -fx-background-radius: 8;

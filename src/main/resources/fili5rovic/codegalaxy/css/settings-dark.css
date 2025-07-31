@@ -1,11 +1,8 @@
 .root {
-  -fx-background-color: #252525;
-  -fx-text-fill: #b0b0b0;
-  -fx-font-family: "Segoe UI", "Roboto", sans-serif;
-  -fx-font-size: 13px; }
+  -fx-background-color: #252525; }
 
 .recorded-shortcut-label {
-  -fx-text-fill: #5b2a98;
+  -fx-text-fill: #6f3cb1;
   -fx-font-weight: bold; }
 
 .split-pane {
@@ -21,10 +18,10 @@
   -fx-background-color: #252525;
   -fx-text-fill: #b0b0b0; }
   .tree-cell:selected {
-    -fx-text-fill: #5b2a98;
+    -fx-text-fill: #6f3cb1;
     -fx-font-weight: bold; }
     .tree-cell:selected:hover {
-      -fx-text-fill: #5b2a98;
+      -fx-text-fill: #6f3cb1;
       -fx-font-weight: bold; }
   .tree-cell:hover {
     -fx-text-fill: #dddddd; }
@@ -59,7 +56,7 @@
   -fx-text-fill: #b0b0b0;
   -fx-border-color: #252525; }
   .button:hover {
-    -fx-background-color: #5b2a98;
+    -fx-background-color: #6f3cb1;
     -fx-text-fill: #dddddd; }
 
 .label {
@@ -99,7 +96,7 @@
 
 .combo-box-popup .list-cell:selected {
   -fx-background-color: #444;
-  -fx-text-fill: #5b2a98; }
+  -fx-text-fill: #6f3cb1; }
 
 .table-view {
   -fx-border-width: 1;
@@ -166,7 +163,7 @@
     -fx-background-radius: 0; }
 
 .check-box:selected > .box {
-  -fx-background-color: #5b2a98; }
+  -fx-background-color: #6f3cb1; }
 
 .check-box > .box {
   -fx-background-color: #444; }

@@ -7,12 +7,6 @@
   $text-primary: #dddddd;
   $text-secondary: #b0b0b0;
 
-  $accent: #5b2a98;
-  $accent-dark: #5b2a98;
-
-  $error: #f44336;
-  $success: #4caf50;
-  
   @if $theme == 'light' {
     $bg-dark: #f5f5f5;
     $bg-main: #ffffff;
@@ -22,6 +16,12 @@
     $text-primary: #212121;
     $text-secondary: #616161;
   }
+
+  $accent: #5b2a98;
+  $accent-dark: #5b2a98;
+
+  $error: #f44336;
+  $success: #4caf50;
 
   .root {
     -fx-background-color: $bg-main;
@@ -42,7 +42,6 @@
     -fx-background-color: $bg-lightest;
     -fx-text-fill: $text-primary;
   }
-
 
   .alert {
     -fx-background-color: $bg-lightest;

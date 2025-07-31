@@ -118,6 +118,9 @@ public class SettingsController extends ControllerBase {
         rootItem.getChildren().add(general);
         rootItem.getChildren().add(appearance);
 
+        general.setExpanded(true);
+        appearance.setExpanded(true);
+
         settingsTreeView.setRoot(rootItem);
         settingsTreeView.setShowRoot(false);
 
