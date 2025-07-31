@@ -6,6 +6,7 @@ import fili5rovic.codegalaxy.notification.NotificationManager;
 import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.util.AnimUtil;
 import fili5rovic.codegalaxy.util.FileHelper;
+import fili5rovic.codegalaxy.util.SVGUtil;
 import fili5rovic.codegalaxy.vcs.GitUtil;
 import fili5rovic.codegalaxy.vcs.treeView.GitHierarchy;
 import fili5rovic.codegalaxy.window.Window;
@@ -34,7 +35,6 @@ public class ButtonManager {
             configurationsPane.setCenter(new Label("Test"));
 
             TabManager.createTab(configurationsPane, "Configurations");
-
         });
 
         controller.getCommitBtn().setOnAction(_ -> {
@@ -99,6 +99,7 @@ public class ButtonManager {
     }
 
     private static void buttonIcons() {
+        controller.getEditConfigurationsBtn().setGraphic(SVGUtil.getUI("settings", 20));
 
     }
 }
