@@ -1,5 +1,6 @@
 package fili5rovic.codegalaxy.projectSettings;
 
+import fili5rovic.codegalaxy.projectSettings.dataclass.RunConfiguration;
 import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.util.JsonUtil;
 import fili5rovic.codegalaxy.projectSettings.dataclass.VcsSettings;
@@ -27,6 +28,9 @@ public class ProjectSettingsUtil {
             Path runConfigFile = settingsDir.resolve("runConfigurations.json");
             if (Files.notExists(runConfigFile)) {
                 Files.createFile(runConfigFile);
+                RunConfiguration defaultConfig = new RunConfiguration("Default Configuration", "Default run configuration", new String[0], new String[0]);
+                RunConfiguration defaultConfig2 = new RunConfiguration("Test Configuration", "Test run configuration", new String[0], new String[0]);
+                JsonUtil.writeJson(runConfigFile, new RunConfiguration[]{defaultConfig, defaultConfig2});
             }
 
         } catch (IOException e) {

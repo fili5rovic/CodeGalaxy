@@ -1,38 +1,43 @@
 package fili5rovic.codegalaxy.dashboardHelper;
 
+import fili5rovic.codegalaxy.codeRunner.CodeRunnerJava;
 import fili5rovic.codegalaxy.projectSettings.RunConfigUtil;
 import fili5rovic.codegalaxy.projectSettings.dataclass.RunConfiguration;
+import fili5rovic.codegalaxy.util.MetaDataHelper;
+import fili5rovic.codegalaxy.util.SVGUtil;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 
-import java.io.IOException;
+import java.io.File;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.*;
 
 public class EditConfigurationsManager {
 
     private static BorderPane configurationsPane;
 
-    public static void openEditConfigurations() {
-        if (configurationsPane == null) {
-            configurationsPane = createConfigurationsPane();
-        }
+    private static final List<RunConfiguration> configurations = new ArrayList<>();
 
-        TabManager.createTab(configurationsPane, "Configurations");
+    public static void openEditConfigurations() {
+        TabManager.createTab(createConfigurationsPane(), "Configurations");
     }
 
-    private static ListView<RunConfiguration> getSavedConfigList() {
+    private static ListView<RunConfiguration> getConfigList() {
         ListView<RunConfiguration> configList = new ListView<>();
-        RunConfiguration[] data = new RunConfiguration[0];
-        try {
-            data = RunConfigUtil.readRunConfigurations();
-        } catch (IOException e) {
-            System.err.println("Failed to read run configurations: " + e.getMessage());
-        }
-        configList.getItems().addAll(data);
+        configList.getItems().addAll(configurations);
         return configList;
     }
 
@@ -40,14 +45,25 @@ public class EditConfigurationsManager {
         BorderPane configurationsPane = new BorderPane();
         configurationsPane.getStyleClass().add("dark-background");
 
-        ListView<RunConfiguration> configList = getSavedConfigList();
+        ObservableList<RunConfiguration> configItems = FXCollections.observableArrayList(configurations);
+
+        TableView<RunConfiguration> configTable = new TableView<>(configItems);
+        configTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+        TableColumn<RunConfiguration, String> nameColumn = new TableColumn<>("Name");
+        nameColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getConfigName()));
+
+        TableColumn<RunConfiguration, String> fullNameColumn = new TableColumn<>("Full Name");
+        fullNameColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getFullName()));
+
+        configTable.getColumns().addAll(nameColumn, fullNameColumn);
 
         VBox editorPane = new VBox(10);
         editorPane.setPadding(new Insets(20));
         Label noSelection = new Label("Select a configuration to edit.");
         editorPane.getChildren().add(noSelection);
 
-        configList.getSelectionModel().selectedItemProperty().addListener((_, _, conf) -> {
+        configTable.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, conf) -> {
             editorPane.getChildren().clear();
             if (conf == null) {
                 editorPane.getChildren().add(noSelection);
@@ -55,40 +71,71 @@ public class EditConfigurationsManager {
             }
 
             TextField nameField = new TextField(conf.getConfigName());
-            TextField argsField = new TextField(conf.getProgramArgs());
+            TextField argsField = new TextField();
+            if (conf.getProgramArgs() != null && conf.getProgramArgs().length > 0) {
+                argsField.setText(String.join(" ", conf.getProgramArgs()));
+            }
+
             TextField fullNameField = new TextField(conf.getFullName());
+            Button chooseFileButton = new Button();
+            chooseFileButton.setGraphic(SVGUtil.getEmoji("look", 16));
+
+            HBox fullNameBox = new HBox(5, chooseFileButton, fullNameField);
+            chooseFileButton.setOnAction(e -> {
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Select Java File");
+                fileChooser.setInitialDirectory(new File(MetaDataHelper.getSrcPath()));
+                fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Java Files", "*.java"));
+                File file = fileChooser.showOpenDialog(configurationsPane.getScene().getWindow());
+                if (file != null) {
+                    String qualifiedClassName = CodeRunnerJava.getQualifiedClassName(Path.of(file.getAbsolutePath()));
+                    fullNameField.setText(qualifiedClassName != null ? qualifiedClassName : "");
+                }
+            });
 
             Button saveButton = new Button("Save");
             saveButton.setOnAction(e -> {
                 conf.setConfigName(nameField.getText());
-                conf.setProgramArgs(argsField.getText());
                 conf.setFullName(fullNameField.getText());
-                configList.refresh();
-                try {
-                    RunConfigUtil.writeRunConfigurations(configList.getItems().toArray(new RunConfiguration[0]));
-                } catch (IOException ex) {
-                    System.err.println("Failed to save run configurations: " + ex.getMessage());
-                }
-            });
+                String argsText = argsField.getText().trim();
+                conf.setProgramArgs(argsText.isEmpty() ? new String[0] : argsText.split("\\s+"));
 
+                configTable.refresh();
+
+                configurations.clear();
+                configurations.addAll(configItems);
+                ChoiceBoxManager.updateEditConfigs();
+            });
 
             editorPane.getChildren().addAll(
                     new Label("Name:"), nameField,
                     new Label("Program Arguments:"), argsField,
-                    new Label("Full Name:"), fullNameField,
+                    new Label("Full Name:"), fullNameBox,
                     saveButton
             );
-
-
         });
 
-        configurationsPane.setLeft(configList);
+        Button addButton = new Button("Add New");
+        addButton.setOnAction(e -> {
+            RunConfiguration newConf = new RunConfiguration("New Config", "", new String[0], new String[0]);
+            configItems.add(newConf);
+            configTable.getSelectionModel().select(newConf);
+        });
+
+        VBox leftBox = new VBox(10, configTable, addButton);
+        leftBox.setPadding(new Insets(10));
+
+        configurationsPane.setLeft(leftBox);
         configurationsPane.setCenter(editorPane);
 
-        if (!configList.getItems().isEmpty()) {
-            configList.getSelectionModel().selectFirst();
+        if (!configItems.isEmpty()) {
+            configTable.getSelectionModel().selectFirst();
         }
 
         return configurationsPane;
+    }
+
+    public static List<RunConfiguration> getConfigurations() {
+        return configurations;
     }
 }

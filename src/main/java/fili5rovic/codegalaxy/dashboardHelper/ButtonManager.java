@@ -30,8 +30,6 @@ public class ButtonManager {
     private static void buttonActions() {
         controller.getInitRepoBtn().setOnAction(_ -> initRepoBtn());
 
-        controller.getEditConfigurationsBtn().setOnAction(_ -> EditConfigurationsManager.openEditConfigurations());
-
         controller.getRunBtn().setOnAction(_ -> {
 
             ChoiceBox<RunConfiguration> editConfig = controller.getEditConfigurationsChoiceBox();
@@ -104,7 +102,6 @@ public class ButtonManager {
     }
 
     private static void buttonIcons() {
-        controller.getEditConfigurationsBtn().setGraphic(SVGUtil.getUI("settings", 20));
         controller.getRunBtn().setGraphic(SVGUtil.getUI("runBtn1", 24));
 
     }

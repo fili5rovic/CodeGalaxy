@@ -454,10 +454,6 @@
     -fx-max-height: 0px; }
   .choice-box .radio-menu-item > .left-container > .radio {
     -fx-shape: null; }
-  .choice-box .context-menu .check-mark {
-    -fx-shape: "M 8,0 A 8,8 0 1,0 7.99,0 Z";
-    -fx-background-color: gray;
-    -fx-padding: 3px; }
   .choice-box .list-view {
     -fx-background-color: #252525;
     -fx-control-inner-background: #252525;
@@ -475,6 +471,70 @@
       -fx-text-fill: #dddddd; }
   .choice-box .list-cell:empty:hover {
     -fx-background-color: transparent; }
+
+.table-view {
+  -fx-border-width: 1;
+  -fx-border-radius: 0;
+  -fx-border-color: #1a1a1a;
+  -fx-background-radius: 0;
+  -fx-background-color: #1a1a1a;
+  -fx-table-cell-border-color: #252525; }
+  .table-view:focused {
+    -fx-border-width: 1;
+    -fx-border-radius: 0;
+    -fx-border-color: #444;
+    -fx-background-insets: 1;
+    -fx-background-radius: 0;
+    -fx-background-color: #1a1a1a; }
+  .table-view .column-header-background {
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #1a1a1a;
+    -fx-background-radius: 0;
+    -fx-background-color: #1a1a1a;
+    -fx-text-fill: #dddddd; }
+  .table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-border-color: #1a1a1a; }
+    .table-view .column-header .label {
+      -fx-alignment: center;
+      -fx-cursor: HAND; }
+  .table-view .column-resize-line {
+    -fx-background-color: #444;
+    -fx-pref-width: 1; }
+  .table-view .filler {
+    -fx-background-color: transparent; }
+  .table-view .column-drag-header {
+    -fx-background-color: #444; }
+  .table-view .table-cell {
+    -fx-text-fill: #dddddd;
+    -fx-alignment: CENTER;
+    -fx-hbar-policy: never;
+    -fx-vbar-policy: never; }
+  .table-view .scroll-bar * {
+    -fx-min-width: 0;
+    -fx-pref-width: 0;
+    -fx-max-width: 0;
+    -fx-min-height: 0;
+    -fx-pref-height: 0;
+    -fx-max-height: 0; }
+
+.table-row-cell {
+  -fx-background-color: #1a1a1a;
+  -fx-text-background-color: #323232;
+  -fx-margin: 1; }
+  .table-row-cell:hover {
+    -fx-background-color: #323232;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0; }
+  .table-row-cell:selected {
+    -fx-table-cell-border-color: #1a1a1a;
+    -fx-background-color: #323232;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0; }
+  .table-row-cell:pressed {
+    -fx-background-color: #444;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0; }
 
 .progress-notification-popup {
   -fx-background-color: #323232;

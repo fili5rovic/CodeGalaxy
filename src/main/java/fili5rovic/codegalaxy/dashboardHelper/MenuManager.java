@@ -78,11 +78,12 @@ public class MenuManager {
 
     public static void saveAllFiles(ActionEvent e) {
         for (Tab tab : tabPane.getTabs()) {
-            CodeGalaxy codeGalaxy = ((CodeGalaxy) tab.getContent());
-            LSP.instance().sendSave(codeGalaxy.getFilePath().toString());
-            codeGalaxy.save();
+            if (tab.getContent() != null && (tab.getContent() instanceof CodeGalaxy codeGalaxy)) {
+                LSP.instance().sendSave(codeGalaxy.getFilePath().toString());
+                codeGalaxy.save();
+            }
         }
-        if(controller.getShowGitToggle().isSelected())
+        if (controller.getShowGitToggle().isSelected())
             GitUtil.instance().updateHierarchy();
 
     }

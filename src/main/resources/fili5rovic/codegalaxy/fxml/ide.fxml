@@ -58,7 +58,6 @@
             <HBox prefHeight="16.0" prefWidth="423.0" BorderPane.alignment="CENTER">
                <children>
                   <ChoiceBox fx:id="editConfigurationsChoiceBox" prefHeight="37.0" prefWidth="82.0" />
-                  <Button fx:id="editConfigurationsBtn" mnemonicParsing="false" prefHeight="35.0" prefWidth="31.0" style="-fx-background-color: transparent;" />
                   <Button fx:id="runBtn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="31.0" style="-fx-background-color: transparent;" />
                </children>
             </HBox>

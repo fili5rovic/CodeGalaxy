@@ -113,9 +113,6 @@ public class DashboardController extends ControllerBase {
     private TextArea commitMsg;
 
     @FXML
-    private Button editConfigurationsBtn;
-
-    @FXML
     private ChoiceBox<RunConfiguration> editConfigurationsChoiceBox;
 
     @FXML
@@ -360,9 +357,7 @@ public class DashboardController extends ControllerBase {
         return gitTreeViewPane;
     }
 
-    public Button getEditConfigurationsBtn() {
-        return editConfigurationsBtn;
-    }
+
 
     public Button getRunBtn() {
         return runBtn;

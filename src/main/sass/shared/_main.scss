@@ -671,6 +671,97 @@
     }
   }
 
+  .table-view {
+    -fx-border-width: 1;
+    -fx-border-radius: 0;
+    -fx-border-color: $bg-dark;
+    -fx-background-radius: 0;
+    -fx-background-color: $bg-dark;
+    -fx-table-cell-border-color: $bg-main;
+
+    &:focused {
+      -fx-border-width: 1;
+      -fx-border-radius: 0;
+      -fx-border-color: $bg-lightest;
+      -fx-background-insets: 1;
+      -fx-background-radius: 0;
+      -fx-background-color: $bg-dark;
+    }
+
+    .column-header-background {
+      -fx-border-width: 0 0 1 0;
+      -fx-border-color: $bg-dark;
+      -fx-background-radius: 0;
+      -fx-background-color: $bg-dark;
+      -fx-text-fill: $text-primary;
+    }
+
+    .column-header {
+      -fx-background-color: transparent;
+      -fx-border-color: $bg-dark;
+
+      .label {
+        -fx-alignment: center;
+        -fx-cursor: HAND;
+      }
+    }
+
+    .column-resize-line {
+      -fx-background-color: $bg-lightest;
+      -fx-pref-width: 1;
+    }
+
+    .filler {
+      -fx-background-color: transparent;
+    }
+
+    .column-drag-header {
+      -fx-background-color: $bg-lightest;
+    }
+
+    .table-cell {
+      -fx-text-fill: $text-primary;
+      -fx-alignment: CENTER;
+      -fx-hbar-policy: never;
+      -fx-vbar-policy: never;
+    }
+
+    .scroll-bar {
+      * {
+        -fx-min-width: 0;
+        -fx-pref-width: 0;
+        -fx-max-width: 0;
+        -fx-min-height: 0;
+        -fx-pref-height: 0;
+        -fx-max-height: 0;
+      }
+    }
+  }
+  .table-row-cell {
+    -fx-background-color: $bg-dark;
+    -fx-text-background-color: $bg-light;
+    -fx-margin: 1;
+
+    &:hover {
+      -fx-background-color: $bg-light;
+      -fx-background-insets: 0;
+      -fx-background-radius: 0;
+    }
+
+    &:selected {
+      -fx-table-cell-border-color: $bg-dark;
+      -fx-background-color: $bg-light;
+      -fx-background-insets: 0;
+      -fx-background-radius: 0;
+    }
+
+    &:pressed {
+      -fx-background-color: $bg-lightest;
+      -fx-background-insets: 0;
+      -fx-background-radius: 0;
+    }
+  }
+
   .progress-notification-popup {
     -fx-background-color: $bg-light;
     -fx-background-radius: 12px;

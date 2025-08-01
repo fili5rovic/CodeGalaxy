@@ -15,7 +15,7 @@ public class CodeRunnerJava {
         if (classPath == null)
             throw new IllegalArgumentException("File path is null");
 
-        String fileName = getMainClassName(javaFilePath);
+        String fileName = getQualifiedClassName(javaFilePath);
 
         System.out.println("Running Java file: " + classPath);
         System.out.println("Main class name: " + fileName);
@@ -55,7 +55,7 @@ public class CodeRunnerJava {
         return classPath;
     }
 
-    private static String getMainClassName(Path javaFilePath) {
+    public static String getQualifiedClassName(Path javaFilePath) {
         String sourcePath = MetaDataHelper.getSrcPath();
         if (sourcePath == null) {
             System.err.println("Source path not set in project.");
