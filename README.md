@@ -68,6 +68,7 @@ A **custom Java IDE** built with JavaFX, designed to provide a lightweight yet p
 - **LSP4J** – Java implementation of the Language Server Protocol.
 - **JGit** - Git integration
 - **Maven** – Dependency and build management.
+- **SASS/SCSS** – CSS preprocessing for advanced styling
 
 ## Installation & Setup
 
