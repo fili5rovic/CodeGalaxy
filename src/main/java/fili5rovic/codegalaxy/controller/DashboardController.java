@@ -154,12 +154,14 @@ public class DashboardController extends ControllerBase {
         updateInfoPaneVisibility();
         fileSearchPopupListener();
         GitHierarchy.addHierarchy();
+
+        EditConfigurationsManager.initConfigurations();
     }
 
     @Override
     public void onWindowShown(Stage stage) {
         lspDownloadManager.verifyAndRunLSP();
-        EditConfigurationsManager.initConfigurations();
+
     }
 
     private static void fileSearchPopupListener() {
