@@ -5,10 +5,12 @@ import fili5rovic.codegalaxy.console.ConsoleArea;
 import fili5rovic.codegalaxy.controller.Controllers;
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.projectSettings.dataclass.RunConfiguration;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Tab;
+import fili5rovic.codegalaxy.util.SVGUtil;
+import javafx.event.Event;
+import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
 
 import java.nio.file.Path;
 import java.util.Objects;
@@ -41,7 +43,29 @@ public class CodeRunnerService {
 
     private static void addTab(Path javaFilePath, Process process) {
         String title = javaFilePath.getFileName().toString();
-        Tab tab = new Tab(title);
+        Tab tab = new Tab();
+        tab.setClosable(false);
+
+        ImageView icon = SVGUtil.getIconByPath(javaFilePath, 16, 0);
+
+        Label label = new Label(" " + title + " ");
+        label.getStyleClass().clear();
+        label.getStyleClass().add("tab-label");
+        Button closeBtn = new Button("✕");
+        closeBtn.setFont(new Font(10));
+        closeBtn.getStyleClass().clear();
+        closeBtn.getStyleClass().add("tab-close-button");
+
+        closeBtn.setOnAction(_ -> {
+            Event closeRequestEvent = new Event(Tab.TAB_CLOSE_REQUEST_EVENT);
+            Event.fireEvent(tab, closeRequestEvent);
+            tab.getTabPane().getTabs().remove(tab);
+        });
+
+        HBox hbox = new HBox(icon, label, closeBtn);
+
+        tab.setGraphic(hbox);
+
         tab.setContent(new ConsoleArea(process));
 
         DashboardController controller = Controllers.dashboardController();

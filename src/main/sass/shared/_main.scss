@@ -406,7 +406,7 @@
   }
 
   .tab-pane .tab:selected {
-    -fx-background-color: $bg-lightest;
+    -fx-background-color: derive($bg-dark, 2%);
     -fx-border-color: $accent;
     -fx-border-width: 0 0 2 0;
   }

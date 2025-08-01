@@ -254,7 +254,7 @@
   -fx-pref-height: -1; }
 
 .tab-pane .tab:selected {
-  -fx-background-color: #444;
+  -fx-background-color: derive(#1a1a1a, 2%);
   -fx-border-color: #5b2a98;
   -fx-border-width: 0 0 2 0; }
 
