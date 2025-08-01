@@ -4,6 +4,7 @@ import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.dashboardHelper.*;
 import fili5rovic.codegalaxy.errors.DisplayErrorsHandler;
 import fili5rovic.codegalaxy.lsp.LSP;
+import fili5rovic.codegalaxy.projectSettings.RunConfigUtil;
 import fili5rovic.codegalaxy.projectSettings.dataclass.RunConfiguration;
 import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.vcs.treeView.GitHierarchy;
@@ -19,6 +20,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+
+import java.io.IOException;
 
 public class DashboardController extends ControllerBase {
 
@@ -156,6 +159,7 @@ public class DashboardController extends ControllerBase {
     @Override
     public void onWindowShown(Stage stage) {
         lspDownloadManager.verifyAndRunLSP();
+        EditConfigurationsManager.initConfigurations();
     }
 
     private static void fileSearchPopupListener() {
@@ -218,6 +222,11 @@ public class DashboardController extends ControllerBase {
             IDESettings.applyTempSettings();
         else
             IDESettings.deleteTempSettings();
+        try {
+            RunConfigUtil.writeRunConfigurations();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         LSP.instance().stop();
         Platform.exit();
         System.exit(0);

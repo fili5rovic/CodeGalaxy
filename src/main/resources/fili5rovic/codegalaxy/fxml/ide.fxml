@@ -25,8 +25,8 @@
 <BorderPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fili5rovic.codegalaxy.controller.DashboardController">
     <top>
         <BorderPane prefHeight="20.0" prefWidth="1075.0" BorderPane.alignment="CENTER">
-            <center>
-                <MenuBar prefHeight="35.0" prefWidth="651.0" BorderPane.alignment="CENTER">
+         <left>
+                <MenuBar prefHeight="35.0" BorderPane.alignment="CENTER">
                     <menus>
                         <Menu mnemonicParsing="false" text="File">
                             <items>
@@ -53,9 +53,9 @@
                         </Menu>
                     </menus>
                 </MenuBar>
-            </center>
-         <right>
-            <HBox prefHeight="35.0" prefWidth="899.0" BorderPane.alignment="CENTER">
+         </left>
+         <center>
+            <HBox alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="1015.0" BorderPane.alignment="CENTER">
                <children>
                   <ChoiceBox fx:id="editConfigurationsChoiceBox" prefHeight="27.0" prefWidth="82.0">
                      <opaqueInsets>
@@ -68,9 +68,10 @@
                      <font>
                         <Font size="16.0" />
                      </font></Button>
+                  <Region prefHeight="35.0" prefWidth="193.0" />
                </children>
             </HBox>
-         </right>
+         </center>
         </BorderPane>
     </top>
     <center>

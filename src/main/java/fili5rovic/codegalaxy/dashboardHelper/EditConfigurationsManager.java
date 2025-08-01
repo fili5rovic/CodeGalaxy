@@ -1,13 +1,13 @@
 package fili5rovic.codegalaxy.dashboardHelper;
 
 import fili5rovic.codegalaxy.codeRunner.CodeRunnerJava;
+import fili5rovic.codegalaxy.projectSettings.RunConfigUtil;
 import fili5rovic.codegalaxy.projectSettings.dataclass.RunConfiguration;
 import fili5rovic.codegalaxy.util.MetaDataHelper;
 import fili5rovic.codegalaxy.util.SVGUtil;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -15,6 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,18 +27,19 @@ import javafx.scene.control.*;
 
 public class EditConfigurationsManager {
 
-    private static BorderPane configurationsPane;
+    private static List<RunConfiguration> configurations = new ArrayList<>();
 
-    private static final List<RunConfiguration> configurations = new ArrayList<>();
+    public static void initConfigurations() {
+        try {
+            configurations = List.of(RunConfigUtil.readRunConfigurations());
+            ChoiceBoxManager.updateEditConfigs();
+        } catch (IOException e) {
+            System.err.println("Failed to load run configurations: " + e.getMessage());
+        }
+    }
 
     public static void openEditConfigurations() {
         TabManager.createTab(createConfigurationsPane(), "Configurations");
-    }
-
-    private static ListView<RunConfiguration> getConfigList() {
-        ListView<RunConfiguration> configList = new ListView<>();
-        configList.getItems().addAll(configurations);
-        return configList;
     }
 
     public static BorderPane createConfigurationsPane() {

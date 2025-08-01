@@ -226,9 +226,9 @@
   -fx-text-fill: #212121;
   -fx-border-width: 0; }
   .run-btn:hover {
-    -fx-background-color: #bdbdbd; }
+    -fx-background-color: transparent; }
   .run-btn:pressed {
-    -fx-background-color: #bdbdbd; }
+    -fx-background-color: transparent; }
 
 .git-toggle-button {
   -fx-min-height: 20;

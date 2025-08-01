@@ -368,11 +368,11 @@
     -fx-border-width: 0;
 
     &:hover {
-      -fx-background-color: $bg-lightest;
+      -fx-background-color: transparent;
     }
 
     &:pressed {
-      -fx-background-color: $bg-lightest;
+      -fx-background-color: transparent;
     }
 
   }
