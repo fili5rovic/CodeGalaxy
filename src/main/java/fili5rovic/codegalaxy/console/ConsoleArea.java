@@ -34,8 +34,8 @@ public class ConsoleArea extends CodeArea {
 
         String styleClass = switch (type) {
             case INPUT -> "console_input";
-            case OUTPUT -> "console_output";
-            default -> "console_error";
+            case ERROR -> "console_error";
+            default -> "console_output";
         };
         setStyleClass(start, getLength(), styleClass);
         setStyle(start, getLength(), List.of("code-font", styleClass));
@@ -56,8 +56,8 @@ public class ConsoleArea extends CodeArea {
     public String getStyleClassForTextType() {
         return switch (textType) {
             case INPUT -> "console_input";
-            case OUTPUT -> "console_output";
-            default -> "console_error";
+            case ERROR -> "console_error";
+            default -> "console_output";
         };
     }
 

@@ -640,9 +640,8 @@
     -fx-background-radius: 4px;
 
     .arrow {
-      -fx-shape: "M 8,0 A 8,8 0 1,0 7.99,0 Z";
-      -fx-background-color: $text-secondary;
-      -fx-padding: 2px;
+      -fx-shape: null;
+      -fx-background-color: transparent;
     }
 
     .arrow-button {
@@ -653,9 +652,10 @@
       -fx-max-height: 0px;
     }
 
-    .radio-menu-item > .left-container > .radio {
-      -fx-shape: null;
+    .context-menu .radio-menu-item .radio {
+      visibility: hidden;
     }
+
 
     .list-view {
       -fx-background-color: $bg-main;

@@ -449,17 +449,16 @@
   -fx-padding: 1px 5px;
   -fx-background-radius: 4px; }
   .choice-box .arrow {
-    -fx-shape: "M 8,0 A 8,8 0 1,0 7.99,0 Z";
-    -fx-background-color: #b0b0b0;
-    -fx-padding: 2px; }
+    -fx-shape: null;
+    -fx-background-color: transparent; }
   .choice-box .arrow-button {
     -fx-background-color: transparent;
     -fx-text-fill: #b0b0b0;
     -fx-padding: 0 5px;
     -fx-max-width: 0px;
     -fx-max-height: 0px; }
-  .choice-box .radio-menu-item > .left-container > .radio {
-    -fx-shape: null; }
+  .choice-box .context-menu .radio-menu-item .radio {
+    visibility: hidden; }
   .choice-box .list-view {
     -fx-background-color: #252525;
     -fx-control-inner-background: #252525;
