@@ -26,7 +26,7 @@
     <top>
         <BorderPane prefHeight="20.0" prefWidth="1075.0" BorderPane.alignment="CENTER">
             <center>
-                <MenuBar BorderPane.alignment="CENTER">
+                <MenuBar prefHeight="35.0" prefWidth="651.0" BorderPane.alignment="CENTER">
                     <menus>
                         <Menu mnemonicParsing="false" text="File">
                             <items>
@@ -55,9 +55,15 @@
                 </MenuBar>
             </center>
          <right>
-            <HBox prefHeight="16.0" prefWidth="423.0" BorderPane.alignment="CENTER">
+            <HBox prefHeight="35.0" prefWidth="899.0" BorderPane.alignment="CENTER">
                <children>
-                  <ChoiceBox fx:id="editConfigurationsChoiceBox" prefHeight="37.0" prefWidth="82.0" />
+                  <ChoiceBox fx:id="editConfigurationsChoiceBox" prefHeight="27.0" prefWidth="82.0">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <HBox.margin>
+                        <Insets top="3.5" />
+                     </HBox.margin></ChoiceBox>
                   <Button fx:id="runBtn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="31.0" styleClass="run-btn">
                      <font>
                         <Font size="16.0" />

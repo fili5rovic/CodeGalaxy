@@ -50,20 +50,25 @@ public class EditConfigurationsManager {
         TableView<RunConfiguration> configTable = new TableView<>(configItems);
         configTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
+        // Only name column now
         TableColumn<RunConfiguration, String> nameColumn = new TableColumn<>("Name");
         nameColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getConfigName()));
 
-        TableColumn<RunConfiguration, String> fullNameColumn = new TableColumn<>("Full Name");
-        fullNameColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getFullName()));
-
-        configTable.getColumns().addAll(nameColumn, fullNameColumn);
+        configTable.getColumns().add(nameColumn);
 
         VBox editorPane = new VBox(10);
         editorPane.setPadding(new Insets(20));
         Label noSelection = new Label("Select a configuration to edit.");
         editorPane.getChildren().add(noSelection);
 
+        // Delete button - initially disabled
+        Button deleteButton = new Button("Delete");
+        deleteButton.setDisable(true);
+
         configTable.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, conf) -> {
+            // Enable/disable delete button based on selection
+            deleteButton.setDisable(conf == null);
+
             editorPane.getChildren().clear();
             if (conf == null) {
                 editorPane.getChildren().add(noSelection);
@@ -115,6 +120,17 @@ public class EditConfigurationsManager {
             );
         });
 
+        // Delete button action
+        deleteButton.setOnAction(e -> {
+            RunConfiguration selected = configTable.getSelectionModel().getSelectedItem();
+            if (selected != null) {
+                configItems.remove(selected);
+                configurations.clear();
+                configurations.addAll(configItems);
+                ChoiceBoxManager.updateEditConfigs();
+            }
+        });
+
         Button addButton = new Button("Add New");
         addButton.setOnAction(e -> {
             RunConfiguration newConf = new RunConfiguration("New Config", "", new String[0], new String[0]);
@@ -122,7 +138,9 @@ public class EditConfigurationsManager {
             configTable.getSelectionModel().select(newConf);
         });
 
-        VBox leftBox = new VBox(10, configTable, addButton);
+        // Button layout with both Add and Delete buttons
+        HBox buttonBox = new HBox(10, addButton, deleteButton);
+        VBox leftBox = new VBox(10, configTable, buttonBox);
         leftBox.setPadding(new Insets(10));
 
         configurationsPane.setLeft(leftBox);
