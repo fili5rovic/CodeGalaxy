@@ -3,6 +3,7 @@ package fili5rovic.codegalaxy.dashboardHelper;
 import fili5rovic.codegalaxy.controller.Controllers;
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.notification.NotificationManager;
+import fili5rovic.codegalaxy.projectSettings.dataclass.RunConfiguration;
 import fili5rovic.codegalaxy.settings.IDESettings;
 import fili5rovic.codegalaxy.util.AnimUtil;
 import fili5rovic.codegalaxy.util.FileHelper;
@@ -10,6 +11,7 @@ import fili5rovic.codegalaxy.util.SVGUtil;
 import fili5rovic.codegalaxy.vcs.GitUtil;
 import fili5rovic.codegalaxy.vcs.treeView.GitHierarchy;
 import fili5rovic.codegalaxy.window.Window;
+import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -29,6 +31,17 @@ public class ButtonManager {
         controller.getInitRepoBtn().setOnAction(_ -> initRepoBtn());
 
         controller.getEditConfigurationsBtn().setOnAction(_ -> EditConfigurationsManager.openEditConfigurations());
+
+        controller.getRunBtn().setOnAction(_ -> {
+
+            ChoiceBox<RunConfiguration> editConfig = controller.getEditConfigurationsChoiceBox();
+            if(editConfig.getSelectionModel().getSelectedItem() == null || editConfig.getItems().size() < 2) {
+                return;
+            }
+            RunConfiguration currentConfiguration = editConfig.getSelectionModel().getSelectedItem();
+            //todo: implement run configuration logic
+        });
+
 
         controller.getCommitBtn().setOnAction(_ -> {
             String commitMsg = controller.getCommitMsg().getText();

@@ -17,8 +17,7 @@ public class CodeRunnerService {
 
     public static void runJava(Path javaFilePath) {
         try {
-            Process process = CodeRunner.runJava(javaFilePath);
-
+            Process process = CodeRunnerJava.runJava(javaFilePath, new String[0], new String[0]);
             addTab(javaFilePath, process);
         } catch (Exception e) {
             System.err.println("Couldn't run file: " + e.getMessage());
