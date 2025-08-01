@@ -57,7 +57,7 @@ public class CodeRunnerJava {
         }
 
         Path relativePath = Path.of(sourcePath).relativize(javaFilePath);
-        
+
         return relativePath.toString()
                 .replace(".java", "")
                 .replace("/", ".")
