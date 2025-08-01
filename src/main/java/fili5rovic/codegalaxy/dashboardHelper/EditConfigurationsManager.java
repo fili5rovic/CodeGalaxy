@@ -1,7 +1,6 @@
 package fili5rovic.codegalaxy.dashboardHelper;
 
 import fili5rovic.codegalaxy.codeRunner.CodeRunnerJava;
-import fili5rovic.codegalaxy.projectSettings.RunConfigUtil;
 import fili5rovic.codegalaxy.projectSettings.dataclass.RunConfiguration;
 import fili5rovic.codegalaxy.util.MetaDataHelper;
 import fili5rovic.codegalaxy.util.SVGUtil;
@@ -65,7 +64,7 @@ public class EditConfigurationsManager {
         Button deleteButton = new Button("Delete");
         deleteButton.setDisable(true);
 
-        configTable.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, conf) -> {
+        configTable.getSelectionModel().selectedItemProperty().addListener((_, _, conf) -> {
             // Enable/disable delete button based on selection
             deleteButton.setDisable(conf == null);
 
@@ -86,7 +85,7 @@ public class EditConfigurationsManager {
             chooseFileButton.setGraphic(SVGUtil.getEmoji("look", 16));
 
             HBox fullNameBox = new HBox(5, chooseFileButton, fullNameField);
-            chooseFileButton.setOnAction(e -> {
+            chooseFileButton.setOnAction(_ -> {
                 FileChooser fileChooser = new FileChooser();
                 fileChooser.setTitle("Select Java File");
                 fileChooser.setInitialDirectory(new File(MetaDataHelper.getSrcPath()));
@@ -99,7 +98,7 @@ public class EditConfigurationsManager {
             });
 
             Button saveButton = new Button("Save");
-            saveButton.setOnAction(e -> {
+            saveButton.setOnAction(_ -> {
                 conf.setConfigName(nameField.getText());
                 conf.setFullName(fullNameField.getText());
                 String argsText = argsField.getText().trim();
@@ -121,7 +120,7 @@ public class EditConfigurationsManager {
         });
 
         // Delete button action
-        deleteButton.setOnAction(e -> {
+        deleteButton.setOnAction(_ -> {
             RunConfiguration selected = configTable.getSelectionModel().getSelectedItem();
             if (selected != null) {
                 configItems.remove(selected);
@@ -132,7 +131,7 @@ public class EditConfigurationsManager {
         });
 
         Button addButton = new Button("Add New");
-        addButton.setOnAction(e -> {
+        addButton.setOnAction(_ -> {
             RunConfiguration newConf = new RunConfiguration("New Config", "", new String[0], new String[0]);
             configItems.add(newConf);
             configTable.getSelectionModel().select(newConf);

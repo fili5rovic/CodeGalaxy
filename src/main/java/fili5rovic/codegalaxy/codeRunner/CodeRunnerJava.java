@@ -57,12 +57,11 @@ public class CodeRunnerJava {
         }
 
         Path relativePath = Path.of(sourcePath).relativize(javaFilePath);
-        String className = relativePath.toString()
+        
+        return relativePath.toString()
                 .replace(".java", "")
                 .replace("/", ".")
                 .replace("\\", ".");
-
-        return className;
     }
 
 }
