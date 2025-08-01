@@ -155,7 +155,7 @@ public class DashboardController extends ControllerBase {
         fileSearchPopupListener();
         GitHierarchy.addHierarchy();
 
-        EditConfigurationsManager.initConfigurations();
+//        EditConfigurationsManager.initConfigurations();
     }
 
     @Override

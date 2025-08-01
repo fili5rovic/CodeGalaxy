@@ -36,6 +36,8 @@ public class ProjectManager {
         projectHierarchy = new ProjectHierarchy(path);
 
         Controllers.dashboardController().getTreeViewPane().setCenter(projectHierarchy);
+
+        EditConfigurationsManager.initConfigurations();
     }
 
     public static void reloadHierarchy() {
