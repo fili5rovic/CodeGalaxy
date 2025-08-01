@@ -2,6 +2,7 @@ package fili5rovic.codegalaxy.codeRunner;
 
 import fili5rovic.codegalaxy.util.MetaDataHelper;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,15 +12,17 @@ public class CodeRunnerJava {
     static Process runJava(Path javaFilePath, String[] vmOptions, String[] programArgs) throws Exception {
         if (!javaFilePath.toString().endsWith(".java"))
             throw new IllegalArgumentException("File is not a Java file");
-        String classPath = getBuildDir(javaFilePath);
+
+        String qualifiedClassName = getQualifiedClassName(javaFilePath);
+        return runJava(qualifiedClassName, vmOptions, programArgs);
+    }
+
+    static Process runJava(String qualifiedName, String[] vmOptions, String[] programArgs) throws IOException {
+        String classPath = MetaDataHelper.getOutputPath();
         if (classPath == null)
-            throw new IllegalArgumentException("File path is null");
+            throw new IllegalArgumentException("Classpath is null");
 
-        String fileName = getQualifiedClassName(javaFilePath);
-
-        System.out.println("Running Java file: " + classPath);
-        System.out.println("Main class name: " + fileName);
-        List<String> command = createCommand(fileName, classPath, vmOptions, programArgs);
+        List<String> command = createCommand(qualifiedName, classPath, vmOptions, programArgs);
 
         ProcessBuilder pb = new ProcessBuilder(command);
 
@@ -44,15 +47,6 @@ public class CodeRunnerJava {
         }
         // java [<vm-options>] -cp <classpath> <main-class> [<program-args>...]
         return command;
-    }
-
-    private static String getBuildDir(Path filePath) {
-        String classPath = MetaDataHelper.getOutputPath();
-        if (classPath == null) {
-            System.err.println("Class path not set in project.");
-            return null;
-        }
-        return classPath;
     }
 
     public static String getQualifiedClassName(Path javaFilePath) {

@@ -211,18 +211,24 @@
     -fx-cursor: hand; }
   .button:pressed,
   .toggle-button:pressed {
-    -fx-border-color: #5b2a98;
     -fx-background-color: #bdbdbd;
     -fx-cursor: hand; }
   .button:selected,
   .toggle-button:selected {
     -fx-background-color: #5b2a98;
-    -fx-border-color: #5b2a98;
     -fx-text-fill: #212121; }
     .button:selected:hover,
     .toggle-button:selected:hover {
-      -fx-background-color: #5b2a98;
-      -fx-border-color: #5b2a98; }
+      -fx-background-color: #5b2a98; }
+
+.run-btn {
+  -fx-background-color: transparent;
+  -fx-text-fill: #212121;
+  -fx-border-width: 0; }
+  .run-btn:hover {
+    -fx-background-color: #bdbdbd; }
+  .run-btn:pressed {
+    -fx-background-color: #bdbdbd; }
 
 .git-toggle-button {
   -fx-min-height: 20;
@@ -475,7 +481,7 @@
 .table-view {
   -fx-border-width: 1;
   -fx-border-radius: 0;
-  -fx-border-color: #f5f5f5;
+  -fx-border-color: #ffffff;
   -fx-background-radius: 0;
   -fx-background-color: #f5f5f5;
   -fx-table-cell-border-color: #ffffff; }

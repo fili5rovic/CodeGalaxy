@@ -4,6 +4,7 @@ import fili5rovic.codegalaxy.Main;
 import fili5rovic.codegalaxy.console.ConsoleArea;
 import fili5rovic.codegalaxy.controller.Controllers;
 import fili5rovic.codegalaxy.controller.DashboardController;
+import fili5rovic.codegalaxy.projectSettings.dataclass.RunConfiguration;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
@@ -19,6 +20,20 @@ public class CodeRunnerService {
         try {
             Process process = CodeRunnerJava.runJava(javaFilePath, new String[0], new String[0]);
             addTab(javaFilePath, process);
+        } catch (Exception e) {
+            System.err.println("Couldn't run file: " + e.getMessage());
+        }
+    }
+
+    public static void runJava(RunConfiguration runConfiguration) {
+        if (runConfiguration == null || runConfiguration.getFullName() == null) {
+            System.err.println("Run configuration is null or has no full name.");
+            return;
+        }
+
+        try {
+            Process process = CodeRunnerJava.runJava(runConfiguration.getFullName(), runConfiguration.getVmOptions(), runConfiguration.getProgramArgs());
+            addTab(Path.of(runConfiguration.getFullName()), process);
         } catch (Exception e) {
             System.err.println("Couldn't run file: " + e.getMessage());
         }

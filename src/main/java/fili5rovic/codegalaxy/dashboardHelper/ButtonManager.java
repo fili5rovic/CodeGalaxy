@@ -1,5 +1,6 @@
 package fili5rovic.codegalaxy.dashboardHelper;
 
+import fili5rovic.codegalaxy.codeRunner.CodeRunnerService;
 import fili5rovic.codegalaxy.controller.Controllers;
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.notification.NotificationManager;
@@ -27,17 +28,17 @@ public class ButtonManager {
         buttonActions();
     }
 
+
     private static void buttonActions() {
         controller.getInitRepoBtn().setOnAction(_ -> initRepoBtn());
-
         controller.getRunBtn().setOnAction(_ -> {
 
             ChoiceBox<RunConfiguration> editConfig = controller.getEditConfigurationsChoiceBox();
-            if(editConfig.getSelectionModel().getSelectedItem() == null || editConfig.getItems().size() < 2) {
+            if(editConfig.getSelectionModel().getSelectedItem() == null || editConfig.getItems().isEmpty()) {
                 return;
             }
             RunConfiguration currentConfiguration = editConfig.getSelectionModel().getSelectedItem();
-            //todo: implement run configuration logic
+            CodeRunnerService.runJava(currentConfiguration);
         });
 
 
