@@ -94,13 +94,16 @@ mvn javafx:run
 > [!NOTE]
 > CodeGalaxy will prompt you to install a language server upon first launch.
 
-## Usage 📖
+## Usage
 
 - Start the IDE and create/open a **Java project**.
 - Write code with **real-time diagnostics**, **code completion**, **go to definition**, and **find references**.
 - Trigger suggestions with `Ctrl + Space`.
 - Customize the UI theme via **Settings > Appearance**.
 
+### Customization
+- Access themes via **Settings > Appearance**
+- Configure keybindings in **Settings > Keybindings**
 ---
 
 Stay tuned for updates!
