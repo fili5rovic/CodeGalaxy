@@ -5,6 +5,7 @@ import fili5rovic.codegalaxy.util.MetaDataHelper;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CodeRunnerJava {
@@ -21,6 +22,8 @@ public class CodeRunnerJava {
         String classPath = MetaDataHelper.getOutputPath();
         if (classPath == null)
             throw new IllegalArgumentException("Classpath is null");
+
+        System.out.println("Args: " + Arrays.toString(programArgs));
 
         List<String> command = createCommand(qualifiedName, classPath, vmOptions, programArgs);
 

@@ -31,7 +31,7 @@ public class EditConfigurationsManager {
 
     public static void initConfigurations() {
         try {
-            configurations = List.of(RunConfigUtil.readRunConfigurations());
+            configurations = new ArrayList<>(List.of(RunConfigUtil.readRunConfigurations()));
             ChoiceBoxManager.updateEditConfigs();
         } catch (IOException e) {
             System.err.println("Failed to load run configurations: " + e.getMessage());
