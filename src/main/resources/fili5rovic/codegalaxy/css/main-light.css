@@ -1,11 +1,11 @@
 .root {
-  -fx-background-color: #ffffff; }
-
-.dark-background {
   -fx-background-color: #f5f5f5; }
 
+.dark-background {
+  -fx-background-color: #ffffff; }
+
 .dialog-pane {
-  -fx-background-color: #ffffff;
+  -fx-background-color: #f5f5f5;
   -fx-border-color: #bdbdbd;
   -fx-border-width: 1px;
   -fx-padding: 10; }
@@ -33,15 +33,17 @@
       -fx-background-color: #bdbdbd; }
 
 .menu-bar {
-  -fx-background-color: #ffffff;
+  -fx-background-color: #f5f5f5;
   -fx-padding: 5px; }
 
 .menu {
-  -fx-background-color: #f5f5f5;
+  -fx-background-color: #ffffff;
   -fx-background-radius: 5; }
   .menu:hover {
-    -fx-background-color: #5b2a98;
+    -fx-background-color: #8e57d5;
     -fx-cursor: HAND; }
+    .menu:hover .label {
+      -fx-text-fill: #212121; }
   .menu .label {
     -fx-text-fill: #616161;
     -fx-alignment: CENTER;
@@ -51,7 +53,7 @@
   -fx-background-radius: 0;
   -fx-border-width: 0;
   -fx-text-fill: #616161;
-  -fx-background-color: #f5f5f5; }
+  -fx-background-color: #ffffff; }
   .menu-item:hover {
     -fx-background-color: #bdbdbd;
     -fx-cursor: HAND; }
@@ -64,7 +66,7 @@
     -fx-padding: 0 10 0 10; }
 
 .context-menu {
-  -fx-background-color: #ffffff;
+  -fx-background-color: #f5f5f5;
   -fx-background-radius: 10;
   -fx-border-width: 0;
   -fx-padding: 0 0 -1 0; }
@@ -105,15 +107,15 @@
     -fx-padding: 8px; }
 
 .text-area {
-  -fx-background-color: #ffffff;
+  -fx-background-color: #f5f5f5;
   -fx-text-fill: #616161;
   -fx-border-color: #bdbdbd transparent transparent transparent;
   -fx-border-width: 1 0 0 0;
   -fx-border-style: solid none none none; }
   .text-area .scroll-pane {
-    -fx-background: #ffffff; }
+    -fx-background: #f5f5f5; }
   .text-area .content {
-    -fx-background-color: #ffffff; }
+    -fx-background-color: #f5f5f5; }
   .text-area .text {
     -fx-fill: #616161; }
 
@@ -124,15 +126,15 @@
   -fx-text-fill: #616161; }
 
 .anchor-pane {
-  -fx-background-color: #ffffff; }
+  -fx-background-color: #f5f5f5; }
 
 .tree-view {
-  -fx-background-color: #ffffff;
+  -fx-background-color: #f5f5f5;
   -fx-text-fill: #212121;
   -fx-border-width: 0px;
   -fx-border-color: #bdbdbd; }
   .tree-view .tree-cell {
-    -fx-background-color: #ffffff;
+    -fx-background-color: #f5f5f5;
     -fx-text-fill: #212121; }
     .tree-view .tree-cell:hover {
       -fx-background-color: #bdbdbd; }
@@ -186,19 +188,19 @@
     -fx-background-color: transparent, #616161, #616161; }
 
 .split-pane {
-  -fx-background-color: #ffffff; }
+  -fx-background-color: #f5f5f5; }
 
 .split-pane-divider {
   -fx-background-color: transparent; }
 
 .border-pane {
-  -fx-background-color: #ffffff; }
+  -fx-background-color: #f5f5f5; }
 
 .button,
 .toggle-button {
   -fx-background-radius: 10;
   -fx-border-width: 0;
-  -fx-border-color: #f5f5f5;
+  -fx-border-color: #ffffff;
   -fx-background-color: #e0e0e0;
   -fx-text-fill: #616161;
   -fx-min-height: 25; }
@@ -207,7 +209,7 @@
     -fx-background-color: #bdbdbd; }
   .button:hover,
   .toggle-button:hover {
-    -fx-background-color: #5b2a98;
+    -fx-background-color: #8e57d5;
     -fx-cursor: hand; }
   .button:pressed,
   .toggle-button:pressed {
@@ -215,11 +217,11 @@
     -fx-cursor: hand; }
   .button:selected,
   .toggle-button:selected {
-    -fx-background-color: #5b2a98;
+    -fx-background-color: #8e57d5;
     -fx-text-fill: #212121; }
     .button:selected:hover,
     .toggle-button:selected:hover {
-      -fx-background-color: #5b2a98; }
+      -fx-background-color: #8e57d5; }
 
 .run-btn {
   -fx-background-color: transparent;
@@ -237,7 +239,7 @@
   -fx-max-height: 20; }
 
 .tab-header-area .tab-header-background {
-  -fx-background-color: #f5f5f5;
+  -fx-background-color: #ffffff;
   -fx-border-color: #bdbdbd;
   -fx-border-width: 0 0 1 0; }
 
@@ -254,8 +256,8 @@
   -fx-pref-height: -1; }
 
 .tab-pane .tab:selected {
-  -fx-background-color: derive(#f5f5f5, 2%);
-  -fx-border-color: #5b2a98;
+  -fx-background-color: derive(#ffffff, 2%);
+  -fx-border-color: #8e57d5;
   -fx-border-width: 0 0 2 0; }
 
 .tab-pane .tab .tab-label {
@@ -311,13 +313,13 @@
   -fx-text-fill: #212121; }
 
 .list-view {
-  -fx-background-color: #ffffff;
-  -fx-control-inner-background: #ffffff;
+  -fx-background-color: #f5f5f5;
+  -fx-control-inner-background: #f5f5f5;
   -fx-padding: 0;
   -fx-border-width: 0; }
 
 .text-field {
-  -fx-background-color: #ffffff;
+  -fx-background-color: #f5f5f5;
   -fx-text-fill: #616161;
   -fx-border-color: #bdbdbd;
   -fx-padding: 5; }
@@ -329,13 +331,13 @@
   -fx-padding: 5; }
 
 .completion-popup {
-  -fx-background-color: #ffffff;
+  -fx-background-color: #f5f5f5;
   -fx-background-radius: 6;
   -fx-padding: 6; }
 
 .completion-list-view {
-  -fx-background-color: #ffffff;
-  -fx-control-inner-background: #ffffff;
+  -fx-background-color: #f5f5f5;
+  -fx-control-inner-background: #f5f5f5;
   -fx-background-insets: 0;
   -fx-padding: 0;
   -fx-border-width: 0; }
@@ -350,7 +352,7 @@
   -fx-text-fill: #212121; }
 
 .completion-list-view:focused {
-  -fx-background-color: #ffffff; }
+  -fx-background-color: #f5f5f5; }
 
 .completion-list-view .scroll-bar:horizontal,
 .completion-list-view .scroll-bar:horizontal .track,
@@ -407,7 +409,7 @@
 
 .locations-popup {
   -fx-padding: 10;
-  -fx-background-color: #ffffff;
+  -fx-background-color: #f5f5f5;
   -fx-spacing: 8;
   -fx-border-color: #bdbdbd;
   -fx-border-width: 1;
@@ -442,7 +444,7 @@
   -fx-text-fill: #f44336; }
 
 .choice-box {
-  -fx-background-color: #ffffff;
+  -fx-background-color: #f5f5f5;
   -fx-text-fill: #616161;
   -fx-border-color: #bdbdbd;
   -fx-border-width: 1px;
@@ -460,8 +462,8 @@
   .choice-box .context-menu .radio-menu-item .radio {
     visibility: hidden; }
   .choice-box .list-view {
-    -fx-background-color: #ffffff;
-    -fx-control-inner-background: #ffffff;
+    -fx-background-color: #f5f5f5;
+    -fx-control-inner-background: #f5f5f5;
     -fx-border-color: #bdbdbd;
     -fx-border-width: 1px;
     -fx-padding: 0; }
@@ -480,26 +482,26 @@
 .table-view {
   -fx-border-width: 1;
   -fx-border-radius: 0;
-  -fx-border-color: #ffffff;
+  -fx-border-color: #f5f5f5;
   -fx-background-radius: 0;
-  -fx-background-color: #f5f5f5;
-  -fx-table-cell-border-color: #ffffff; }
+  -fx-background-color: #ffffff;
+  -fx-table-cell-border-color: #f5f5f5; }
   .table-view:focused {
     -fx-border-width: 1;
     -fx-border-radius: 0;
     -fx-border-color: #bdbdbd;
     -fx-background-insets: 1;
     -fx-background-radius: 0;
-    -fx-background-color: #f5f5f5; }
+    -fx-background-color: #ffffff; }
   .table-view .column-header-background {
     -fx-border-width: 0 0 1 0;
-    -fx-border-color: #f5f5f5;
+    -fx-border-color: #ffffff;
     -fx-background-radius: 0;
-    -fx-background-color: #f5f5f5;
+    -fx-background-color: #ffffff;
     -fx-text-fill: #212121; }
   .table-view .column-header {
     -fx-background-color: transparent;
-    -fx-border-color: #f5f5f5; }
+    -fx-border-color: #ffffff; }
     .table-view .column-header .label {
       -fx-alignment: center;
       -fx-cursor: HAND; }
@@ -524,7 +526,7 @@
     -fx-max-height: 0; }
 
 .table-row-cell {
-  -fx-background-color: #f5f5f5;
+  -fx-background-color: #ffffff;
   -fx-text-background-color: #e0e0e0;
   -fx-margin: 1; }
   .table-row-cell:hover {
@@ -532,7 +534,7 @@
     -fx-background-insets: 0;
     -fx-background-radius: 0; }
   .table-row-cell:selected {
-    -fx-table-cell-border-color: #f5f5f5;
+    -fx-table-cell-border-color: #ffffff;
     -fx-background-color: #e0e0e0;
     -fx-background-insets: 0;
     -fx-background-radius: 0; }
@@ -597,7 +599,7 @@
 
 .notification-progress {
   -fx-pref-height: 8px;
-  -fx-background-color: #ffffff;
+  -fx-background-color: #f5f5f5;
   -fx-background-radius: 4px;
   -fx-padding: 0; }
 
@@ -609,7 +611,7 @@
   -fx-effect: innershadow(gaussian, #3700b3, 2, 0.5, 0, 0); }
 
 .notification-progress .track {
-  -fx-background-color: #f5f5f5;
+  -fx-background-color: #ffffff;
   -fx-background-radius: 4px;
   -fx-background-insets: 0;
   -fx-border-width: 0; }
@@ -649,7 +651,7 @@
   -fx-effect: dropshadow(gaussian, #7c4dff, 5, 0.6, 0, 0); }
 
 .notification-popup {
-  -fx-background-color: #ffffff;
+  -fx-background-color: #f5f5f5;
   -fx-padding: 12;
   -fx-background-radius: 8;
   -fx-effect: dropshadow(gaussian, black, 8, 0.5, 0, 2); }

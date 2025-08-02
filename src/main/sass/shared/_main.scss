@@ -7,18 +7,21 @@
   $text-primary: #dddddd;
   $text-secondary: #b0b0b0;
 
+  $accent: #5b2a98;
+
   @if $theme == 'light' {
-    $bg-dark: #f5f5f5;
-    $bg-main: #ffffff;
+    $bg-dark: #ffffff;
+    $bg-main: #f5f5f5;
     $bg-light: #e0e0e0;
     $bg-lightest: #bdbdbd;
 
     $text-primary: #212121;
     $text-secondary: #616161;
+
+    $accent: #8e57d5;
   }
 
-  $accent: #5b2a98;
-  $accent-dark: #5b2a98;
+
 
   $error: #f44336;
   $success: #4caf50;
@@ -82,7 +85,12 @@
 
     &:hover {
       -fx-background-color: $accent;
+
       -fx-cursor: HAND;
+
+      .label {
+        -fx-text-fill: $text-primary;
+      }
     }
 
     .label {
@@ -91,6 +99,7 @@
       -fx-padding: 0 10 0 10;
     }
   }
+
   .menu-item {
     -fx-background-radius: 0;
     -fx-border-width: 0;

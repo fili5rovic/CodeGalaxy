@@ -60,7 +60,6 @@ public class ToggleManager {
                 controller.getGitBorderPane().setVisible(true);
                 controller.getGitInitPane().setVisible(false);
             } else {
-                System.out.println("VCS is not initialized, showing init pane");
                 controller.getGitBorderPane().setVisible(false);
                 controller.getGitInitPane().setVisible(true);
             }
