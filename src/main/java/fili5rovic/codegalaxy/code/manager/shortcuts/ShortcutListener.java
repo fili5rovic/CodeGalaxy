@@ -30,7 +30,6 @@ public class ShortcutListener {
         if (currentlyPressed.add(event.getCode())) {
             if (currentlyPressed.equals(targetCombination)) {
                 onShortcut.run();
-                // Optionally: currentlyPressed.clear(); // uncomment if you want to "consume" the shortcut
             }
         }
     }

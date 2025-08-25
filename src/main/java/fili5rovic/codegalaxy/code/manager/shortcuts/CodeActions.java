@@ -61,6 +61,15 @@ public class CodeActions {
         codeGalaxy.selectRange(selectedTextStart, selectedTextEnd);
     }
 
+    public static void foldSelection(CodeGalaxy codeGalaxy) {
+        if (!codeGalaxy.hasSelection())
+            return;
+
+        System.out.println("Folding selection...");
+
+        codeGalaxy.foldSelectedParagraphs();
+    }
+
     public static void deleteLine(CodeGalaxy codeGalaxy) {
         if (codeGalaxy.hasSelection()) {
             int startPar = codeGalaxy.getCaretSelectionBind().getStartParagraphIndex();

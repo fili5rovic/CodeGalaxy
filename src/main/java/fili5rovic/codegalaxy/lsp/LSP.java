@@ -154,20 +154,32 @@ public class LSP {
     }
 
 
-    public void openFile(String filePath) throws Exception {
-        documentManager.openFile(filePath);
+    public void openFile(String filePath) {
+        try {
+            documentManager.openFile(filePath);
+        } catch (Exception e) {
+            System.err.println("[LSP] Error opening file: " + e.getMessage());
+        }
     }
 
     public void closeFile(String filePath) {
         documentManager.closeFile(filePath);
     }
 
-    public void sendChange(String filePath, String newText) throws IllegalStateException {
-        documentManager.sendChange(filePath, newText);
+    public void sendChange(String filePath, String newText) {
+        try {
+            documentManager.sendChange(filePath, newText);
+        } catch (Exception e) {
+            System.err.println("[LSP] Error sending change: " + e.getMessage());
+        }
     }
 
     public void sendSave(String filePath) {
-        documentManager.sendSave(filePath);
+        try {
+            documentManager.sendSave(filePath);
+        } catch (Exception e) {
+            System.err.println("[LSP] Error sending save: " + e.getMessage());
+        }
     }
 
     public List<CompletionItem> requestCompletions(String filePath, int line, int character) throws Exception {
@@ -175,11 +187,21 @@ public class LSP {
     }
 
     public CompletableFuture<List<DocumentSymbol>> getAllSymbols(String filePath) {
-        return requestManager.getAllSymbols(filePath);
+        try {
+            return requestManager.getAllSymbols(filePath);
+        } catch (Exception e) {
+            System.err.println("[LSP] Error getting all symbols: " + e.getMessage());
+        }
+        return CompletableFuture.completedFuture(Collections.emptyList());
     }
 
     public CompletableFuture<List<? extends TextEdit>> formatDocument(String filePath) {
-        return requestManager.formatDocument(filePath);
+        try {
+            return requestManager.formatDocument(filePath);
+        } catch (Exception e) {
+            System.err.println("[LSP] Error formatting document: " + e.getMessage());
+        }
+        return CompletableFuture.completedFuture(Collections.emptyList());
     }
 
     public void sendChangesDebounce(String filePath, String newText, long delay) throws IllegalStateException {
@@ -188,23 +210,46 @@ public class LSP {
 
     public void rename(String filePath, int line, int character, String newName) throws Exception {
         MenuManager.saveAllFiles(null);
-        refactorManager.rename(filePath, line, character, newName);
+        try {
+            refactorManager.rename(filePath, line, character, newName);
+        } catch (Exception e) {
+            System.err.println("[LSP] Error renaming: " + e.getMessage());
+        }
     }
 
     public CompletableFuture<List<? extends Location>> goToDefinition(String filePath, int line, int character) {
-        return requestManager.goToDefinition(filePath, line, character);
+        try {
+            return requestManager.goToDefinition(filePath, line, character);
+        } catch (Exception e) {
+            System.err.println("[LSP] Error going to definition: " + e.getMessage());
+        }
+        return CompletableFuture.completedFuture(Collections.emptyList());
     }
 
     public CompletableFuture<List<? extends Location>> references(String filePath, int line, int character) {
-        return requestManager.references(filePath, line, character);
+        try {
+            return requestManager.references(filePath, line, character);
+        } catch (Exception e) {
+            System.err.println("[LSP] Error getting references: " + e.getMessage());
+        }
+        return CompletableFuture.completedFuture(Collections.emptyList());
     }
 
     public CompletableFuture<Hover> hover(String filePath, int line, int character) {
-        return requestManager.hover(filePath, line, character);
+        try {
+            return requestManager.hover(filePath, line, character);
+        } catch (Exception e) {
+            System.err.println("[LSP] Error getting hover information: " + e.getMessage());
+        }
+        return CompletableFuture.completedFuture(null);
     }
 
     public void sendFolderChange(String folderPath) {
-        documentManager.sendFolderChange(folderPath);
+        try {
+            documentManager.sendFolderChange(folderPath);
+        } catch (Exception e) {
+            System.err.println("[LSP] Error sending folder change: " + e.getMessage());
+        }
     }
 
     public Debouncer getDebouncer() {

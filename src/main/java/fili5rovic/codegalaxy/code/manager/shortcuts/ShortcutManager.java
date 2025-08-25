@@ -53,6 +53,7 @@ public class ShortcutManager extends Manager {
      */
     private void registerAllActions() {
         callbacks.put("shortcut_word_select", () -> codeGalaxy.selectWord());
+        callbacks.put("shortcut_fold_selection", () -> CodeActions.foldSelection(codeGalaxy));
         callbacks.put("shortcut_delete_line", () -> CodeActions.deleteLine(codeGalaxy));
         callbacks.put("shortcut_move_line_up", () -> CodeActions.moveLineUp(codeGalaxy));
         callbacks.put("shortcut_move_line_down", () -> CodeActions.moveLineDown(codeGalaxy));
