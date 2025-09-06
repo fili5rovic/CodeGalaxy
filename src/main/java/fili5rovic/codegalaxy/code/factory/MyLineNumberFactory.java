@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.function.IntFunction;
 import java.util.stream.Collectors;
 
-public class ErrorLineNumberFactory implements IntFunction<Node>, DiagnosticsListener {
+public class MyLineNumberFactory implements IntFunction<Node>, DiagnosticsListener {
 
     private static final int BASE_WIDTH = 60;
     private static final int PADDING_LEFT = 5;
@@ -43,7 +43,7 @@ public class ErrorLineNumberFactory implements IntFunction<Node>, DiagnosticsLis
     private final Map<Integer, List<Diagnostic>> errorsByLine = new HashMap<>();
     private int fontSize;
 
-    public ErrorLineNumberFactory(CodeGalaxy codeGalaxy) {
+    public MyLineNumberFactory(CodeGalaxy codeGalaxy) {
         this.codeGalaxy = codeGalaxy;
         this.fontSize = Integer.parseInt(IDESettings.getInstance().get("fontSize"));
         DiagnosticsPublisher.instance().subscribe(this);
@@ -82,7 +82,7 @@ public class ErrorLineNumberFactory implements IntFunction<Node>, DiagnosticsLis
         if (errorIndicator != null) {
             lineBox.getChildren().add(errorIndicator);
         } else {
-            // Add invisible placeholder to maintain consistent spacing
+            // add invisible placeholder to maintain consistent spacing
             Region placeholder = new Region();
             int indicatorSize = Math.max(MIN_INDICATOR_SIZE, fontSize / INDICATOR_SIZE_DIVIDER);
             placeholder.setMinSize(indicatorSize, indicatorSize);

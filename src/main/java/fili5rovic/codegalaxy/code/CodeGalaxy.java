@@ -1,6 +1,6 @@
 package fili5rovic.codegalaxy.code;
 
-import fili5rovic.codegalaxy.code.factory.ErrorLineNumberFactory;
+import fili5rovic.codegalaxy.code.factory.MyLineNumberFactory;
 import fili5rovic.codegalaxy.code.indentation.IndentationManager;
 import fili5rovic.codegalaxy.code.manager.brackets.BracketManager;
 import fili5rovic.codegalaxy.code.manager.codeActions.rightClick.CodeRightClickManager;
@@ -34,7 +34,7 @@ public class CodeGalaxy extends CodeArea {
 
     private VirtualizedScrollPane<CodeArea> scrollPane;
 
-    private ErrorLineNumberFactory errorLineNumberFactory;
+    private MyLineNumberFactory myLineNumberFactory;
 
     public CodeGalaxy(Path path) {
         addLineNumbers();
@@ -51,11 +51,11 @@ public class CodeGalaxy extends CodeArea {
             fileManager = new FileManager(this, path);
             fileManager.init();
 
-            if (errorLineNumberFactory != null) {
-                errorLineNumberFactory.dispose();
+            if (myLineNumberFactory != null) {
+                myLineNumberFactory.dispose();
             }
-            errorLineNumberFactory = new ErrorLineNumberFactory(this);
-            setParagraphGraphicFactory(errorLineNumberFactory);
+            myLineNumberFactory = new MyLineNumberFactory(this);
+            setParagraphGraphicFactory(myLineNumberFactory);
         }
     }
 
@@ -70,8 +70,8 @@ public class CodeGalaxy extends CodeArea {
     }
 
     private void addLineNumbers() {
-        errorLineNumberFactory = new ErrorLineNumberFactory(this);
-        setParagraphGraphicFactory(errorLineNumberFactory);
+        myLineNumberFactory = new MyLineNumberFactory(this);
+        setParagraphGraphicFactory(myLineNumberFactory);
         this.scrollPane = new VirtualizedScrollPane<>(this);
     }
 
@@ -124,11 +124,11 @@ public class CodeGalaxy extends CodeArea {
     }
 
     public void updateLineNumberFontSize(int fontSize) {
-        if (errorLineNumberFactory != null) {
-            errorLineNumberFactory.setFontSize(fontSize);
+        if (myLineNumberFactory != null) {
+            myLineNumberFactory.setFontSize(fontSize);
             // Force refresh of line numbers
             setParagraphGraphicFactory(null);
-            setParagraphGraphicFactory(errorLineNumberFactory);
+            setParagraphGraphicFactory(myLineNumberFactory);
         }
     }
 
@@ -177,8 +177,8 @@ public class CodeGalaxy extends CodeArea {
     }
 
     public void dispose() {
-        if (errorLineNumberFactory != null) {
-            errorLineNumberFactory.dispose();
+        if (myLineNumberFactory != null) {
+            myLineNumberFactory.dispose();
         }
     }
 }
