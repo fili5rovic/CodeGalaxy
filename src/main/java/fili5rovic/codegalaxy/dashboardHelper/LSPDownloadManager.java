@@ -97,6 +97,7 @@ public class LSPDownloadManager {
 
             try {
                 LSP.instance().start();
+                Thread.sleep(1000);
                 Platform.runLater(ProjectManager::tryToOpenLastProject);
             } catch (Exception e) {
                 System.err.println("Failed to start LSP server: " + e.getMessage());

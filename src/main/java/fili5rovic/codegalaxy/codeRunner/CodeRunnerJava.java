@@ -23,8 +23,6 @@ public class CodeRunnerJava {
         if (classPath == null)
             throw new IllegalArgumentException("Classpath is null");
 
-        System.out.println("Args: " + Arrays.toString(programArgs));
-
         List<String> command = createCommand(qualifiedName, classPath, vmOptions, programArgs);
 
         ProcessBuilder pb = new ProcessBuilder(command);

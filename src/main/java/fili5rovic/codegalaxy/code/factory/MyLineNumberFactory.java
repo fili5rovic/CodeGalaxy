@@ -160,10 +160,8 @@ public class MyLineNumberFactory implements IntFunction<Node>, DiagnosticsListen
         }
 
         Platform.runLater(() -> {
-            // Clear existing errors
             errorsByLine.clear();
 
-            // Process new diagnostics
             if (params != null && params.getDiagnostics() != null) {
                 for (Diagnostic diagnostic : params.getDiagnostics()) {
                     int lineNumber = diagnostic.getRange().getStart().getLine();
@@ -171,14 +169,12 @@ public class MyLineNumberFactory implements IntFunction<Node>, DiagnosticsListen
                             .add(diagnostic);
                 }
             }
-
-            // Refresh the line number display
             refreshLineNumbers();
         });
     }
 
     private void refreshLineNumbers() {
-        // Force CodeArea to refresh its paragraph graphics
+        // force CodeArea to refresh its paragraph graphics
         codeGalaxy.setParagraphGraphicFactory(null);
         codeGalaxy.setParagraphGraphicFactory(this);
     }
