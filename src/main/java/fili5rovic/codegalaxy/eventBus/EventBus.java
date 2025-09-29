@@ -11,7 +11,7 @@ public class EventBus {
 
     private final HashMap<Class<? extends MyEvent>, ArrayList<MyListener>> map = new HashMap<>();
 
-    public EventBus instance() {
+    public static EventBus instance() {
         if(instance == null)
             instance = new EventBus();
 

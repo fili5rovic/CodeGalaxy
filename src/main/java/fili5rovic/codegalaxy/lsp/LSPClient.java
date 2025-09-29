@@ -1,5 +1,7 @@
 package fili5rovic.codegalaxy.lsp;
 
+import fili5rovic.codegalaxy.eventBus.EventBus;
+import fili5rovic.codegalaxy.eventBus.myEvents.EventLSPReady;
 import fili5rovic.codegalaxy.lsp.diagnostics.DiagnosticsPublisher;
 import org.eclipse.lsp4j.*;
 import org.eclipse.lsp4j.jsonrpc.services.JsonNotification;
@@ -7,6 +9,7 @@ import org.eclipse.lsp4j.services.LanguageClient;
 
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 
 class LSPClient implements LanguageClient {
 
@@ -58,6 +61,12 @@ class LSPClient implements LanguageClient {
                 String message = statusMap.get("message") != null ? statusMap.get("message").toString() : "";
 
                 System.out.println("[LSP-" + type + "]: " + message);
+
+                if(type.equals("ServiceReady")) {
+                    CompletableFuture.delayedExecutor(1, TimeUnit.SECONDS).execute(() -> {
+                        EventBus.instance().publish(new EventLSPReady());
+                    });
+                }
 
             }
         } catch (Exception e) {

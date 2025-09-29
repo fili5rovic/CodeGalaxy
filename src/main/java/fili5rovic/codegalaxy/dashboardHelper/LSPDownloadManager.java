@@ -1,27 +1,29 @@
 package fili5rovic.codegalaxy.dashboardHelper;
 
+import fili5rovic.codegalaxy.eventBus.EventBus;
+import fili5rovic.codegalaxy.eventBus.MyListener;
+import fili5rovic.codegalaxy.eventBus.myEvents.EventLSPReady;
+import fili5rovic.codegalaxy.eventBus.myEvents.MyEvent;
 import fili5rovic.codegalaxy.lsp.LSP;
 import fili5rovic.codegalaxy.notification.NotificationManager;
 import fili5rovic.codegalaxy.util.downloader.JDTLSDownloadTask;
 import fili5rovic.codegalaxy.util.downloader.JDTLSRelease;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.application.Platform;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.util.concurrent.CompletableFuture;
 
-public class LSPDownloadManager {
+public class LSPDownloadManager implements MyListener {
 
     private final JDTLSDownloadTask lspDownloadTask;
 
     public LSPDownloadManager() {
         lspDownloadTask = new JDTLSDownloadTask(JDTLSRelease.V1_48_0);
+        EventBus.instance().register(this, EventLSPReady.class);
     }
 
     public void verifyAndRunLSP() {
@@ -97,12 +99,15 @@ public class LSPDownloadManager {
 
             try {
                 LSP.instance().start();
-                Thread.sleep(1000);
-                Platform.runLater(ProjectManager::tryToOpenLastProject);
             } catch (Exception e) {
                 System.err.println("Failed to start LSP server: " + e.getMessage());
                 System.err.println("Fatal error: LSP server is not running. Please check your configuration.");
             }
         });
+    }
+
+    @Override
+    public void handle(MyEvent e) {
+        Platform.runLater(ProjectManager::tryToOpenLastProject);
     }
 }

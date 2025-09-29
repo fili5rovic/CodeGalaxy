@@ -226,8 +226,8 @@ public class DashboardController extends ControllerBase {
             IDESettings.deleteTempSettings();
         try {
             RunConfigUtil.writeRunConfigurations();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (IOException | IllegalStateException e) {
+            System.err.println(e.getMessage());
         }
         LSP.instance().stop();
         Platform.exit();
