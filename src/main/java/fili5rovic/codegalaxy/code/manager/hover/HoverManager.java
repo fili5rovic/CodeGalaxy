@@ -9,6 +9,7 @@ import javafx.geometry.Bounds;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import org.eclipse.lsp4j.Hover;
 import org.eclipse.lsp4j.MarkedString;
 import org.eclipse.lsp4j.jsonrpc.messages.Either;
@@ -169,25 +170,23 @@ public class HoverManager extends Manager {
     private void resizeToContent() {
         String text = content.getText();
         if (text == null || text.isEmpty()) {
+            content.setPrefSize(MIN_WIDTH, MIN_HEIGHT);
             return;
         }
 
-        int lineCount = text.split("\n").length;
+        Text helper = new Text(text);
+        helper.setFont(content.getFont());
+        helper.setWrappingWidth(MAX_WIDTH);
 
-        int maxLineLength = 0;
-        for (String line : text.split("\n")) {
-            maxLineLength = Math.max(maxLineLength, line.length());
-        }
+        double textWidth = helper.getLayoutBounds().getWidth();
+        double textHeight = helper.getLayoutBounds().getHeight();
 
-        double charWidth = 7.5;
-        double lineHeight = 18;
+        double desiredWidth = Math.min(Math.max(textWidth + 20, MIN_WIDTH), MAX_WIDTH);
+        double desiredHeight = Math.min(Math.max(textHeight + 20, MIN_HEIGHT), MAX_HEIGHT);
 
-        double desiredWidth = Math.min(Math.max(maxLineLength * charWidth + 40, MIN_WIDTH), MAX_WIDTH);
-        double desiredHeight = Math.min(Math.max(lineCount * lineHeight + 20, MIN_HEIGHT), MAX_HEIGHT);
-
-        content.setPrefWidth(desiredWidth);
-        content.setPrefHeight(desiredHeight + 10);
+        content.setPrefSize(desiredWidth, desiredHeight);
     }
+
 
     private int offsetAt(CodeGalaxy codeArea, double x, double y) {
         return codeArea.hit(x, y).getCharacterIndex().orElse(-1);
