@@ -9,12 +9,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Tooltip;
+import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
+import org.eclipse.lsp4j.Hover;
 import org.eclipse.lsp4j.MarkedString;
 import org.eclipse.lsp4j.jsonrpc.messages.Either;
 import org.fxmisc.richtext.model.TwoDimensional;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class HoverManager extends Manager {
 
@@ -27,6 +31,8 @@ public class HoverManager extends Manager {
     private final Debouncer hoverDebouncer = new Debouncer();
 
     private final int hoverDelay = 1000;
+
+    private String lastHoveredWord = "";
 
     private static final double MAX_WIDTH = 600;
     private static final double MAX_HEIGHT = 400;
@@ -50,44 +56,87 @@ public class HoverManager extends Manager {
 
     @Override
     public void init() {
-        codeGalaxy.setOnMouseMoved(event -> {
-            int characterIndex = offsetAt(codeGalaxy, event.getX(), event.getY());
-            if (characterIndex != -1 && characterIndex < codeGalaxy.getLength()) {
-                TwoDimensional.Position position = codeGalaxy.offsetToPosition(characterIndex, TwoDimensional.Bias.Forward);
-                int line = position.getMajor();
-                int column = position.getMinor();
-                hoverDebouncer.debounce(() -> {
-                    LSP.instance().hover(codeGalaxy.getFilePath().toString(), line, column).thenAccept(hoverInfo -> {
-                        List<Either<String, MarkedString>> list = hoverInfo.getContents().getLeft();
-                        if (list.isEmpty()) {
-                            Platform.runLater(hoverTooltip::hide);
-                            return;
-                        }
-                        StringBuilder tooltipText = new StringBuilder();
-                        for (Either<String, MarkedString> item : list) {
-                            String content = item.isLeft() ? item.getLeft() : item.getRight().getValue();
-                            tooltipText.append(content).append('\n');
-                        }
-                        if (tooltipText.isEmpty()) {
-                            Platform.runLater(hoverTooltip::hide);
-                            return;
-                        }
-                        Platform.runLater(() -> {
-                            if(codeGalaxy.getScene() == null || !codeGalaxy.getScene().getWindow().isFocused()) {
-                                hoverTooltip.hide();
-                                return;
-                            }
-                            content.setText(tooltipText.toString());
-                            resizeToContent();
-                            hoverTooltip.show(codeGalaxy, event.getScreenX() + 10, event.getScreenY() + 10);
-                        });
-                    });
-                }, hoverDelay);
-            } else {
-                hoverTooltip.hide();
-                hoverDebouncer.cancel();
-            }
+        codeGalaxy.setOnMouseMoved(e -> {
+            hoverDebouncer.debounce(() -> handleMouseMoved(e), hoverDelay);
         });
+    }
+
+    private void handleMouseMoved(MouseEvent event) {
+        int characterIndex = offsetAt(codeGalaxy, event.getX(), event.getY());
+        if (characterIndex == -1 || characterIndex >= codeGalaxy.getLength()) {
+            hideTooltip();
+            return;
+        }
+
+        TwoDimensional.Position position = codeGalaxy.offsetToPosition(characterIndex, TwoDimensional.Bias.Forward);
+
+        int line = position.getMajor();
+        int column = position.getMinor();
+        String text = codeGalaxy.getParagraph(line).getText();
+        String word = extractWordAt(text, column);
+
+        if (Objects.equals(word, lastHoveredWord)) {
+            return;
+        }
+
+        lastHoveredWord = word;
+
+        LSP.instance().hover(codeGalaxy.getFilePath().toString(), line, column)
+                .thenAccept(hoverInfo -> processHoverInfo(hoverInfo, event.getScreenX(), event.getScreenY()));
+
+    }
+
+    private String extractWordAt(String lineText, int column) {
+        if (column < 0 || column >= lineText.length()) return null;
+
+        int start = column;
+        int end = column;
+
+        while (start > 0 && Character.isJavaIdentifierPart(lineText.charAt(start - 1))) {
+            start--;
+        }
+        while (end < lineText.length() && Character.isJavaIdentifierPart(lineText.charAt(end))) {
+            end++;
+        }
+
+        return lineText.substring(start, end);
+    }
+
+
+    private void processHoverInfo(Hover hoverInfo, double screenX, double screenY) {
+        List<Either<String, MarkedString>> contents = hoverInfo.getContents().getLeft();
+
+
+        if (contents.isEmpty()) {
+            Platform.runLater(hoverTooltip::hide);
+            return;
+        }
+
+        String tooltipText = contents.stream()
+                .map(item -> item.isLeft() ? item.getLeft() : item.getRight().getValue())
+                .collect(Collectors.joining("\n"));
+
+        Platform.runLater(() -> showTooltip(tooltipText, screenX, screenY));
+    }
+
+    private void showTooltip(String text, double screenX, double screenY) {
+        if (!isWindowFocused()) {
+            hoverTooltip.hide();
+            return;
+        }
+
+        content.setText(text);
+        resizeToContent();
+        hoverTooltip.show(codeGalaxy, screenX + 10, screenY + 10);
+    }
+
+    private boolean isWindowFocused() {
+        return codeGalaxy.getScene() != null && codeGalaxy.getScene().getWindow().isFocused();
+    }
+
+    private void hideTooltip() {
+        hoverTooltip.hide();
+        hoverDebouncer.cancel();
     }
 
     private void resizeToContent() {
