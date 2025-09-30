@@ -5,6 +5,7 @@ import fili5rovic.codegalaxy.code.manager.Manager;
 import fili5rovic.codegalaxy.lsp.LSP;
 import fili5rovic.codegalaxy.util.Debouncer;
 import javafx.application.Platform;
+import javafx.geometry.Bounds;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
@@ -18,6 +19,7 @@ import org.fxmisc.richtext.model.TwoDimensional;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class HoverManager extends Manager {
@@ -30,14 +32,17 @@ public class HoverManager extends Manager {
 
     private final Debouncer hoverDebouncer = new Debouncer();
 
-    private final int hoverDelay = 1000;
+    private final int HOVER_DELAY = 1000;
 
-    private String lastHoveredWord = "";
+    private String lastHoveredWord = null;
 
     private static final double MAX_WIDTH = 600;
     private static final double MAX_HEIGHT = 400;
     private static final double MIN_WIDTH = 200;
     private static final double MIN_HEIGHT = 50;
+
+    private record WordInfo(String word, int startIndex) {
+    }
 
     public HoverManager(CodeGalaxy cg) {
         super(cg);
@@ -56,15 +61,23 @@ public class HoverManager extends Manager {
 
     @Override
     public void init() {
-        codeGalaxy.setOnMouseMoved(e -> {
-            hoverDebouncer.debounce(() -> handleMouseMoved(e), hoverDelay);
-        });
+        codeGalaxy.setOnMouseMoved(this::handleMouseMoved);
     }
 
     private void handleMouseMoved(MouseEvent event) {
+        handleEvent(event);
+
+
+//        hoverDebouncer.debounce(() -> LSP.instance().hover(codeGalaxy.getFilePath().toString(), line, column)
+//                .thenAccept(hoverInfo -> processHoverInfo(hoverInfo, event.getScreenX(), event.getScreenY())), hoverDelay);
+
+    }
+
+    private void handleEvent(MouseEvent event) {
         int characterIndex = offsetAt(codeGalaxy, event.getX(), event.getY());
         if (characterIndex == -1 || characterIndex >= codeGalaxy.getLength()) {
             hideTooltip();
+            lastHoveredWord = null;
             return;
         }
 
@@ -73,20 +86,35 @@ public class HoverManager extends Manager {
         int line = position.getMajor();
         int column = position.getMinor();
         String text = codeGalaxy.getParagraph(line).getText();
-        String word = extractWordAt(text, column);
-
-        if (Objects.equals(word, lastHoveredWord)) {
+        WordInfo wordInfo = extractWordAt(text, column);
+        if (wordInfo == null) {
+            lastHoveredWord = null;
             return;
         }
 
+        String word = wordInfo.word;
+
+
+        if (lastHoveredWord == null) {
+            if (word.isEmpty()) {
+                hideTooltip();
+                return;
+            }
+            int startOffset = codeGalaxy.position(line, wordInfo.startIndex).toOffset();
+            Optional<Bounds> bounds = codeGalaxy.getCharacterBoundsOnScreen(startOffset, startOffset + 1);
+            bounds.ifPresent(b -> showTooltip("TEST", b.getMinX(), b.getMaxY()));
+
+        } else if (lastHoveredWord.equals(word)) {
+            return;
+        } else {
+            hideTooltip();
+            word = null;
+        }
+
         lastHoveredWord = word;
-
-        LSP.instance().hover(codeGalaxy.getFilePath().toString(), line, column)
-                .thenAccept(hoverInfo -> processHoverInfo(hoverInfo, event.getScreenX(), event.getScreenY()));
-
     }
 
-    private String extractWordAt(String lineText, int column) {
+    private WordInfo extractWordAt(String lineText, int column) {
         if (column < 0 || column >= lineText.length()) return null;
 
         int start = column;
@@ -99,7 +127,9 @@ public class HoverManager extends Manager {
             end++;
         }
 
-        return lineText.substring(start, end);
+        if (start == end) return null;
+
+        return new WordInfo(lineText.substring(start, end), start);
     }
 
 
