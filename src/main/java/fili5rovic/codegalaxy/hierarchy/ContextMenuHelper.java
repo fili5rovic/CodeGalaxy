@@ -1,7 +1,6 @@
 package fili5rovic.codegalaxy.hierarchy;
 
 import fili5rovic.codegalaxy.codeRunner.CodeRunnerService;
-import fili5rovic.codegalaxy.controller.Controllers;
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.dashboardHelper.ProjectManager;
 import fili5rovic.codegalaxy.dashboardHelper.TabManager;

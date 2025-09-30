@@ -6,19 +6,16 @@ import fili5rovic.codegalaxy.lsp.LSP;
 import fili5rovic.codegalaxy.util.Debouncer;
 import javafx.application.Platform;
 import javafx.geometry.Bounds;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
-import javafx.util.Duration;
 import org.eclipse.lsp4j.Hover;
 import org.eclipse.lsp4j.MarkedString;
 import org.eclipse.lsp4j.jsonrpc.messages.Either;
 import org.fxmisc.richtext.model.TwoDimensional;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -32,7 +29,7 @@ public class HoverManager extends Manager {
 
     private final Debouncer hoverDebouncer = new Debouncer();
 
-    private final int HOVER_DELAY = 1000;
+    private final int HOVER_DELAY = 300;
 
     private String lastHoveredWord = null;
 
@@ -53,7 +50,6 @@ public class HoverManager extends Manager {
         scrollPane.setMaxSize(600, 400);
         scrollPane.setContent(content);
         hoverTooltip.setGraphic(scrollPane);
-        hoverTooltip.setHideDelay(Duration.millis(300));
 
         hoverTooltip.setOnHidden(_ -> content.setText(""));
         content.setOnMouseExited(_ -> hoverTooltip.hide());
@@ -65,15 +61,17 @@ public class HoverManager extends Manager {
     }
 
     private void handleMouseMoved(MouseEvent event) {
-        handleEvent(event);
-
-
-//        hoverDebouncer.debounce(() -> LSP.instance().hover(codeGalaxy.getFilePath().toString(), line, column)
-//                .thenAccept(hoverInfo -> processHoverInfo(hoverInfo, event.getScreenX(), event.getScreenY())), hoverDelay);
-
+        if (!hoverTooltip.isShowing()) {
+            hoverDebouncer.debounce(() -> Platform.runLater(() -> handleEvent(event)), HOVER_DELAY);
+        } else {
+            handleEvent(event);
+            hoverDebouncer.cancel();
+        }
     }
 
+
     private void handleEvent(MouseEvent event) {
+
         int characterIndex = offsetAt(codeGalaxy, event.getX(), event.getY());
         if (characterIndex == -1 || characterIndex >= codeGalaxy.getLength()) {
             hideTooltip();
@@ -89,29 +87,32 @@ public class HoverManager extends Manager {
         WordInfo wordInfo = extractWordAt(text, column);
         if (wordInfo == null) {
             lastHoveredWord = null;
+            hideTooltip();
+            hoverDebouncer.cancel();
             return;
         }
 
-        String word = wordInfo.word;
-
+        String currentWord = wordInfo.word;
 
         if (lastHoveredWord == null) {
-            if (word.isEmpty()) {
+            if (currentWord.isEmpty()) {
                 hideTooltip();
                 return;
             }
             int startOffset = codeGalaxy.position(line, wordInfo.startIndex).toOffset();
             Optional<Bounds> bounds = codeGalaxy.getCharacterBoundsOnScreen(startOffset, startOffset + 1);
-            bounds.ifPresent(b -> showTooltip("TEST", b.getMinX(), b.getMaxY()));
 
-        } else if (lastHoveredWord.equals(word)) {
+            bounds.ifPresent(b -> LSP.instance().hover(codeGalaxy.getFilePath().toString(), line, column)
+                    .thenAccept(hoverInfo -> processHoverInfo(hoverInfo, b.getMinX(), b.getMaxY())));
+
+        } else if (lastHoveredWord.equals(currentWord)) {
             return;
         } else {
             hideTooltip();
-            word = null;
+            currentWord = null;
         }
 
-        lastHoveredWord = word;
+        lastHoveredWord = currentWord;
     }
 
     private WordInfo extractWordAt(String lineText, int column) {
@@ -146,6 +147,9 @@ public class HoverManager extends Manager {
                 .map(item -> item.isLeft() ? item.getLeft() : item.getRight().getValue())
                 .collect(Collectors.joining("\n"));
 
+        if(tooltipText.isBlank())
+            return;
+
         Platform.runLater(() -> showTooltip(tooltipText, screenX, screenY));
     }
 
@@ -157,7 +161,7 @@ public class HoverManager extends Manager {
 
         content.setText(text);
         resizeToContent();
-        hoverTooltip.show(codeGalaxy, screenX + 10, screenY + 10);
+        hoverTooltip.show(codeGalaxy, screenX, screenY);
     }
 
     private boolean isWindowFocused() {
