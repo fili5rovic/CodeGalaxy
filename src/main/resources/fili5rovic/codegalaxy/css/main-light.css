@@ -67,44 +67,61 @@
 
 .context-menu {
   -fx-background-color: #f5f5f5;
-  -fx-background-radius: 10;
-  -fx-border-width: 0;
-  -fx-padding: 0 0 -1 0; }
+  -fx-background-radius: 8;
+  -fx-border-color: rgba(0, 0, 0, 0.1);
+  -fx-border-width: 1;
+  -fx-border-radius: 8;
+  -fx-padding: 4 0;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 12, 0, 0, 2); }
   .context-menu .scroll-bar:vertical {
     -fx-background-color: transparent;
-    -fx-pref-width: 8px;
-    -fx-padding: 2px; }
+    -fx-pref-width: 10px;
+    -fx-padding: 4px 2px; }
     .context-menu .scroll-bar:vertical .track {
-      -fx-background-color: rgba(0, 0, 0, 0.05);
-      -fx-background-radius: 4px;
-      -fx-border-radius: 4px; }
+      -fx-background-color: transparent;
+      -fx-background-radius: 5px;
+      -fx-border-radius: 5px; }
     .context-menu .scroll-bar:vertical .thumb {
-      -fx-background-color: rgba(0, 0, 0, 0.3);
-      -fx-background-radius: 4px;
-      -fx-border-radius: 4px; }
+      -fx-background-color: rgba(0, 0, 0, 0.2);
+      -fx-background-radius: 5px;
+      -fx-border-radius: 5px; }
       .context-menu .scroll-bar:vertical .thumb:hover {
-        -fx-background-color: rgba(0, 0, 0, 0.5); }
+        -fx-background-color: rgba(0, 0, 0, 0.35); }
       .context-menu .scroll-bar:vertical .thumb:pressed {
-        -fx-background-color: rgba(0, 0, 0, 0.6); }
+        -fx-background-color: rgba(0, 0, 0, 0.5); }
     .context-menu .scroll-bar:vertical .increment-button,
     .context-menu .scroll-bar:vertical .decrement-button {
       -fx-background-color: transparent;
       -fx-padding: 0;
-      -fx-pref-height: 0; }
+      -fx-pref-height: 0;
+      -fx-pref-width: 0; }
     .context-menu .scroll-bar:vertical .increment-arrow,
     .context-menu .scroll-bar:vertical .decrement-arrow {
       -fx-shape: "";
       -fx-padding: 0; }
   .context-menu .menu-item {
     -fx-background-color: transparent;
-    -fx-text-fill: #616161;
-    -fx-padding: 5px 10px; }
+    -fx-text-fill: #212121;
+    -fx-padding: 8px 16px;
+    -fx-background-radius: 4;
+    -fx-cursor: hand; }
+    .context-menu .menu-item .label {
+      -fx-font-size: 13px; }
     .context-menu .menu-item:hover {
       -fx-background-color: #bdbdbd;
       -fx-text-fill: #212121; }
+    .context-menu .menu-item:focused {
+      -fx-background-color: #bdbdbd; }
     .context-menu .menu-item:pressed {
-      -fx-background-color: #bdbdbd;
-      -fx-text-fill: #212121; }
+      -fx-background-color: #e0e0e0; }
+  .context-menu .separator {
+    -fx-padding: 4px 0; }
+    .context-menu .separator .line {
+      -fx-border-color: rgba(0, 0, 0, 0.08);
+      -fx-border-width: 0.5 0 0 0; }
+
+.context-menu > .corner {
+  -fx-background-color: transparent; }
 
 .radio-button {
   -fx-text-fill: #212121; }

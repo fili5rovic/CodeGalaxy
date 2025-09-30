@@ -6,7 +6,6 @@ import fili5rovic.codegalaxy.lsp.LSP;
 import fili5rovic.codegalaxy.util.Debouncer;
 import javafx.application.Platform;
 import javafx.geometry.Bounds;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
@@ -22,8 +21,6 @@ import java.util.stream.Collectors;
 public class HoverManager extends Manager {
 
     private final Tooltip hoverTooltip = new Tooltip();
-
-    private final ScrollPane scrollPane = new ScrollPane();
 
     private final TextArea content = new TextArea();
 
@@ -43,16 +40,12 @@ public class HoverManager extends Manager {
 
     public HoverManager(CodeGalaxy cg) {
         super(cg);
-        hoverTooltip.setAutoHide(true);
 
         content.setEditable(false);
 
-        scrollPane.setMaxSize(600, 400);
-        scrollPane.setContent(content);
-        hoverTooltip.setGraphic(scrollPane);
+        hoverTooltip.setGraphic(content);
 
         hoverTooltip.setOnHidden(_ -> content.setText(""));
-        content.setOnMouseExited(_ -> hoverTooltip.hide());
     }
 
     @Override
@@ -193,9 +186,7 @@ public class HoverManager extends Manager {
         double desiredHeight = Math.min(Math.max(lineCount * lineHeight + 20, MIN_HEIGHT), MAX_HEIGHT);
 
         content.setPrefWidth(desiredWidth);
-        content.setPrefHeight(desiredHeight);
-        scrollPane.setPrefWidth(desiredWidth);
-        scrollPane.setPrefHeight(desiredHeight);
+        content.setPrefHeight(desiredHeight + 10);
     }
 
     private int offsetAt(CodeGalaxy codeArea, double x, double y) {
