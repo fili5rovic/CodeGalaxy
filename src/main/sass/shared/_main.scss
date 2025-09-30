@@ -130,6 +130,47 @@
     -fx-border-width: 0;
     -fx-padding: 0 0 -1 0;
 
+    .scroll-bar {
+      &:vertical {
+        -fx-background-color: transparent;
+        -fx-pref-width: 8px;
+        -fx-padding: 2px;
+
+        .track {
+          -fx-background-color: rgba(0, 0, 0, 0.05);
+          -fx-background-radius: 4px;
+          -fx-border-radius: 4px;
+        }
+
+        .thumb {
+          -fx-background-color: rgba(0, 0, 0, 0.3);
+          -fx-background-radius: 4px;
+          -fx-border-radius: 4px;
+
+          &:hover {
+            -fx-background-color: rgba(0, 0, 0, 0.5);
+          }
+
+          &:pressed {
+            -fx-background-color: rgba(0, 0, 0, 0.6);
+          }
+        }
+
+        .increment-button,
+        .decrement-button {
+          -fx-background-color: transparent;
+          -fx-padding: 0;
+          -fx-pref-height: 0;
+        }
+
+        .increment-arrow,
+        .decrement-arrow {
+          -fx-shape: "";
+          -fx-padding: 0;
+        }
+      }
+    }
+
     .menu-item {
       -fx-background-color: transparent;
       -fx-text-fill: $text-secondary;

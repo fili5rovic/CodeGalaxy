@@ -7,6 +7,7 @@ import fili5rovic.codegalaxy.util.Debouncer;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.Tooltip;
 import javafx.util.Duration;
 import org.eclipse.lsp4j.MarkedString;
@@ -19,17 +20,25 @@ public class HoverManager extends Manager {
 
     private final Tooltip hoverTooltip = new Tooltip();
 
-    private final Label content = new Label();
+    private final ScrollPane scrollPane = new ScrollPane();
+
+    private final TextArea content = new TextArea();
 
     private final Debouncer hoverDebouncer = new Debouncer();
 
     private final int hoverDelay = 1000;
 
+    private static final double MAX_WIDTH = 600;
+    private static final double MAX_HEIGHT = 400;
+    private static final double MIN_WIDTH = 200;
+    private static final double MIN_HEIGHT = 50;
+
     public HoverManager(CodeGalaxy cg) {
         super(cg);
         hoverTooltip.setAutoHide(true);
 
-        var scrollPane = new ScrollPane();
+        content.setEditable(false);
+
         scrollPane.setMaxSize(600, 400);
         scrollPane.setContent(content);
         hoverTooltip.setGraphic(scrollPane);
@@ -57,7 +66,7 @@ public class HoverManager extends Manager {
                         StringBuilder tooltipText = new StringBuilder();
                         for (Either<String, MarkedString> item : list) {
                             String content = item.isLeft() ? item.getLeft() : item.getRight().getValue();
-                            tooltipText.append(content);
+                            tooltipText.append(content).append('\n');
                         }
                         if (tooltipText.isEmpty()) {
                             Platform.runLater(hoverTooltip::hide);
@@ -69,6 +78,7 @@ public class HoverManager extends Manager {
                                 return;
                             }
                             content.setText(tooltipText.toString());
+                            resizeToContent();
                             hoverTooltip.show(codeGalaxy, event.getScreenX() + 10, event.getScreenY() + 10);
                         });
                     });
@@ -78,6 +88,31 @@ public class HoverManager extends Manager {
                 hoverDebouncer.cancel();
             }
         });
+    }
+
+    private void resizeToContent() {
+        String text = content.getText();
+        if (text == null || text.isEmpty()) {
+            return;
+        }
+
+        int lineCount = text.split("\n").length;
+
+        int maxLineLength = 0;
+        for (String line : text.split("\n")) {
+            maxLineLength = Math.max(maxLineLength, line.length());
+        }
+
+        double charWidth = 7.5;
+        double lineHeight = 18;
+
+        double desiredWidth = Math.min(Math.max(maxLineLength * charWidth + 40, MIN_WIDTH), MAX_WIDTH);
+        double desiredHeight = Math.min(Math.max(lineCount * lineHeight + 20, MIN_HEIGHT), MAX_HEIGHT);
+
+        content.setPrefWidth(desiredWidth);
+        content.setPrefHeight(desiredHeight);
+        scrollPane.setPrefWidth(desiredWidth);
+        scrollPane.setPrefHeight(desiredHeight);
     }
 
     private int offsetAt(CodeGalaxy codeArea, double x, double y) {

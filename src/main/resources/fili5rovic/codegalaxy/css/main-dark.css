@@ -70,6 +70,31 @@
   -fx-background-radius: 10;
   -fx-border-width: 0;
   -fx-padding: 0 0 -1 0; }
+  .context-menu .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8px;
+    -fx-padding: 2px; }
+    .context-menu .scroll-bar:vertical .track {
+      -fx-background-color: rgba(0, 0, 0, 0.05);
+      -fx-background-radius: 4px;
+      -fx-border-radius: 4px; }
+    .context-menu .scroll-bar:vertical .thumb {
+      -fx-background-color: rgba(0, 0, 0, 0.3);
+      -fx-background-radius: 4px;
+      -fx-border-radius: 4px; }
+      .context-menu .scroll-bar:vertical .thumb:hover {
+        -fx-background-color: rgba(0, 0, 0, 0.5); }
+      .context-menu .scroll-bar:vertical .thumb:pressed {
+        -fx-background-color: rgba(0, 0, 0, 0.6); }
+    .context-menu .scroll-bar:vertical .increment-button,
+    .context-menu .scroll-bar:vertical .decrement-button {
+      -fx-background-color: transparent;
+      -fx-padding: 0;
+      -fx-pref-height: 0; }
+    .context-menu .scroll-bar:vertical .increment-arrow,
+    .context-menu .scroll-bar:vertical .decrement-arrow {
+      -fx-shape: "";
+      -fx-padding: 0; }
   .context-menu .menu-item {
     -fx-background-color: transparent;
     -fx-text-fill: #b0b0b0;

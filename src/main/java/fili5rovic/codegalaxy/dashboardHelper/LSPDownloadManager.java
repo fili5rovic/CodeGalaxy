@@ -81,9 +81,7 @@ public class LSPDownloadManager implements MyListener {
                 run();
             }
         })).exceptionally(throwable -> {
-            Platform.runLater(() -> {
-                System.err.println("LSP download failed: " + throwable.getMessage());
-            });
+            Platform.runLater(() -> System.err.println("LSP download failed: " + throwable.getMessage()));
             return null;
         });
     }
