@@ -13,16 +13,9 @@ public class SplitPaneManager {
     private static double lastKnownLeftPaneWidth = -1;
     private static double lastKnownDividerPosition = 0.25;
 
-    private static double lastKnownBottomPaneHeight = -1;
-    private static double lastKnownConsoleDividerPosition = 0.75;
-
     private static boolean windowResizing = false;
 
     public static void setupLockPositions() {
-        setupMainSplitPane();
-    }
-
-    private static void setupMainSplitPane() {
         SplitPane mainSplitPane = Controllers.dashboardController().getMainSplitPane();
 
         try {
@@ -74,55 +67,6 @@ public class SplitPaneManager {
         }));
     }
 
-    private static void setupConsoleSplitPane() {
-        SplitPane consoleSplitPane = Controllers.dashboardController().getConsoleSplitPane();
-
-        try {
-            lastKnownBottomPaneHeight = Double.parseDouble(IDESettings.getRecentInstance().get("lastKnownBottomPaneHeight"));
-            lastKnownConsoleDividerPosition = Double.parseDouble(IDESettings.getRecentInstance().get("lastKnownConsoleDividerPosition"));
-        } catch (NumberFormatException | NullPointerException e) {
-            lastKnownBottomPaneHeight = -1;
-        }
-
-        ChangeListener<Number> heightListener = (_, _, newHeight) -> {
-            if (newHeight.doubleValue() > 0 && lastKnownBottomPaneHeight > 0) {
-                consoleSplitPane.setDividerPosition(0, 1.0 - (lastKnownBottomPaneHeight / newHeight.doubleValue()));
-            }
-        };
-
-        ChangeListener<Number> positionListener = (_, _, newPos) -> {
-            if (!windowResizing && consoleSplitPane.getItems().getLast().isVisible()) {
-                double currentHeight = consoleSplitPane.getHeight();
-                if (currentHeight > 0) {
-                    // Za donji panel računamo od kraja
-                    double height = (1.0 - newPos.doubleValue()) * currentHeight;
-                    double pos = newPos.doubleValue();
-                    if (height > 0 && pos > 0) {
-                        lastKnownBottomPaneHeight = height;
-                        lastKnownConsoleDividerPosition = pos;
-                        IDESettings.getRecentInstance().set("lastKnownBottomPaneHeight", String.valueOf(lastKnownBottomPaneHeight));
-                        IDESettings.getRecentInstance().set("lastKnownConsoleDividerPosition", String.valueOf(lastKnownConsoleDividerPosition));
-                    }
-                }
-            }
-        };
-
-        consoleSplitPane.heightProperty().addListener(heightListener);
-        consoleSplitPane.getDividers().getFirst().positionProperty().addListener(positionListener);
-
-        Platform.runLater(() -> {
-            double initialHeight = consoleSplitPane.getHeight();
-            if (initialHeight > 0) {
-                if (lastKnownBottomPaneHeight > 0) {
-                    consoleSplitPane.setDividerPosition(0, 1.0 - (lastKnownBottomPaneHeight / initialHeight));
-                } else {
-                    lastKnownBottomPaneHeight = (1.0 - consoleSplitPane.getDividerPositions()[0]) * initialHeight;
-                }
-            }
-        });
-    }
-
-
     public static void showLeftPanel(boolean hide) {
         SplitPane mainSplitPane = Controllers.dashboardController().getMainSplitPane();
         SplitPane.Divider divider = mainSplitPane.getDividers().getFirst();
@@ -136,22 +80,6 @@ public class SplitPaneManager {
         } else {
             divider.setPosition(lastKnownDividerPosition);
             left.setVisible(true);
-        }
-    }
-
-    public static void showConsolePanel(boolean hide) {
-        SplitPane consoleSplitPane = Controllers.dashboardController().getConsoleSplitPane();
-        SplitPane.Divider divider = consoleSplitPane.getDividers().getFirst();
-        Node bottom = consoleSplitPane.getItems().getLast();
-        if (hide) {
-            if (bottom.isVisible()) {
-                lastKnownConsoleDividerPosition = divider.getPosition();
-            }
-            divider.setPosition(1.0);
-            bottom.setVisible(false);
-        } else {
-            divider.setPosition(lastKnownConsoleDividerPosition);
-            bottom.setVisible(true);
         }
     }
 
