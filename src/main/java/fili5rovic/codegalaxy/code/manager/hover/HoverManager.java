@@ -43,6 +43,7 @@ public class HoverManager extends Manager {
         super(cg);
 
         content.setEditable(false);
+        content.setWrapText(true);
 
         hoverTooltip.setGraphic(content);
 
@@ -174,17 +175,26 @@ public class HoverManager extends Manager {
             return;
         }
 
+        // Postavi word wrap da spreči horizontalni skrol
+        content.setWrapText(true);
+
         Text helper = new Text(text);
         helper.setFont(content.getFont());
-        helper.setWrappingWidth(MAX_WIDTH);
 
-        double textWidth = helper.getLayoutBounds().getWidth();
+        // Prvo merimo prirodnu širinu
+        double naturalWidth = helper.getLayoutBounds().getWidth();
+
+        // Odaberi optimalnu širinu (ne suviše velika, ali dovoljno za sadržaj)
+        double targetWidth = Math.min(naturalWidth + 20, MAX_WIDTH);
+        targetWidth = Math.max(targetWidth, MIN_WIDTH);
+
+        // Sada merimo visinu sa tom širinom
+        helper.setWrappingWidth(targetWidth);
         double textHeight = helper.getLayoutBounds().getHeight();
 
-        double desiredWidth = Math.min(Math.max(textWidth + 20, MIN_WIDTH), MAX_WIDTH);
         double desiredHeight = Math.min(Math.max(textHeight + 20, MIN_HEIGHT), MAX_HEIGHT);
 
-        content.setPrefSize(desiredWidth, desiredHeight);
+        content.setPrefSize(targetWidth, desiredHeight);
     }
 
 

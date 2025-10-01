@@ -26,7 +26,7 @@ public class ToggleManager {
         controller.getGitBorderPane().setVisible(false);
         controller.getGitInitPane().setVisible(false);
 
-        // to setup initial state of the hierarchy
+
     }
 
     public static void refreshIcons() {
@@ -71,18 +71,20 @@ public class ToggleManager {
             if (newToggle == null && oldToggle != null) {
                 lastConsoleDividerValue = divider.getPosition();
                 divider.setPosition(1);
+
+                controller.getConsoleSplitPane().lookupAll(".split-pane-divider")
+                        .forEach(div -> div.setMouseTransparent(true));
+
             } else if (newToggle != null && oldToggle == null) {
                 divider.setPosition(lastConsoleDividerValue);
+
+                controller.getConsoleSplitPane().lookupAll(".split-pane-divider")
+                        .forEach(div -> div.setMouseTransparent(false));
             }
         });
 
+
         controller.getShowProblemsToggle().setOnAction(_ -> {
-//            TestProgressTask task = new TestProgressTask();
-//            NotificationManager.showProgress("Loading Problems", "Loading problems from the project...", task);
-//
-//            Thread thread = new Thread(task);
-//            thread.setDaemon(true);
-//            thread.start();
             if (controller.getShowProblemsToggle().isSelected()) {
                 controller.getConsoleTabPane().setVisible(false);
                 controller.getErrorTabPane().setVisible(true);
