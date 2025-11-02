@@ -2,6 +2,11 @@
 
 A **custom Java IDE** built with JavaFX, designed to provide a lightweight yet powerful development environment with **Language Server Protocol (LSP)** integration for advanced Java editing features.
 
+<a href="https://www.jdeploy.com/~codegalaxy" target="_blank">
+  <img src="https://img.shields.io/badge/DOWNLOAD-blue?style=for-the-badge" alt="Download">
+</a>
+<br><br><br>
+
 ![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)
 ![Java](https://img.shields.io/badge/Java-22+-ED8B00?logo=openjdk&logoColor=white)
 ![JavaFX](https://img.shields.io/badge/JavaFX-Powered-FF6C37?logo=java&logoColor=white)
