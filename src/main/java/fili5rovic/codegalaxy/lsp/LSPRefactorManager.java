@@ -3,6 +3,7 @@ package fili5rovic.codegalaxy.lsp;
 import fili5rovic.codegalaxy.code.CodeGalaxy;
 import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.dashboardHelper.ProjectManager;
+import fili5rovic.codegalaxy.dashboardHelper.TabManager;
 import fili5rovic.codegalaxy.util.MetaDataHelper;
 import fili5rovic.codegalaxy.window.Window;
 import javafx.scene.control.Tab;
@@ -147,7 +148,7 @@ class LSPRefactorManager {
 
                     if (uriKey.equals(uriFilePath)) {
                         content.setFile(newPath);
-                        t.setText(newPath.getFileName().toString());
+                        TabManager.makeTabGraphic(newPath, t);
                         break;
                     }
                 }

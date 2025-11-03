@@ -74,23 +74,17 @@ public class CodeRightClickManager extends Manager {
 
         MenuItem copy = new MenuItem("Copy");
         copy.setGraphic(SVGUtil.getUI("copy", 16));
-        copy.setOnAction(_ -> {
-            codeGalaxy.copy();
-        });
+        copy.setOnAction(_ -> codeGalaxy.copy());
         contextMenu.getItems().add(copy);
 
         MenuItem paste = new MenuItem("Paste");
         paste.setGraphic(SVGUtil.getUI("paste", 16));
-        paste.setOnAction(_ -> {
-            codeGalaxy.paste();
-        });
+        paste.setOnAction(_ -> codeGalaxy.paste());
         contextMenu.getItems().add(paste);
 
         MenuItem cut = new MenuItem("Cut");
         cut.setGraphic(SVGUtil.getUI("cut", 16));
-        cut.setOnAction(_ -> {
-            codeGalaxy.cut();
-        });
+        cut.setOnAction(_ -> codeGalaxy.cut());
         contextMenu.getItems().add(cut);
 
         contextMenu.getItems().add(new SeparatorMenuItem());
@@ -103,9 +97,7 @@ public class CodeRightClickManager extends Manager {
 
         MenuItem format = new MenuItem("Format Code");
         format.setGraphic(SVGUtil.getUI("format", 16));
-        format.setOnAction(_ -> {
-            codeGalaxy.format();
-        });
+        format.setOnAction(_ -> codeGalaxy.format());
         contextMenu.getItems().add(format);
     }
 
@@ -171,7 +163,6 @@ public class CodeRightClickManager extends Manager {
         } else {
             Platform.runLater(() -> {
                 try {
-                    // Convert URI to Path properly
                     Path filePath = Paths.get(URI.create(uri));
                     Tab tab = TabManager.createTab(filePath);
                     CodeGalaxy content = (CodeGalaxy) tab.getContent();
@@ -190,7 +181,7 @@ public class CodeRightClickManager extends Manager {
         rename.setOnAction(_ -> {
             String path = codeGalaxy.getFilePath().toString();
             int startPosition = codeGalaxy.getSelection().getStart();
-            int line = codeGalaxy.offsetToPosition(startPosition, TwoDimensional.Bias.Forward).getMajor();     // line number (paragraph index)
+            int line = codeGalaxy.offsetToPosition(startPosition, TwoDimensional.Bias.Forward).getMajor();
             int column = codeGalaxy.offsetToPosition(startPosition, TwoDimensional.Bias.Forward).getMinor();
 
             renamePopup.getTextField().setText(codeGalaxy.getSelectedText());

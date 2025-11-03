@@ -23,6 +23,7 @@ import java.nio.file.Path;
 public class TabManager {
 
     public static Tab createTab(Path filePath) {
+        System.out.println("Creating tab for file: " + filePath);
         TabPane tabPane = Controllers.dashboardController().getTabPane();
         for (Tab tab : tabPane.getTabs()) {
             if (tab.getId().equals(filePath.toString())) {
@@ -81,7 +82,7 @@ public class TabManager {
     }
 
 
-    private static void makeTabGraphic(Path filePath, Tab tab) {
+    public static void makeTabGraphic(Path filePath, Tab tab) {
         ImageView icon = SVGUtil.getIconByPath(filePath, 16, 0);
 
         Label label = new Label(filePath.getFileName().toString());
