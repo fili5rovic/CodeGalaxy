@@ -199,6 +199,9 @@ class LSPRefactorManager {
         String sourceDir = MetaDataHelper.getSrcPath();
 
         String outputPathToDelete = oldPath.replace(sourceDir, outputDir);
+        if(outputPathToDelete.endsWith(".java")) {
+            outputPathToDelete = outputPathToDelete.replace(".java", ".class");
+        }
 
         Files.deleteIfExists(Path.of(outputPathToDelete));
         System.out.println("Deleted bin file: " + outputPathToDelete);
