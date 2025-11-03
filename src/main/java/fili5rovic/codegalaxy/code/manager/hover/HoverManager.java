@@ -13,6 +13,7 @@ import javafx.scene.text.Text;
 import org.eclipse.lsp4j.Hover;
 import org.eclipse.lsp4j.MarkedString;
 import org.eclipse.lsp4j.jsonrpc.messages.Either;
+import org.fxmisc.richtext.CharacterHit;
 import org.fxmisc.richtext.model.TwoDimensional;
 
 import java.util.List;
@@ -199,7 +200,12 @@ public class HoverManager extends Manager {
 
 
     private int offsetAt(CodeGalaxy codeArea, double x, double y) {
-        return codeArea.hit(x, y).getCharacterIndex().orElse(-1);
+        if(codeArea == null)
+            return -1;
+        CharacterHit hit = codeArea.hit(x, y);
+        if(hit == null)
+            return -1;
+        return hit.getCharacterIndex().orElse(-1);
     }
 
 }

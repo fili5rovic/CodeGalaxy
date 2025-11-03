@@ -6,7 +6,6 @@ import fili5rovic.codegalaxy.controller.DashboardController;
 import fili5rovic.codegalaxy.notification.NotificationManager;
 import fili5rovic.codegalaxy.projectSettings.dataclass.RunConfiguration;
 import fili5rovic.codegalaxy.settings.IDESettings;
-import fili5rovic.codegalaxy.util.AnimUtil;
 import fili5rovic.codegalaxy.util.FileHelper;
 import fili5rovic.codegalaxy.util.SVGUtil;
 import fili5rovic.codegalaxy.vcs.GitUtil;
@@ -24,7 +23,6 @@ public class ButtonManager {
     public static void initialize() {
         controller = Controllers.dashboardController();
         buttonIcons();
-        AnimUtil.commitBtnNeon(controller.getCommitBtn());
         buttonActions();
     }
 

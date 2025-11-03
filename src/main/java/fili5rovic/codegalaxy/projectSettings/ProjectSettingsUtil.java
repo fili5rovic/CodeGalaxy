@@ -47,7 +47,7 @@ public class ProjectSettingsUtil {
     }
 
     public static boolean isVCSInit() {
-        if(IDESettings.getInstance().get("lastProjectPath") == null) {
+        if(IDESettings.getRecentInstance().get("lastProjectPath") == null) {
             return false;
         }
         return VCSUtil.isVCSInit();
