@@ -14,6 +14,13 @@ A **custom Java IDE** built with JavaFX, designed to provide a lightweight yet p
 ![Git](https://img.shields.io/badge/Git-Integration-F05032?logo=git&logoColor=white)
 ![Status](https://img.shields.io/badge/Status-Active%20Development-brightgreen)
 
+# Project demo
+> [!NOTE]
+> This demo highlights a selection of core features and doesn’t represent the full application.
+
+https://github.com/user-attachments/assets/6acdcd92-3570-49b7-b6f5-f0604b4cb67d
+
+
 ## Features
 <table>
   <tr>
