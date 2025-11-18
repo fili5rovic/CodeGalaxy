@@ -67,7 +67,6 @@ public class HoverManager extends Manager {
 
 
     private void handleEvent(MouseEvent event) {
-
         int characterIndex = offsetAt(codeGalaxy, event.getX(), event.getY());
         if (characterIndex == -1 || characterIndex >= codeGalaxy.getLength()) {
             hideTooltip();
@@ -176,16 +175,20 @@ public class HoverManager extends Manager {
             return;
         }
 
+        // Postavi word wrap da spreči horizontalni skrol
         content.setWrapText(true);
 
         Text helper = new Text(text);
         helper.setFont(content.getFont());
 
+        // Prvo merimo prirodnu širinu
         double naturalWidth = helper.getLayoutBounds().getWidth();
 
+        // Odaberi optimalnu širinu (ne suviše velika, ali dovoljno za sadržaj)
         double targetWidth = Math.min(naturalWidth + 20, MAX_WIDTH);
         targetWidth = Math.max(targetWidth, MIN_WIDTH);
 
+        // Sada merimo visinu sa tom širinom
         helper.setWrappingWidth(targetWidth);
         double textHeight = helper.getLayoutBounds().getHeight();
 
@@ -198,9 +201,13 @@ public class HoverManager extends Manager {
     private int offsetAt(CodeGalaxy codeArea, double x, double y) {
         if(codeArea == null)
             return -1;
-        CharacterHit hit = codeArea.hit(x, y);
-        if(hit == null)
+
+        CharacterHit hit = null;
+        try {
+            hit = codeArea.hit(x, y);
+        } catch (NullPointerException e) {
             return -1;
+        }
         return hit.getCharacterIndex().orElse(-1);
     }
 

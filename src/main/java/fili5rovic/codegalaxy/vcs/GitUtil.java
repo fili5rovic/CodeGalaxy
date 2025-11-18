@@ -1,5 +1,6 @@
 package fili5rovic.codegalaxy.vcs;
 
+import fili5rovic.codegalaxy.projectSettings.VCSUtil;
 import fili5rovic.codegalaxy.vcs.treeView.GitHierarchy;
 import fili5rovic.codegalaxy.projectSettings.ProjectSettingsUtil;
 
@@ -25,14 +26,14 @@ public class GitUtil {
             return;
         gitBasicUtil.init(repositoryPath);
         GitFileHelper.makeGitIgnore(repositoryPath);
-        ProjectSettingsUtil.setVCSRepoPath(repositoryPath);
+        VCSUtil.setVCSRepoPath(repositoryPath);
     }
 
     public void open(String repositoryPath) {
         if(!ProjectSettingsUtil.isVCSInit())
             gitBasicUtil.init(repositoryPath);
         gitBasicUtil.open(repositoryPath);
-        ProjectSettingsUtil.setVCSRepoPath(repositoryPath);
+        VCSUtil.setVCSRepoPath(repositoryPath);
     }
 
     public void updateHierarchy() {

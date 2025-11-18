@@ -42,10 +42,6 @@ public class ProjectSettingsUtil {
         return Path.of(lastProjectPath).resolve(".codegalaxy");
     }
 
-    public static void setVCSRepoPath(String repositoryPath) {
-        VCSUtil.setVCSRepoPath(repositoryPath);
-    }
-
     public static boolean isVCSInit() {
         if(IDESettings.getRecentInstance().get("lastProjectPath") == null) {
             return false;
