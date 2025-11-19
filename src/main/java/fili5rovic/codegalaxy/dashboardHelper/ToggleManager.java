@@ -49,7 +49,6 @@ public class ToggleManager {
             controller.getGitPane().setVisible(true);
             controller.getTreeViewPane().setVisible(false);
 
-            // todo search for .git when folder is opened and VCS is not set
             if (ProjectSettingsUtil.isVCSInit()) {
                 try {
                     GitUtil.instance().open(VCSUtil.readVcsSettings().getRepositoryPath());
@@ -67,18 +66,19 @@ public class ToggleManager {
         });
 
         controller.getConsoleToggleGroup().selectedToggleProperty().addListener((_, oldToggle, newToggle) -> {
-            SplitPane.Divider divider = controller.getConsoleSplitPane().getDividers().getFirst();
+            SplitPane consoleSplitPane = controller.getConsoleSplitPane();
+            SplitPane.Divider divider = consoleSplitPane.getDividers().getFirst();
             if (newToggle == null && oldToggle != null) {
                 lastConsoleDividerValue = divider.getPosition();
                 divider.setPosition(1);
 
-                controller.getConsoleSplitPane().lookupAll(".split-pane-divider")
+                consoleSplitPane.lookupAll(".split-pane-divider").stream().filter(node -> node.getParent() == consoleSplitPane)
                         .forEach(div -> div.setMouseTransparent(true));
 
             } else if (newToggle != null && oldToggle == null) {
                 divider.setPosition(lastConsoleDividerValue);
 
-                controller.getConsoleSplitPane().lookupAll(".split-pane-divider")
+                consoleSplitPane.lookupAll(".split-pane-divider").stream().filter(node -> node.getParent() == consoleSplitPane)
                         .forEach(div -> div.setMouseTransparent(false));
             }
         });
@@ -107,6 +107,7 @@ public class ToggleManager {
 
     public static void setupLockedDivider() {
         Pane first = (Pane) controller.getMainSplitPane().getItems().getFirst();
+        System.out.println(controller.getLeftToggleGroup().getSelectedToggle());
         if (controller.getLeftToggleGroup().getSelectedToggle() == null) {
             first.maxWidthProperty().set(0);
         } else {

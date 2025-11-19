@@ -5,7 +5,6 @@ import javafx.scene.control.Tooltip;
 
 public class TooltipManager {
 
-
     public static void init() {
         Controllers.dashboardController().getShowProblemsToggle().setTooltip(makeFastTooltip("Problems"));
         Controllers.dashboardController().getShowRunToggle().setTooltip(makeFastTooltip("Run"));
@@ -14,7 +13,6 @@ public class TooltipManager {
     private static Tooltip makeFastTooltip(String text) {
         Tooltip tooltip = new Tooltip(text);
         tooltip.setShowDelay(javafx.util.Duration.millis(200));
-        tooltip.setAutoHide(true);
         return tooltip;
     }
 
