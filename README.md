@@ -111,6 +111,7 @@ mvn javafx:run
 
 - Start the IDE and create/open a **Java project**.
 - Write code with **real-time diagnostics**, **code completion**, **go to definition**, and **find references**.
+- Code execution uses your system's Java installation (check with java --version).
 - Trigger suggestions with `Ctrl + Space`.
 - Customize the UI theme via **Settings > Appearance**.
 
