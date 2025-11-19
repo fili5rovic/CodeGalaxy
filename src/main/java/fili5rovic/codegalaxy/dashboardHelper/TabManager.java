@@ -23,7 +23,6 @@ import java.nio.file.Path;
 public class TabManager {
 
     public static Tab createTab(Path filePath) {
-        System.out.println("Creating tab for file: " + filePath);
         TabPane tabPane = Controllers.dashboardController().getTabPane();
         for (Tab tab : tabPane.getTabs()) {
             if (tab.getId().equals(filePath.toString())) {

@@ -43,9 +43,6 @@ class GitFileHelper {
 
             if (!Files.exists(gitIgnorePath)) {
                 Files.writeString(gitIgnorePath, gitIgnoreContent);
-                System.out.println(".gitignore file created successfully.");
-            } else {
-                System.out.println(".gitignore file already exists.");
             }
         } catch (Exception e) {
             System.err.println("Failed to create .gitignore file: " + e.getMessage());
