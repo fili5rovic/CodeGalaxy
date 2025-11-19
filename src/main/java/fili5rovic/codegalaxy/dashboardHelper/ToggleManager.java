@@ -6,7 +6,6 @@ import fili5rovic.codegalaxy.vcs.GitUtil;
 import fili5rovic.codegalaxy.projectSettings.ProjectSettingsUtil;
 import fili5rovic.codegalaxy.projectSettings.VCSUtil;
 import fili5rovic.codegalaxy.util.SVGUtil;
-import javafx.scene.control.SplitPane;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
@@ -14,8 +13,6 @@ import java.io.IOException;
 public class ToggleManager {
 
     private static DashboardController controller;
-
-    private static double lastConsoleDividerValue = 0.7;
 
     public static void initialize() {
         controller = Controllers.dashboardController();
@@ -25,8 +22,6 @@ public class ToggleManager {
         controller.getGitPane().setVisible(false);
         controller.getGitBorderPane().setVisible(false);
         controller.getGitInitPane().setVisible(false);
-
-
     }
 
     public static void refreshIcons() {
@@ -34,14 +29,22 @@ public class ToggleManager {
     }
 
     private static void toggleActions() {
-        controller.getLeftToggleGroup().selectedToggleProperty().addListener((_, _, selected) -> SplitPaneManager.showLeftPanel(selected == null));
+        controller.getLeftToggleGroup().selectedToggleProperty().addListener((_, _, selected) ->
+                SplitPaneManager.showLeftPanel(selected == null));
+
+        controller.getConsoleToggleGroup().selectedToggleProperty().addListener((_, _, selected) ->
+                SplitPaneManager.showConsolePanel(selected == null));
 
         controller.getShowHierarchyToggle().setOnAction(_ -> {
             controller.getGitPane().setVisible(false);
             controller.getTreeViewPane().setVisible(true);
         });
 
-        controller.getLeftToggleGroup().selectedToggleProperty().addListener((_, _, _) -> setupLockedDivider());
+        controller.getLeftToggleGroup().selectedToggleProperty().addListener((_, _, _) ->
+                setupLockedDividerLeftGroup());
+
+        controller.getConsoleToggleGroup().selectedToggleProperty().addListener((_, _, _) ->
+                setupLockedDividerConsoleGroup());
 
         controller.getShowGitToggle().setOnAction(_ -> {
             if (!controller.getShowGitToggle().isSelected())
@@ -65,25 +68,6 @@ public class ToggleManager {
 
         });
 
-        controller.getConsoleToggleGroup().selectedToggleProperty().addListener((_, oldToggle, newToggle) -> {
-            SplitPane consoleSplitPane = controller.getConsoleSplitPane();
-            SplitPane.Divider divider = consoleSplitPane.getDividers().getFirst();
-            if (newToggle == null && oldToggle != null) {
-                lastConsoleDividerValue = divider.getPosition();
-                divider.setPosition(1);
-
-                consoleSplitPane.lookupAll(".split-pane-divider").stream().filter(node -> node.getParent() == consoleSplitPane)
-                        .forEach(div -> div.setMouseTransparent(true));
-
-            } else if (newToggle != null && oldToggle == null) {
-                divider.setPosition(lastConsoleDividerValue);
-
-                consoleSplitPane.lookupAll(".split-pane-divider").stream().filter(node -> node.getParent() == consoleSplitPane)
-                        .forEach(div -> div.setMouseTransparent(false));
-            }
-        });
-
-
         controller.getShowProblemsToggle().setOnAction(_ -> {
             if (controller.getShowProblemsToggle().isSelected()) {
                 controller.getConsoleTabPane().setVisible(false);
@@ -101,17 +85,23 @@ public class ToggleManager {
                 controller.getConsoleTabPane().setVisible(false);
             }
         });
-
-
     }
 
-    public static void setupLockedDivider() {
+    public static void setupLockedDividerLeftGroup() {
         Pane first = (Pane) controller.getMainSplitPane().getItems().getFirst();
-        System.out.println(controller.getLeftToggleGroup().getSelectedToggle());
         if (controller.getLeftToggleGroup().getSelectedToggle() == null) {
             first.maxWidthProperty().set(0);
         } else {
             first.maxWidthProperty().set(Double.MAX_VALUE);
+        }
+    }
+
+    public static void setupLockedDividerConsoleGroup() {
+        Pane last = (Pane) controller.getConsoleSplitPane().getItems().getLast();
+        if (controller.getConsoleToggleGroup().getSelectedToggle() == null) {
+            last.maxWidthProperty().set(0);
+        } else {
+            last.maxWidthProperty().set(Double.MAX_VALUE);
         }
     }
 
