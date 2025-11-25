@@ -175,20 +175,16 @@ public class HoverManager extends Manager {
             return;
         }
 
-        // Postavi word wrap da spreči horizontalni skrol
         content.setWrapText(true);
 
         Text helper = new Text(text);
         helper.setFont(content.getFont());
 
-        // Prvo merimo prirodnu širinu
         double naturalWidth = helper.getLayoutBounds().getWidth();
 
-        // Odaberi optimalnu širinu (ne suviše velika, ali dovoljno za sadržaj)
         double targetWidth = Math.min(naturalWidth + 20, MAX_WIDTH);
         targetWidth = Math.max(targetWidth, MIN_WIDTH);
 
-        // Sada merimo visinu sa tom širinom
         helper.setWrappingWidth(targetWidth);
         double textHeight = helper.getLayoutBounds().getHeight();
 

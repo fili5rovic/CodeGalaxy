@@ -32,7 +32,7 @@ public class CodeRightClickManager extends Manager {
         super(cg);
 
         contextMenu.setAutoHide(true);
-        contextMenu.setStyle("-fx-font-size: 18px"); // hardcoded for now
+        contextMenu.setStyle("-fx-font-size: 18px"); // hardcoded for now.
     }
 
     @Override

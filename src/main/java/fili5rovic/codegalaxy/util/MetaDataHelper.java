@@ -75,7 +75,6 @@ public class MetaDataHelper {
                     String entryKind = element.getAttribute("kind");
                     String entryPath = element.getAttribute("path");
 
-                    // Only cache the "src" and "output" kinds.
                     if ("src".equals(entryKind)) {
                         srcPathCache = Paths.get(projectPath).resolve(entryPath).toString();
                     } else if ("output".equals(entryKind)) {

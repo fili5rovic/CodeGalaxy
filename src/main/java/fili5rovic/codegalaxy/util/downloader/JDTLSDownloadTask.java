@@ -15,13 +15,12 @@ public class JDTLSDownloadTask extends Task<Void> {
     private static final int CONNECTION_TIMEOUT = 30_000;
     private static final int READ_TIMEOUT = 60_000;
     private static final long MIN_EXTRACT_DIR_SIZE = 1024;
-    private static final int MAX_PATH_LENGTH = 260; // Windows path limit
+    private static final int MAX_PATH_LENGTH = 260;
 
     private final JDTLSRelease release;
     private final Path targetDirectory;
     private final Path extractDirectory;
 
-    // Progress tracking
     private long totalBytes = 0;
     private long processedBytes = 0;
     private int totalEntries = 0;
@@ -32,7 +31,6 @@ public class JDTLSDownloadTask extends Task<Void> {
         this.targetDirectory = Path.of(System.getProperty("user.dir"));
         this.extractDirectory = targetDirectory.resolve("lsp");
 
-        // Set initial task properties
         updateTitle("JDTLS Download");
         updateMessage("Initializing...");
         updateProgress(0, 100);
@@ -192,7 +190,7 @@ public class JDTLSDownloadTask extends Task<Void> {
         } catch (SocketTimeoutException e) {
             throw new IOException("Download timed out. Please check your internet connection.", e);
         } catch (IOException e) {
-            // Clean up partial download
+            // clean up partial download
             try {
                 Files.deleteIfExists(outputPath);
             } catch (IOException cleanupEx) {
@@ -213,9 +211,8 @@ public class JDTLSDownloadTask extends Task<Void> {
             conn.setConnectTimeout(CONNECTION_TIMEOUT);
             conn.setReadTimeout(READ_TIMEOUT);
 
-            // Handle redirects manually to avoid issues with different redirect types
             int redirectCount = 0;
-            while (redirectCount < 5) { // Prevent infinite redirects
+            while (redirectCount < 5) {
                 if (isCancelled()) throw new IOException("Task was cancelled");
 
                 int status = conn.getResponseCode();
@@ -262,7 +259,6 @@ public class JDTLSDownloadTask extends Task<Void> {
             out.write(buffer, 0, bytesRead);
             processedBytes += bytesRead;
 
-            // Update progress for download
             if (totalBytes > 0) {
                 double progress = (double) processedBytes / totalBytes * 50; // Download is 50% of total progress
                 updateProgress(progress, 100);
@@ -277,11 +273,10 @@ public class JDTLSDownloadTask extends Task<Void> {
             throw new IOException("Archive not found: " + archivePath);
         }
 
-        if (Files.size(archivePath) < 1024) { // Archive should be at least 1KB
+        if (Files.size(archivePath) < 1024) {
             throw new IOException("Archive appears to be corrupted (too small): " + archivePath);
         }
 
-        // Try to open the archive to validate it's not corrupted
         try (FileInputStream fis = new FileInputStream(archivePath.toFile());
              GZIPInputStream gis = new GZIPInputStream(fis);
              TarArchiveInputStream tis = new TarArchiveInputStream(gis)) {
@@ -306,7 +301,6 @@ public class JDTLSDownloadTask extends Task<Void> {
             throw new IOException("Cannot create extraction directory: " + extractDirectory, e);
         }
 
-        // First pass: count entries for progress tracking
         try (FileInputStream fis = new FileInputStream(archivePath.toFile());
              GZIPInputStream gis = new GZIPInputStream(fis);
              TarArchiveInputStream tis = new TarArchiveInputStream(gis)) {
@@ -318,14 +312,12 @@ public class JDTLSDownloadTask extends Task<Void> {
             }
         }
 
-        // Second pass: actual extraction
         try (FileInputStream fis = new FileInputStream(archivePath.toFile());
              GZIPInputStream gis = new GZIPInputStream(fis);
              TarArchiveInputStream tis = new TarArchiveInputStream(gis)) {
 
             extractEntries(tis, extractDirectory);
         } catch (IOException e) {
-            // Clean up partial extraction
             cleanupIncompleteExtraction();
             throw new IOException("Extraction failed: " + e.getMessage(), e);
         }
@@ -342,7 +334,6 @@ public class JDTLSDownloadTask extends Task<Void> {
                 throw new IOException("Task was cancelled");
             }
 
-            // Security: Prevent path traversal attacks
             String name = entry.getName();
             if (name.contains("..") || name.startsWith("/") || name.contains("\\..")) {
                 System.out.println("Skipping potentially unsafe entry: " + name);
@@ -351,13 +342,11 @@ public class JDTLSDownloadTask extends Task<Void> {
 
             Path outPath = outputDir.resolve(name).normalize();
 
-            // Double-check the resolved path is still within our target directory
             if (!outPath.startsWith(outputDir)) {
                 System.out.println("Skipping entry outside target directory: " + name);
                 continue;
             }
 
-            // Check path length limits
             if (outPath.toString().length() > MAX_PATH_LENGTH) {
                 System.out.println("Skipping entry with path too long: " + name);
                 continue;
@@ -374,11 +363,10 @@ public class JDTLSDownloadTask extends Task<Void> {
             }
 
             processedEntries++;
-            // Extraction is the remaining 50% of progress
             double extractionProgress = 50 + ((double) processedEntries / totalEntries * 50);
             updateProgress(extractionProgress, 100);
 
-            if (processedEntries % 10 == 0) { // Update message every 10 files
+            if (processedEntries % 10 == 0) {
                 updateMessage(String.format("Extracting... (%d/%d files)", processedEntries, totalEntries));
             }
         }

@@ -103,10 +103,8 @@ public class CodeActions {
         int selectedEndColumn = codeGalaxy.getCaretSelectionBind().getEndColumnPosition();
 
         String text = codeGalaxy.getText(startPar, 0, endPar, endColumn);
-        // delete selected text
         codeGalaxy.deleteText(startPar, 0, endPar, endColumn);
         codeGalaxy.deletePreviousChar();
-        // insert deleted text one line above
         codeGalaxy.insertText(startPar - 1, 0, text + "\n");
 
         int newStartPosition = codeGalaxy.getAbsolutePosition(startPar - 1, selectedStartColumn);

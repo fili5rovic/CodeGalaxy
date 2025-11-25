@@ -32,7 +32,6 @@ public class ProgressNotificationBox extends VBox {
         setMaxWidth(350);
         setMinWidth(300);
 
-        // Title and close button row - MODIFIED
         HBox titleRow = new HBox(8);
         titleRow.setAlignment(Pos.CENTER_LEFT);
 
@@ -45,23 +44,19 @@ public class ProgressNotificationBox extends VBox {
         closeButton.getStyleClass().add("notification-close-btn");
         closeButton.setOnAction(_ -> closeNotification());
 
-        // Give the title label all available space, pushing close button to the right
         HBox.setHgrow(titleLabel, Priority.ALWAYS);
         titleLabel.setMaxWidth(Double.MAX_VALUE);
 
         titleRow.getChildren().addAll(titleLabel, closeButton);
 
-        // Message
         messageLabel = new Label(messageText);
         messageLabel.getStyleClass().add("notification-message");
         messageLabel.setWrapText(true);
 
-        // Progress bar
         progressBar = new ProgressBar();
         progressBar.setPrefWidth(Double.MAX_VALUE);
         progressBar.getStyleClass().add("notification-progress");
 
-        // Cancel button
         cancelButton = new Button("Cancel");
         cancelButton.getStyleClass().add("notification-cancel-btn");
         cancelButton.setOnAction(_ -> cancelTask());
@@ -78,11 +73,9 @@ public class ProgressNotificationBox extends VBox {
 
     private void setupTaskBindings() {
         if (task != null) {
-            // Bind progress and message
             progressBar.progressProperty().bind(task.progressProperty());
             messageLabel.textProperty().bind(task.messageProperty());
 
-            // Handle task completion
             task.setOnSucceeded(_ -> onTaskCompleted("Completed successfully!", true));
             task.setOnFailed(_ -> onTaskCompleted("Failed: " + getErrorMessage(), false));
             task.setOnCancelled(_ -> onTaskCompleted("Cancelled", false));

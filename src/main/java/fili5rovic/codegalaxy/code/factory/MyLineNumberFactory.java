@@ -82,7 +82,6 @@ public class MyLineNumberFactory implements IntFunction<Node>, DiagnosticsListen
         if (errorIndicator != null) {
             lineBox.getChildren().add(errorIndicator);
         } else {
-            // add invisible placeholder to maintain consistent spacing
             Region placeholder = new Region();
             int indicatorSize = Math.max(MIN_INDICATOR_SIZE, fontSize / INDICATOR_SIZE_DIVIDER);
             placeholder.setMinSize(indicatorSize, indicatorSize);
@@ -99,17 +98,15 @@ public class MyLineNumberFactory implements IntFunction<Node>, DiagnosticsListen
             return null;
         }
 
-        // Find the highest severity diagnostic for this line
         Diagnostic mostSevere = diagnostics.stream()
                 .min((d1, d2) -> {
-                    // Error = 1, Warning = 2, Info = 3, Hint = 4
+                    // error = 1, warning = 2, info = 3, hint = 4
                     int severity1 = d1.getSeverity() != null ? d1.getSeverity().getValue() : 4;
                     int severity2 = d2.getSeverity() != null ? d2.getSeverity().getValue() : 4;
                     return Integer.compare(severity1, severity2);
                 })
                 .orElse(diagnostics.getFirst());
 
-        // Create indicator based on severity
         int indicatorSize = Math.max(MIN_INDICATOR_SIZE, fontSize / INDICATOR_SIZE_DIVIDER);
         Label indicator = new Label();
         indicator.setMinSize(indicatorSize, indicatorSize);
@@ -153,7 +150,6 @@ public class MyLineNumberFactory implements IntFunction<Node>, DiagnosticsListen
 
     @Override
     public void onDiagnosticsUpdated(String uri, PublishDiagnosticsParams params) {
-        // Check if this update is for the current file
         if (codeGalaxy.getFilePath() == null ||
                 !uri.equals(codeGalaxy.getFilePath().toUri().toString())) {
             return;
@@ -174,7 +170,6 @@ public class MyLineNumberFactory implements IntFunction<Node>, DiagnosticsListen
     }
 
     private void refreshLineNumbers() {
-        // force CodeArea to refresh its paragraph graphics
         codeGalaxy.setParagraphGraphicFactory(null);
         codeGalaxy.setParagraphGraphicFactory(this);
     }

@@ -34,7 +34,7 @@ public class LSP {
     }
 
     private LSP() {
-        // Private constructor to prevent instantiation
+        // private constructor to prevent instantiation
     }
 
     public void start() throws Exception {

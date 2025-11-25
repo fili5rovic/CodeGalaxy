@@ -126,7 +126,7 @@ public class CodeGalaxy extends CodeArea {
     public void updateLineNumberFontSize(int fontSize) {
         if (myLineNumberFactory != null) {
             myLineNumberFactory.setFontSize(fontSize);
-            // Force refresh of line numbers
+            // force refresh of line numbers
             setParagraphGraphicFactory(null);
             setParagraphGraphicFactory(myLineNumberFactory);
         }
