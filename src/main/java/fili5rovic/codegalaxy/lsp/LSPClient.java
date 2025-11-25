@@ -21,17 +21,6 @@ class LSPClient implements LanguageClient {
     @Override
     public void publishDiagnostics(PublishDiagnosticsParams diagnostics) {
         DiagnosticsPublisher.instance().publish(diagnostics.getUri(), diagnostics);
-
-//        if (diagnostics.getDiagnostics().isEmpty())
-//            return;
-//
-//        System.out.println("Diagnostics : " + diagnostics.getUri().split("///")[1] + ":");
-//        diagnostics.getDiagnostics().forEach(d -> {
-//            System.out.println("\t[" + d.getSeverity() + "] : " + d.getMessage());
-//            if (d.getSeverity() == DiagnosticSeverity.Error)
-//                System.out.println("\t\tRange: " + d.getRange().getStart().getLine() + ":" + d.getRange().getStart().getCharacter() + " - " + d.getRange().getEnd().getLine() + ":" + d.getRange().getEnd().getCharacter());
-//        });
-
     }
 
 
@@ -70,7 +59,7 @@ class LSPClient implements LanguageClient {
 
             }
         } catch (Exception e) {
-            // Fallback if parsing fails
+            // fallback if parsing fails
             System.out.println("Language status: " + status);
         }
     }

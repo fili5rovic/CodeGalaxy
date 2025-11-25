@@ -35,7 +35,7 @@ public class CodeRunnerService {
 
         try {
             Process process = CodeRunnerJava.runJava(runConfiguration.getFullName(), runConfiguration.getVmOptions(), runConfiguration.getProgramArgs());
-            addTab(Path.of(runConfiguration.getFullName()), process);
+            addTab(Path.of(runConfiguration.getFullName()+".java"), process);
         } catch (Exception e) {
             System.err.println("Couldn't run file: " + e.getMessage());
         }

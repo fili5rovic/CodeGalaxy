@@ -45,8 +45,12 @@ public class ChoiceBoxManager {
 
     private static void actions() {
         editConfigs.getSelectionModel().selectedItemProperty().addListener((_, prev, selectedConfig) -> {
-            if(selectedConfig == null)
+            if(selectedConfig == null) {
+                System.out.println("Nothing selected.");
                 return;
+            }
+
+            System.out.println("SELECTED: "+ selectedConfig);
 
             if(selectedConfig.equals(RunConfiguration.EDIT)) {
                 EditConfigurationsManager.openEditConfigurations();
