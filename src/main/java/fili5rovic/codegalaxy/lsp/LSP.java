@@ -53,8 +53,10 @@ public class LSP {
 
         LSPClient client = new LSPClient();
         Launcher<LanguageServer> launcher = Launcher.createLauncher(
-                client, LanguageServer.class,
-                serverManager.getInputStream(), serverManager.getOutputStream()
+                client,
+                LanguageServer.class,
+                serverManager.getInputStream(),
+                serverManager.getOutputStream()
         );
         server = launcher.getRemoteProxy();
         listenFuture = launcher.startListening();

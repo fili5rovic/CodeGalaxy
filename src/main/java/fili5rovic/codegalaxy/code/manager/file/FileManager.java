@@ -19,6 +19,7 @@ public class FileManager extends Manager {
     public void init() {
         codeGalaxy.clear();
         codeGalaxy.insertText(0, FileHelper.readFromFile(path.toString()));
+        codeGalaxy.getUndoManager().forgetHistory();
     }
 
     public void save() {

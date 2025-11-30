@@ -62,10 +62,7 @@ public class Highlighter extends Manager {
 
     private StyleSpans<Collection<String>> computeHighlighting(String text) {
         StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
-
         int lastIndex = 0;
-
-
         List<Range> keywordRanges = getKeywords(text);
         List<Range> stringLiteralRanges = getStringLiterals(text);
 

@@ -15,6 +15,7 @@ module fili5rovic.codegalaxy {
     requires org.eclipse.jgit;
     requires com.fasterxml.jackson.databind;
     requires org.apache.commons.compress;
+    requires org.fxmisc.undo;
 
 
     opens fili5rovic.codegalaxy to javafx.fxml;
